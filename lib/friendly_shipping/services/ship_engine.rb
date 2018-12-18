@@ -4,6 +4,16 @@ require 'rest-client'
 module FriendlyShipping
   module Services
     class ShipEngine
+      class CarrierResponseParser
+        def initialize(response:)
+          @response = response
+        end
+
+        def parsed_response
+          @response
+        end
+      end
+
       include Dry::Monads::Result::Mixin
       API_BASE = "https://api.shipengine.com/v1/"
       API_PATHS = {
@@ -16,18 +26,22 @@ module FriendlyShipping
 
       def carriers
         path = API_PATHS[:carriers]
-        Success(get(path))
-      rescue RestClient::ExceptionWithResponse => error
-        Failure(error)
+        get(path).fmap do |response|
+          CarrierResponseParser.new(response: response).parsed_response
+        end
       end
 
       private
 
       def get(path)
-        RestClient.get(
-          API_BASE + path,
-          request_headers
+        Success(
+          RestClient.get(
+            API_BASE + path,
+            request_headers
+          )
         )
+      rescue RestClient::ExceptionWithResponse => error
+        Failure(error)
       end
 
       def request_headers
