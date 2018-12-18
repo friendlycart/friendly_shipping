@@ -1,0 +1,132 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.shipengine.com/v1/carriers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "<SHIPENGINE_API_KEY>"
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Dec 2018 18:46:55 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '6307'
+      Connection:
+      - keep-alive
+      X-Newrelic-App-Data:
+      - PxQGVFZXCgITVVZbAwMCV1YGFB9AMQYAZBBZDEtZV0ZaCldOZgRRIzR/GCIHEUpaVRYSTXtYRBJGHQYdUlZSUgBTCU4IFgQHBVMLUB1MAk5GAnNQUCd6BXNTJFIGA3RTIBMaVQMKEAdt
+      X-Shipengine-Requestid:
+      - d525539d-d80c-49b1-ba18-15ae4b224646
+      X-Shipengine-Server:
+      - SS-J-WEB01
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"carriers\": [\r\n    {\r\n      \"carrier_id\": \"se-76432\",\r\n
+        \     \"carrier_code\": \"stamps_com\",\r\n      \"account_number\": null,\r\n
+        \     \"requires_funded_amount\": true,\r\n      \"balance\": 0.0,\r\n      \"nickname\":
+        \"Free\",\r\n      \"friendly_name\": \"Stamps.com\",\r\n      \"primary\":
+        true,\r\n      \"has_multi_package_supporting_services\": false,\r\n      \"supports_label_messages\":
+        true,\r\n      \"services\": [\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_first_class_mail\",\r\n          \"name\": \"USPS First Class Mail\",\r\n
+        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_media_mail\",\r\n          \"name\": \"USPS Media Mail\",\r\n          \"domestic\":
+        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_parcel_select\",\r\n          \"name\": \"USPS Parcel Select Ground\",\r\n
+        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_priority_mail\",\r\n          \"name\": \"USPS Priority Mail\",\r\n
+        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_priority_mail_express\",\r\n          \"name\": \"USPS Priority Mail
+        Express\",\r\n          \"domestic\": true,\r\n          \"international\":
+        false,\r\n          \"is_multi_package_supported\": false\r\n        },\r\n
+        \       {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
+        \"stamps_com\",\r\n          \"service_code\": \"usps_first_class_mail_international\",\r\n
+        \         \"name\": \"USPS First Class Mail Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_priority_mail_international\",\r\n          \"name\": \"USPS Priority
+        Mail Intl\",\r\n          \"domestic\": false,\r\n          \"international\":
+        true,\r\n          \"is_multi_package_supported\": false\r\n        },\r\n
+        \       {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
+        \"stamps_com\",\r\n          \"service_code\": \"usps_priority_mail_express_international\",\r\n
+        \         \"name\": \"USPS Priority Mail Express Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        }\r\n      ],\r\n      \"packages\": [\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"cubic\",\r\n          \"name\": \"Cubic\",\r\n
+        \         \"description\": \"Cubic\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"flat_rate_envelope\",\r\n          \"name\":
+        \"Flat Rate Envelope\",\r\n          \"description\": \"USPS flat rate envelope.
+        A special cardboard envelope provided by the USPS that clearly indicates \\\"Flat
+        Rate\\\".\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"flat_rate_legal_envelope\",\r\n          \"name\":
+        \"Flat Rate Legal Envelope\",\r\n          \"description\": \"Flat Rate Legal
+        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"flat_rate_padded_envelope\",\r\n          \"name\":
+        \"Flat Rate Padded Envelope\",\r\n          \"description\": \"Flat Rate Padded
+        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"large_envelope_or_flat\",\r\n          \"name\":
+        \"Large Envelope or Flat\",\r\n          \"description\": \"Large envelope
+        or flat. Has one dimension that is between 11 1/2\\\" and 15\\\" long, 6 1/18\\\"
+        and 12\\\" high, or 1/4\\\" and 3/4\\\" thick.\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"large_flat_rate_box\",\r\n
+        \         \"name\": \"Large Flat Rate Box\",\r\n          \"description\":
+        \"Large Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"large_package\",\r\n          \"name\":
+        \"Large Package (any side > 12\\\")\",\r\n          \"description\": \"Large
+        package. Longest side plus the distance around the thickest part is over 84\\\"
+        and less than or equal to 108\\\".\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"letter\",\r\n          \"name\": \"Letter\",\r\n
+        \         \"description\": \"Letter\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"medium_flat_rate_box\",\r\n          \"name\":
+        \"Medium Flat Rate Box\",\r\n          \"description\": \"USPS flat rate box.
+        A special 11\\\" x 8 1/2\\\" x 5 1/2\\\" or 14\\\" x 3.5\\\" x 12\\\" USPS
+        box that clearly indicates \\\"Flat Rate Box\\\"\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"package\",\r\n
+        \         \"name\": \"Package\",\r\n          \"description\": \"Package.
+        Longest side plus the distance around the thickest part is less than or equal
+        to 84\\\"\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"regional_rate_box_a\",\r\n          \"name\":
+        \"Regional Rate Box A\",\r\n          \"description\": \"Regional Rate Box
+        A\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n          \"package_code\":
+        \"regional_rate_box_b\",\r\n          \"name\": \"Regional Rate Box B\",\r\n
+        \         \"description\": \"Regional Rate Box B\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"small_flat_rate_box\",\r\n
+        \         \"name\": \"Small Flat Rate Box\",\r\n          \"description\":
+        \"Small Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"thick_envelope\",\r\n          \"name\":
+        \"Thick Envelope\",\r\n          \"description\": \"Thick envelope. Envelopes
+        or flats greater than 3/4\\\" at the thickest point.\"\r\n        }\r\n      ],\r\n
+        \     \"options\": [\r\n        {\r\n          \"name\": \"non_machinable\",\r\n
+        \         \"default_value\": \"false\",\r\n          \"description\": \"\"\r\n
+        \       }\r\n      ]\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Tue, 18 Dec 2018 18:46:54 GMT
+recorded_with: VCR 3.0.3

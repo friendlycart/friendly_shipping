@@ -1,5 +1,16 @@
 require "bundler/setup"
 require "friendly_shipping"
+require "vcr"
+require "dotenv"
+
+Dotenv.load
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+  c.filter_sensitive_data('<SHIPENGINE_API_KEY>') { ENV['SHIPENGINE_API_KEY'] }
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
