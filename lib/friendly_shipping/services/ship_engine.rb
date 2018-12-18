@@ -15,19 +15,27 @@ module FriendlyShipping
       end
 
       def carriers
-        response = RestClient.get(
-          "#{API_BASE}#{API_PATHS[:carriers]}",
-          {
-            content_type: :json,
-            "api-key": token
-          }
-        )
-        Success(response)
+        path = API_PATHS[:carriers]
+        Success(get(path))
       rescue RestClient::ExceptionWithResponse => error
         Failure(error)
       end
 
       private
+
+      def get(path)
+        RestClient.get(
+          API_BASE + path,
+          request_headers
+        )
+      end
+
+      def request_headers
+        {
+          content_type: :json,
+          "api-key": token
+        }
+      end
 
       attr_reader :token
     end
