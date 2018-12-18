@@ -23,7 +23,8 @@ module FriendlyShipping
           }
         )
         Success(response)
-
+      rescue RestClient::ExceptionWithResponse => error
+        Failure(error)
       end
 
       private
