@@ -18,4 +18,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseCarrierResponse, vcr
     expect(carrier.balance).to eq(0)
     expect(carrier.data).to be_a(Hash)
   end
+
+  it "correctly parses shipping methods" do
+    shipping_method = carrier.shipping_methods.first
+    expect(shipping_method).to be_a(FriendlyShipping::ShippingMethod)
+    expect(shipping_method.name).to eq("USPS First Class Mail")
+    expect(shipping_method.service_code).to eq("usps_first_class_mail")
+    expect(shipping_method.domestic?).to be true
+    expect(shipping_method.international?).to be false
+    expect(shipping_method.multi_package?).to be false
+  end
 end

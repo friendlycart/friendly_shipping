@@ -15,7 +15,7 @@ module FriendlyShipping
     end
 
     def international?
-      !!international?
+      !!international
     end
 
     def multi_package?
