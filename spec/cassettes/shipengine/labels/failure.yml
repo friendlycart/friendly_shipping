@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/labels
+    body:
+      encoding: UTF-8
+      string: '{"shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10010","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10009","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":49.37931385397863,"unit":"ounce"}}]},"test_label":true}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Type:
+      - application/json
+      Api-Key:
+      - invalid_token
+      Content-Length:
+      - '665'
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Wed, 19 Dec 2018 16:06:03 GMT
+      Content-Type:
+      - text/plain; charset=utf-8
+      Content-Length:
+      - '12'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: Unauthorized
+    http_version: 
+  recorded_at: Wed, 19 Dec 2018 16:06:02 GMT
+recorded_with: VCR 3.0.3

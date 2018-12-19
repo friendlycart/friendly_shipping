@@ -2,6 +2,7 @@ require "bundler/setup"
 require "friendly_shipping"
 require "vcr"
 require "dotenv"
+require "physical/spec_support/factories"
 
 Dotenv.load
 

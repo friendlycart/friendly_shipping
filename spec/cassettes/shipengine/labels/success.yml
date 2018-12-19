@@ -1,0 +1,78 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/labels
+    body:
+      encoding: UTF-8
+      string: '{"shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10004","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10003","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":49.37931385397863,"unit":"ounce"}}]},"test_label":true}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "<SHIPENGINE_API_KEY>"
+      Content-Length:
+      - '665'
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Dec 2018 16:06:03 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1456'
+      Connection:
+      - keep-alive
+      Server:
+      - Microsoft-IIS/8.0
+      X-Newrelic-App-Data:
+      - PxQGVFZXCgITVVZbAwMCV1YGFB9AMQYAZBBZDEtZV0ZaCldOZgRRIzR/GC0HAV1fQ0sxF0VSXwcXVHpSAAMPQBxSFlIUCRoDA1wOWQhVCk5SAAJNRCIOAQUiWCYDcwZQUwB1ClJETwRRDksHZQ==
+      X-Powered-By:
+      - ASP.NET
+      X-Shipengine-Environment:
+      - j
+      X-Shipengine-Requestid:
+      - 35bda608-23b7-4d39-b79e-da13d2cfad16
+      X-Shipengine-Server:
+      - SS-J-WEB01
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"label_id\": \"se-test-1146755\",\r\n  \"status\": \"processing\",\r\n
+        \ \"shipment_id\": \"se-1146755\",\r\n  \"ship_date\": \"2018-12-19T00:00:00Z\",\r\n
+        \ \"created_at\": \"2018-12-19T16:06:03.0908903Z\",\r\n  \"shipment_cost\":
+        {\r\n    \"currency\": \"usd\",\r\n    \"amount\": 0.0\r\n  },\r\n  \"insurance_cost\":
+        {\r\n    \"currency\": \"usd\",\r\n    \"amount\": 0.0\r\n  },\r\n  \"tracking_number\":
+        \"9999999999999\",\r\n  \"is_return_label\": false,\r\n  \"rma_number\": null,\r\n
+        \ \"is_international\": false,\r\n  \"batch_id\": \"\",\r\n  \"carrier_id\":
+        \"se-76432\",\r\n  \"service_code\": \"usps_priority_mail\",\r\n  \"package_code\":
+        \"package\",\r\n  \"voided\": false,\r\n  \"voided_at\": null,\r\n  \"label_format\":
+        \"pdf\",\r\n  \"label_layout\": \"4x6\",\r\n  \"trackable\": true,\r\n  \"carrier_code\":
+        \"stamps_com\",\r\n  \"tracking_status\": \"unknown\",\r\n  \"label_download\":
+        {\r\n    \"href\": \"https://api.shipengine.com/v1/downloads/10/vCALR7LTeUeaC8aj3_SrPA/testlabel-1146755.pdf\"\r\n
+        \ },\r\n  \"form_download\": null,\r\n  \"insurance_claim\": null,\r\n  \"packages\":
+        [\r\n    {\r\n      \"package_code\": \"package\",\r\n      \"weight\": {\r\n
+        \       \"value\": 49.37,\r\n        \"unit\": \"ounce\"\r\n      },\r\n      \"dimensions\":
+        {\r\n        \"unit\": \"inch\",\r\n        \"length\": 0.0,\r\n        \"width\":
+        0.0,\r\n        \"height\": 0.0\r\n      },\r\n      \"insured_value\": {\r\n
+        \       \"currency\": \"usd\",\r\n        \"amount\": 0.00\r\n      },\r\n
+        \     \"tracking_number\": null,\r\n      \"label_messages\": {\r\n        \"reference1\":
+        null,\r\n        \"reference2\": null,\r\n        \"reference3\": null\r\n
+        \     }\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Wed, 19 Dec 2018 16:06:02 GMT
+recorded_with: VCR 3.0.3

@@ -1,6 +1,8 @@
 require 'dry/monads/result'
 require 'rest-client'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
+require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
+require 'friendly_shipping/services/ship_engine/parse_label_response'
 
 module FriendlyShipping
   module Services
@@ -9,17 +11,27 @@ module FriendlyShipping
 
       API_BASE = "https://api.shipengine.com/v1/"
       API_PATHS = {
-        carriers: "carriers"
+        carriers: "carriers",
+        labels: "labels"
       }
 
-      def initialize(token:)
+      def initialize(token:, test: true)
         @token = token
+        @test = test
       end
 
       def carriers
         path = API_PATHS[:carriers]
         get(path).fmap do |response|
           ParseCarrierResponse.new(response: response).call
+        end
+      end
+
+      def labels(shipment)
+        payload = SerializeLabelShipment.new(shipment: shipment).call.merge(test_label: test).to_json
+        path = API_PATHS[:labels]
+        post(path, payload).fmap do |response|
+          ParseLabelResponse.new(response: response).call
         end
       end
 
@@ -36,6 +48,18 @@ module FriendlyShipping
         Failure(error)
       end
 
+      def post(path, payload)
+        Success(
+          RestClient.post(
+            API_BASE + path,
+            payload,
+            request_headers
+          )
+        )
+      rescue RestClient::ExceptionWithResponse => error
+        Failure(error)
+      end
+
       def request_headers
         {
           content_type: :json,
@@ -43,7 +67,7 @@ module FriendlyShipping
         }
       end
 
-      attr_reader :token
+      attr_reader :token, :test
     end
   end
 end
