@@ -1,3 +1,5 @@
+require 'json'
+
 module FriendlyShipping
   module Services
     class ShipEngine
