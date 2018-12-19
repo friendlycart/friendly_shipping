@@ -1,20 +1,12 @@
 require 'dry/monads/result'
 require 'rest-client'
+require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 
 module FriendlyShipping
   module Services
     class ShipEngine
-      class CarrierResponseParser
-        def initialize(response:)
-          @response = response
-        end
-
-        def parsed_response
-          @response
-        end
-      end
-
       include Dry::Monads::Result::Mixin
+
       API_BASE = "https://api.shipengine.com/v1/"
       API_PATHS = {
         carriers: "carriers"
@@ -27,7 +19,7 @@ module FriendlyShipping
       def carriers
         path = API_PATHS[:carriers]
         get(path).fmap do |response|
-          CarrierResponseParser.new(response: response).parsed_response
+          ParseCarrierResponse.new(response: response).call
         end
       end
 

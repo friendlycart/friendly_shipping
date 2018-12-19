@@ -12,11 +12,11 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
   describe 'carriers' do
     subject { service.carriers }
 
-    context 'with a successful request', vcr: { cassette_name: 'shipengine/carriers/success.yml' } do
+    context 'with a successful request', vcr: { cassette_name: 'shipengine/carriers/success' } do
       it { is_expected.to be_a Dry::Monads::Success }
     end
 
-    context 'with an unsuccessful request', vcr: { cassette_name: 'shipengine/carriers/failure.yml' } do
+    context 'with an unsuccessful request', vcr: { cassette_name: 'shipengine/carriers/failure' } do
       let(:service) { described_class.new(token: 'invalid_token') }
 
       it { is_expected.to be_a Dry::Monads::Failure }

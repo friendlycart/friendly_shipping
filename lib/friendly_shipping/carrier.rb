@@ -1,12 +1,14 @@
 module FriendlyShipping
   class Carrier
-    attr_reader :id, :name, :services, :balance
+    attr_reader :id, :name, :code, :shipping_methods, :balance, :data
 
-    def initialize(id: nil, name: nil, services: [], balance: nil, auth: {})
+    def initialize(id: nil, name: nil, code: nil, shipping_methods: [], balance: nil, data: {})
       @id = id
       @name = name
-      @services = services
+      @code = code
+      @shipping_methods = shipping_methods
       @balance = balance
+      @data = data
     end
   end
 end
