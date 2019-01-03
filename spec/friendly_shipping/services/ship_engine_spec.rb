@@ -41,6 +41,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
         it "contains a valid label object" do
           expect(label).to be_a(FriendlyShipping::Label)
         end
+
+        it "has a valid URL" do
+          expect(label.label_href).to start_with("https://")
+        end
       end
     end
 
