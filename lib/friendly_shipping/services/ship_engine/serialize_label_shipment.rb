@@ -10,6 +10,7 @@ module FriendlyShipping
 
         def call
           {
+            label_format: shipment.options[:label_format].to_s || "pdf",
             shipment: {
               service_code: shipment.service_code,
               ship_to: serialize_address(shipment.destination),

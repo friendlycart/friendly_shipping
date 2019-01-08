@@ -4,12 +4,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:container) { FactoryBot.build(:physical_box, weight: 0) }
   let(:item) { FactoryBot.build(:physical_item, weight: 1, weight_unit: :ounce) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: 0, container: container) }
-  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
+  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: {label_format: :zpl}) }
   subject { described_class.new(shipment: shipment).call }
 
   it do
     is_expected.to match(
       hash_including(
+        label_format: "zpl",
         shipment: hash_including(
           service_code: 'usps_priority_mail',
           ship_to: hash_including(
