@@ -45,6 +45,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
         it "has a valid URL" do
           expect(label.label_href).to start_with("https://")
         end
+
+        it "has the right format" do
+          expect(label.label_format).to eq(:pdf)
+        end
       end
     end
 

@@ -17,6 +17,7 @@ module FriendlyShipping
               tracking_number: parsed_json['tracking_number'],
               service_code: parsed_json['service_code'],
               label_href: parsed_json['label_download']['href'],
+              label_format: parsed_json['label_format'].to_sym,
               data: parsed_json
             )
           ]
