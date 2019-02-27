@@ -52,6 +52,32 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
+    context 'with a shipment specifying a large flat rate box',  vcr: { cassette_name: 'shipengine/labels/flat_rate_box_success' } do
+      let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "large_flat_rate_box" }) }
+      let(:package) { FactoryBot.build(:physical_package, container: container) }
+
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      context "when unwrapped" do
+        subject { labels.value! }
+        let(:label) { subject.first }
+
+        it { is_expected.to be_a Array }
+
+        it "contains a valid label object" do
+          expect(label).to be_a(FriendlyShipping::Label)
+        end
+
+        it "has a valid URL" do
+          expect(label.label_href).to start_with("https://")
+        end
+
+        it "has the right format" do
+          expect(label.label_format).to eq(:pdf)
+        end
+      end
+    end
+
     context 'with an unsuccessful request', vcr: { cassette_name: 'shipengine/labels/failure' } do
       let(:service) { described_class.new(token: 'invalid_token') }
 

@@ -10,7 +10,7 @@ module FriendlyShipping
 
         def call
           {
-            label_format: shipment.options[:label_format].to_s || "pdf",
+            label_format: shipment.options[:label_format].presence || "pdf",
             shipment: {
               service_code: shipment.service_code,
               ship_to: serialize_address(shipment.destination),
@@ -39,12 +39,16 @@ module FriendlyShipping
 
         def serialize_packages(packages)
           packages.map do |package|
-            {
+            package_hash = {
               weight: {
                 value: package.weight.convert_to(:ounce).value.to_f,
                 unit: "ounce"
               }
             }
+            if package.container.properties[:usps_package_code]
+              package_hash.merge!(package_code: package.container.properties[:usps_package_code])
+            end
+            package_hash
           end
         end
       end
