@@ -24,3 +24,8 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+def gem_root
+  spec = Gem::Specification.find_by_name("friendly_shipping")
+  gem_root = spec.gem_dir
+end

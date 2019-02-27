@@ -1,0 +1,60 @@
+{
+  "label_id": "se-test-1146755",
+  "status": "processing",
+  "shipment_id": "se-1146755",
+  "ship_date": "2018-12-19T00:00:00Z",
+  "created_at": "2018-12-19T16:06:03.0908903Z",
+  "shipment_cost": {
+    "currency": "usd",
+    "amount": 0.0
+  },
+  "insurance_cost": {
+    "currency": "usd",
+    "amount": 0.0
+  },
+  "tracking_number": "9999999999999",
+  "is_return_label": false,
+  "rma_number": null,
+  "is_international": false,
+  "batch_id": "",
+  "carrier_id": "se-76432",
+  "service_code": "usps_priority_mail",
+  "package_code": "package",
+  "voided": false,
+  "voided_at": null,
+  "label_format": "pdf",
+  "label_layout": "4x6",
+  "trackable": true,
+  "carrier_code": "stamps_com",
+  "tracking_status": "unknown",
+  "label_download": {
+    "href": "https://api.shipengine.com/v1/downloads/10/vCALR7LTeUeaC8aj3_SrPA/testlabel-1146755.pdf"
+  },
+  "form_download": null,
+  "insurance_claim": null,
+  "packages": [
+    {
+      "package_code": "package",
+      "weight": {
+        "value": 49.37,
+        "unit": "ounce"
+      },
+      "dimensions": {
+        "unit": "inch",
+        "length": 0.0,
+        "width": 0.0,
+        "height": 0.0
+      },
+      "insured_value": {
+        "currency": "usd",
+        "amount": 0.00
+      },
+      "tracking_number": null,
+      "label_messages": {
+        "reference1": null,
+        "reference2": null,
+        "reference3": null
+      }
+    }
+  ]
+}
