@@ -19,5 +19,6 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: 
     expect(label.service_code).to eq("usps_priority_mail")
     expect(label.label_href).to start_with('https://')
     expect(label.label_format).to eq(:pdf)
+    expect(label.shipment_cost).to eq(0.0)
   end
 end
