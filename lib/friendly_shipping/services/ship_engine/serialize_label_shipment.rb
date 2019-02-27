@@ -45,8 +45,19 @@ module FriendlyShipping
                 unit: "ounce"
               }
             }
-            if package.container.properties[:usps_package_code]
-              package_hash.merge!(package_code: package.container.properties[:usps_package_code])
+
+            package_code = package.container.properties[:usps_package_code] || "package"
+            package_hash.merge!(package_code: package_code)
+
+            if package_code == 'package'
+              package_hash.merge!(
+                dimensions: {
+                  unit: 'inch',
+                  width: package.container.width.convert_to(:inches).value.to_f.round(2),
+                  length: package.container.depth.convert_to(:inches).value.to_f.round(2),
+                  height: package.container.height.convert_to(:inches).value.to_f.round(2)
+                }
+              )
             end
             package_hash
           end
