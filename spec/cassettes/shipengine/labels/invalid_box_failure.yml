@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/labels
+    body:
+      encoding: UTF-8
+      string: '{"label_format":"pdf","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10026","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10025","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":49.37931385397863,"unit":"ounce"},"package_code":"not_a_usps_package_code"}]},"test_label":true}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "<SHIPENGINE_API_KEY>"
+      Content-Length:
+      - '727'
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Thu, 28 Feb 2019 11:27:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '187'
+      Connection:
+      - keep-alive
+      X-Newrelic-App-Data:
+      - PxQGVFZXCgITVVZbAwMCV1YGFB9AMQYAZBBZDEtZV0ZaCldOZgRRIzR/GC0HAV1fQ0sxF0VSXwcXVHpSAAMPQBxSFlIUCBoDB1YBWQJYH1VWARtDVyd8dwBUICd0cHJUJXR0cEBKBQNcEV0/
+      X-Shipengine-Requestid:
+      - 67446903-c055-426a-b2af-16b7e49a6311
+      X-Shipengine-Server:
+      - SS-J-WEB01
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"request_id\": \"67446903-c055-426a-b2af-16b7e49a6311\",\r\n
+        \ \"errors\": [\r\n    {\r\n      \"error_code\": \"\",\r\n      \"message\":
+        \"invalid package_code 'not_a_usps_package_code'\"\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Thu, 28 Feb 2019 11:27:00 GMT
+recorded_with: VCR 4.0.0

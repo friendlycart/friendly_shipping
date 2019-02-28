@@ -1,0 +1,9 @@
+{
+  "request_id": "67446903-c055-426a-b2af-16b7e49a6311",
+  "errors": [
+    {
+      "error_code": "",
+      "message": "invalid package_code 'not_a_usps_package_code'"
+    }
+  ]
+}

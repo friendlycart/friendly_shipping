@@ -3,6 +3,7 @@ require 'rest-client'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
+require 'friendly_shipping/services/ship_engine/bad_request'
 
 module FriendlyShipping
   module Services
@@ -57,7 +58,11 @@ module FriendlyShipping
           )
         )
       rescue RestClient::ExceptionWithResponse => error
-        Failure(error)
+        if error.to_s == '400 Bad Request'
+          Failure(BadRequest.new(error))
+        else
+          Failure(error)
+        end
       end
 
       def request_headers

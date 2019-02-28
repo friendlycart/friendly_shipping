@@ -78,10 +78,31 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
+    context 'with a shipment specifying aan invalid package code',  vcr: { cassette_name: 'shipengine/labels/invalid_box_failure' } do
+      let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "not_a_usps_package_code" }) }
+      let(:package) { FactoryBot.build(:physical_package, container: container) }
+
+      it { is_expected.to be_a Dry::Monads::Failure }
+
+      context "when unwrapped" do
+        subject { labels.failure }
+
+        it { is_expected.to be_a FriendlyShipping::Services::ShipEngine::BadRequest }
+
+        it "converts to an understandable error message" do
+          expect(subject.to_s).to eq("invalid package_code 'not_a_usps_package_code'")
+        end
+      end
+    end
+
     context 'with an unsuccessful request', vcr: { cassette_name: 'shipengine/labels/failure' } do
       let(:service) { described_class.new(token: 'invalid_token') }
 
       it { is_expected.to be_a Dry::Monads::Failure }
+
+      it "returns an understandable error string" do
+        expect(subject.failure.to_s).to eq("401 Unauthorized")
+      end
     end
   end
 end
