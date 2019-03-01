@@ -18,6 +18,7 @@ module FriendlyShipping
               service_code: parsed_json['service_code'],
               label_href: parsed_json['label_download']['href'],
               label_format: parsed_json['label_format'].to_sym,
+              shipment_cost: parsed_json['shipment_cost']['amount'],
               data: parsed_json
             )
           ]

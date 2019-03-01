@@ -4,7 +4,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:container) { FactoryBot.build(:physical_box, weight: 0) }
   let(:item) { FactoryBot.build(:physical_item, weight: 1, weight_unit: :ounce) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: 0, container: container) }
-  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: {label_format: :zpl}) }
+  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: {label_format: 'zpl'}) }
   subject { described_class.new(shipment: shipment).call }
 
   it do
@@ -39,14 +39,37 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
           ),
           packages:[
             {
+              package_code: "package",
               weight: {
                 value: 1.0,
                 unit: "ounce"
+              },
+              dimensions: {
+                unit: "inch",
+                width: 15.75,
+                height: 19.69,
+                length: 23.62
               }
             }
           ]
         )
       )
     )
+  end
+
+  context 'if the container is a special USPS thing' do
+    let(:container) { FactoryBot.build(:physical_box, weight: 0, properties: { usps_package_code: "large_flat_rate_box" }) }
+
+    it 'does not include the dimensions array' do
+      is_expected.to match(
+        hash_including(
+          shipment: hash_including(
+            packages: array_including(
+              hash_not_including(:dimensions)
+            )
+          )
+        )
+      )
+    end
   end
 end
