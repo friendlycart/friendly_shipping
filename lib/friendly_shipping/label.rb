@@ -1,6 +1,14 @@
 module FriendlyShipping
   class Label
-    attr_reader :id, :shipment_id, :tracking_number, :service_code, :label_href, :data, :label_format, :shipment_cost
+    attr_reader :id,
+                :shipment_id,
+                :tracking_number,
+                :service_code,
+                :label_href,
+                :data,
+                :label_format,
+                :shipment_cost,
+                :label_data
 
     def initialize(
         id: nil,
@@ -9,6 +17,7 @@ module FriendlyShipping
         service_code: nil,
         label_href: nil,
         label_format: nil,
+        label_data: nil,
         shipment_cost: nil,
         data: {}
       )
@@ -19,6 +28,7 @@ module FriendlyShipping
       @label_href = label_href
       @label_format = label_format
       @shipment_cost = shipment_cost
+      @label_data = label_data
       @data = data
     end
   end

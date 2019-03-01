@@ -11,6 +11,7 @@ module FriendlyShipping
         def call
           {
             label_format: shipment.options[:label_format].presence || "pdf",
+            label_download_type: shipment.options[:label_download_type].presence || "url",
             shipment: {
               service_code: shipment.service_code,
               ship_to: serialize_address(shipment.destination),

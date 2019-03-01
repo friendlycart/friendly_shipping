@@ -4,13 +4,15 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:container) { FactoryBot.build(:physical_box, weight: 0) }
   let(:item) { FactoryBot.build(:physical_item, weight: 1, weight_unit: :ounce) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: 0, container: container) }
-  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: {label_format: 'zpl'}) }
+  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: shipment_options) }
+  let(:shipment_options) { {label_format: 'zpl'} }
   subject { described_class.new(shipment: shipment).call }
 
   it do
     is_expected.to match(
       hash_including(
         label_format: "zpl",
+        label_download_type: "url",
         shipment: hash_including(
           service_code: 'usps_priority_mail',
           ship_to: hash_including(
@@ -68,6 +70,18 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
               hash_not_including(:dimensions)
             )
           )
+        )
+      )
+    end
+  end
+
+  context 'if requesting inline labels' do
+    let(:shipment_options) { {label_download_type: 'inline'} }
+
+     it 'includes the label download type' do
+      is_expected.to match(
+        hash_including(
+          label_download_type: 'inline'
         )
       )
     end

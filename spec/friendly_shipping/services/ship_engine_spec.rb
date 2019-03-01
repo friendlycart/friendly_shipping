@@ -52,6 +52,42 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
+    context 'when requesting an inline label', vcr: { cassette_name: 'shipengine/labels/success_inline_label' } do
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          service_code: "usps_priority_mail",
+          packages: [package],
+          options: { label_download_type: "inline", label_format: "zpl" }
+        )
+        end
+
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      context "when unwrapped" do
+        subject { labels.value! }
+        let(:label) { subject.first }
+
+        it { is_expected.to be_a Array }
+
+        it "contains a valid label object" do
+          expect(label).to be_a(FriendlyShipping::Label)
+        end
+
+        it "does not have a URL" do
+          expect(label.label_href).to be nil
+        end
+
+        it "has label data" do
+          expect(label.label_data).to match(/.*\^XA.*\^XZ.*/m)
+        end
+
+        it "has the right format" do
+          expect(label.label_format).to eq(:zpl)
+        end
+      end
+    end
+
     context 'with a shipment specifying a large flat rate box',  vcr: { cassette_name: 'shipengine/labels/flat_rate_box_success' } do
       let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "large_flat_rate_box" }) }
       let(:package) { FactoryBot.build(:physical_package, container: container) }
