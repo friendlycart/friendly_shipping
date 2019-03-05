@@ -86,4 +86,62 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
       )
     end
   end
+
+  context 'if passing a reference number' do
+    let(:container) do
+      FactoryBot.build(
+        :physical_box,
+        weight: 0,
+        properties: {
+          usps_label_messages: {
+            reference1: "There's such a chill"
+          }
+        }
+      )
+    end
+
+    it 'includes that reference number' do
+      is_expected.to match(
+        hash_including(
+          shipment: hash_including(
+            packages: array_including(
+              hash_including(label_messages: { reference1: "There's such a chill" })
+            )
+          )
+        )
+      )
+    end
+  end
+
+  context 'if passing two reference numbers' do
+    let(:container) do
+      FactoryBot.build(
+        :physical_box,
+        weight: 0,
+        properties: {
+          usps_label_messages: {
+            reference1: "There's such a chill",
+            reference2: "Wake from your sleep"
+          }
+        }
+      )
+    end
+
+    it 'includes that reference number' do
+      is_expected.to match(
+        hash_including(
+          shipment: hash_including(
+            packages: array_including(
+              hash_including(
+                label_messages: {
+                  reference1: "There's such a chill",
+                  reference2: "Wake from your sleep"
+                }
+              )
+            )
+          )
+        )
+      )
+    end
+  end
 end

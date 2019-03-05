@@ -60,7 +60,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
           packages: [package],
           options: { label_download_type: "inline", label_format: "zpl" }
         )
-        end
+      end
 
       it { is_expected.to be_a Dry::Monads::Success }
 
@@ -110,6 +110,55 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
 
         it "has the right format" do
           expect(label.label_format).to eq(:pdf)
+        end
+      end
+    end
+
+    context 'with a shipment specifying a reference numbers',  vcr: { cassette_name: 'shipengine/labels/reference_number_success' } do
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          service_code: "usps_priority_mail",
+          packages: [package],
+          options: { label_download_type: "inline", label_format: "zpl" }
+        )
+      end
+
+      let(:container) do
+        FactoryBot.build(
+          :physical_box,
+          properties: {
+            usps_label_messages: {
+              reference1: "Wer ist John Maynard?",
+              reference2: "John Maynard war unser Steuermann",
+              reference3: "aus hielt er, bis er das Ufer gewann"
+            }
+          }
+        )
+      end
+
+      let(:package) { FactoryBot.build(:physical_package, container: container) }
+
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      context "when unwrapped" do
+        subject { labels.value! }
+        let(:label) { subject.first }
+
+        it { is_expected.to be_a Array }
+
+        it "contains a valid label object" do
+          expect(label).to be_a(FriendlyShipping::Label)
+        end
+
+        it "has the right format" do
+          expect(label.label_format).to eq(:zpl)
+        end
+
+        it 'contains the reference numbers' do
+          expect(label.label_data).to match("Wer ist John Maynard?")
+          expect(label.label_data).to match("John Maynard war unser Steuermann")
+          expect(label.label_data).to match("aus hielt er, bis er das Ufer gewann")
         end
       end
     end
