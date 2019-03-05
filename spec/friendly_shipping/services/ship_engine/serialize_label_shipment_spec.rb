@@ -144,4 +144,16 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
       )
     end
   end
+
+  context 'if passing a carrier id' do
+    let(:shipment_options) { {carrier_id: 'se-12345'} }
+
+    it 'includes the carrier ID' do
+      is_expected.to match(
+        hash_including(
+          shipment: hash_including(carrier_id: 'se-12345')
+        )
+      )
+    end
+  end
 end
