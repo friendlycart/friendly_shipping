@@ -46,7 +46,9 @@ module FriendlyShipping
                 unit: "ounce"
               }
             }
-
+            if package.container.properties[:usps_label_messages]
+              package_hash.merge!(label_messages: package.container.properties[:usps_label_messages])
+            end
             package_code = package.container.properties[:usps_package_code] || "package"
             package_hash.merge!(package_code: package_code)
 
