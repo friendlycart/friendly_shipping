@@ -9,7 +9,7 @@ module FriendlyShipping
         end
 
         def call
-          {
+          shipment_hash = {
             label_format: shipment.options[:label_format].presence || "pdf",
             label_download_type: shipment.options[:label_download_type].presence || "url",
             shipment: {
@@ -19,6 +19,10 @@ module FriendlyShipping
               packages: serialize_packages(shipment.packages)
             }
           }
+          if shipment.options[:carrier_id]
+            shipment_hash[:shipment].merge!(carrier_id: shipment.options[:carrier_id])
+          end
+          shipment_hash
         end
 
         private
