@@ -41,7 +41,6 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
           ),
           packages:[
             {
-              package_code: "package",
               weight: {
                 value: 1.0,
                 unit: "ounce"
