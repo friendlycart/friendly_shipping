@@ -47,9 +47,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
               ),
               dimensions: hash_including(
                 unit: "inch",
-                length: 23.62,
+                length: 15.75,
                 width: 19.69,
-                height: 15.75,
+                height: 23.62,
               )
             )
           )
