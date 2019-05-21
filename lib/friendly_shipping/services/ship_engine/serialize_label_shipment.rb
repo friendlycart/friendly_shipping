@@ -61,7 +61,7 @@ module FriendlyShipping
                 dimensions: {
                   unit: 'inch',
                   width: package.container.width.convert_to(:inches).value.to_f.round(2),
-                  length: package.container.depth.convert_to(:inches).value.to_f.round(2),
+                  length: package.container.length.convert_to(:inches).value.to_f.round(2),
                   height: package.container.height.convert_to(:inches).value.to_f.round(2)
                 }
               )
