@@ -163,7 +163,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
-    context 'with a shipment specifying aan invalid package code',  vcr: { cassette_name: 'shipengine/labels/invalid_box_failure' } do
+    context 'with a shipment specifying an invalid package code',  vcr: { cassette_name: 'shipengine/labels/invalid_box_failure' } do
       let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "not_a_usps_package_code" }) }
       let(:package) { FactoryBot.build(:physical_package, container: container) }
 
