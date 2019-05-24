@@ -2,7 +2,8 @@ require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseCarrierResponse, vcr: { cassette_name: 'shipengine/carriers/success' } do
   subject { described_class.new(response: response).call }
-  let(:response) { FriendlyShipping::Services::ShipEngine.new(token: ENV['SHIPENGINE_API_KEY']).send(:get, 'carriers').value! }
+  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'carriers.json')).read }
+  let(:response) { double(body: response_body) }
   let(:carrier) { subject.first }
 
   it "returns an Array of carriers", vcr: { cassette_name: 'shipengine/carriers/success' } do
