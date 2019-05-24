@@ -13,7 +13,7 @@ module FriendlyShipping
             headers
           )
         )
-      rescue ::RestClient::ExceptionWithResponse => error
+      rescue ::RestClient::Exception => error
         Failure(error)
       end
 
@@ -25,8 +25,24 @@ module FriendlyShipping
             headers
           )
         )
-      rescue ::RestClient::ExceptionWithResponse => error
-        if error.to_s == '400 Bad Request'
+      rescue ::RestClient::Exception => error
+        if error.http_code == 400
+          Failure(BadRequest.new(error))
+        else
+          Failure(error)
+        end
+      end
+
+      def put(path, payload, headers)
+        Success(
+          ::RestClient.put(
+            path,
+            payload,
+            headers
+          )
+        )
+      rescue ::RestClient::Exception => error
+        if error.http_code == 400
           Failure(BadRequest.new(error))
         else
           Failure(error)

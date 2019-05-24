@@ -190,4 +190,45 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
   end
+
+  describe 'void' do
+    let(:label) { FriendlyShipping::Label.new(id: label_id) }
+
+    subject { service.void(label) }
+
+    let(:label_id) { "se-123456" }
+    let(:response) { instance_double('RestClient::Response', body: response_body.to_json) }
+
+    before do
+      expect(::RestClient).to receive(:put).
+        with("https://api.shipengine.com/v1/labels/se-123456/void", "", service.send(:request_headers)).
+        and_return(response)
+    end
+
+    context 'with a voidable label' do
+      let(:response_body) do
+        {
+          "approved": true,
+          "message": "Request for refund submitted.  This label has been voided."
+        }
+      end
+
+      it 'returns a success Monad' do
+        expect(subject).to be_success
+      end
+    end
+
+    context 'with an unvoidable label' do
+      let(:response_body) do
+        {
+          "approved": false,
+          "message": "Could not void this label for some reason"
+        }
+      end
+
+      it 'returns a failure Monad' do
+        expect(subject).to be_failure
+      end
+    end
+  end
 end
