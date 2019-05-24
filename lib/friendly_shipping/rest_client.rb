@@ -32,6 +32,22 @@ module FriendlyShipping
           Failure(error)
         end
       end
+
+      def put(path, payload, headers)
+        Success(
+          ::RestClient.put(
+            path,
+            payload,
+            headers
+          )
+        )
+      rescue ::RestClient::ExceptionWithResponse => error
+        if error.to_s == '400 Bad Request'
+          Failure(BadRequest.new(error))
+        else
+          Failure(error)
+        end
+      end
     end
   end
 end

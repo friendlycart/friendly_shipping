@@ -1,8 +1,10 @@
 
+require 'dry/monads/result'
 require 'friendly_shipping/rest_client'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
+require 'friendly_shipping/services/ship_engine/parse_void_response'
 
 module FriendlyShipping
   module Services
@@ -30,6 +32,13 @@ module FriendlyShipping
         path = API_BASE + API_PATHS[:labels]
         FriendlyShipping::RestClient.post(path, payload, request_headers).fmap do |response|
           ParseLabelResponse.new(response: response).call
+        end
+      end
+
+      def void(label)
+        path = "#{API_BASE}labels/#{label.id}/void"
+        FriendlyShipping::RestClient.put(path, '', request_headers).bind do |response|
+          ParseVoidResponse.new(response: response).call
         end
       end
 
