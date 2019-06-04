@@ -17,14 +17,18 @@ module FriendlyShipping
         Failure(error)
       end
 
-      def post(path, payload, headers)
-        Success(
-          ::RestClient.post(
-            path,
-            payload,
-            headers
-          )
+      def post(friendly_shipping_request)
+        http_response = ::RestClient.post(
+          friendly_shipping_request.url,
+          friendly_shipping_request.body,
+          friendly_shipping_request.headers
         )
+        response = FriendlyShipping::Response.new(
+          status: http_response.code,
+          body: http_response.body,
+          headers: http_response.headers
+        )
+        Success(response)
       rescue ::RestClient::Exception => error
         if error.http_code == 400
           Failure(BadRequest.new(error))

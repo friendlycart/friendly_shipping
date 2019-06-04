@@ -15,9 +15,10 @@ module FriendlyShipping
         labels: "labels"
       }
 
-      def initialize(token:, test: true)
+      def initialize(token:, test: true, client: FriendlyShipping::RestClient)
         @token = token
         @test = test
+        @client = client
       end
 
       def carriers
@@ -28,10 +29,13 @@ module FriendlyShipping
       end
 
       def labels(shipment)
-        payload = SerializeLabelShipment.new(shipment: shipment).call.merge(test_label: test).to_json
-        path = API_BASE + API_PATHS[:labels]
-        FriendlyShipping::RestClient.post(path, payload, request_headers).fmap do |response|
-          ParseLabelResponse.new(response: response).call
+        request = FriendlyShipping::Request.new(
+          url: API_BASE + API_PATHS[:labels],
+          body: SerializeLabelShipment.new(shipment: shipment).call.merge(test_label: test).to_json,
+          headers: request_headers
+        )
+        client.post(request).fmap do |response|
+          ParseLabelResponse.(response.body)
         end
       end
 
@@ -44,7 +48,7 @@ module FriendlyShipping
 
       private
 
-      attr_reader :token, :test
+      attr_reader :token, :test, :client
 
       def request_headers
         {

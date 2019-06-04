@@ -5,12 +5,8 @@ module FriendlyShipping
   module Services
     class ShipEngine
       class ParseLabelResponse
-        def initialize(response:)
-          @response = response
-        end
-
-        def call
-          parsed_json = JSON.parse(@response.body)
+        def self.call(response_body)
+          parsed_json = JSON.parse(response_body)
           label_uri_string = parsed_json['label_download']['href']
           label_data = nil
           label_url = nil

@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: { cassette_name: 'shipengine/labels/success' } do
-  subject { described_class.new(response: response).call }
-  let(:response) { double(body: response_body) }
+  subject { described_class.(response_body) }
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'labels_success.json')).read }
 
   let(:label) { subject.first }
