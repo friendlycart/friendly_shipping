@@ -1,6 +1,6 @@
 
 require 'dry/monads/result'
-require 'friendly_shipping/rest_client'
+require 'friendly_shipping/services/ship_engine/client'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
@@ -15,7 +15,7 @@ module FriendlyShipping
         labels: "labels"
       }
 
-      def initialize(token:, test: true, client: FriendlyShipping::RestClient)
+      def initialize(token:, test: true, client: self.class::Client)
         @token = token
         @test = test
         @client = client
@@ -23,7 +23,7 @@ module FriendlyShipping
 
       def carriers
         path = API_BASE + API_PATHS[:carriers]
-        FriendlyShipping::RestClient.get(path, request_headers).fmap do |response|
+        client.get(path, request_headers).fmap do |response|
           ParseCarrierResponse.new(response: response).call
         end
       end
@@ -41,7 +41,7 @@ module FriendlyShipping
 
       def void(label)
         path = "#{API_BASE}labels/#{label.id}/void"
-        FriendlyShipping::RestClient.put(path, '', request_headers).bind do |response|
+        client.put(path, '', request_headers).bind do |response|
           ParseVoidResponse.new(response: response).call
         end
       end

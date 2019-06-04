@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::RestClient do
+RSpec.describe FriendlyShipping::Services::ShipEngine::Client do
   let(:response) { double }
 
   describe '.get' do
