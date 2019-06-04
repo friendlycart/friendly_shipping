@@ -22,8 +22,11 @@ module FriendlyShipping
       end
 
       def carriers
-        path = API_BASE + API_PATHS[:carriers]
-        client.get(path, request_headers).fmap do |response|
+        request = FriendlyShipping::Request.new(
+          url: API_BASE + API_PATHS[:carriers],
+          headers: request_headers
+        )
+        client.get(request).fmap do |response|
           ParseCarrierResponse.new(response: response).call
         end
       end

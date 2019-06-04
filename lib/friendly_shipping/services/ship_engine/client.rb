@@ -8,13 +8,17 @@ module FriendlyShipping
       class Client
         extend Dry::Monads::Result::Mixin
         class <<self
-          def get(path, headers)
-            Success(
-              ::RestClient.get(
-                path,
-                headers
-              )
+          def get(request)
+            http_response = ::RestClient.get(
+              request.url, request.headers
             )
+            response = FriendlyShipping::Response.new(
+              status: http_response.code,
+              body: http_response.body,
+              headers: http_response.headers
+            )
+
+            Success(response)
           rescue ::RestClient::Exception => error
             Failure(error)
           end
