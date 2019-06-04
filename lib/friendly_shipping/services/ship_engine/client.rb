@@ -12,13 +12,8 @@ module FriendlyShipping
             http_response = ::RestClient.get(
               request.url, request.headers
             )
-            response = FriendlyShipping::Response.new(
-              status: http_response.code,
-              body: http_response.body,
-              headers: http_response.headers
-            )
 
-            Success(response)
+            Success(convert_to_friendly_response(http_response))
           rescue ::RestClient::Exception => error
             Failure(error)
           end
@@ -29,12 +24,8 @@ module FriendlyShipping
               friendly_shipping_request.body,
               friendly_shipping_request.headers
             )
-            response = FriendlyShipping::Response.new(
-              status: http_response.code,
-              body: http_response.body,
-              headers: http_response.headers
-            )
-            Success(response)
+
+            Success(convert_to_friendly_response(http_response))
           rescue ::RestClient::Exception => error
             if error.http_code == 400
               Failure(BadRequest.new(error))
@@ -49,18 +40,24 @@ module FriendlyShipping
               request.body,
               request.headers
             )
-            response = FriendlyShipping::Response.new(
-              status: http_response.code,
-              body: http_response.body,
-              headers: http_response.headers
-            )
-            Success(response)
+
+            Success(convert_to_friendly_response(http_response))
           rescue ::RestClient::Exception => error
             if error.http_code == 400
               Failure(BadRequest.new(error))
             else
               Failure(error)
             end
+          end
+
+          private
+
+          def convert_to_friendly_response(http_response)
+            FriendlyShipping::Response.new(
+              status: http_response.code,
+              body: http_response.body,
+              headers: http_response.headers
+            )
           end
         end
       end
