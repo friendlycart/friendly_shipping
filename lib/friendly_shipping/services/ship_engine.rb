@@ -43,8 +43,12 @@ module FriendlyShipping
       end
 
       def void(label)
-        path = "#{API_BASE}labels/#{label.id}/void"
-        client.put(path, '', request_headers).bind do |response|
+        request = FriendlyShipping::Request.new(
+          url: "#{API_BASE}labels/#{label.id}/void",
+          body: '',
+          headers: request_headers
+        )
+        client.put(request).bind do |response|
           ParseVoidResponse.new(response: response).call
         end
       end

@@ -197,7 +197,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     subject { service.void(label) }
 
     let(:label_id) { "se-123456" }
-    let(:response) { instance_double('RestClient::Response', body: response_body.to_json) }
+    let(:response) { instance_double('RestClient::Response', code: 200, body: response_body.to_json, headers: {}) }
 
     before do
       expect(::RestClient).to receive(:put).

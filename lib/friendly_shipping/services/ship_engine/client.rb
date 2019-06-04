@@ -43,14 +43,18 @@ module FriendlyShipping
             end
           end
 
-          def put(path, payload, headers)
-            Success(
-              ::RestClient.put(
-                path,
-                payload,
-                headers
-              )
+          def put(request)
+            http_response = ::RestClient.put(
+              request.url,
+              request.body,
+              request.headers
             )
+            response = FriendlyShipping::Response.new(
+              status: http_response.code,
+              body: http_response.body,
+              headers: http_response.headers
+            )
+            Success(response)
           rescue ::RestClient::Exception => error
             if error.http_code == 400
               Failure(BadRequest.new(error))
