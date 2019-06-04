@@ -1,0 +1,521 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.shipengine.com/v1/carriers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "<SHIPENGINE_API_KEY>"
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 31 May 2019 13:52:55 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '12936'
+      Connection:
+      - keep-alive
+      X-Shipengine-Requestid:
+      - 480b7869-9077-4e68-a28e-afbf22e03b1a
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"carriers\": [\r\n    {\r\n      \"carrier_id\": \"se-76432\",\r\n
+        \     \"carrier_code\": \"stamps_com\",\r\n      \"account_number\": \"mswimm-1717e.\",\r\n
+        \     \"requires_funded_amount\": true,\r\n      \"balance\": 230.6200,\r\n
+        \     \"nickname\": \"CS Stamps\",\r\n      \"friendly_name\": \"Stamps.com\",\r\n
+        \     \"primary\": true,\r\n      \"has_multi_package_supporting_services\":
+        false,\r\n      \"supports_label_messages\": true,\r\n      \"services\":
+        [\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
+        \"stamps_com\",\r\n          \"service_code\": \"usps_first_class_mail\",\r\n
+        \         \"name\": \"USPS First Class Mail\",\r\n          \"domestic\":
+        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_media_mail\",\r\n          \"name\": \"USPS Media Mail\",\r\n          \"domestic\":
+        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_parcel_select\",\r\n          \"name\": \"USPS Parcel Select Ground\",\r\n
+        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_priority_mail\",\r\n          \"name\": \"USPS Priority Mail\",\r\n
+        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_priority_mail_express\",\r\n          \"name\": \"USPS Priority Mail
+        Express\",\r\n          \"domestic\": true,\r\n          \"international\":
+        false,\r\n          \"is_multi_package_supported\": false\r\n        },\r\n
+        \       {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
+        \"stamps_com\",\r\n          \"service_code\": \"usps_first_class_mail_international\",\r\n
+        \         \"name\": \"USPS First Class Mail Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
+        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
+        \"usps_priority_mail_international\",\r\n          \"name\": \"USPS Priority
+        Mail Intl\",\r\n          \"domestic\": false,\r\n          \"international\":
+        true,\r\n          \"is_multi_package_supported\": false\r\n        },\r\n
+        \       {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
+        \"stamps_com\",\r\n          \"service_code\": \"usps_priority_mail_express_international\",\r\n
+        \         \"name\": \"USPS Priority Mail Express Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        }\r\n      ],\r\n      \"packages\": [\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"cubic\",\r\n          \"name\": \"Cubic\",\r\n
+        \         \"description\": \"Cubic\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"flat_rate_envelope\",\r\n          \"name\":
+        \"Flat Rate Envelope\",\r\n          \"description\": \"USPS flat rate envelope.
+        A special cardboard envelope provided by the USPS that clearly indicates \\\"Flat
+        Rate\\\".\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"flat_rate_legal_envelope\",\r\n          \"name\":
+        \"Flat Rate Legal Envelope\",\r\n          \"description\": \"Flat Rate Legal
+        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"flat_rate_padded_envelope\",\r\n          \"name\":
+        \"Flat Rate Padded Envelope\",\r\n          \"description\": \"Flat Rate Padded
+        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"large_envelope_or_flat\",\r\n          \"name\":
+        \"Large Envelope or Flat\",\r\n          \"description\": \"Large envelope
+        or flat. Has one dimension that is between 11 1/2\\\" and 15\\\" long, 6 1/18\\\"
+        and 12\\\" high, or 1/4\\\" and 3/4\\\" thick.\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"large_flat_rate_box\",\r\n
+        \         \"name\": \"Large Flat Rate Box\",\r\n          \"description\":
+        \"Large Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"large_package\",\r\n          \"name\":
+        \"Large Package (any side > 12\\\")\",\r\n          \"description\": \"Large
+        package. Longest side plus the distance around the thickest part is over 84\\\"
+        and less than or equal to 108\\\".\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"letter\",\r\n          \"name\": \"Letter\",\r\n
+        \         \"description\": \"Letter\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"medium_flat_rate_box\",\r\n          \"name\":
+        \"Medium Flat Rate Box\",\r\n          \"description\": \"USPS flat rate box.
+        A special 11\\\" x 8 1/2\\\" x 5 1/2\\\" or 14\\\" x 3.5\\\" x 12\\\" USPS
+        box that clearly indicates \\\"Flat Rate Box\\\"\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"package\",\r\n
+        \         \"name\": \"Package\",\r\n          \"description\": \"Package.
+        Longest side plus the distance around the thickest part is less than or equal
+        to 84\\\"\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"regional_rate_box_a\",\r\n          \"name\":
+        \"Regional Rate Box A\",\r\n          \"description\": \"Regional Rate Box
+        A\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n          \"package_code\":
+        \"regional_rate_box_b\",\r\n          \"name\": \"Regional Rate Box B\",\r\n
+        \         \"description\": \"Regional Rate Box B\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"small_flat_rate_box\",\r\n
+        \         \"name\": \"Small Flat Rate Box\",\r\n          \"description\":
+        \"Small Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"thick_envelope\",\r\n          \"name\":
+        \"Thick Envelope\",\r\n          \"description\": \"Thick envelope. Envelopes
+        or flats greater than 3/4\\\" at the thickest point.\"\r\n        }\r\n      ],\r\n
+        \     \"options\": [\r\n        {\r\n          \"name\": \"non_machinable\",\r\n
+        \         \"default_value\": \"false\",\r\n          \"description\": \"\"\r\n
+        \       }\r\n      ]\r\n    },\r\n    {\r\n      \"carrier_id\": \"se-91692\",\r\n
+        \     \"carrier_code\": \"endicia\",\r\n      \"account_number\": \"1304176\",\r\n
+        \     \"requires_funded_amount\": true,\r\n      \"balance\": 1000.36,\r\n
+        \     \"nickname\": \"CandleScience Endicia\",\r\n      \"friendly_name\":
+        \"Endicia\",\r\n      \"primary\": true,\r\n      \"has_multi_package_supporting_services\":
+        false,\r\n      \"supports_label_messages\": true,\r\n      \"services\":
+        [\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n          \"carrier_code\":
+        \"endicia\",\r\n          \"service_code\": \"usps_first_class_mail\",\r\n
+        \         \"name\": \"USPS First Class Mail\",\r\n          \"domestic\":
+        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_media_mail\",\r\n
+        \         \"name\": \"USPS Media Mail\",\r\n          \"domestic\": true,\r\n
+        \         \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_parcel_select\",\r\n
+        \         \"name\": \"USPS Parcel Select Ground\",\r\n          \"domestic\":
+        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail\",\r\n
+        \         \"name\": \"USPS Priority Mail\",\r\n          \"domestic\": true,\r\n
+        \         \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail_express\",\r\n
+        \         \"name\": \"USPS Priority Mail Express\",\r\n          \"domestic\":
+        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_first_class_package_international\",\r\n
+        \         \"name\": \"USPS First Class Package Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_first_class_mail_international\",\r\n
+        \         \"name\": \"USPS First Class Mail Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail_international\",\r\n
+        \         \"name\": \"USPS Priority Mail Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
+        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail_express_international\",\r\n
+        \         \"name\": \"USPS Priority Mail Express Intl\",\r\n          \"domestic\":
+        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
+        false\r\n        }\r\n      ],\r\n      \"packages\": [\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"cubic\",\r\n          \"name\": \"Cubic\",\r\n
+        \         \"description\": \"Cubic\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"flat_rate_envelope\",\r\n          \"name\":
+        \"Flat Rate Envelope\",\r\n          \"description\": \"USPS flat rate envelope.
+        A special cardboard envelope provided by the USPS that clearly indicates \\\"Flat
+        Rate\\\".\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"flat_rate_legal_envelope\",\r\n          \"name\":
+        \"Flat Rate Legal Envelope\",\r\n          \"description\": \"Flat Rate Legal
+        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"flat_rate_padded_envelope\",\r\n          \"name\":
+        \"Flat Rate Padded Envelope\",\r\n          \"description\": \"Flat Rate Padded
+        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"large_envelope_or_flat\",\r\n          \"name\":
+        \"Large Envelope or Flat\",\r\n          \"description\": \"Large envelope
+        or flat. Has one dimension that is between 11 1/2\\\" and 15\\\" long, 6 1/18\\\"
+        and 12\\\" high, or 1/4\\\" and 3/4\\\" thick.\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"large_flat_rate_box\",\r\n
+        \         \"name\": \"Large Flat Rate Box\",\r\n          \"description\":
+        \"Large Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"large_package\",\r\n          \"name\":
+        \"Large Package (any side > 12\\\")\",\r\n          \"description\": \"Large
+        package. Longest side plus the distance around the thickest part is over 84\\\"
+        and less than or equal to 108\\\".\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"letter\",\r\n          \"name\": \"Letter\",\r\n
+        \         \"description\": \"Letter\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"medium_flat_rate_box\",\r\n          \"name\":
+        \"Medium Flat Rate Box\",\r\n          \"description\": \"USPS flat rate box.
+        A special 11\\\" x 8 1/2\\\" x 5 1/2\\\" or 14\\\" x 3.5\\\" x 12\\\" USPS
+        box that clearly indicates \\\"Flat Rate Box\\\"\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"package\",\r\n
+        \         \"name\": \"Package\",\r\n          \"description\": \"Package.
+        Longest side plus the distance around the thickest part is less than or equal
+        to 84\\\"\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
+        \         \"package_code\": \"regional_rate_box_a\",\r\n          \"name\":
+        \"Regional Rate Box A\",\r\n          \"description\": \"Regional Rate Box
+        A\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n          \"package_code\":
+        \"regional_rate_box_b\",\r\n          \"name\": \"Regional Rate Box B\",\r\n
+        \         \"description\": \"Regional Rate Box B\"\r\n        },\r\n        {\r\n
+        \         \"package_id\": null,\r\n          \"package_code\": \"small_flat_rate_box\",\r\n
+        \         \"name\": \"Small Flat Rate Box\",\r\n          \"description\":
+        \"Small Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
+        null,\r\n          \"package_code\": \"thick_envelope\",\r\n          \"name\":
+        \"Thick Envelope\",\r\n          \"description\": \"Thick envelope. Envelopes
+        or flats greater than 3/4\\\" at the thickest point.\"\r\n        }\r\n      ],\r\n
+        \     \"options\": [\r\n        {\r\n          \"name\": \"non_machinable\",\r\n
+        \         \"default_value\": \"false\",\r\n          \"description\": \"\"\r\n
+        \       }\r\n      ]\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Fri, 31 May 2019 13:52:55 GMT
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/rates/estimate
+    body:
+      encoding: UTF-8
+      string: '{"carrier_ids":["se-76432","se-91692"],"from_country_code":"US","from_postal_code":"78756","to_country_code":"US","to_postal_code":"91521","to_city_locality":"Herndon","to_state_province":"IL","weight":{"value":5.852699859126819,"unit":"pound"},"confirmation":"none","address_residential_indicator":"no"}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "<SHIPENGINE_API_KEY>"
+      Content-Length:
+      - '304'
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 31 May 2019 13:52:57 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '18991'
+      Connection:
+      - keep-alive
+      X-Shipengine-Requestid:
+      - 1dd819f8-df30-4598-a946-c063800e781d
+    body:
+      encoding: UTF-8
+      string: "[\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        5.35\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 7,\r\n
+        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-07T00:00:00Z\",\r\n
+        \   \"carrier_delivery_days\": \"6\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
+        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Media Mail\",\r\n
+        \   \"service_code\": \"usps_media_mail\",\r\n    \"trackable\": true,\r\n
+        \   \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\": \"CS Stamps\",\r\n
+        \   \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        17.68\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 7,\r\n
+        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-07T00:00:00Z\",\r\n
+        \   \"carrier_delivery_days\": \"6\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
+        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Parcel Select
+        Ground\",\r\n    \"service_code\": \"usps_parcel_select\",\r\n    \"trackable\":
+        true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        17.93\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 4,\r\n
+        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-04T00:00:00Z\",\r\n
+        \   \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
+        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Priority Mail\",\r\n
+        \   \"service_code\": \"usps_priority_mail\",\r\n    \"trackable\": true,\r\n
+        \   \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\": \"CS Stamps\",\r\n
+        \   \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        12.8\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"medium_flat_rate_box\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        7.5\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"small_flat_rate_box\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        17.6\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"large_flat_rate_box\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        6.95\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"flat_rate_envelope\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        7.55\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"flat_rate_padded_envelope\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        9.95\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"regional_rate_box_a\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        16.1\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"regional_rate_box_b\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        7.25\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"flat_rate_legal_envelope\",\r\n    \"delivery_days\":
+        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        58.61\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 2,\r\n
+        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-03T00:00:00Z\",\r\n
+        \   \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
+        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Priority Mail
+        Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n    \"trackable\":
+        true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        22.68\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"flat_rate_envelope\",\r\n    \"delivery_days\":
+        2,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        23.18\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"flat_rate_padded_envelope\",\r\n    \"delivery_days\":
+        2,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        22.8\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": \"flat_rate_legal_envelope\",\r\n    \"delivery_days\":
+        2,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\":
+        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
+        \"USPS Priority Mail Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n
+        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
+        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-91692\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        5.35\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 0,\r\n    \"guaranteed_service\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-05-31T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"0\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"service_type\": \"USPS Media Mail\",\r\n    \"service_code\":
+        \"usps_media_mail\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
+        \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
+        \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
+        [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n    \"rate_type\": \"check\",\r\n
+        \   \"carrier_id\": \"se-91692\",\r\n    \"shipping_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 17.68\r\n    },\r\n    \"insurance_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 0,\r\n    \"guaranteed_service\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-05-31T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"0\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"service_type\": \"USPS Parcel Select Ground\",\r\n    \"service_code\":
+        \"usps_parcel_select\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
+        \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
+        \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
+        [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n    \"rate_type\": \"check\",\r\n
+        \   \"carrier_id\": \"se-91692\",\r\n    \"shipping_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 17.93\r\n    },\r\n    \"insurance_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 3,\r\n    \"guaranteed_service\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"3\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"service_type\": \"USPS Priority Mail\",\r\n    \"service_code\":
+        \"usps_priority_mail\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
+        \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
+        \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
+        [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n    \"rate_type\": \"check\",\r\n
+        \   \"carrier_id\": \"se-91692\",\r\n    \"shipping_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 58.61\r\n    },\r\n    \"insurance_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
+        6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 1,\r\n    \"guaranteed_service\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-06-01T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"1\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"service_type\": \"USPS Priority Mail Express\",\r\n    \"service_code\":
+        \"usps_priority_mail_express\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
+        \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
+        \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
+        [],\r\n    \"error_messages\": []\r\n  }\r\n]"
+    http_version: 
+  recorded_at: Fri, 31 May 2019 13:52:57 GMT
+recorded_with: VCR 4.0.0

@@ -1,13 +1,14 @@
 module FriendlyShipping
   class ShippingMethod
-    attr_reader :name, :service_code
+    attr_reader :name, :service_code, :carrier
 
-    def initialize(name: nil, service_code: nil, domestic: nil, international: nil, multi_package: nil)
+    def initialize(name: nil, service_code: nil, domestic: nil, international: nil, multi_package: nil, carrier: nil)
       @name = name
       @service_code = service_code
       @domestic = domestic
       @international = international
       @multi_package = multi_package
+      @carrier = carrier
     end
 
     def domestic?

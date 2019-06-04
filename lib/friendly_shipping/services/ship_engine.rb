@@ -3,8 +3,10 @@ require 'dry/monads/result'
 require 'friendly_shipping/services/ship_engine/client'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
+require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
 require 'friendly_shipping/services/ship_engine/parse_void_response'
+require 'friendly_shipping/services/ship_engine/parse_rate_estimate_response'
 
 module FriendlyShipping
   module Services
@@ -28,6 +30,17 @@ module FriendlyShipping
         )
         client.get(request).fmap do |response|
           ParseCarrierResponse.new(response: response).call
+        end
+      end
+
+      def rate_estimates(shipment, carriers)
+        request = FriendlyShipping::Request.new(
+          url: API_BASE + 'rates/estimate',
+          body: SerializeRateEstimateRequest.(shipment: shipment, carriers: carriers).to_json,
+          headers: request_headers
+        )
+        client.post(request).fmap do |response|
+          ParseRateEstimateResponse.(response: response, request: request, carriers: carriers)
         end
       end
 

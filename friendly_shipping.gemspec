@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rest-client", "~> 2.0"
   spec.add_runtime_dependency "dry-monads", "~> 1.0"
   spec.add_runtime_dependency "data_uri", "~> 0.0.3"
+  spec.add_runtime_dependency "money", ">= 6.0.0"
   spec.required_ruby_version = '>= 2.4'
 
   spec.add_development_dependency "bundler"
