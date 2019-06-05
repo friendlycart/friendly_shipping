@@ -8,7 +8,9 @@ module FriendlyShipping
                 :data,
                 :label_format,
                 :shipment_cost,
-                :label_data
+                :label_data,
+                :original_request,
+                :original_response
 
     def initialize(
         id: nil,
@@ -19,7 +21,9 @@ module FriendlyShipping
         label_format: nil,
         label_data: nil,
         shipment_cost: nil,
-        data: {}
+        data: {},
+        original_request: nil,
+        original_response: nil
       )
       @id = id
       @shipment_id = shipment_id
@@ -30,6 +34,8 @@ module FriendlyShipping
       @shipment_cost = shipment_cost
       @label_data = label_data
       @data = data
+      @original_request = original_request
+      @original_response = original_response
     end
   end
 end

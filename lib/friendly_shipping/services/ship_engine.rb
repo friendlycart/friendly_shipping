@@ -38,7 +38,7 @@ module FriendlyShipping
           headers: request_headers
         )
         client.post(request).fmap do |response|
-          ParseLabelResponse.(response.body)
+          ParseLabelResponse.(request: request, response: response)
         end
       end
 
