@@ -23,6 +23,24 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
   end
 
+  describe 'rate_estimates' do
+    let(:package) { FactoryBot.build(:physical_package) }
+    let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
+    let(:destination) { FactoryBot.build(:physical_location, zip: '91521') }
+    let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
+    let(:carriers) { service.carriers.value! }
+
+    subject { service.rate_estimates(shipment, carriers) }
+
+    it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
+      aggregate_failures do
+        is_expected.to be_success
+        expect(subject.value!).to be_a(Array)
+        expect(subject.value!.first).to be_a(FriendlyShipping::Rate)
+      end
+    end
+  end
+
   describe 'labels' do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:shipment) { FactoryBot.build(:physical_shipment, service_code: "usps_priority_mail", packages: [package]) }

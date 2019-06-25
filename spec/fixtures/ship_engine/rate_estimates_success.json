@@ -1,0 +1,705 @@
+[
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 5.35
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "package",
+    "delivery_days": 7,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-07T00:00:00Z",
+    "carrier_delivery_days": "6",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Media Mail",
+    "service_code": "usps_media_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 17.68
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "package",
+    "delivery_days": 7,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-07T00:00:00Z",
+    "carrier_delivery_days": "6",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Parcel Select Ground",
+    "service_code": "usps_parcel_select",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 17.93
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "package",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 12.8
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "medium_flat_rate_box",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 7.5
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "small_flat_rate_box",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 17.6
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "large_flat_rate_box",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 6.95
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "flat_rate_envelope",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 7.55
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "flat_rate_padded_envelope",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 9.95
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "regional_rate_box_a",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 16.1
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "regional_rate_box_b",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 7.25
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "flat_rate_legal_envelope",
+    "delivery_days": 4,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-04T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 58.61
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "package",
+    "delivery_days": 2,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-03T00:00:00Z",
+    "carrier_delivery_days": "1-2",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail Express",
+    "service_code": "usps_priority_mail_express",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 22.68
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "flat_rate_envelope",
+    "delivery_days": 2,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-03T00:00:00Z",
+    "carrier_delivery_days": "1-2",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail Express",
+    "service_code": "usps_priority_mail_express",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 23.18
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "flat_rate_padded_envelope",
+    "delivery_days": 2,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-03T00:00:00Z",
+    "carrier_delivery_days": "1-2",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail Express",
+    "service_code": "usps_priority_mail_express",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-76432",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 22.8
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": "flat_rate_legal_envelope",
+    "delivery_days": 2,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-03T00:00:00Z",
+    "carrier_delivery_days": "1-2",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail Express",
+    "service_code": "usps_priority_mail_express",
+    "trackable": true,
+    "carrier_code": "stamps_com",
+    "carrier_nickname": "CS Stamps",
+    "carrier_friendly_name": "Stamps.com",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-91692",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 5.35
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": null,
+    "delivery_days": 0,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-05-31T00:00:00Z",
+    "carrier_delivery_days": "0",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Media Mail",
+    "service_code": "usps_media_mail",
+    "trackable": true,
+    "carrier_code": "endicia",
+    "carrier_nickname": "CandleScience Endicia",
+    "carrier_friendly_name": "Endicia",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-91692",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 17.68
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": null,
+    "delivery_days": 0,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-05-31T00:00:00Z",
+    "carrier_delivery_days": "0",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Parcel Select Ground",
+    "service_code": "usps_parcel_select",
+    "trackable": true,
+    "carrier_code": "endicia",
+    "carrier_nickname": "CandleScience Endicia",
+    "carrier_friendly_name": "Endicia",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-91692",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 17.93
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": null,
+    "delivery_days": 3,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-03T00:00:00Z",
+    "carrier_delivery_days": "3",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail",
+    "service_code": "usps_priority_mail",
+    "trackable": true,
+    "carrier_code": "endicia",
+    "carrier_nickname": "CandleScience Endicia",
+    "carrier_friendly_name": "Endicia",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-91692",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 58.61
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "zone": 6,
+    "package_type": null,
+    "delivery_days": 1,
+    "guaranteed_service": false,
+    "estimated_delivery_date": "2019-06-01T00:00:00Z",
+    "carrier_delivery_days": "1",
+    "ship_date": "2019-05-31T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "USPS Priority Mail Express",
+    "service_code": "usps_priority_mail_express",
+    "trackable": true,
+    "carrier_code": "endicia",
+    "carrier_nickname": "CandleScience Endicia",
+    "carrier_friendly_name": "Endicia",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  }
+]
