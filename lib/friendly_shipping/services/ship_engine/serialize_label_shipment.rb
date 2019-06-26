@@ -44,12 +44,7 @@ module FriendlyShipping
 
         def serialize_packages(packages)
           packages.map do |package|
-            package_hash = {
-              weight: {
-                value: package.weight.convert_to(:ounce).value.to_f,
-                unit: "ounce"
-              }
-            }
+            package_hash = serialize_weight(package.weight)
             if package.container.properties[:usps_label_messages]
               package_hash.merge!(label_messages: package.container.properties[:usps_label_messages])
             end
@@ -68,6 +63,17 @@ module FriendlyShipping
             end
             package_hash
           end
+        end
+        
+        def serialize_weight(weight)
+          ounces = weight.convert_to(:ounce).value.to_f
+          {
+            weight: {
+              # Max weight for USPS First Class is 15.9 oz, not 16 oz
+              value: ounces.between?(15.9, 16) ? 15.9 : ounces,
+              unit: "ounce"
+            }
+          }
         end
       end
     end
