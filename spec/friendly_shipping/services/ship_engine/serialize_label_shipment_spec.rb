@@ -155,4 +155,26 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
       )
     end
   end
+  
+  context 'if weight is between 15.9 and 16 oz' do
+    let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(15.95, :ounce)) }
+    
+    # Max weight for USPS First Class is 15.9 oz, not 16 oz
+    it 'returns weight as 15.9 oz' do
+      is_expected.to match(
+        hash_including(
+          shipment: hash_including(
+            packages: array_including(
+              hash_including(
+                weight: hash_including(
+                  value: 15.9,
+                  unit: "ounce"
+                )
+              )
+            )
+          )
+        )
+      )
+    end
+  end
 end
