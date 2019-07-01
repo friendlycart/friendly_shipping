@@ -1,0 +1,148 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/ups.app/xml/Rate
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber><UPS_KEY></AccessLicenseNumber>
+          <UserId><UPS_LOGIN></UserId>
+          <Password><UPS_PASSWORD></Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <RatingServiceSelectionRequest>
+          <Request>
+            <RequestAction>Rate</RequestAction>
+            <RequestOption>Shop</RequestOption>
+            <SubVersion>1707</SubVersion>
+          </Request>
+          <PickupType>
+            <Code>01</Code>
+          </PickupType>
+          <CustomerClassification>
+            <Code>01</Code>
+          </CustomerClassification>
+          <Shipment>
+            <Shipper>
+              <Name>Company</Name>
+              <AttentionName>Jane Doe</AttentionName>
+              <PhoneNumber>555-555-0199</PhoneNumber>
+              <Address>
+                <AddressLine1>11 Lovely Street</AddressLine1>
+                <AddressLine2>South</AddressLine2>
+                <City>Herndon</City>
+                <PostalCode>78756</PostalCode>
+                <StateProvinceCode>IL</StateProvinceCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator/>
+              </Address>
+              <ShipperNumber/>
+            </Shipper>
+            <ShipTo>
+              <CompanyName>Company</CompanyName>
+              <AttentionName>Jane Doe</AttentionName>
+              <PhoneNumber>555-555-0199</PhoneNumber>
+              <Address>
+                <AddressLine1>11 Lovely Street</AddressLine1>
+                <AddressLine2>South</AddressLine2>
+                <City>Herndon</City>
+                <PostalCode>32821</PostalCode>
+                <StateProvinceCode>FL</StateProvinceCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator/>
+              </Address>
+            </ShipTo>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>15.748</Length>
+                <Width>19.685</Width>
+                <Height>23.622</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>3</Weight>
+              </PackageWeight>
+            </Package>
+            <Package>
+              <PackagingType>
+                <Code>02</Code>
+              </PackagingType>
+              <Dimensions>
+                <UnitOfMeasurement>
+                  <Code>IN</Code>
+                </UnitOfMeasurement>
+                <Length>15.748</Length>
+                <Width>19.685</Width>
+                <Height>23.622</Height>
+              </Dimensions>
+              <PackageWeight>
+                <UnitOfMeasurement>
+                  <Code>LBS</Code>
+                </UnitOfMeasurement>
+                <Weight>3</Weight>
+              </PackageWeight>
+            </Package>
+          </Shipment>
+        </RatingServiceSelectionRequest>
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Length:
+      - '2498'
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 03 Jul 2019 09:07:23 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, max-age=0
+      - no-cache=Set-Cookie, Set-Cookie2
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Pragma:
+      - no-cache, no-store
+      Content-Length:
+      - '382'
+      Apierrormsg:
+      - The postal code 78756 is invalid for IL United States.
+      Apihttpstatus:
+      - '400'
+      Apierrorcode:
+      - '111285'
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0"?>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111285</ErrorCode><ErrorDescription>The postal code 78756 is invalid for IL United States.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
+    http_version: 
+  recorded_at: Wed, 03 Jul 2019 09:07:24 GMT
+recorded_with: VCR 5.0.0

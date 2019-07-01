@@ -17,7 +17,7 @@ module FriendlyShipping
         labels: "labels"
       }
 
-      def initialize(token:, test: true, client: self.class::Client)
+      def initialize(token:, test: true, client: Client)
         @token = token
         @test = test
         @client = client
