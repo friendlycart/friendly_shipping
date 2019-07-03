@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionRequest do
   let(:origin) { FactoryBot.build(:physical_location) }
 
-  let(:destination) { FactoryBot.build(:physical_location )}
+  let(:destination) { FactoryBot.build(:physical_location ) }
 
   let(:dimensions) do
     [
@@ -32,7 +32,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
     )
   end
 
-  let(:options) { {origin_account: "12345"} }
+  let(:options) { { origin_account: "12345" } }
 
   subject do
     Nokogiri::XML(
@@ -67,7 +67,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
   end
 
   context 'with a different shipper' do
-    let(:options) { {shipper: FactoryBot.build(:physical_location, address1: "Another Street")} }
+    let(:options) { { shipper: FactoryBot.build(:physical_location, address1: "Another Street") } }
 
     it 'contains an extra ShipFrom element' do
       aggregate_failures do

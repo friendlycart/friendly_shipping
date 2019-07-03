@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   class Request
     attr_reader :url, :body, :headers

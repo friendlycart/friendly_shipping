@@ -3,3 +3,6 @@ AllCops:
 
 inherit_from:
 - .rubocop-relaxed.yml
+
+Metrics/BlockLength:
+  Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   module Services
     class ShipEngine
@@ -20,7 +22,7 @@ module FriendlyShipping
             }
           }
           if shipment.options[:carrier_id]
-            shipment_hash[:shipment].merge!(carrier_id: shipment.options[:carrier_id])
+            shipment_hash[:shipment][:carrier_id] = shipment.options[:carrier_id]
           end
           shipment_hash
         end
@@ -46,25 +48,23 @@ module FriendlyShipping
           packages.map do |package|
             package_hash = serialize_weight(package.weight)
             if package.container.properties[:usps_label_messages]
-              package_hash.merge!(label_messages: package.container.properties[:usps_label_messages])
+              package_hash[:label_messages] = package.container.properties[:usps_label_messages]
             end
             package_code = package.container.properties[:usps_package_code]
             if package_code
-              package_hash.merge!(package_code: package_code)
+              package_hash[:package_code] = package_code
             else
-              package_hash.merge!(
-                dimensions: {
-                  unit: 'inch',
-                  width: package.container.width.convert_to(:inches).value.to_f.round(2),
-                  length: package.container.length.convert_to(:inches).value.to_f.round(2),
-                  height: package.container.height.convert_to(:inches).value.to_f.round(2)
-                }
-              )
+              package_hash[:dimensions] = {
+                unit: 'inch',
+                width: package.container.width.convert_to(:inches).value.to_f.round(2),
+                length: package.container.length.convert_to(:inches).value.to_f.round(2),
+                height: package.container.height.convert_to(:inches).value.to_f.round(2)
+              }
             end
             package_hash
           end
         end
-        
+
         def serialize_weight(weight)
           ounces = weight.convert_to(:ounce).value.to_f
           {

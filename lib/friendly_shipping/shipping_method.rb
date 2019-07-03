@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   class ShippingMethod
     attr_reader :name, :service_code, :carrier, :origin_countries

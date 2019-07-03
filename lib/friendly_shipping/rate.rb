@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   class Rate
     class NoAmountsGiven < StandardError; end
@@ -35,6 +37,7 @@ module FriendlyShipping
 
     def total_amount
       raise NoAmountsGiven if amounts.empty?
+
       amounts.map { |_name, amount| amount }.sum
     end
   end

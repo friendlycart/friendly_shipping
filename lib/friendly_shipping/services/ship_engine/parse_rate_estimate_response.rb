@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'money'
 
@@ -11,8 +13,10 @@ module FriendlyShipping
             parsed_json.map do |rate|
               carrier = carriers.detect { |c| c.id == rate['carrier_id'] }
               next unless carrier
+
               shipping_method = carrier.shipping_methods.detect { |sm| sm.service_code == rate['service_code'] }
               next unless shipping_method
+
               amounts = get_amounts(rate)
               FriendlyShipping::Rate.new(
                 shipping_method: shipping_method,

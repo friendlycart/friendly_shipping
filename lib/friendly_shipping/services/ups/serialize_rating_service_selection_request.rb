@@ -52,13 +52,13 @@ module FriendlyShipping
               xml.Shipment do
                 # not implemented: Shipment/Description element
                 xml.Shipper do
-                  SerializeAddressSnippet.(xml: xml, location: shipper)
+                  SerializeAddressSnippet.call(xml: xml, location: shipper)
 
                   xml.ShipperNumber(origin_account)
                 end
 
                 xml.ShipTo do
-                  SerializeAddressSnippet.(xml: xml, location: shipment.destination)
+                  SerializeAddressSnippet.call(xml: xml, location: shipment.destination)
 
                   if destination_account
                     xml.ShipperAssignedIdentificationNumber(destination_account)
@@ -67,12 +67,12 @@ module FriendlyShipping
 
                 if shipper != shipment.origin
                   xml.ShipFrom do
-                    SerializeAddressSnippet.(xml: xml, location: shipment.origin)
+                    SerializeAddressSnippet.call(xml: xml, location: shipment.origin)
                   end
                 end
 
                 shipment.packages.each do |package|
-                  SerializePackageNode.(xml: xml, package: package)
+                  SerializePackageNode.call(xml: xml, package: package)
                 end
               end
             end

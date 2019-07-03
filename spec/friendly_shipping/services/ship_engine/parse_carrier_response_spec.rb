@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseCarrierResponse, vcr: { cassette_name: 'shipengine/carriers/success' } do

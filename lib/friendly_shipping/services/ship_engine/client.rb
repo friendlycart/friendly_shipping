@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/monads/result'
 require 'friendly_shipping/bad_request'
 require 'rest-client'
@@ -14,8 +16,8 @@ module FriendlyShipping
             )
 
             Success(convert_to_friendly_response(http_response))
-          rescue ::RestClient::Exception => error
-            Failure(error)
+          rescue ::RestClient::Exception => e
+            Failure(e)
           end
 
           def post(friendly_shipping_request)
@@ -26,11 +28,11 @@ module FriendlyShipping
             )
 
             Success(convert_to_friendly_response(http_response))
-          rescue ::RestClient::Exception => error
-            if error.http_code == 400
-              Failure(BadRequest.new(error))
+          rescue ::RestClient::Exception => e
+            if e.http_code == 400
+              Failure(BadRequest.new(e))
             else
-              Failure(error)
+              Failure(e)
             end
           end
 
@@ -42,11 +44,11 @@ module FriendlyShipping
             )
 
             Success(convert_to_friendly_response(http_response))
-          rescue ::RestClient::Exception => error
-            if error.http_code == 400
-              Failure(BadRequest.new(error))
+          rescue ::RestClient::Exception => e
+            if e.http_code == 400
+              Failure(BadRequest.new(e))
             else
-              Failure(error)
+              Failure(e)
             end
           end
 

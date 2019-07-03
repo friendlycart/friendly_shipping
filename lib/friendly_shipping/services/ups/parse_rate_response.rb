@@ -7,7 +7,7 @@ module FriendlyShipping
     class Ups
       class ParseRateResponse
         def self.call(request:, response:, shipment:)
-          parsing_result = ParseXMLResponse.(response.body, 'RatingServiceSelectionResponse')
+          parsing_result = ParseXMLResponse.call(response.body, 'RatingServiceSelectionResponse')
           parsing_result.fmap do |xml|
             rate_estimates = xml.root.css('> RatedShipment').map do |rated_shipment|
               service_code = rated_shipment.at('Service/Code').text

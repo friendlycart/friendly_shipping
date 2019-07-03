@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   class Carrier
     attr_reader :id, :name, :code, :shipping_methods, :balance, :data

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequest do
@@ -10,16 +12,16 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequ
 
   it do
     is_expected.to match(hash_including(
-      carrier_ids: ["se-123456"],
-      from_country_code: "US",
-      from_postal_code: shipment.origin.zip,
-      to_country_code: "US",
-      to_postal_code: shipment.destination.zip,
-      to_city_locality: "Herndon",
-      to_state_province: "IL",
-      weight: {value: 0.0625, unit: "pound"},
-      confirmation: "none",
-      address_residential_indicator: "no"
-    ))
+                           carrier_ids: ["se-123456"],
+                           from_country_code: "US",
+                           from_postal_code: shipment.origin.zip,
+                           to_country_code: "US",
+                           to_postal_code: shipment.destination.zip,
+                           to_city_locality: "Herndon",
+                           to_state_province: "IL",
+                           weight: { value: 0.0625, unit: "pound" },
+                           confirmation: "none",
+                           address_residential_indicator: "no"
+                         ))
   end
 end

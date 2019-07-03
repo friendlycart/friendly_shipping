@@ -52,7 +52,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
     end
 
     context 'if a dimension is zero' do
-      let(:dimensions) { [0, 1, 0].map { |n| Measured::Length(n, :cm)} }
+      let(:dimensions) { [0, 1, 0].map { |n| Measured::Length(n, :cm) } }
 
       it 'does not add dimensions' do
         expect(subject.at_xpath('//Package/Dimensions')).not_to be_present
@@ -61,12 +61,12 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
   end
 
   context 'if package has reference numbers' do
-     let(:package) do
+    let(:package) do
       Physical::Package.new(
         container: Physical::Box.new(
           weight: Measured::Weight.new(5, :pounds),
           properties: {
-            reference_numbers: { code: "ix", value: '334455'}
+            reference_numbers: { code: "ix", value: '334455' }
           }
         )
       )

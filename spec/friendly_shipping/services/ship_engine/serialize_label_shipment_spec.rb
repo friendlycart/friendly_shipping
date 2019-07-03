@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
@@ -5,7 +7,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(1, :ounce)) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Weight(0, :g), container: container) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: shipment_options) }
-  let(:shipment_options) { {label_format: 'zpl'} }
+  let(:shipment_options) { { label_format: 'zpl' } }
   subject { described_class.new(shipment: shipment).call }
 
   it do
@@ -75,9 +77,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   end
 
   context 'if requesting inline labels' do
-    let(:shipment_options) { {label_download_type: 'inline'} }
+    let(:shipment_options) { { label_download_type: 'inline' } }
 
-     it 'includes the label download type' do
+    it 'includes the label download type' do
       is_expected.to match(
         hash_including(
           label_download_type: 'inline'
@@ -145,7 +147,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   end
 
   context 'if passing a carrier id' do
-    let(:shipment_options) { {carrier_id: 'se-12345'} }
+    let(:shipment_options) { { carrier_id: 'se-12345' } }
 
     it 'includes the carrier ID' do
       is_expected.to match(
@@ -155,10 +157,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
       )
     end
   end
-  
+
   context 'if weight is between 15.9 and 16 oz' do
     let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(15.95, :ounce)) }
-    
+
     # Max weight for USPS First Class is 15.9 oz, not 16 oz
     it 'returns weight as 15.9 oz' do
       is_expected.to match(

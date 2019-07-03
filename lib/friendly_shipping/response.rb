@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   class Response
     attr_reader :status, :body, :headers

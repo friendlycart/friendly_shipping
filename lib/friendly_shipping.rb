@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "physical"
 
 require "friendly_shipping/version"

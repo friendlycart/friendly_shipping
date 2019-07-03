@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module FriendlyShipping
@@ -16,7 +18,7 @@ module FriendlyShipping
       parsed_body = JSON.parse(response.body)
       messages = parsed_body.fetch('errors')&.map { |e| e.fetch('message') }
       messages&.join(', ')
-    rescue JSON::ParserError, KeyError => _error
+    rescue JSON::ParserError, KeyError => _e
       nil
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   module Services
     class Ups
@@ -80,11 +82,11 @@ module FriendlyShipping
         ['PR', 'international', 'UPS Worldwide Express Plus', '54'],
         ['PR', 'international', 'UPS Worldwide Saver', '65'],
         ['DE', 'domestic', 'UPS Express 12:00 German domestic shipments', '74'],
-        ['OTHER', 'domestic','UPS Express', '07'],
-        ['OTHER', 'domestic','UPS Standard', '11'],
-        ['OTHER', 'international','UPS Worldwide Expedited', '08'],
-        ['OTHER', 'international','UPS Worldwide Express Plus', '54'],
-        ['OTHER', 'international','UPS Worldwide Saver', '65'],
+        ['OTHER', 'domestic', 'UPS Express', '07'],
+        ['OTHER', 'domestic', 'UPS Standard', '11'],
+        ['OTHER', 'international', 'UPS Worldwide Expedited', '08'],
+        ['OTHER', 'international', 'UPS Worldwide Express Plus', '54'],
+        ['OTHER', 'international', 'UPS Worldwide Saver', '65'],
         ['ALL', 'international', 'UPS Worldwide Express Freight', '96'],
         ['ALL', 'international', 'UPS Worldwide Express Freight Midday', '71']
       ].map do |origin_country_code, dom_or_intl, name, code|

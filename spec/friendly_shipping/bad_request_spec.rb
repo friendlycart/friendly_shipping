@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::BadRequest do
@@ -16,7 +18,7 @@ RSpec.describe FriendlyShipping::BadRequest do
     end
 
     context 'if the response body does not have the expect errors array' do
-      let(:response_body) { {errors: nil}.to_json }
+      let(:response_body) { { errors: nil }.to_json }
 
       it { is_expected.to eq("400 Bad Request") }
     end
