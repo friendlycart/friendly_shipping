@@ -32,5 +32,5 @@ end
 
 def gem_root
   spec = Gem::Specification.find_by_name("friendly_shipping")
-  gem_root = spec.gem_dir
+  spec.gem_dir
 end

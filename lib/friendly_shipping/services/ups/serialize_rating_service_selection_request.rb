@@ -30,7 +30,9 @@ module FriendlyShipping
         def self.call(shipment:)
           shipper = shipment.options[:shipper] || shipment.origin
           pickup_type = PICKUP_CODES[shipment.options[:pickup_type] || :daily_pickup]
-          customer_classification = CUSTOMER_CLASSIFICATIONS[shipment.options[:customer_classification] || :daily_rates]
+          customer_classification = CUSTOMER_CLASSIFICATIONS[
+            shipment.options[:customer_classification] || :daily_rates
+          ]
           origin_account = shipment.options[:origin_account]
           destination_account = shipment.options[:destination_account]
 

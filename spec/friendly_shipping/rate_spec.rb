@@ -28,7 +28,7 @@ RSpec.describe FriendlyShipping::Rate do
       let(:amounts) { [] }
 
       it 'raises an exception' do
-        expect { subject }.to raise_exception { FriendlyShipping::Rate::NoAmountsGiven }
+        expect { subject }.to raise_exception(FriendlyShipping::Rate::NoAmountsGiven)
       end
     end
 

@@ -9,16 +9,18 @@ module FriendlyShipping
         def self.call(request:, response:, shipment:)
           parsing_result = ParseXMLResponse.call(response.body, 'RatingServiceSelectionResponse')
           parsing_result.fmap do |xml|
-            rate_estimates = xml.root.css('> RatedShipment').map do |rated_shipment|
+            xml.root.css('> RatedShipment').map do |rated_shipment|
               service_code = rated_shipment.at('Service/Code').text
-              shipping_method = CARRIER.shipping_methods.detect do |shipping_method|
-                shipping_method.service_code == service_code && shipment.origin.country.in?(shipping_method.origin_countries)
+              shipping_method = CARRIER.shipping_methods.detect do |sm|
+                sm.service_code == service_code && shipment.origin.country.in?(sm.origin_countries)
               end
               days_to_delivery = rated_shipment.at('GuaranteedDaysToDelivery').text.to_i
               currency = Money::Currency.new(rated_shipment.at('TotalCharges/CurrencyCode').text)
               total_cents = rated_shipment.at('TotalCharges/MonetaryValue').text.to_d * currency.subunit_to_unit
               insurance_price = rated_shipment.at('ServiceOptionsCharges/MonetaryValue').text.to_f
-              negotiated_rate = rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal/MonetaryValue')&.text.to_f
+              negotiated_rate = rated_shipment.at(
+                'NegotiatedRates/NetSummaryCharges/GrandTotal/MonetaryValue'
+              )&.text.to_f
 
               FriendlyShipping::Rate.new(
                 shipping_method: shipping_method,

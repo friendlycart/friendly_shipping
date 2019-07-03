@@ -12,7 +12,10 @@ module FriendlyShipping
 
         def countries_by_code(code)
           all_countries = Carmen::Country.all
-          other_countries = Carmen::Country.all - (EU_COUNTRIES + %w(US PR CA PL MX).map { |country_code| Carmen::Country.coded(country_code) })
+          covered_countries = EU_COUNTRIES + %w(US PR CA PL MX).map do |country_code|
+            Carmen::Country.coded(country_code)
+          end
+          other_countries = Carmen::Country.all - covered_countries
           case code
           when 'EU' then EU_COUNTRIES
           when 'OTHER' then other_countries
