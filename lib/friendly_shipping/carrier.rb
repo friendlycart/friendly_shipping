@@ -10,5 +10,9 @@ module FriendlyShipping
       @balance = balance
       @data = data
     end
+
+    def ==(other)
+      id == other.id
+    end
   end
 end
