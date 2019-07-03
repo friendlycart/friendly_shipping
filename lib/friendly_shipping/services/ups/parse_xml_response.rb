@@ -5,6 +5,7 @@ module FriendlyShipping
     class Ups
       class ParseXMLResponse
         extend Dry::Monads::Result::Mixin
+        SUCCESSFUL_RESPONSE_STATUS_CODE = '1'
 
         class << self
           def call(response_body, expected_root_tag)
@@ -24,7 +25,7 @@ module FriendlyShipping
           private
 
           def request_successful?(xml)
-            xml.root.at('Response/ResponseStatusCode').text == '1'
+            xml.root.at('Response/ResponseStatusCode').text == SUCCESSFUL_RESPONSE_STATUS_CODE
           end
 
           def error_message(xml)
