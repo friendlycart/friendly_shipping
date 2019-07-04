@@ -92,7 +92,7 @@ module FriendlyShipping
         ['OTHER', 'international', 'UPS Worldwide Saver', '65'],
         ['ALL', 'international', 'UPS Worldwide Express Freight', '96'],
         ['ALL', 'international', 'UPS Worldwide Express Freight Midday', '71']
-      ].map do |origin_country_code, dom_or_intl, name, code|
+      ].freeze.map do |origin_country_code, dom_or_intl, name, code|
         FriendlyShipping::ShippingMethod.new(
           name: name,
           service_code: code,
@@ -100,7 +100,7 @@ module FriendlyShipping
           international: dom_or_intl == 'international',
           origin_countries: countries_by_code(origin_country_code),
           multi_package: true
-        )
+        ).freeze
       end
     end
   end
