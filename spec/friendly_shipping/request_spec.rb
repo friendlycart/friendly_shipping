@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Request do
   let(:url) { 'https://www.example.com/labels' }
   let(:body) { "Hello!" }
-  let(:headers) { { "X-Header" => "Nice"} }
+  let(:headers) { { "X-Header" => "Nice" } }
 
   subject { described_class.new(url: url, body: body, headers: headers) }
 

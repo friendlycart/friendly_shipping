@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Response do
   let(:status) { 200 }
   let(:body) { "Hello!" }
-  let(:headers) { { "X-Header" => "Nice"} }
+  let(:headers) { { "X-Header" => "Nice" } }
 
   subject { described_class.new(status: status, body: body, headers: headers) }
 

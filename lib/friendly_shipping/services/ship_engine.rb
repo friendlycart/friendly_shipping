@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'dry/monads/result'
 require 'friendly_shipping/services/ship_engine/client'
@@ -15,7 +16,7 @@ module FriendlyShipping
       API_PATHS = {
         carriers: "carriers",
         labels: "labels"
-      }
+      }.freeze
 
       def initialize(token:, test: true, client: Client)
         @token = token
@@ -36,11 +37,11 @@ module FriendlyShipping
       def rate_estimates(shipment, carriers)
         request = FriendlyShipping::Request.new(
           url: API_BASE + 'rates/estimate',
-          body: SerializeRateEstimateRequest.(shipment: shipment, carriers: carriers).to_json,
+          body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: carriers).to_json,
           headers: request_headers
         )
         client.post(request).fmap do |response|
-          ParseRateEstimateResponse.(response: response, request: request, carriers: carriers)
+          ParseRateEstimateResponse.call(response: response, request: request, carriers: carriers)
         end
       end
 
@@ -51,7 +52,7 @@ module FriendlyShipping
           headers: request_headers
         )
         client.post(request).fmap do |response|
-          ParseLabelResponse.(request: request, response: response)
+          ParseLabelResponse.call(request: request, response: response)
         end
       end
 

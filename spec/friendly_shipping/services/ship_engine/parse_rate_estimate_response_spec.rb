@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimateResponse do
@@ -21,7 +23,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimateResponse
     expect(carrier).to eq(carriers.first)
     expect(rate.amounts.keys).to contain_exactly(:confirmation, :insurance, :other, :shipping)
     expect(rate.total_amount).to eq(Money.new(535, 'USD'))
-    expect(rate.delivery_date).to eq(Time.new(2019, 06, 07, 00, 00, 00, "+00:00"))
+    expect(rate.delivery_date).to eq(Time.new(2019, 6, 7, 0, 0, 0, "+00:00"))
     expect(rate.warnings).to eq([])
     expect(rate.errors).to eq([])
     expect(rate.original_request).to eq(request)

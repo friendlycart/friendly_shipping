@@ -19,7 +19,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseXMLResponse do
     end.to_xml
   end
 
-  subject(:parser) { described_class.(response, 'SomeTag') }
+  subject(:parser) { described_class.call(response, 'SomeTag') }
 
   it { is_expected.to be_failure }
 

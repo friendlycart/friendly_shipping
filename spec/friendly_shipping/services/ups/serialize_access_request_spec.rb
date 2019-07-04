@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Ups::SerializeAccessRequest do
-  subject { Nokogiri::XML(described_class.(key: 'SECRETKEY', login: 'SECRETLOGIN', password: 'S3Cr3T')) }
+  subject { Nokogiri::XML(described_class.call(key: 'SECRETKEY', login: 'SECRETLOGIN', password: 'S3Cr3T')) }
 
   it 'has the right data in the right places' do
     expect(subject.at_xpath('//AccessRequest')).to be_present

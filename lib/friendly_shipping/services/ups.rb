@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dry/monads/result'
 require 'friendly_shipping/services/ups/client'
 require 'friendly_shipping/services/ups/serialize_access_request'
@@ -24,7 +26,7 @@ module FriendlyShipping
 
       RESOURCES = {
         rates: '/ups.app/xml/Rate'
-      }
+      }.freeze
 
       def initialize(key:, login:, password:, test: true, client: Client)
         @key = key
@@ -38,8 +40,8 @@ module FriendlyShipping
         Success([CARRIER])
       end
 
-      def rate_estimates(shipment, carriers)
-        rate_request_xml = SerializeRatingServiceSelectionRequest.(shipment: shipment)
+      def rate_estimates(shipment, _carriers)
+        rate_request_xml = SerializeRatingServiceSelectionRequest.call(shipment: shipment)
         url = base_url + RESOURCES[:rates]
         request = FriendlyShipping::Request.new(
           url: url,
@@ -47,14 +49,14 @@ module FriendlyShipping
         )
 
         client.post(request).bind do |response|
-          ParseRateResponse.(response: response, request: request, shipment: shipment)
+          ParseRateResponse.call(response: response, request: request, shipment: shipment)
         end
       end
 
       private
 
       def access_request_xml
-        SerializeAccessRequest.(key: key, login: login, password: password)
+        SerializeAccessRequest.call(key: key, login: login, password: password)
       end
 
       def base_url

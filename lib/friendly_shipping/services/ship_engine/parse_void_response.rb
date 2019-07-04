@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'friendly_shipping/bad_request'
 
 module FriendlyShipping

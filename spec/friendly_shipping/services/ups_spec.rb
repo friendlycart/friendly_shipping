@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Ups do
@@ -42,7 +44,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
 
-    context 'if the origin has a wrong zipcode' , vcr: { cassette_name: 'ups/rate_estimates/failure' }do
+    context 'if the origin has a wrong zipcode', vcr: { cassette_name: 'ups/rate_estimates/failure' } do
       let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
 
       it 'returns a Failure with the correct error message' do

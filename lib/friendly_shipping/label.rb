@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   class Label
     attr_reader :id,
@@ -13,18 +15,18 @@ module FriendlyShipping
                 :original_response
 
     def initialize(
-        id: nil,
-        shipment_id: nil,
-        tracking_number: nil,
-        service_code: nil,
-        label_href: nil,
-        label_format: nil,
-        label_data: nil,
-        shipment_cost: nil,
-        data: {},
-        original_request: nil,
-        original_response: nil
-      )
+      id: nil,
+      shipment_id: nil,
+      tracking_number: nil,
+      service_code: nil,
+      label_href: nil,
+      label_format: nil,
+      label_data: nil,
+      shipment_cost: nil,
+      data: {},
+      original_request: nil,
+      original_response: nil
+    )
       @id = id
       @shipment_id = shipment_id
       @tracking_number = tracking_number

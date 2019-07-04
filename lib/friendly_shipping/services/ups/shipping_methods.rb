@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FriendlyShipping
   module Services
     class Ups
@@ -10,7 +12,10 @@ module FriendlyShipping
 
         def countries_by_code(code)
           all_countries = Carmen::Country.all
-          other_countries = Carmen::Country.all - (EU_COUNTRIES + %w(US PR CA PL MX).map { |country_code| Carmen::Country.coded(country_code) })
+          covered_countries = EU_COUNTRIES + %w(US PR CA PL MX).map do |country_code|
+            Carmen::Country.coded(country_code)
+          end
+          other_countries = Carmen::Country.all - covered_countries
           case code
           when 'EU' then EU_COUNTRIES
           when 'OTHER' then other_countries
@@ -80,14 +85,14 @@ module FriendlyShipping
         ['PR', 'international', 'UPS Worldwide Express Plus', '54'],
         ['PR', 'international', 'UPS Worldwide Saver', '65'],
         ['DE', 'domestic', 'UPS Express 12:00 German domestic shipments', '74'],
-        ['OTHER', 'domestic','UPS Express', '07'],
-        ['OTHER', 'domestic','UPS Standard', '11'],
-        ['OTHER', 'international','UPS Worldwide Expedited', '08'],
-        ['OTHER', 'international','UPS Worldwide Express Plus', '54'],
-        ['OTHER', 'international','UPS Worldwide Saver', '65'],
+        ['OTHER', 'domestic', 'UPS Express', '07'],
+        ['OTHER', 'domestic', 'UPS Standard', '11'],
+        ['OTHER', 'international', 'UPS Worldwide Expedited', '08'],
+        ['OTHER', 'international', 'UPS Worldwide Express Plus', '54'],
+        ['OTHER', 'international', 'UPS Worldwide Saver', '65'],
         ['ALL', 'international', 'UPS Worldwide Express Freight', '96'],
         ['ALL', 'international', 'UPS Worldwide Express Freight Midday', '71']
-      ].map do |origin_country_code, dom_or_intl, name, code|
+      ].freeze.map do |origin_country_code, dom_or_intl, name, code|
         FriendlyShipping::ShippingMethod.new(
           name: name,
           service_code: code,
@@ -95,7 +100,7 @@ module FriendlyShipping
           international: dom_or_intl == 'international',
           origin_countries: countries_by_code(origin_country_code),
           multi_package: true
-        )
+        ).freeze
       end
     end
   end

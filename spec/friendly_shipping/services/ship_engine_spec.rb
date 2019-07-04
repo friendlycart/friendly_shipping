@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine do
@@ -106,7 +108,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
-    context 'with a shipment specifying a large flat rate box',  vcr: { cassette_name: 'shipengine/labels/flat_rate_box_success' } do
+    context 'with a shipment specifying a large flat rate box', vcr: { cassette_name: 'shipengine/labels/flat_rate_box_success' } do
       let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "large_flat_rate_box" }) }
       let(:package) { FactoryBot.build(:physical_package, container: container) }
 
@@ -132,7 +134,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
-    context 'with a shipment specifying a reference numbers',  vcr: { cassette_name: 'shipengine/labels/reference_number_success' } do
+    context 'with a shipment specifying a reference numbers', vcr: { cassette_name: 'shipengine/labels/reference_number_success' } do
       let(:shipment) do
         FactoryBot.build(
           :physical_shipment,
@@ -181,7 +183,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
-    context 'with a shipment specifying an invalid package code',  vcr: { cassette_name: 'shipengine/labels/invalid_box_failure' } do
+    context 'with a shipment specifying an invalid package code', vcr: { cassette_name: 'shipengine/labels/invalid_box_failure' } do
       let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "not_a_usps_package_code" }) }
       let(:package) { FactoryBot.build(:physical_package, container: container) }
 

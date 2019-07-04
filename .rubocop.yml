@@ -1,0 +1,8 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+inherit_from:
+- .rubocop-relaxed.yml
+
+Metrics/BlockLength:
+  Enabled: false

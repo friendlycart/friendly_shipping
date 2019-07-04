@@ -17,7 +17,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
     expect(rates).to be_a(Array)
     expect(rates.length).to eq(6)
     expect(rates.map(&:total_amount)).to contain_exactly(*[
-      1551, 2204, 2873, 7641, 8273, 11513
+      1551, 2204, 2873, 7641, 8273, 11_513
     ].map { |cents| Money.new(cents, 'USD') })
     expect(rates.map(&:shipping_method).map(&:name)).to contain_exactly(
       "UPS Ground",
