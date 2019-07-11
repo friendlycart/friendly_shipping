@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequest do
   let(:container) { FactoryBot.build(:physical_box, weight: Measured::Weight(0, :g)) }
   let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(1, :ounce)) }
-  let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Weight(0, :g), container: container) }
+  let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Density(0, :g_ml), container: container) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
   let(:carrier) { FriendlyShipping::Carrier.new(id: 'se-123456') }
   subject { described_class.call(shipment: shipment, carriers: [carrier]) }
