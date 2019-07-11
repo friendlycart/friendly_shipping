@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:container) { FactoryBot.build(:physical_box, weight: Measured::Weight(0, :g)) }
   let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(1, :ounce)) }
-  let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Weight(0, :g), container: container) }
+  let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Density(0, :g_ml), container: container) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: shipment_options) }
   let(:shipment_options) { { label_format: 'zpl' } }
   subject { described_class.new(shipment: shipment).call }
@@ -49,9 +49,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
               ),
               dimensions: hash_including(
                 unit: "inch",
-                length: 15.75,
-                width: 19.69,
-                height: 23.62,
+                length: 7.87,
+                width: 5.91,
+                height: 11.81,
               )
             )
           )
