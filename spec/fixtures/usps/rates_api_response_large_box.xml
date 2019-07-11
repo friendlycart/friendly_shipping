@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RateV4Response>
+  <Package ID="0">
+    <ZipOrigination>27703</ZipOrigination>
+    <ZipDestination>00901</ZipDestination>
+    <Pounds>0</Pounds>
+    <Ounces>12</Ounces>
+    <Container>LG FLAT RATE BOX</Container>
+    <Size>REGULAR</Size>
+    <Zone>7</Zone>
+    <Postage CLASSID="22">
+      <MailService>Priority Mail 3-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Large Flat Rate Box</MailService>
+      <Rate>19.95</Rate>
+      <CommercialRate>17.60</CommercialRate>
+    </Postage>
+  </Package>
+</RateV4Response>

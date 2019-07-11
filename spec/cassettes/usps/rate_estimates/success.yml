@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
+    body:
+      encoding: UTF-8
+      string: API=RateV4&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CRateV4Request+USERID%3D%22<USPS_LOGIN>%22%3E%0A++%3CPackage+ID%3D%220%22%3E%0A++++%3CService%3EALL%3C%2FService%3E%0A++++%3CZipOrigination%3E27703%3C%2FZipOrigination%3E%0A++++%3CZipDestination%3E32821%3C%2FZipDestination%3E%0A++++%3CPounds%3E0.24331917443849418%3C%2FPounds%3E%0A++++%3COunces%3E3.893106791015907%3C%2FOunces%3E%0A++++%3CContainer%2F%3E%0A++++%3CSize%3EREGULAR%3C%2FSize%3E%0A++++%3CWidth%3E4.00%3C%2FWidth%3E%0A++++%3CLength%3E8.00%3C%2FLength%3E%0A++++%3CHeight%3E2.00%3C%2FHeight%3E%0A++++%3CGirth%3E24.00%3C%2FGirth%3E%0A++++%3CMachinable%3ETRUE%3C%2FMachinable%3E%0A++%3C%2FPackage%3E%0A%3C%2FRateV4Request%3E%0A
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Length:
+      - '690'
+      Host:
+      - stg-secure.shippingapis.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 09 Jul 2019 13:04:15 GMT
+      X-Global-Transaction-Id:
+      - '018fb36a5d2490cf2c064487'
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Ntcoent-Length:
+      - '3554'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '617'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA8WXXW+bMBSG7/crLCbtLuYzfCgOVZePblKioqTZpN654GVWCSBDsna/fjZJ1Sii6CQd2xXm2Dp+zmv7NZCrp02KdkyUPM+GmokNDbEszhOerYfa6m7a87Wr8ANZ0Ip9cxasLPKsZCGJaPxI1wx9HQ81QwvJPS9uBV/zjFYyUWh5nmET/SSqRo1ZWb2825ZvmfWo4yiJ8m2WlKGBLce2zcD0iH4IkdttFrMytLEf2KbhegHRDyGy5L9ZuJjcrGbXC6LXb2RO458y7UPKwrvFakL0owC5zzMWOnJ69ZSTlpUqaDS7Xi5VVbasak55umRix2MWRoLnglfPSAXR5KkQrCyR2RvT5090UwzSalBui7q5rgb186Pv+Na+KXv1o25F8pq6Vje0XOwYRK/bquKapwHM6hIMfcnTBE1zgSIeP26L94CanUqIpimtkIJAk2zH0rxgjbB93Aep6v1jWJDSQHhbHcHu4GdsTVO43h4I2fwvyEDVQSW43Z7EiCYJk6ww2V1sgZi7PZNvMgN9BVRD+86xLkNvAvKw34dYR/s+uBAIzaiQs7xK+Tl/aoI0AxxAKM12g7uUcs4Svt0AMB1sgzDdTjBhp8iDMTpONwt+hs162AVtzaAT0rOsyccG6ELwO0G94T8qNKICSgvdAu037qW033mW5L/+Luop6ZSLsuqNUip9/uUz/tCHemjBKjn2fPQmQAc78gP9XYAq/iaM6TnNMu6ts/W+xAZEu1MzUm5H90scURGztDm3B8l96scz/iCoOGygtuyu/Gc6za4fVlK2VNfRr9ofXJprpOINAAA=
+    http_version: 
+  recorded_at: Tue, 09 Jul 2019 13:04:15 GMT
+recorded_with: VCR 5.0.0

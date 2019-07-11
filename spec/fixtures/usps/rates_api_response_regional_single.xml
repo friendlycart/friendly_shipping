@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RateV4Response>
+  <Package ID="0">
+    <ZipOrigination>27703</ZipOrigination>
+    <ZipDestination>45342</ZipDestination>
+    <Pounds>0</Pounds>
+    <Ounces>12</Ounces>
+    <Container>REGIONALRATEBOXB</Container>
+    <Size>REGULAR</Size>
+    <Zone>4</Zone>
+    <Postage CLASSID="49">
+      <MailService>Priority Mail 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Regional Rate Box B</MailService>
+      <Rate>0.00</Rate>
+      <CommercialRate>9.40</CommercialRate>
+    </Postage>
+  </Package>
+</RateV4Response>

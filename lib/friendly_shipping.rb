@@ -12,6 +12,7 @@ require "friendly_shipping/rate"
 
 require "friendly_shipping/services/ship_engine"
 require "friendly_shipping/services/ups"
+require "friendly_shipping/services/usps"
 
 module FriendlyShipping
 end
