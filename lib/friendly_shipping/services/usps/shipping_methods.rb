@@ -38,7 +38,7 @@ module FriendlyShipping
         'Retail Ground',
         'Media Mail',
         'Library Mail',
-      ].freeze.map do |shipping_method_name|
+      ].map do |shipping_method_name|
         FriendlyShipping::ShippingMethod.new(
           origin_countries: [Carmen::Country.coded('US')],
           name: shipping_method_name,

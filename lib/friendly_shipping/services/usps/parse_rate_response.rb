@@ -8,6 +8,8 @@ module FriendlyShipping
   module Services
     class Usps
       class ParseRateResponse
+        class BoxNotFoundError < StandardError; end
+
         class << self
           # Parse a response from USPS' rating API
           #
@@ -59,6 +61,11 @@ module FriendlyShipping
             xml.xpath(PACKAGE_NODE_XPATH).each_with_object({}) do |package_node, result|
               package_id = package_node['ID']
               corresponding_package = shipment.packages.detect { |p| p.id == package_id }
+
+              # There should always be a package in the original shipment that corresponds to the package ID
+              # in the USPS response.
+              raise BoxNotFoundError if corresponding_package.nil?
+
               result[corresponding_package] = package_node.xpath(SERVICE_NODE_NAME).map do |service_node|
                 ParseRate.call(service_node, corresponding_package)
               end
