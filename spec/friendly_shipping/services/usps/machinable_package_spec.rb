@@ -18,6 +18,18 @@ RSpec.describe FriendlyShipping::Services::Usps::MachinablePackage do
       it { is_expected.to_not be_machinable }
     end
 
+    context 'with only one dimension too large' do
+      let(:dimensions) { [16, 16, 30].map { |e| Measured::Length(e, :inches) } }
+
+      it { is_expected.not_to be_machinable }
+    end
+
+    context 'with one dimension too small' do
+      let(:dimensions) { [5, 3, 0.25].map { |e| Measured::Length(e, :inches) } }
+
+      it { is_expected.to_not be_machinable }
+    end
+
     context 'with overweight package' do
       let(:weight) { Measured::Weight(50, :pounds) }
 
