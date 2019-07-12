@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::Usps::ParseRate do
+RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
   let(:package) { FactoryBot.build(:physical_package) }
   let(:mail_service) { "Priority Mail Express 1-Day&lt;sup&gt;&#8482;&lt;/sup&gt;" }
   let(:rate) { "26.40" }

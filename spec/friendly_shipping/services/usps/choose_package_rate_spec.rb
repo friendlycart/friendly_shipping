@@ -14,7 +14,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ChoosePackageRate do
   let(:properties) { {} }
   let(:xml) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response.xml')).read }
   let(:rate_nodes) { Nokogiri::XML(xml).xpath('//Postage') }
-  let(:rates) { rate_nodes.map { |node| FriendlyShipping::Services::Usps::ParseRate.call(node, package) } }
+  let(:rates) { rate_nodes.map { |node| FriendlyShipping::Services::Usps::ParsePackageRate.call(node, package) } }
 
   subject { described_class.call(shipping_method, package, rates) }
 

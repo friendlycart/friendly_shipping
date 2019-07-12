@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/usps/parse_xml_response'
-require 'friendly_shipping/services/usps/parse_rate'
+require 'friendly_shipping/services/usps/parse_package_rate'
 require 'friendly_shipping/services/usps/choose_package_rate'
 
 module FriendlyShipping
@@ -67,7 +67,7 @@ module FriendlyShipping
               raise BoxNotFoundError if corresponding_package.nil?
 
               result[corresponding_package] = package_node.xpath(SERVICE_NODE_NAME).map do |service_node|
-                ParseRate.call(service_node, corresponding_package)
+                ParsePackageRate.call(service_node, corresponding_package)
               end
             end
           end

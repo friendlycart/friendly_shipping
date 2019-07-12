@@ -3,7 +3,7 @@
 module FriendlyShipping
   module Services
     class Usps
-      class ParseRate
+      class ParsePackageRate
         # USPS returns all the info about a rate in a long string with a bit of gibberish.
         ESCAPING_AND_SYMBOLS = /&lt;\S*&gt;/.freeze
 
