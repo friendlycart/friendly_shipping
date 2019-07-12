@@ -18,6 +18,7 @@ module FriendlyShipping
         MAX_LENGTH = Measured::Length(27, :inches)
         MAX_WIDTH = Measured::Length(17, :inches)
         MAX_HEIGHT = Measured::Length(17, :inches)
+
         MAX_WEIGHT = Measured::Weight(25, :pounds)
 
         # @param [Physical::Package]

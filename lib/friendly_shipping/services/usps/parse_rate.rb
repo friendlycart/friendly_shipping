@@ -108,7 +108,7 @@ module FriendlyShipping
             # constant above.
             box_name_match = service_name.match(/#{BOX_REGEX}/)
             box_name = if box_name_match
-                         box_name_match.named_captures.reject { |_k, v| v.nil? }.keys.last.to_sym
+                         box_name_match.named_captures.compact.keys.last.to_sym
                        end
 
             # Combine all the gathered information in a FriendlyShipping::Rate object.

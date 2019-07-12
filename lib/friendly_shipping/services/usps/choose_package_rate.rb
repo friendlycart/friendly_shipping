@@ -17,10 +17,10 @@ module FriendlyShipping
         #
         # @return [FriendlyShipping::Rate] The rate that most closely matches our package
         def self.call(shipping_method, package, rates)
-          # Remove all rates with the wrong shipping method
+          # Keep all rates with the requested shipping method
           rates_with_this_shipping_method = rates.select { |r| r.shipping_method == shipping_method }
 
-          # Remove all the rates with the wrong box type
+          # Keep only rates with the package type of this package
           rates_with_this_package_type = rates_with_this_shipping_method.select do |r|
             r.data[:box_name] == package.properties[:box_name] ||
               r.data[:box_name] == :flat_rate_boxes && package.properties[:box_name]&.match?(FLAT_RATE_BOX)
