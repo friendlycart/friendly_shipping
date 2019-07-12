@@ -9,8 +9,8 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   let(:container) { FactoryBot.build(:physical_box, dimensions: dimensions, weight: weight, properties: properties) }
   let(:package) { FactoryBot.build(:physical_package, container: container, items: [], void_fill_density: Measured::Weight(0, :g)) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
-  let(:service) { nil }
-  subject(:parser) { described_class.call(shipment: shipment, login: 'fake', service: service) }
+  let(:shipping_method) { nil }
+  subject(:parser) { described_class.call(shipment: shipment, login: 'fake', shipping_method: shipping_method) }
 
   let(:node) { Nokogiri::XML(subject).xpath('//RateV4Request/Package') }
 
@@ -52,20 +52,20 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   end
 
   context 'with priority shipping method' do
-    let(:service) do
+    let(:shipping_method) do
       FriendlyShipping::Services::Usps::SHIPPING_METHODS.detect do |shipping_method|
         shipping_method.name == 'Priority'
       end
     end
 
-    it 'uses correct service' do
+    it 'uses correct shipping_method' do
       expect(node.at_xpath('Service').text).to eq('PRIORITY')
     end
 
     context 'with commercial_pricing true' do
       let(:properties) { { commercial_pricing: true } }
 
-      it 'uses correct service' do
+      it 'uses correct shipping_method' do
         expect(node.at_xpath('Service').text).to eq('PRIORITY COMMERCIAL')
       end
     end

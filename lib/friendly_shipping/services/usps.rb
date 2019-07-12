@@ -45,12 +45,14 @@ module FriendlyShipping
       #      of FriendlyShipping::Services::Usps::CONTAINERS.
       #   @property [Boolean] commercial_pricing Whether we prefer commercial pricing results or retail results
       #   @property [Boolean] hold_for_pickup Whether we want a rate with Hold For Pickup Service
+      # @param [Physical::ShippingMethod] shipping_method The shipping method ("service" in USPS parlance) we want
+      #   to get rates for.
       #
       # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, _carriers)
-        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login)
+      def rate_estimates(shipment, _carriers, shipping_method: nil)
+        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: shipping_method)
         request = FriendlyShipping::Request.new(url: base_url, body: "API=#{RESOURCES[:rates]}&XML=#{CGI.escape rate_request_xml}")
 
         client.post(request).bind do |response|

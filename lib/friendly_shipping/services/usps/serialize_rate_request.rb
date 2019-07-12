@@ -16,12 +16,12 @@ module FriendlyShipping
           # @param [FriendlyShipping::ShippingMethod] service The shipping methods we want to get rates
           #   for. If empty, we get all of them
           # @return Array<[FriendlyShipping::Rate]> A set of Rates that this package may be sent with
-          def call(shipment:, login:, service: nil)
+          def call(shipment:, login:, shipping_method: nil)
             xml_builder = Nokogiri::XML::Builder.new do |xml|
               xml.RateV4Request('USERID' => login) do
                 shipment.packages.each do |package|
                   xml.Package('ID' => package.id) do
-                    xml.Service(service_code_by(service, package))
+                    xml.Service(service_code_by(shipping_method, package))
                     if package.properties[:first_class_mail_type]
                       xml.FirstClassMailType(FIRST_CLASS_MAIL_TYPES[package.properties[:first_class_mail_type]])
                     end
@@ -59,13 +59,13 @@ module FriendlyShipping
             end
           end
 
-          def service_code_by(service, package)
-            return 'ALL' unless service
+          def service_code_by(shipping_method, package)
+            return 'ALL' unless shipping_method
 
             if package.properties[:commercial_pricing]
-              "#{service.service_code} COMMERCIAL"
+              "#{shipping_method.service_code} COMMERCIAL"
             else
-              service.service_code
+              shipping_method.service_code
             end
           end
 
