@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
+    body:
+      encoding: UTF-8
+      string: API=RateV4&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CRateV4Request+USERID%3D%22WRONG_LOGIN%22%3E%0A++%3CPackage+ID%3D%220%22%3E%0A++++%3CService%3EALL%3C%2FService%3E%0A++++%3CZipOrigination%3E27703%3C%2FZipOrigination%3E%0A++++%3CZipDestination%3E32821%3C%2FZipDestination%3E%0A++++%3CPounds%3E2.9263499295634094%3C%2FPounds%3E%0A++++%3COunces%3E46.82159887301455%3C%2FOunces%3E%0A++++%3CContainer%2F%3E%0A++++%3CSize%3ELARGE%3C%2FSize%3E%0A++++%3CWidth%3E19.69%3C%2FWidth%3E%0A++++%3CLength%3E15.75%3C%2FLength%3E%0A++++%3CHeight%3E23.62%3C%2FHeight%3E%0A++++%3CGirth%3E86.61%3C%2FGirth%3E%0A++++%3CMachinable%3EFALSE%3C%2FMachinable%3E%0A++%3C%2FPackage%3E%0A%3C%2FRateV4Request%3E%0A
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Length:
+      - '690'
+      Host:
+      - stg-secure.shippingapis.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      Host:
+      - 127.0.0.1:2048
+      Content-Type:
+      - text/xml
+      Ns-Client-Ip:
+      - 2.207.1.192
+      Via:
+      - 1.1 ApplicationError_XML_Firewall
+      X-Client-Ip:
+      - 56.0.71.6,56.0.71.6
+      X-Global-Transaction-Id:
+      - 5a3857615d248b0917c6221f
+      Client-Ip:
+      - 2.207.1.192
+      X-Archived-Client-Ip:
+      - 56.0.71.6
+      Date:
+      - Tue, 09 Jul 2019 12:39:37 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Ntcoent-Length:
+      - '208'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '183'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA02Oyw6CMBBF937FpHtpSVwYM5bga6eSoB9QYZQm0pIpVePXK5GFy3sW51zMXu0dHsTBercUaaIEkKt8bd1tKc6n3XQuMj3BLbNnjYfYXoj1XKmZWqU5yhHghkLFtuu/Fp3HvvFs32ZYcDX2HpkSgIK4MV2AGIidaQmMq6Vn6EwIT8812AD222amqk9Q/jux9JEr0ueyKNfH/WKx8UMG5chR/h5+ALNayFDQAAAA
+    http_version: 
+  recorded_at: Tue, 09 Jul 2019 12:39:37 GMT
+recorded_with: VCR 5.0.0
