@@ -7,7 +7,7 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   let(:weight) { Measured::Weight.new(14.025, :ounces) }
   let(:properties) { {} }
   let(:container) { FactoryBot.build(:physical_box, dimensions: dimensions, weight: weight, properties: properties) }
-  let(:package) { FactoryBot.build(:physical_package, container: container, items: [], void_fill_density: Measured::Weight(0, :g)) }
+  let(:package) { FactoryBot.build(:physical_package, container: container, items: [], void_fill_density: Measured::Density(0, :g_ml)) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
   let(:shipping_method) { nil }
   subject(:parser) { described_class.call(shipment: shipment, login: 'fake', shipping_method: shipping_method) }
