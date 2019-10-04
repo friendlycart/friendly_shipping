@@ -40,7 +40,7 @@ module FriendlyShipping
         Success([CARRIER])
       end
 
-      def rate_estimates(shipment, _carriers)
+      def rate_estimates(shipment, _options = {})
         rate_request_xml = SerializeRatingServiceSelectionRequest.call(shipment: shipment)
         url = base_url + RESOURCES[:rates]
         request = FriendlyShipping::Request.new(

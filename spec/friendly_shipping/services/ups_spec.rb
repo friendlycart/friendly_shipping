@@ -32,9 +32,8 @@ RSpec.describe FriendlyShipping::Services::Ups do
     let(:destination) { FactoryBot.build(:physical_location, region: "FL", zip: '32821') }
     let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
-    let(:carriers) { service.carriers.value! }
 
-    subject { service.rate_estimates(shipment, carriers) }
+    subject { service.rate_estimates(shipment) }
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups/rate_estimates/success' } do
       aggregate_failures do

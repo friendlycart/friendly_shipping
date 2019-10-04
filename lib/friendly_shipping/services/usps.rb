@@ -51,8 +51,8 @@ module FriendlyShipping
       # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, _carriers, shipping_method: nil)
-        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: shipping_method)
+      def rate_estimates(shipment, options = {})
+        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: options[:shipping_method])
         request = FriendlyShipping::Request.new(url: base_url, body: "API=#{RESOURCES[:rates]}&XML=#{CGI.escape rate_request_xml}")
 
         client.post(request).bind do |response|
