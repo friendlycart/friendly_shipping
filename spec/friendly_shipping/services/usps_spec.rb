@@ -38,9 +38,8 @@ RSpec.describe FriendlyShipping::Services::Usps do
       ]
     end
     let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
-    let(:carriers) { service.carriers.value! }
 
-    subject { service.rate_estimates(shipment, carriers) }
+    subject { service.rate_estimates(shipment) }
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'usps/rate_estimates/success' } do
       aggregate_failures do

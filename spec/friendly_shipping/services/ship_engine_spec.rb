@@ -30,15 +30,29 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
     let(:destination) { FactoryBot.build(:physical_location, zip: '91521') }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
-    let(:carriers) { service.carriers.value! }
 
-    subject { service.rate_estimates(shipment, carriers) }
+    subject { service.rate_estimates(shipment) }
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
       aggregate_failures do
         is_expected.to be_success
         expect(subject.value!).to be_a(Array)
         expect(subject.value!.first).to be_a(FriendlyShipping::Rate)
+      end
+    end
+
+    context 'when specifying carriers' do
+      let(:carriers) { [service.carriers.value!.last] }
+
+      subject { service.rate_estimates(shipment, carriers: carriers) }
+
+      it 'returns Physical::Rate objects wrapped in a Success Monad',
+         vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!).to be_a(Array)
+          expect(subject.value!.first).to be_a(FriendlyShipping::Rate)
+        end
       end
     end
   end
