@@ -34,6 +34,16 @@ module FriendlyShipping
         end
       end
 
+      # Get rate estimates from USPS
+      #
+      # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
+      #
+      # @options[:carriers] [Physical::Carrier] The carriers we want to get rates from. What counts
+      # here is the carrier code, so by specifying them upfront you can save a request.
+      #
+      # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
+      #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
+      #   can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options = {})
         selected_carriers = options[:carriers] || carriers.value!
         request = FriendlyShipping::Request.new(

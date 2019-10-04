@@ -47,7 +47,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       subject { service.rate_estimates(shipment, carriers: carriers) }
 
       it 'returns Physical::Rate objects wrapped in a Success Monad',
-        vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
+         vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
         aggregate_failures do
           is_expected.to be_success
           expect(subject.value!).to be_a(Array)
