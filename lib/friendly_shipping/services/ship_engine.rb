@@ -34,14 +34,15 @@ module FriendlyShipping
         end
       end
 
-      def rate_estimates(shipment, carriers)
+      def rate_estimates(shipment, options = {})
+        selected_carriers = options[:carriers] || carriers.value!
         request = FriendlyShipping::Request.new(
           url: API_BASE + 'rates/estimate',
-          body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: carriers).to_json,
+          body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: selected_carriers).to_json,
           headers: request_headers
         )
         client.post(request).fmap do |response|
-          ParseRateEstimateResponse.call(response: response, request: request, carriers: carriers)
+          ParseRateEstimateResponse.call(response: response, request: request, carriers: selected_carriers)
         end
       end
 
