@@ -6,8 +6,9 @@ require 'friendly_shipping/services/ups/serialize_access_request'
 require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
-require 'friendly_shipping/services/ups/parse_rate_response'
 require 'friendly_shipping/services/ups/parse_address_validation_response'
+require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
+require 'friendly_shipping/services/ups/parse_rate_response'
 require 'friendly_shipping/services/ups/shipping_methods'
 
 module FriendlyShipping
