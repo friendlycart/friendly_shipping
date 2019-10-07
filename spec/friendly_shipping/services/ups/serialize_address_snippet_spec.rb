@@ -14,7 +14,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeAddressSnippet do
   end
 
   let(:location) do
-    FactoryBot.build(:physical_location, company_name: 'A very nice company', phone: "0998877665")
+    FactoryBot.build(:physical_location, company_name: 'A very nice company', phone: "0998877665", zip: '00001')
   end
 
   it 'adds a address to the context' do
@@ -25,7 +25,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeAddressSnippet do
     expect(subject.at_xpath('//ShipTo/Address/AddressLine1').text).to eq('11 Lovely Street')
     expect(subject.at_xpath('//ShipTo/Address/AddressLine2').text).to eq('South')
     expect(subject.at_xpath('//ShipTo/Address/City').text).to eq('Herndon')
-    expect(subject.at_xpath('//ShipTo/Address/PostalCode').text).to eq('10073')
+    expect(subject.at_xpath('//ShipTo/Address/PostalCode').text).to eq('00001')
     expect(subject.at_xpath('//ShipTo/Address/StateProvinceCode').text).to eq('IL')
     expect(subject.at_xpath('//ShipTo/Address/CountryCode').text).to eq('US')
     expect(subject.at_xpath('//ShipTo/Address/ResidentialAddressIndicator')).to be_present
