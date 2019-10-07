@@ -3,8 +3,10 @@
 require 'dry/monads/result'
 require 'friendly_shipping/services/ups/client'
 require 'friendly_shipping/services/ups/serialize_access_request'
+require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
 require 'friendly_shipping/services/ups/parse_rate_response'
+require 'friendly_shipping/services/ups/parse_address_validation_response'
 require 'friendly_shipping/services/ups/shipping_methods'
 
 module FriendlyShipping
@@ -25,7 +27,8 @@ module FriendlyShipping
       LIVE_URL = 'https://onlinetools.ups.com'
 
       RESOURCES = {
-        rates: '/ups.app/xml/Rate'
+        rates: '/ups.app/xml/Rate',
+        address_validation: '/ups.app/xml/XAV'
       }.freeze
 
       def initialize(key:, login:, password:, test: true, client: Client)
@@ -50,6 +53,24 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)
+        end
+      end
+
+      # Validate an address.
+      # @param [Physical::Location] location The address we want to verify
+      # @return [Result<Physical::Location>] The response data from UPS encoded in a `Physical::Location`
+      #   object. Name and Company name are always nil, the address lines will be made conformant to what UPS
+      #   considers right. The returned location will have the address_type set if possible.
+      def address_validation(location)
+        address_validation_request_xml = SerializeAddressValidationRequest.call(location: location)
+        url = base_url + RESOURCES[:address_validation]
+        request = FriendlyShipping::Request.new(
+          url: url,
+          body: access_request_xml + address_validation_request_xml
+        )
+
+        client.post(request).bind do |response|
+          ParseAddressValidationResponse.call(response: response, _request: request, _location: location)
         end
       end
 

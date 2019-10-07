@@ -54,4 +54,66 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
   end
+
+  describe 'address_validation' do
+    subject { service.address_validation(address) }
+
+    context 'with a valid address', vcr: { cassette_name: 'ups/address_validation/valid_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Dag Hammerskjöld",
+          company_name: "United Nations",
+          address1: "405 East 42nd Street",
+          city: "New York",
+          region: "NY",
+          zip: "10017"
+        )
+      end
+
+      it 'returns the address, upcased, in UPS standard form' do
+        expect(subject).to be_success
+        result_address = subject.value!
+        expect(result_address.address1).to eq('405 E 42ND ST')
+      end
+    end
+
+    context 'with an entirely invalid address', vcr: { cassette_name: 'ups/address_validation/invalid_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Wat Wetlands",
+          company_name: "Hogwarts School of Wizardry",
+          address1: "Platform nine and a half",
+          city: "New York",
+          region: "NY",
+          zip: "10017"
+        )
+      end
+
+      it 'returns a failure indicating the address could not be validated' do
+        expect(subject).to be_failure
+      end
+    end
+
+    context 'with a slightly invalid address', vcr: { cassette_name: 'ups/address_validation/correctable_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Dag Hammerskjöld",
+          company_name: "United Nations",
+          address1: "406 East 43nd Street",
+          city: "New York",
+          region: "NY",
+          zip: "27777"
+        )
+      end
+
+      it 'returns a corrected address' do
+        is_expected.to be_success
+        corrected_address = subject.value!
+        expect(corrected_address.zip).to eq('10036')
+      end
+    end
+  end
 end
