@@ -64,7 +64,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       it { is_expected.to be_success }
 
       it 'has correct data' do
-        result_data = subject.value!
+        result_data = subject.value!.suggestions.first
         expect(result_data.city).to eq('WAKE FOREST')
         expect(result_data.region.code).to eq('NC')
       end
@@ -99,7 +99,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
 
       it 'returns the address, upcased, in UPS standard form' do
         expect(subject).to be_success
-        result_address = subject.value!
+        result_address = subject.value!.suggestions.first
         expect(result_address.address1).to eq('405 E 42ND ST')
       end
     end
@@ -137,8 +137,33 @@ RSpec.describe FriendlyShipping::Services::Ups do
 
       it 'returns a corrected address' do
         is_expected.to be_success
-        corrected_address = subject.value!
-        expect(corrected_address.zip).to eq('10036')
+        corrected_address = subject.value!.suggestions.first
+        expect(corrected_address.zip).to eq('10036-6322')
+      end
+    end
+
+
+    context 'with an incomplete address', vcr: { cassette_name: 'ups/address_validation/incomplete_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Dag Hammerskjöld",
+          company_name: "United Nations",
+          address1: "East 43nd Street",
+          city: "New York",
+          region: "NY",
+          zip: "27777"
+        )
+      end
+
+      it 'returns several alternatives' do
+        is_expected.to be_success
+        suggested_addresses = subject.value!.suggestions
+        expect(suggested_addresses.length).to eq(15)
+        # All returned addresses need to have a first address line
+        expect(suggested_addresses.map(&:address1).compact.length).to eq(15)
+        # In this particular request, the last suggested address has a second address line.
+        expect(suggested_addresses.last.address2).to eq("APT 2A-2D")
       end
     end
   end

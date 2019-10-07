@@ -8,20 +8,20 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseAddressValidationResponse d
   let(:response) { double(body: response_body) }
   let(:location) { double }
 
-  subject { described_class.call(_request: request, response: response, _location: location) }
+  subject { described_class.call(request: request, response: response, location: location) }
 
   context 'with a successful request' do
     it { is_expected.to be_success }
 
     it 'returns the address with address type' do
-      address = subject.value!
+      address = subject.value!.suggestions.first
       expect(address).to be_a(Physical::Location)
       expect(address.address1).to eq('4025 ABBEY LN')
       expect(address.address2).to eq('STE 1')
       expect(address.city).to eq('ASTORIA')
       expect(address.region.name).to eq('Oregon')
       expect(address.country.name).to eq('United States')
-      expect(address.zip).to eq('97103')
+      expect(address.zip).to eq('97103-2236')
       expect(address.address_type).to eq('commercial')
     end
   end

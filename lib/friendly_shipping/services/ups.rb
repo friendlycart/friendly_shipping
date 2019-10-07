@@ -61,9 +61,10 @@ module FriendlyShipping
 
       # Validate an address.
       # @param [Physical::Location] location The address we want to verify
-      # @return [Result<Physical::Location>] The response data from UPS encoded in a `Physical::Location`
-      #   object. Name and Company name are always nil, the address lines will be made conformant to what UPS
-      #   considers right. The returned location will have the address_type set if possible.
+      # @return [Result<FriendlyShipping::AddressValidationResult>] The response data from UPS encoded in a
+      #   `FriendlyShipping::AddressValidationResult` object. Name and Company name are always nil, the
+      #   address lines will be made conformant to what UPS considers right. The returned location will
+      #   have the address_type set if possible.
       def address_validation(location)
         address_validation_request_xml = SerializeAddressValidationRequest.call(location: location)
         url = base_url + RESOURCES[:address_validation]
@@ -73,14 +74,15 @@ module FriendlyShipping
         )
 
         client.post(request).bind do |response|
-          ParseAddressValidationResponse.call(response: response, _request: request, _location: location)
+          ParseAddressValidationResponse.call(response: response, request: request, location: location)
         end
       end
 
       # Find city and state for a given ZIP code
       # @param [Physical::Location] location A location object with country and ZIP code set
-      # @return [Result<Physical::Location>] The response data from UPS encoded in a `Physical::Location`
-      #   object. Country, City and ZIP code will be set, everything else nil.
+      # @return [Result<FriendlyShipping::AddressValidationResult>] The response data from UPS encoded in a
+      #   `FriendlyShipping::AddressValidationResult` object. Country, City and ZIP code will be set,
+      #   everything else nil.
       def city_state_lookup(location)
         city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location)
         url = base_url + RESOURCES[:city_state_lookup]
@@ -90,7 +92,7 @@ module FriendlyShipping
         )
 
         client.post(request).bind do |response|
-          ParseCityStateLookupResponse.call(response: response, _request: request, location: location)
+          ParseCityStateLookupResponse.call(response: response, request: request, location: location)
         end
       end
 

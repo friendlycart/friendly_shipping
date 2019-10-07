@@ -8,12 +8,12 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseCityStateLookupResponse do
   let(:response) { double(body: response_body) }
   let(:location) { Physical::Location.new(country: 'US') }
 
-  subject { described_class.call(response: response, _request: request, location: location) }
+  subject { described_class.call(response: response, request: request, location: location) }
 
   it { is_expected.to be_success }
 
   it 'has correct data' do
-    result_data = subject.value!
+    result_data = subject.value!.suggestions.first
     expect(result_data.city).to eq('WAKE FOREST')
     expect(result_data.region.code).to eq('NC')
   end

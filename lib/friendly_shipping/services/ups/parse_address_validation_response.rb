@@ -6,7 +6,7 @@ module FriendlyShipping
       class ParseAddressValidationResponse
         extend Dry::Monads::Result::Mixin
 
-        def self.call(_request:, response:, _location:)
+        def self.call(request:, response:, location:)
           parsing_result = ParseXMLResponse.call(response.body, 'AddressValidationResponse')
 
           parsing_result.bind do |xml|
@@ -14,17 +14,29 @@ module FriendlyShipping
               Failure('Address is probably invalid. No similar valid addresses found.')
             else
               Success(
-                Physical::Location.new(
-                  address1: xml.xpath('//AddressKeyFormat/AddressLine')[0]&.text,
-                  address2: xml.xpath('//AddressKeyFormat/AddressLine')[1]&.text,
-                  city: xml.at('AddressKeyFormat/PoliticalDivision2')&.text,
-                  region: xml.at('AddressKeyFormat/PoliticalDivision1')&.text,
-                  country: xml.at('AddressKeyFormat/CountryCode')&.text,
-                  zip: xml.at('AddressKeyFormat/PostcodePrimaryLow')&.text,
-                  address_type: xml.at('AddressClassification/Description')&.text&.downcase
+                FriendlyShipping::AddressValidationResult.new(
+                  suggestions: build_suggestions(xml),
+                  original_address: location,
+                  original_request: request,
+                  original_response: response
                 )
               )
             end
+          end
+        end
+
+        def self.build_suggestions(xml)
+          xml.xpath('//AddressKeyFormat').map do |address_fragment|
+            Physical::Location.new(
+              address1: address_fragment.xpath('AddressLine[1]')[0]&.text,
+              address2: address_fragment.xpath('AddressLine[2]')[0]&.text,
+              company_name: address_fragment.at('ConsigneeName')&.text,
+              city: address_fragment.at('PoliticalDivision2')&.text,
+              region: address_fragment.at('PoliticalDivision1')&.text,
+              country: address_fragment.at('CountryCode')&.text,
+              zip: "#{address_fragment.at('PostcodePrimaryLow')&.text}-#{address_fragment.at('PostcodeExtendedLow')&.text}",
+              address_type: address_fragment.at('AddressClassification/Description')&.text&.downcase
+            )
           end
         end
       end
