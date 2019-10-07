@@ -55,6 +55,32 @@ RSpec.describe FriendlyShipping::Services::Ups do
     end
   end
 
+  describe 'city_state_lookup' do
+    subject { service.city_state_lookup(location) }
+
+    context 'with a good ZIP code', vcr: { cassette_name: 'ups/city_state_lookup/success' } do
+      let(:location) { Physical::Location.new(zip: '27587', country: 'US') }
+
+      it { is_expected.to be_success }
+
+      it 'has correct data' do
+        result_data = subject.value!
+        expect(result_data.city).to eq('WAKE FOREST')
+        expect(result_data.region.code).to eq('NC')
+      end
+    end
+
+    context 'with a bad ZIP code', vcr: { cassette_name: 'ups/city_state_lookup/failure' } do
+      let(:location) { Physical::Location.new(zip: '00000', country: 'US') }
+
+      it { is_expected.to be_failure }
+
+      it 'has a nice error message' do
+        expect(subject.failure.to_s).to eq('Failure: The field, PostalCode, contains invalid data, 00000')
+      end
+    end
+  end
+
   describe 'address_validation' do
     subject { service.address_validation(address) }
 

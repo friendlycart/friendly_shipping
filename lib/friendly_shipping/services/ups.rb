@@ -29,8 +29,9 @@ module FriendlyShipping
       LIVE_URL = 'https://onlinetools.ups.com'
 
       RESOURCES = {
-        rates: '/ups.app/xml/Rate',
-        address_validation: '/ups.app/xml/XAV'
+        address_validation: '/ups.app/xml/XAV',
+        city_state_lookup: '/ups.app/xml/AV',
+        rates: '/ups.app/xml/Rate'
       }.freeze
 
       def initialize(key:, login:, password:, test: true, client: Client)
@@ -73,6 +74,23 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseAddressValidationResponse.call(response: response, _request: request, _location: location)
+        end
+      end
+
+      # Find city and state for a given ZIP code
+      # @param [Physical::Location] location A location object with country and ZIP code set
+      # @return [Result<Physical::Location>] The response data from UPS encoded in a `Physical::Location`
+      #   object. Country, City and ZIP code will be set, everything else nil.
+      def city_state_lookup(location)
+        city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location)
+        url = base_url + RESOURCES[:city_state_lookup]
+        request = FriendlyShipping::Request.new(
+          url: url,
+          body: access_request_xml + city_state_lookup_request_xml
+        )
+
+        client.post(request).bind do |response|
+          ParseCityStateLookupResponse.call(response: response, _request: request, location: location)
         end
       end
 
