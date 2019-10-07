@@ -3,6 +3,7 @@
 require 'dry/monads/result'
 require 'friendly_shipping/services/ups/client'
 require 'friendly_shipping/services/ups/serialize_access_request'
+require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
 require 'friendly_shipping/services/ups/parse_rate_response'
