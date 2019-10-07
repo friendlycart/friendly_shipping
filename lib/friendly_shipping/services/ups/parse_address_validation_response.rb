@@ -15,7 +15,8 @@ module FriendlyShipping
             else
               Success(
                 Physical::Location.new(
-                  address1: xml.at('AddressKeyFormat/AddressLine')&.text,
+                  address1: xml.xpath('//AddressKeyFormat/AddressLine')[0]&.text,
+                  address2: xml.xpath('//AddressKeyFormat/AddressLine')[1]&.text,
                   city: xml.at('AddressKeyFormat/PoliticalDivision2')&.text,
                   region: xml.at('AddressKeyFormat/PoliticalDivision1')&.text,
                   country: xml.at('AddressKeyFormat/CountryCode')&.text,

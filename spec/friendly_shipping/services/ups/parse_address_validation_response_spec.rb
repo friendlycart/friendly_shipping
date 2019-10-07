@@ -17,6 +17,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseAddressValidationResponse d
       address = subject.value!
       expect(address).to be_a(Physical::Location)
       expect(address.address1).to eq('4025 ABBEY LN')
+      expect(address.address2).to eq('STE 1')
       expect(address.city).to eq('ASTORIA')
       expect(address.region.name).to eq('Oregon')
       expect(address.country.name).to eq('United States')
