@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Ups::SerializeAddressValidationRequest do
-  let(:location) { FactoryBot.build(:physical_location, zip: 10123) }
+  let(:location) { FactoryBot.build(:physical_location, zip: '10123') }
 
   describe '#to_xml' do
     subject { Nokogiri::XML(described_class.call(location: location)) }
