@@ -6,6 +6,7 @@ require 'friendly_shipping/services/usps/serialize_address_validation_request'
 require 'friendly_shipping/services/usps/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/usps/serialize_rate_request'
 require 'friendly_shipping/services/usps/parse_address_validation_response'
+require 'friendly_shipping/services/usps/parse_city_state_lookup_response'
 require 'friendly_shipping/services/usps/parse_rate_response'
 
 module FriendlyShipping
