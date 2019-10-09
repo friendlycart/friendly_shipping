@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/ups.app/xml/AV
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber><UPS_KEY></AccessLicenseNumber>
+          <UserId><UPS_LOGIN></UserId>
+          <Password><UPS_PASSWORD></Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <AddressValidationRequest>
+          <Request>
+            <RequestAction>AV</RequestAction>
+          </Request>
+          <Address>
+            <PostalCode>81137</PostalCode>
+            <CountryCode>US</CountryCode>
+          </Address>
+        </AddressValidationRequest>
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Length:
+      - '432'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: '200'
+    headers:
+      Date:
+      - Tue, 08 Oct 2019 10:15:18 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, max-age=0, no-cache=Set-Cookie, Set-Cookie2
+      Pragma:
+      - no-cache
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Apihttpstatus:
+      - '200'
+      Content-Length:
+      - '2604'
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><AddressValidationResponse><Response><TransactionReference></TransactionReference><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><AddressValidationResult><Rank>1</Rank><Quality>0.9750</Quality><Address><City>IGNACIO</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>2</Rank><Quality>0.9750</Quality><Address><City>ALLISON</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>3</Rank><Quality>0.9750</Quality><Address><City>INDIAN
+        AGENCY</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>4</Rank><Quality>0.9750</Quality><Address><City>OXFORD</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>5</Rank><Quality>0.9750</Quality><Address><City>S
+        UTE INDIAN</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>6</Rank><Quality>0.9750</Quality><Address><City>SO
+        UTE INDIAN RES</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>7</Rank><Quality>0.9750</Quality><Address><City>SOUTH
+        UTE INDIAN RES</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>8</Rank><Quality>0.9750</Quality><Address><City>SOUTHERN
+        UTE INDIAN RESERVAT</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>9</Rank><Quality>0.9750</Quality><Address><City>TIFFANY</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult></AddressValidationResponse>
+    http_version: 
+  recorded_at: Tue, 08 Oct 2019 10:15:18 GMT
+recorded_with: VCR 5.0.0

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<AddressValidationResponse>
+  <Response>
+    <TransactionReference/>
+    <ResponseStatusCode>1</ResponseStatusCode>
+    <ResponseStatusDescription>Success</ResponseStatusDescription>
+  </Response>
+  <AddressValidationResult>
+    <Rank>1</Rank>
+    <Quality>1.0</Quality>
+    <Address>
+      <City>WAKE FOREST</City>
+      <StateProvinceCode>NC</StateProvinceCode>
+    </Address>
+    <PostalCodeLowEnd>27587</PostalCodeLowEnd>
+    <PostalCodeHighEnd>27587</PostalCodeHighEnd>
+  </AddressValidationResult>
+</AddressValidationResponse>
