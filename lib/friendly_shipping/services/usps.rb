@@ -26,6 +26,7 @@ module FriendlyShipping
 
       RESOURCES = {
         rates: 'RateV4',
+        address_validation: 'Verify'
       }.freeze
 
       def initialize(login:, test: true, client: Client)
@@ -59,6 +60,24 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)
+        end
+      end
+
+      # Validate an address.
+      # @param [Physical::Location] location The address we want to verify
+      # @return [Result<FriendlyShipping::AddressValidationResult>] The response data from UPS encoded in a
+      #   `FriendlyShipping::AddressValidationResult` object. Name and Company name are always nil, the
+      #   address lines will be made conformant to what UPS considers right. The returned location will
+      #   have the address_type set if possible.
+      def address_validation(location)
+        address_validation_request_xml = SerializeAddressValidationRequest.call(location: location, login: login)
+        request = FriendlyShipping::Request.new(
+          url: base_url,
+          body: "API=#{RESOURCES[:address_validation]}&XML=#{CGI.escape address_validation_request_xml}"
+        )
+
+        client.post(request).bind do |response|
+          ParseAddressValidationResponse.call(response: response, request: request, location: location)
         end
       end
 
