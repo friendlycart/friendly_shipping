@@ -86,8 +86,8 @@ module FriendlyShipping
 
       # Find city and state for a given ZIP code
       # @param [Physical::Location] location A location object with country and ZIP code set
-      # @return [Result<FriendlyShipping::AddressValidationResult>] The response data from UPS encoded in a
-      #   `FriendlyShipping::AddressValidationResult` object. Country, City and ZIP code will be set,
+      # @return [Result<FriendlyShipping::ZipCodeLookupResult>] The response data from UPS encoded in a
+      #   `FriendlyShipping::ZipCodeLookupResult` object. Country, City and ZIP code will be set,
       #   everything else nil.
       def zip_code_lookup(location)
         zip_code_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location, login: login)

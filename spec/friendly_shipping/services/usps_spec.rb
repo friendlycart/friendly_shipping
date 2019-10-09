@@ -70,7 +70,7 @@ RSpec.describe FriendlyShipping::Services::Usps do
       it { is_expected.to be_success }
 
       it 'has correct data' do
-        result_data = subject.value!.suggestions.first
+        result_data = subject.value!.location
         expect(result_data.city).to eq('WAKE FOREST')
         expect(result_data.region.code).to eq('NC')
       end
@@ -82,9 +82,7 @@ RSpec.describe FriendlyShipping::Services::Usps do
       it { is_expected.to be_success }
 
       it 'has correct data' do
-        result_data = subject.value!.suggestions.first
-        # Even though this ZIP code DOES span two states, USPS returns Colorado.
-        expect(subject.value!.suggestions.length).to eq(1)
+        result_data = subject.value!.location
         expect(result_data.city).to eq('IGNACIO')
         expect(result_data.region.code).to eq('CO')
       end
