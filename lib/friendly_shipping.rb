@@ -10,6 +10,7 @@ require "friendly_shipping/shipping_method"
 require "friendly_shipping/label"
 require "friendly_shipping/rate"
 require "friendly_shipping/address_validation_result"
+require "friendly_shipping/zip_code_lookup_result"
 
 require "friendly_shipping/services/ship_engine"
 require "friendly_shipping/services/ups"
