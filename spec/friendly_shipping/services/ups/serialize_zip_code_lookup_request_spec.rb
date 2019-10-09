@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::Ups::SerializeCityStateLookupRequest do
+RSpec.describe FriendlyShipping::Services::Ups::SerializeZipCodeLookupRequest do
   let(:location) { Physical::Location.new(zip: '27587', country: 'US') }
 
   describe '#to_xml' do

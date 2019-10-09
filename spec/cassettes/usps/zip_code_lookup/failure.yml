@@ -35,9 +35,9 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Wed, 09 Oct 2019 10:34:36 GMT
+      - Wed, 09 Oct 2019 15:17:30 GMT
       X-Global-Transaction-Id:
-      - 5a3857615d9db7bc077dfb7d
+      - '018fb36a5d9dfa0b0a0384b7'
       Access-Control-Allow-Origin:
       - "*"
       Connection:
@@ -54,5 +54,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8"?>
         <CityStateLookupResponse><ZipCode><Error><Number>-2147219399</Number><Source>WebtoolsAMS;CityStateLookup</Source><Description>Invalid Zip Code.</Description><HelpFile/><HelpContext/></Error></ZipCode></CityStateLookupResponse>
     http_version: 
-  recorded_at: Wed, 09 Oct 2019 10:34:36 GMT
+  recorded_at: Wed, 09 Oct 2019 15:17:31 GMT
 recorded_with: VCR 5.0.0

@@ -28,7 +28,7 @@ module FriendlyShipping
 
       RESOURCES = {
         address_validation: 'Verify',
-        city_state_lookup: 'CityStateLookup',
+        zip_code_lookup: 'CityStateLookup',
         rates: 'RateV4'
       }.freeze
 
@@ -89,11 +89,11 @@ module FriendlyShipping
       # @return [Result<FriendlyShipping::AddressValidationResult>] The response data from UPS encoded in a
       #   `FriendlyShipping::AddressValidationResult` object. Country, City and ZIP code will be set,
       #   everything else nil.
-      def city_state_lookup(location)
-        city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location, login: login)
+      def zip_code_lookup(location)
+        zip_code_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location, login: login)
         request = FriendlyShipping::Request.new(
           url: base_url,
-          body: "API=#{RESOURCES[:city_state_lookup]}&XML=#{CGI.escape city_state_lookup_request_xml}"
+          body: "API=#{RESOURCES[:zip_code_lookup]}&XML=#{CGI.escape zip_code_lookup_request_xml}"
         )
 
         client.post(request).bind do |response|

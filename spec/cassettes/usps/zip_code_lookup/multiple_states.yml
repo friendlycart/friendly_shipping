@@ -35,9 +35,9 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Wed, 09 Oct 2019 10:34:34 GMT
+      - Wed, 09 Oct 2019 15:17:30 GMT
       X-Global-Transaction-Id:
-      - '018fb36a5d9db7ba05aa126d'
+      - '018fb36a5d9dfa0a0a497261'
       Access-Control-Allow-Origin:
       - "*"
       Connection:
@@ -54,5 +54,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8"?>
         <CityStateLookupResponse><ZipCode><Zip5>81137</Zip5><City>IGNACIO</City><State>CO</State></ZipCode></CityStateLookupResponse>
     http_version: 
-  recorded_at: Wed, 09 Oct 2019 10:34:34 GMT
+  recorded_at: Wed, 09 Oct 2019 15:17:30 GMT
 recorded_with: VCR 5.0.0

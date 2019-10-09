@@ -3,7 +3,7 @@
 module FriendlyShipping
   module Services
     class Ups
-      class ParseCityStateLookupResponse
+      class ParseZipCodeLookupResponse
         extend Dry::Monads::Result::Mixin
 
         def self.call(request:, response:, location:)

@@ -39,7 +39,7 @@ http_interactions:
       message: '200'
     headers:
       Date:
-      - Tue, 08 Oct 2019 10:15:18 GMT
+      - Wed, 09 Oct 2019 15:17:26 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -70,5 +70,5 @@ http_interactions:
         UTE INDIAN RES</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>8</Rank><Quality>0.9750</Quality><Address><City>SOUTHERN
         UTE INDIAN RESERVAT</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult><AddressValidationResult><Rank>9</Rank><Quality>0.9750</Quality><Address><City>TIFFANY</City><StateProvinceCode>CO</StateProvinceCode></Address><PostalCodeLowEnd>81137</PostalCodeLowEnd><PostalCodeHighEnd>81137</PostalCodeHighEnd></AddressValidationResult></AddressValidationResponse>
     http_version: 
-  recorded_at: Tue, 08 Oct 2019 10:15:18 GMT
+  recorded_at: Wed, 09 Oct 2019 15:17:27 GMT
 recorded_with: VCR 5.0.0

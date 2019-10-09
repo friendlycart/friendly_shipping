@@ -3,7 +3,7 @@
 module FriendlyShipping
   module Services
     class Ups
-      class SerializeCityStateLookupRequest
+      class SerializeZipCodeLookupRequest
         REQUEST_ACTION = 'AV'
 
         def self.call(location:)

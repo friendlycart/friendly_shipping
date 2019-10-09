@@ -3,11 +3,11 @@
 require 'dry/monads/result'
 require 'friendly_shipping/services/ups/client'
 require 'friendly_shipping/services/ups/serialize_access_request'
-require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
+require 'friendly_shipping/services/ups/serialize_zip_code_lookup_request'
 require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
 require 'friendly_shipping/services/ups/parse_address_validation_response'
-require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
+require 'friendly_shipping/services/ups/parse_zip_code_lookup_response'
 require 'friendly_shipping/services/ups/parse_rate_response'
 require 'friendly_shipping/services/ups/shipping_methods'
 
@@ -30,7 +30,7 @@ module FriendlyShipping
 
       RESOURCES = {
         address_validation: '/ups.app/xml/XAV',
-        city_state_lookup: '/ups.app/xml/AV',
+        zip_code_lookup: '/ups.app/xml/AV',
         rates: '/ups.app/xml/Rate'
       }.freeze
 
@@ -83,16 +83,16 @@ module FriendlyShipping
       # @return [Result<FriendlyShipping::AddressValidationResult>] The response data from UPS encoded in a
       #   `FriendlyShipping::AddressValidationResult` object. Country, City and ZIP code will be set,
       #   everything else nil.
-      def city_state_lookup(location)
-        city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location)
-        url = base_url + RESOURCES[:city_state_lookup]
+      def zip_code_lookup(location)
+        zip_code_lookup_request_xml = SerializeZipCodeLookupRequest.call(location: location)
+        url = base_url + RESOURCES[:zip_code_lookup]
         request = FriendlyShipping::Request.new(
           url: url,
-          body: access_request_xml + city_state_lookup_request_xml
+          body: access_request_xml + zip_code_lookup_request_xml
         )
 
         client.post(request).bind do |response|
-          ParseCityStateLookupResponse.call(response: response, request: request, location: location)
+          ParseZipCodeLookupResponse.call(response: response, request: request, location: location)
         end
       end
 

@@ -55,10 +55,10 @@ RSpec.describe FriendlyShipping::Services::Ups do
     end
   end
 
-  describe 'city_state_lookup' do
-    subject { service.city_state_lookup(location) }
+  describe 'zip_code_lookup' do
+    subject { service.zip_code_lookup(location) }
 
-    context 'with a good ZIP code', vcr: { cassette_name: 'ups/city_state_lookup/success' } do
+    context 'with a good ZIP code', vcr: { cassette_name: 'ups/zip_code_lookup/success' } do
       let(:location) { Physical::Location.new(zip: '27587', country: 'US') }
 
       it { is_expected.to be_success }
@@ -70,7 +70,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
 
-    context 'with a ZIP code spanning multiple states', vcr: { cassette_name: 'ups/city_state_lookup/multiple_states' } do
+    context 'with a ZIP code spanning multiple states', vcr: { cassette_name: 'ups/zip_code_lookup/multiple_states' } do
       let(:location) { Physical::Location.new(zip: '81137', country: 'US') }
 
       it { is_expected.to be_success }
@@ -84,7 +84,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
 
-    context 'with a bad ZIP code', vcr: { cassette_name: 'ups/city_state_lookup/failure' } do
+    context 'with a bad ZIP code', vcr: { cassette_name: 'ups/zip_code_lookup/failure' } do
       let(:location) { Physical::Location.new(zip: '00000', country: 'US') }
 
       it { is_expected.to be_failure }
