@@ -5,13 +5,13 @@ module FriendlyShipping
     class Usps
       class ParseXMLResponse
         extend Dry::Monads::Result::Mixin
-        ERROR_ROOT_TAG = 'Error'
+        ERROR_TAG = 'Error'
 
         class << self
           def call(response_body, expected_root_tag)
             xml = Nokogiri.XML(response_body)
 
-            if xml.root.nil? || ![expected_root_tag, ERROR_ROOT_TAG].include?(xml.root.name)
+            if xml.root.nil? || ![expected_root_tag, 'Error'].include?(xml.root.name)
               Failure('Invalid document')
             elsif request_successful?(xml)
               Success(xml)
@@ -25,13 +25,13 @@ module FriendlyShipping
           private
 
           def request_successful?(xml)
-            xml.xpath('Error/Number')&.text.blank?
+            xml.xpath('//Error/Number')&.text.blank?
           end
 
           def error_message(xml)
-            number = xml.xpath('Error/Number')&.text
-            desc = xml.xpath('Error/Description')&.text
-            [number, desc].select(&:present?).join(': ').presence || 'USPS could not process the request.'
+            number = xml.xpath('//Error/Number')&.text
+            desc = xml.xpath('//Error/Description')&.text
+            [number, desc].select(&:present?).join(': ').presence&.strip || 'USPS could not process the request.'
           end
         end
       end
