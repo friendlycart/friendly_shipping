@@ -2,6 +2,7 @@
 
 require 'friendly_shipping/services/usps/client'
 require 'friendly_shipping/services/usps/shipping_methods'
+require 'friendly_shipping/services/usps/serialize_address_validation_request'
 require 'friendly_shipping/services/usps/serialize_rate_request'
 require 'friendly_shipping/services/usps/parse_rate_response'
 
