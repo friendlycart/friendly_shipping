@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AddressValidateResponse>
+  <Address ID="0">
+    <Address2>205 BAGWELL AVE</Address2>
+    <City>NUTTER FORT</City>
+    <State>WV</State>
+    <Zip5>26301</Zip5>
+    <Zip4>4322</Zip4>
+    <DeliveryPoint>05</DeliveryPoint>
+    <CarrierRoute>C007</CarrierRoute>
+    <ReturnText>Something</ReturnText>
+  </Address>
+</AddressValidateResponse>

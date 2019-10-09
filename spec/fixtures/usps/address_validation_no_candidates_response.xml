@@ -1,0 +1,11 @@
+<AddressValidateResponse>
+  <Address>
+    <Error>
+      <Number>-2147219401</Number>
+      <Source>clsAMS</Source>
+      <Description>Address Not Found.  </Description>
+      <HelpFile/>
+      <HelpContext/>
+    </Error>
+  </Address>
+</AddressValidateResponse>
