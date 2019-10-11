@@ -59,6 +59,14 @@ module FriendlyShipping
         end
       end
 
+      # Get label(s) from ShipEngine
+      #
+      # @param [Physical::Shipment] shipment The shipment object we're trying to get labels for
+      #   Note: Some ShipEngine carriers, notably USPS, only support one package per shipment, and that's
+      #   all that the integration supports at this point.
+      #
+      # @return [Result<ApiResult<Array<FriendlyShipping::Label>>>] The label returned.
+      #
       def labels(shipment)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],

@@ -67,7 +67,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
@@ -99,7 +99,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
@@ -129,7 +129,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
@@ -176,7 +176,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
