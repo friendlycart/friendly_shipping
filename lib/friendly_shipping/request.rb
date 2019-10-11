@@ -2,12 +2,13 @@
 
 module FriendlyShipping
   class Request
-    attr_reader :url, :body, :headers
+    attr_reader :url, :body, :headers, :debug
 
-    def initialize(url:, body: nil, headers: {})
+    def initialize(url:, body: nil, headers: {}, debug: false)
       @url = url
       @body = body
       @headers = headers
+      @debug = debug
     end
   end
 end
