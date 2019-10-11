@@ -3,14 +3,16 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseCarrierResponse, vcr: { cassette_name: 'shipengine/carriers/success' } do
-  subject { described_class.new(response: response).call }
+  subject { described_class.call(request: request, response: response) }
+
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'carriers.json')).read }
   let(:response) { double(body: response_body) }
-  let(:carrier) { subject.first }
+  let(:request) { double(debug: false) }
+  let(:carrier) { subject.data.first }
 
   it "returns an Array of carriers", vcr: { cassette_name: 'shipengine/carriers/success' } do
-    expect(subject).to be_a Array
-    expect(subject.first).to be_a FriendlyShipping::Carrier
+    expect(subject.data).to be_a Array
+    expect(carrier).to be_a FriendlyShipping::Carrier
   end
 
   it "contains correct data in the carrier" do

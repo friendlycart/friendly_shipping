@@ -42,7 +42,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'when specifying carriers' do
-      let(:carriers) { [service.carriers.value!.last] }
+      let(:carriers) { [service.carriers.value!.data.last] }
 
       subject { service.rate_estimates(shipment, carriers: carriers) }
 
