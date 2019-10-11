@@ -44,8 +44,8 @@ RSpec.describe FriendlyShipping::Services::Usps do
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'usps/rate_estimates/success' } do
       aggregate_failures do
         is_expected.to be_success
-        expect(subject.value!).to be_a(Array)
-        expect(subject.value!.first).to be_a(FriendlyShipping::Rate)
+        expect(subject.value!.data).to be_a(Array)
+        expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
       end
     end
 

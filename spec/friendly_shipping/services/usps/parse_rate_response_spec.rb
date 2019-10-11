@@ -18,11 +18,11 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   it { is_expected.to be_success }
 
   it 'returns rates along with the response' do
-    expect(subject.value!.length).to eq(4)
-    expect(subject.value!.map(&:total_amount)).to contain_exactly(*[
+    expect(subject.value!.data.length).to eq(4)
+    expect(subject.value!.data.map(&:total_amount)).to contain_exactly(*[
       276, 673, 715, 3660
     ].map { |cents| Money.new(cents, 'USD') })
-    expect(subject.value!.map(&:shipping_method).map(&:name)).to contain_exactly(
+    expect(subject.value!.data.map(&:shipping_method).map(&:name)).to contain_exactly(
       "First-Class Package Service",
       "Priority",
       "Priority Mail Express",
@@ -41,9 +41,9 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
 
     it 'returns regional rate' do
       expect(subject).to be_success
-      expect(subject.value!.length).to eq(1)
-      expect(subject.value!.first.total_amount.to_f).to eq(9.4)
-      expect(subject.value!.first.data[:full_mail_service]).to eq('Priority Mail 2-Day Regional Rate Box B')
+      expect(subject.value!.data.length).to eq(1)
+      expect(subject.value!.data.first.total_amount.to_f).to eq(9.4)
+      expect(subject.value!.data.first.data[:full_mail_service]).to eq('Priority Mail 2-Day Regional Rate Box B')
     end
   end
 
@@ -60,10 +60,10 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
 
     it 'returns regional rates' do
       expect(subject).to be_success
-      expect(subject.value!.length).to eq(1)
+      expect(subject.value!.data.length).to eq(1)
 
-      expect(subject.value!.map(&:total_amount).map(&:cents)).to contain_exactly(812 + 940)
-      expect(subject.value!.map(&:shipping_method).map(&:name)).to contain_exactly(
+      expect(subject.value!.data.map(&:total_amount).map(&:cents)).to contain_exactly(812 + 940)
+      expect(subject.value!.data.map(&:shipping_method).map(&:name)).to contain_exactly(
         "Priority"
       )
     end
@@ -80,9 +80,9 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
 
     it 'returns flat rate' do
       expect(subject).to be_success
-      expect(subject.value!.length).to eq(1)
-      expect(subject.value!.first.total_amount.to_f).to eq(17.6)
-      expect(subject.value!.first.data[:full_mail_service]).to eq('Priority Mail 3-Day Large Flat Rate Box')
+      expect(subject.value!.data.length).to eq(1)
+      expect(subject.value!.data.first.total_amount.to_f).to eq(17.6)
+      expect(subject.value!.data.first.data[:full_mail_service]).to eq('Priority Mail 3-Day Large Flat Rate Box')
     end
   end
 end
