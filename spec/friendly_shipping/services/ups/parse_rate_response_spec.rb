@@ -13,7 +13,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
   it { is_expected.to be_success }
 
   it 'returns rates along with the response' do
-    rates = subject.value!
+    rates = subject.value!.data
     expect(rates).to be_a(Array)
     expect(rates.length).to eq(6)
     expect(rates.map(&:total_amount)).to contain_exactly(*[
