@@ -44,7 +44,7 @@ module FriendlyShipping
       # @options[:carriers] [Physical::Carrier] The carriers we want to get rates from. What counts
       # here is the carrier code, so by specifying them upfront you can save a request.
       #
-      # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
+      # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options = {})
@@ -54,7 +54,7 @@ module FriendlyShipping
           body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: selected_carriers).to_json,
           headers: request_headers
         )
-        client.post(request).fmap do |response|
+        client.post(request).bind do |response|
           ParseRateEstimateResponse.call(response: response, request: request, carriers: selected_carriers)
         end
       end
