@@ -85,7 +85,7 @@ module FriendlyShipping
           headers: request_headers
         )
         client.put(request).bind do |response|
-          ParseVoidResponse.new(response: response).call
+          ParseVoidResponse.call(request: request, response: response)
         end
       end
 
