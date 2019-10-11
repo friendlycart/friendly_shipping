@@ -10,8 +10,8 @@ module FriendlyShipping
           parsing_result = ParseXMLResponse.call(response.body, 'AddressValidationResponse')
 
           parsing_result.fmap do |xml|
-            FriendlyShipping::AddressValidationResult.new(
-              suggestions: [
+            FriendlyShipping::ApiResult.new(
+              [
                 Physical::Location.new(
                   city: xml.at('AddressValidationResult/Address/City')&.text,
                   region: xml.at('AddressValidationResult/Address/StateProvinceCode')&.text,
@@ -19,7 +19,6 @@ module FriendlyShipping
                   zip: xml.at('AddressValidationResult/Address/PostcodePrimaryLow')&.text,
                 )
               ],
-              original_address: location,
               original_request: request,
               original_response: response
             )

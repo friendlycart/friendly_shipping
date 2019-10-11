@@ -6,7 +6,7 @@ module FriendlyShipping
       class ParseAddressValidationResponse
         extend Dry::Monads::Result::Mixin
 
-        def self.call(request:, response:, location:)
+        def self.call(request:, response:)
           parsing_result = ParseXMLResponse.call(response.body, 'AddressValidationResponse')
 
           parsing_result.bind do |xml|
@@ -14,9 +14,8 @@ module FriendlyShipping
               Failure('Address is probably invalid. No similar valid addresses found.')
             else
               Success(
-                FriendlyShipping::AddressValidationResult.new(
-                  suggestions: build_suggestions(xml),
-                  original_address: location,
+                FriendlyShipping::ApiResult.new(
+                  build_suggestions(xml),
                   original_request: request,
                   original_response: response
                 )
