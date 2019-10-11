@@ -9,6 +9,8 @@ require "friendly_shipping/carrier"
 require "friendly_shipping/shipping_method"
 require "friendly_shipping/label"
 require "friendly_shipping/rate"
+require "friendly_shipping/api_result"
+require "friendly_shipping/api_failure"
 require "friendly_shipping/address_validation_result"
 
 require "friendly_shipping/services/ship_engine"
