@@ -4,17 +4,16 @@ require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseAddressValidationResponse do
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'address_validation_response.xml')).read }
-  let(:request) { double }
+  let(:request) { double(debug: false) }
   let(:response) { double(body: response_body) }
-  let(:location) { double }
 
-  subject { described_class.call(request: request, response: response, location: location) }
+  subject { described_class.call(request: request, response: response) }
 
   context 'with a successful request' do
     it { is_expected.to be_success }
 
     it 'returns the address with address type' do
-      address = subject.value!.suggestions.first
+      address = subject.value!.data.first
       expect(address).to be_a(Physical::Location)
       expect(address.address1).to eq('205 BAGWELL AVE')
       expect(address.address2).to be nil

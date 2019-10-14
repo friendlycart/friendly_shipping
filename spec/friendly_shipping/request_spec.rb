@@ -12,4 +12,5 @@ RSpec.describe FriendlyShipping::Request do
   it { is_expected.to respond_to(:url) }
   it { is_expected.to respond_to(:body) }
   it { is_expected.to respond_to(:headers) }
+  it { is_expected.to respond_to(:debug) }
 end

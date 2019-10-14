@@ -7,10 +7,12 @@ module FriendlyShipping
   module Services
     class ShipEngine
       class ParseRateEstimateResponse
+        extend Dry::Monads::Result::Mixin
+
         class << self
           def call(response:, carriers:, request:)
             parsed_json = JSON.parse(response.body)
-            parsed_json.map do |rate|
+            rates = parsed_json.map do |rate|
               carrier = carriers.detect { |c| c.id == rate['carrier_id'] }
               next unless carrier
 
@@ -29,6 +31,14 @@ module FriendlyShipping
                 original_response: response
               )
             end.compact
+
+            Success(
+              ApiResult.new(
+                rates,
+                original_request: request,
+                original_response: response
+              )
+            )
           end
 
           private

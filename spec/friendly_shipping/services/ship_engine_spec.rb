@@ -36,13 +36,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
       aggregate_failures do
         is_expected.to be_success
-        expect(subject.value!).to be_a(Array)
-        expect(subject.value!.first).to be_a(FriendlyShipping::Rate)
+        expect(subject.value!.data).to be_a(Array)
+        expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
       end
     end
 
     context 'when specifying carriers' do
-      let(:carriers) { [service.carriers.value!.last] }
+      let(:carriers) { [service.carriers.value!.data.last] }
 
       subject { service.rate_estimates(shipment, carriers: carriers) }
 
@@ -50,8 +50,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
          vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
         aggregate_failures do
           is_expected.to be_success
-          expect(subject.value!).to be_a(Array)
-          expect(subject.value!.first).to be_a(FriendlyShipping::Rate)
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
         end
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
@@ -99,7 +99,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
@@ -129,7 +129,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }
@@ -176,7 +176,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       it { is_expected.to be_a Dry::Monads::Success }
 
       context "when unwrapped" do
-        subject { labels.value! }
+        subject { labels.value!.data }
         let(:label) { subject.first }
 
         it { is_expected.to be_a Array }

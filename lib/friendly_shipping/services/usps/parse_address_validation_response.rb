@@ -9,9 +9,8 @@ module FriendlyShipping
           #
           # @param [FriendlyShipping::Request] request The request that was used to obtain this Response
           # @param [FriendlyShipping::Response] response The response that USPS returned
-          # @param [Physical::Location] location The location object we're trying to get results for
           # @return [Result<FriendlyShipping::AddressValidationResult>]
-          def call(request:, response:, location:)
+          def call(request:, response:)
             # Filter out error responses and directly return a failure
             parsing_result = ParseXMLResponse.call(response.body, 'AddressValidateResponse')
             parsing_result.fmap do |xml|
@@ -26,11 +25,10 @@ module FriendlyShipping
                   country: 'US'
                 )
               ]
-              FriendlyShipping::AddressValidationResult.new(
-                suggestions: suggestions,
+              FriendlyShipping::ApiResult.new(
+                suggestions,
                 original_request: request,
-                original_response: response,
-                original_address: location
+                original_response: response
               )
             end
           end

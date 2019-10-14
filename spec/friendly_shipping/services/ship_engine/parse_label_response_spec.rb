@@ -4,14 +4,14 @@ require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: { cassette_name: 'shipengine/labels/success' } do
   subject { described_class.call(request: request, response: response) }
-  let(:request) { double }
+  let(:request) { double(debug: true) }
   let(:response) { double(body: response_body) }
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'labels_success.json')).read }
 
-  let(:label) { subject.first }
+  let(:label) { subject.data.first }
 
   it "returns an Array of labels" do
-    expect(subject).to be_a Array
+    expect(subject.data).to be_a Array
     expect(label).to be_a FriendlyShipping::Label
   end
 
@@ -23,7 +23,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: 
     expect(label.label_href).to start_with('https://')
     expect(label.label_format).to eq(:pdf)
     expect(label.shipment_cost).to eq(0.0)
-    expect(label.original_request).to eq(request)
-    expect(label.original_response).to eq(response)
+    expect(subject.original_request).to eq(request)
+    expect(subject.original_response).to eq(response)
   end
 end

@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseVoidResponse do
-  subject { described_class.new(response: response).call }
+  subject { described_class.call(request: request, response: response) }
   let(:response) { double(body: response_body) }
+  let(:request) { double(debug: false) }
   let(:response_body) do
     {
       "approved": true,
@@ -16,7 +17,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseVoidResponse do
     it { is_expected.to be_success }
 
     it 'wraps the message' do
-      expect(subject.value!).to eq("Request for refund submitted. This label has been voided.")
+      expect(subject.value!.data).to eq("Request for refund submitted. This label has been voided.")
     end
   end
 end
