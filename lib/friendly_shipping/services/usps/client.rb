@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'dry/monads/result'
-require 'friendly_shipping/bad_request'
 require 'rest-client'
 
 module FriendlyShipping

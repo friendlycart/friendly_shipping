@@ -2,8 +2,10 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::ShipEngine::Client do
+RSpec.describe FriendlyShipping::HttpClient do
   let(:response) { double }
+
+  subject { described_class.new }
 
   describe '.get' do
     let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', headers: { "X-Token" => "s3cr3t" }) }
@@ -11,13 +13,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::Client do
 
     it 'forwards the arguments to RestClient and returns a Success' do
       expect(::RestClient).to receive(:get).with('https://example.com', "X-Token" => "s3cr3t").and_return(response)
-      result = described_class.get(request)
+      result = subject.get(request)
       expect(result).to be_success
     end
 
     it 'wraps exceptions in Failures' do
       expect(::RestClient).to receive(:get).with('https://example.com', "X-Token" => "s3cr3t").and_raise(RestClient::ExceptionWithResponse)
-      result = described_class.get(request)
+      result = subject.get(request)
       expect(result).to be_failure
     end
   end
@@ -28,13 +30,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::Client do
 
     it 'forwards the arguments to RestClient and returns a Success' do
       expect(::RestClient).to receive(:post).with('https://example.com', 'body', "X-Token" => "s3cr3t").and_return(response)
-      result = described_class.post(request)
+      result = subject.post(request)
       expect(result).to be_success
     end
 
     it 'wraps exceptions in Failures' do
       expect(::RestClient).to receive(:post).with('https://example.com', 'body', "X-Token" => "s3cr3t").and_raise(RestClient::ExceptionWithResponse)
-      result = described_class.post(request)
+      result = subject.post(request)
       expect(result).to be_failure
     end
   end
@@ -45,13 +47,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::Client do
 
     it 'forwards the arguments to RestClient and returns a Success' do
       expect(::RestClient).to receive(:put).with('https://example.com', 'body', "X-Token" => "s3cr3t").and_return(response)
-      result = described_class.put(request)
+      result = subject.put(request)
       expect(result).to be_success
     end
 
     it 'wraps exceptions in Failures' do
       expect(::RestClient).to receive(:put).with('https://example.com', 'body', "X-Token" => "s3cr3t").and_raise(RestClient::ExceptionWithResponse)
-      result = described_class.put(request)
+      result = subject.put(request)
       expect(result).to be_failure
     end
   end
