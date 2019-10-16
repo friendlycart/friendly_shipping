@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/usps/client'
+require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/usps/shipping_methods'
 require 'friendly_shipping/services/usps/serialize_address_validation_request'
 require 'friendly_shipping/services/usps/serialize_city_state_lookup_request'
@@ -32,7 +32,7 @@ module FriendlyShipping
         rates: 'RateV4'
       }.freeze
 
-      def initialize(login:, test: true, client: Client)
+      def initialize(login:, test: true, client: HttpClient.new)
         @login = login
         @test = test
         @client = client

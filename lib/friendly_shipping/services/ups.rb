@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'dry/monads/result'
-require 'friendly_shipping/services/ups/client'
+require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups/serialize_access_request'
 require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/ups/serialize_address_validation_request'
@@ -34,7 +34,7 @@ module FriendlyShipping
         rates: '/ups.app/xml/Rate'
       }.freeze
 
-      def initialize(key:, login:, password:, test: true, client: Client)
+      def initialize(key:, login:, password:, test: true, client: HttpClient.new)
         @key = key
         @login = login
         @password = password
