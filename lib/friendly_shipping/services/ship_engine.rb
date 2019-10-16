@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require 'dry/monads/result'
-require 'friendly_shipping/services/ship_engine/client'
+require 'friendly_shipping/http_client'
+require 'friendly_shipping/services/ship_engine/bad_request_handler'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
@@ -18,7 +19,7 @@ module FriendlyShipping
         labels: "labels"
       }.freeze
 
-      def initialize(token:, test: true, client: Client)
+      def initialize(token:, test: true, client: FriendlyShipping::HttpClient.new(error_handler: BadRequestHandler))
         @token = token
         @test = test
         @client = client

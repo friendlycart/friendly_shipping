@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::BadRequest do
+RSpec.describe FriendlyShipping::Services::ShipEngine::BadRequest do
   let(:original_exception) { double(to_s: '400 Bad Request', response: double(body: response_body)) }
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'invalid_package_code.json')).read }
 
