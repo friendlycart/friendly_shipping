@@ -62,4 +62,20 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeAddressSnippet do
       expect(subject.at_xpath('//ShipTo/CompanyName').text).to eq("Stephanie's Specialty Soaps and Mor")
     end
   end
+
+  context 'with commercial address' do
+    let(:location) { FactoryBot.build(:physical_location, address_type: 'commercial') }
+
+    it 'does not include residential address indicator' do
+      expect(subject.at_xpath('//ShipTo/Address/ResidentialAddressIndicator')).to_not be_present
+    end
+  end
+
+  context 'with unknown address' do
+    let(:location) { FactoryBot.build(:physical_location, address_type: 'unknown') }
+
+    it 'includes residential address indicator' do
+      expect(subject.at_xpath('//ShipTo/Address/ResidentialAddressIndicator')).to be_present
+    end
+  end
 end
