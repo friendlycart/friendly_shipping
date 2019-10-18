@@ -40,9 +40,9 @@ module FriendlyShipping
 
               # Quote residential rates by default. If UPS doesn't know if the address is residential or
               # commercial, it will quote a residential rate by default. Even with this flag being set,
-              # if UPS knows the address is commercial it will quote a commercial rate.
+              # if UPS knows the address is commercial it will often quote a commercial rate.
               #
-              xml.ResidentialAddressIndicator
+              xml.ResidentialAddressIndicator unless location.commercial?
             end
           end
         end
