@@ -65,13 +65,16 @@ module FriendlyShipping
       # @param [Physical::Shipment] shipment The shipment object we're trying to get labels for
       #   Note: Some ShipEngine carriers, notably USPS, only support one package per shipment, and that's
       #   all that the integration supports at this point.
+      # @param [FriendlyShipping::ShippingMethod] shipping_method The shipping method we want to use.
+      #   Specifically, the "#service_code" will be serialized. If a carrier is set, it's `#id` will
+      #   also be sent to ShipEngine.
       #
       # @return [Result<ApiResult<Array<FriendlyShipping::Label>>>] The label returned.
       #
-      def labels(shipment)
+      def labels(shipment, shipping_method:)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
-          body: SerializeLabelShipment.new(shipment: shipment).call.merge(test_label: test).to_json,
+          body: SerializeLabelShipment.new(shipment: shipment, shipping_method: shipping_method, test: test).to_json,
           headers: request_headers
         )
         client.post(request).fmap do |response|
