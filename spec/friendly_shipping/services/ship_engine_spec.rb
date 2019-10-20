@@ -44,7 +44,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     context 'when specifying carriers' do
       let(:carriers) { [service.carriers.value!.data.last] }
 
-      subject { service.rate_estimates(shipment, carriers: carriers) }
+      subject { service.rate_estimates(shipment, selected_carriers: carriers) }
 
       it 'returns Physical::Rate objects wrapped in a Success Monad',
          vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
