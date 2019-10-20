@@ -50,12 +50,13 @@ module FriendlyShipping
       # @param [Physical::Shipment] location The shipment we want to get rates for
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
-      def rate_estimates(shipment, _options = {})
+      def rate_estimates(shipment, debug: false)
         rate_request_xml = SerializeRatingServiceSelectionRequest.call(shipment: shipment)
         url = base_url + RESOURCES[:rates]
         request = FriendlyShipping::Request.new(
           url: url,
-          body: access_request_xml + rate_request_xml
+          body: access_request_xml + rate_request_xml,
+          debug: debug
         )
 
         client.post(request).bind do |response|
@@ -69,12 +70,13 @@ module FriendlyShipping
       #   `Physical::Location` object. Name and Company name are always nil, the
       #   address lines will be made conformant to what UPS considers right. The returned location will
       #   have the address_type set if possible.
-      def address_validation(location)
+      def address_validation(location, debug: false)
         address_validation_request_xml = SerializeAddressValidationRequest.call(location: location)
         url = base_url + RESOURCES[:address_validation]
         request = FriendlyShipping::Request.new(
           url: url,
-          body: access_request_xml + address_validation_request_xml
+          body: access_request_xml + address_validation_request_xml,
+          debug: debug
         )
 
         client.post(request).bind do |response|
@@ -86,12 +88,13 @@ module FriendlyShipping
       # @param [Physical::Location] location A location object with country and ZIP code set
       # @return [Result<ApiResult<Array<Physical::Location>>>] The response data from UPS encoded in a
       #   `Physical::Location` object. Country, City and ZIP code will be set, everything else nil.
-      def city_state_lookup(location)
+      def city_state_lookup(location, debug: false)
         city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location)
         url = base_url + RESOURCES[:city_state_lookup]
         request = FriendlyShipping::Request.new(
           url: url,
-          body: access_request_xml + city_state_lookup_request_xml
+          body: access_request_xml + city_state_lookup_request_xml,
+          debug: debug
         )
 
         client.post(request).bind do |response|
