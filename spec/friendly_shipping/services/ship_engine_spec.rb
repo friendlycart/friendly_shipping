@@ -38,6 +38,22 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
         is_expected.to be_success
         expect(subject.value!.data).to be_a(Array)
         expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+        expect(subject.value!.original_request).to be nil
+        expect(subject.value!.original_response).to be nil
+      end
+    end
+
+    context 'with debug set to true' do
+      subject { service.rate_estimates(shipment, debug: true) }
+
+      it 'returns original request and response along with the data', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+          expect(subject.value!.original_request).to be_present
+          expect(subject.value!.original_response).to be_present
+        end
       end
     end
 

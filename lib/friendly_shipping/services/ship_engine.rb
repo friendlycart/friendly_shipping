@@ -48,12 +48,13 @@ module FriendlyShipping
       # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, selected_carriers: nil)
+      def rate_estimates(shipment, selected_carriers: nil, debug: false)
         selected_carriers ||= carriers.value!.data
         request = FriendlyShipping::Request.new(
           url: API_BASE + 'rates/estimate',
           body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: selected_carriers).to_json,
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.post(request).bind do |response|
           ParseRateEstimateResponse.call(response: response, request: request, carriers: selected_carriers)
