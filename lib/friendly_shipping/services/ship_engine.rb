@@ -28,10 +28,11 @@ module FriendlyShipping
       # Get configured carriers from USPS
       #
       # @return [Result<ApiResult<Array<Carrier>>>] Carriers configured in your shipstation account
-      def carriers
+      def carriers(debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:carriers],
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.get(request).fmap do |response|
           ParseCarrierResponse.call(request: request, response: response)
@@ -80,11 +81,12 @@ module FriendlyShipping
         end
       end
 
-      def void(label)
+      def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
           body: '',
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.put(request).bind do |response|
           ParseVoidResponse.call(request: request, response: response)
