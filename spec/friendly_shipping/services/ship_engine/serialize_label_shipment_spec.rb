@@ -7,8 +7,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(1, :ounce)) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Density(0, :g_ml), container: container) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: shipment_options) }
+  let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: 'usps_priority_mail') }
   let(:shipment_options) { { label_format: 'zpl' } }
-  subject { described_class.new(shipment: shipment).call }
+  subject { described_class.new(shipment: shipment, shipping_method: shipping_method, test: true).call }
 
   it do
     is_expected.to match(
@@ -147,7 +148,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   end
 
   context 'if passing a carrier id' do
-    let(:shipment_options) { { carrier_id: 'se-12345' } }
+    let(:carrier) { FriendlyShipping::Carrier.new(id: 'se-12345') }
+    let(:shipping_method) do
+      FriendlyShipping::ShippingMethod.new(
+        service_code: 'usps_priority_mail',
+        carrier: carrier
+      )
+    end
 
     it 'includes the carrier ID' do
       is_expected.to match(

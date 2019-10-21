@@ -4,10 +4,12 @@ module FriendlyShipping
   module Services
     class ShipEngine
       class SerializeLabelShipment
-        attr_reader :shipment
+        attr_reader :shipment, :shipping_method, :test
 
-        def initialize(shipment:)
+        def initialize(shipment:, shipping_method:, test:)
           @shipment = shipment
+          @shipping_method = shipping_method
+          @test = test
         end
 
         def call
@@ -15,15 +17,21 @@ module FriendlyShipping
             label_format: shipment.options[:label_format].presence || "pdf",
             label_download_type: shipment.options[:label_download_type].presence || "url",
             shipment: {
-              service_code: shipment.service_code,
+              service_code: shipping_method.service_code,
               ship_to: serialize_address(shipment.destination),
               ship_from: serialize_address(shipment.origin),
               packages: serialize_packages(shipment.packages)
             }
           }
-          if shipment.options[:carrier_id]
-            shipment_hash[:shipment][:carrier_id] = shipment.options[:carrier_id]
+          # A carrier might not be necessary if the service code is unique within ShipEngine.
+          if shipping_method.carrier
+            shipment_hash[:shipment][:carrier_id] = shipping_method.carrier.id
           end
+
+          if test
+            shipment_hash[:test] = true
+          end
+
           shipment_hash
         end
 

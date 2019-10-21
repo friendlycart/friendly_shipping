@@ -48,7 +48,7 @@ The following methods are supported:
 
 - `#carriers` - List all configured carriers
 - `#rate_estimates(physical_shipment, carriers: [friendly_shipping_carrier])` - Get rate estimates for a shipment
-- `#labels(physical_shipment)` - Get labels for a shipments. Currently only supports USPS labels, other services are untested. The API of this method is still subject to change.
+- `#labels(physical_shipment, shipping_method:)` - Get labels for a shipments. Currently only supports USPS labels, other services are untested.
 - `#void(physical_label)` - Void a label and get the cost refunded
 
 #### UPS (United Parcel Service)

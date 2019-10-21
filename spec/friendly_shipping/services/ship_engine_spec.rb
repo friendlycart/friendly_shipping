@@ -59,9 +59,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
 
   describe 'labels' do
     let(:package) { FactoryBot.build(:physical_package) }
-    let(:shipment) { FactoryBot.build(:physical_shipment, service_code: "usps_priority_mail", packages: [package]) }
+    let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
+    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "usps_priority_mail") }
 
-    subject(:labels) { service.labels(shipment) }
+    subject(:labels) { service.labels(shipment, shipping_method: shipping_method) }
 
     context 'with a successful request', vcr: { cassette_name: 'shipengine/labels/success' } do
       it { is_expected.to be_a Dry::Monads::Success }
@@ -90,7 +91,6 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       let(:shipment) do
         FactoryBot.build(
           :physical_shipment,
-          service_code: "usps_priority_mail",
           packages: [package],
           options: { label_download_type: "inline", label_format: "zpl" }
         )
@@ -152,7 +152,6 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       let(:shipment) do
         FactoryBot.build(
           :physical_shipment,
-          service_code: "usps_priority_mail",
           packages: [package],
           options: { label_download_type: "inline", label_format: "zpl" }
         )
