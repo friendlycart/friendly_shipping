@@ -57,9 +57,9 @@ module FriendlyShipping
       # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, options = {})
-        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: options[:shipping_method])
-        request = FriendlyShipping::Request.new(url: base_url, body: "API=#{RESOURCES[:rates]}&XML=#{CGI.escape rate_request_xml}")
+      def rate_estimates(shipment, shipping_method: nil, debug: false)
+        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: shipping_method)
+        request = build_request(api: :rates_request, xml: rate_request_xml, debug: debug)
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)
@@ -72,12 +72,9 @@ module FriendlyShipping
       #   `Physical::Location` object. Name and Company name are always nil, the
       #   address lines will be made conformant to what USPS considers right. The returned location will
       #   have the address_type set if possible.
-      def address_validation(location)
+      def address_validation(location, debug: false)
         address_validation_request_xml = SerializeAddressValidationRequest.call(location: location, login: login)
-        request = FriendlyShipping::Request.new(
-          url: base_url,
-          body: "API=#{RESOURCES[:address_validation]}&XML=#{CGI.escape address_validation_request_xml}"
-        )
+        request = build_request(api: :address_validation, xml: address_validation_request_xml, debug: debug)
 
         client.post(request).bind do |response|
           ParseAddressValidationResponse.call(response: response, request: request)
@@ -88,12 +85,9 @@ module FriendlyShipping
       # @param [Physical::Location] location A location object with country and ZIP code set
       # @return [Result<ApiResult<Array<Physical::Location>>>] The response data from USPS encoded in a
       #   `Physical::Location` object. Country, City and ZIP code will be set, everything else nil.
-      def city_state_lookup(location)
+      def city_state_lookup(location, debug: false)
         city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location, login: login)
-        request = FriendlyShipping::Request.new(
-          url: base_url,
-          body: "API=#{RESOURCES[:city_state_lookup]}&XML=#{CGI.escape city_state_lookup_request_xml}"
-        )
+        request = build_request(api: :city_state_lookup, xml: city_state_lookup_request_xml, debug: debug)
 
         client.post(request).bind do |response|
           ParseCityStateLookupResponse.call(response: response, request: request)
@@ -101,6 +95,14 @@ module FriendlyShipping
       end
 
       private
+
+      def build_request(api:, xml:, debug:)
+        FriendlyShipping::Request.new(
+          url: base_url,
+          body: "API=#{RESOURCES[api]}&XML=#{CGI.escape xml}",
+          debug: debug
+        )
+      end
 
       def base_url
         test ? TEST_URL : LIVE_URL

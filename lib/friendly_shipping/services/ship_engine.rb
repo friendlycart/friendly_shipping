@@ -28,10 +28,11 @@ module FriendlyShipping
       # Get configured carriers from USPS
       #
       # @return [Result<ApiResult<Array<Carrier>>>] Carriers configured in your shipstation account
-      def carriers
+      def carriers(debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:carriers],
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.get(request).fmap do |response|
           ParseCarrierResponse.call(request: request, response: response)
@@ -48,12 +49,13 @@ module FriendlyShipping
       # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, options = {})
-        selected_carriers = options[:carriers] || carriers.value!.data
+      def rate_estimates(shipment, selected_carriers: nil, debug: false)
+        selected_carriers ||= carriers.value!.data
         request = FriendlyShipping::Request.new(
           url: API_BASE + 'rates/estimate',
           body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: selected_carriers).to_json,
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.post(request).bind do |response|
           ParseRateEstimateResponse.call(response: response, request: request, carriers: selected_carriers)
@@ -82,11 +84,12 @@ module FriendlyShipping
         end
       end
 
-      def void(label)
+      def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
           body: '',
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.put(request).bind do |response|
           ParseVoidResponse.call(request: request, response: response)
