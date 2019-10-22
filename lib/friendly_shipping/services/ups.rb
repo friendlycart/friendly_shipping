@@ -6,6 +6,7 @@ require 'friendly_shipping/services/ups/serialize_access_request'
 require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
+require 'friendly_shipping/services/ups/parse_address_classification_response'
 require 'friendly_shipping/services/ups/parse_address_validation_response'
 require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
 require 'friendly_shipping/services/ups/parse_rate_response'
@@ -81,6 +82,23 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseAddressValidationResponse.call(response: response, request: request)
+        end
+      end
+
+      # Classify an address.
+      # @param [Physical::Location] location The address we want to classify
+      # @return [Result<ApiResult<String>>] Either `"commercial"`, `"residential"`, or `"unknown"`
+      def address_classification(location, debug: false)
+        address_validation_request_xml = SerializeAddressValidationRequest.call(location: location)
+        url = base_url + RESOURCES[:address_validation]
+        request = FriendlyShipping::Request.new(
+          url: url,
+          body: access_request_xml + address_validation_request_xml,
+          debug: debug
+        )
+
+        client.post(request).bind do |response|
+          ParseAddressClassificationResponse.call(response: response, request: request)
         end
       end
 
