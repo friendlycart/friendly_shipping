@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AddressValidationResponse>
+  <Response>
+    <TransactionReference/>
+    <ResponseStatusCode>1</ResponseStatusCode>
+    <ResponseStatusDescription>Success</ResponseStatusDescription>
+  </Response>
+  <AmbiguousAddressIndicator/>
+  <AddressClassification>
+    <Code>1</Code>
+    <Description>Commercial</Description>
+  </AddressClassification>
+  <AddressKeyFormat>
+    <AddressClassification>
+      <Code>0</Code>
+      <Description>Unknown</Description>
+    </AddressClassification>
+    <AddressLine>2000 COASTAL GRAND CIR</AddressLine>
+    <AddressLine>STE 105-115</AddressLine>
+    <Region>MYRTLE BEACH SC 29577-9600</Region>
+    <PoliticalDivision2>MYRTLE BEACH</PoliticalDivision2>
+    <PoliticalDivision1>SC</PoliticalDivision1>
+    <PostcodePrimaryLow>29577</PostcodePrimaryLow>
+    <PostcodeExtendedLow>9600</PostcodeExtendedLow>
+    <CountryCode>US</CountryCode>
+  </AddressKeyFormat>
+</AddressValidationResponse>
