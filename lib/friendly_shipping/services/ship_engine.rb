@@ -76,7 +76,7 @@ module FriendlyShipping
       def labels(shipment, shipping_method:)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
-          body: SerializeLabelShipment.new(shipment: shipment, shipping_method: shipping_method, test: test).to_json,
+          body: SerializeLabelShipment.call(shipment: shipment, shipping_method: shipping_method, test: test).to_json,
           headers: request_headers
         )
         client.post(request).fmap do |response|
