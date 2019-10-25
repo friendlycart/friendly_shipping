@@ -22,7 +22,7 @@ module FriendlyShipping
             end
 
             if test
-              shipment_hash[:test] = true
+              shipment_hash[:test_label] = true
             end
 
             shipment_hash
