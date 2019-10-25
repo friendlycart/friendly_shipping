@@ -14,6 +14,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   it do
     is_expected.to match(
       hash_including(
+        test_label: true,
         label_format: "zpl",
         label_download_type: "url",
         shipment: hash_including(
