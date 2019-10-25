@@ -19,6 +19,7 @@ http_interactions:
             <RequestOption>3</RequestOption>
           </Request>
           <AddressKeyFormat>
+            <ConsigneeName>United Nations</ConsigneeName>
             <AddressLine>East 43nd Street</AddressLine>
             <AddressLine>South</AddressLine>
             <PoliticalDivision2>New York</PoliticalDivision2>
@@ -31,9 +32,9 @@ http_interactions:
       Accept:
       - "*/*"
       User-Agent:
-      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (darwin18.7.0 x86_64) ruby/2.6.5p114
       Content-Length:
-      - '691'
+      - '722'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -44,7 +45,7 @@ http_interactions:
       message: '200'
     headers:
       Date:
-      - Tue, 08 Oct 2019 09:21:17 GMT
+      - Fri, 25 Oct 2019 17:45:23 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -63,12 +64,14 @@ http_interactions:
       Apihttpstatus:
       - '200'
       Content-Length:
-      - '7019'
+      - '6984'
       Content-Type:
       - application/xml
     body:
       encoding: UTF-8
-      string: <?xml version="1.0"?><AddressValidationResponse><Response><TransactionReference></TransactionReference><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><AmbiguousAddressIndicator/><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressLine>11-19
+      string: <?xml version="1.0"?><AddressValidationResponse><Response><TransactionReference></TransactionReference><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><AmbiguousAddressIndicator/><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressLine>2-22
+        E 43RD ST</AddressLine><Region>NEW YORK NY 10017-4607</Region><PoliticalDivision2>NEW
+        YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4607</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressLine>11-19
         E 43RD ST</AddressLine><Region>NEW YORK NY 10017-4601</Region><PoliticalDivision2>NEW
         YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4601</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressLine>33-99
         E 43RD ST</AddressLine><Region>NEW YORK NY 10017-3812</Region><PoliticalDivision2>NEW
@@ -96,9 +99,7 @@ http_interactions:
         E 43RD ST</AddressLine><AddressLine>APT 5A-5B</AddressLine><Region>NEW YORK
         NY 10017-4017</Region><PoliticalDivision2>NEW YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4017</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressLine>151
         E 43RD ST</AddressLine><AddressLine>FRNT A-B</AddressLine><Region>NEW YORK
-        NY 10017-4017</Region><PoliticalDivision2>NEW YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4017</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressLine>153
-        E 43RD ST</AddressLine><AddressLine>APT 2A-2D</AddressLine><Region>NEW YORK
-        NY 10017-4015</Region><PoliticalDivision2>NEW YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4015</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat></AddressValidationResponse>
+        NY 10017-4017</Region><PoliticalDivision2>NEW YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4017</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat></AddressValidationResponse>
     http_version: 
-  recorded_at: Tue, 08 Oct 2019 09:21:18 GMT
+  recorded_at: Fri, 25 Oct 2019 17:45:25 GMT
 recorded_with: VCR 5.0.0

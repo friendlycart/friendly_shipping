@@ -176,7 +176,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
         # All returned addresses need to have a first address line
         expect(suggested_addresses.map(&:address1).compact.length).to eq(15)
         # In this particular request, the last suggested address has a second address line.
-        expect(suggested_addresses.last.address2).to eq("APT 2A-2D")
+        expect(suggested_addresses.last.address2).to eq("FRNT A-B")
       end
     end
   end
