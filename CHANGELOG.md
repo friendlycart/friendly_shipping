@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2017-10-25
+
+### Changed
+- Fix: ShipEngine#labels now works as expected.
+
 ## [0.3.1] - 2017-06-20
 ### Added
 - Endpoint for UPS address classification
