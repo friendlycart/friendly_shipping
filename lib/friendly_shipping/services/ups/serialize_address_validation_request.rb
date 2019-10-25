@@ -22,6 +22,7 @@ module FriendlyShipping
               end
 
               xml.AddressKeyFormat do
+                xml.ConsigneeName(location.company_name.presence || location.name)
                 xml.AddressLine location.address1
                 xml.AddressLine location.address2
                 xml.PoliticalDivision2 location.city
