@@ -9,7 +9,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: shipment_options) }
   let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: 'usps_priority_mail') }
   let(:shipment_options) { { label_format: 'zpl' } }
-  subject { described_class.new(shipment: shipment, shipping_method: shipping_method, test: true).call }
+  subject { described_class.call(shipment: shipment, shipping_method: shipping_method, test: true) }
 
   it do
     is_expected.to match(
