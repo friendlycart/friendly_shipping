@@ -9,6 +9,7 @@ require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
 require 'friendly_shipping/services/ship_engine/parse_void_response'
 require 'friendly_shipping/services/ship_engine/parse_rate_estimate_response'
+require 'friendly_shipping/services/ship_engine/rate_estimates_options'
 
 module FriendlyShipping
   module Services
