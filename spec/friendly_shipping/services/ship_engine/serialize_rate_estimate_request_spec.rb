@@ -8,7 +8,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequ
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Density(0, :g_ml), container: container) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
   let(:carrier) { FriendlyShipping::Carrier.new(id: 'se-123456') }
-  subject { described_class.call(shipment: shipment, carriers: [carrier]) }
+  let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new(carriers: [carrier]) }
+  subject { described_class.call(shipment: shipment, options: options) }
 
   it do
     is_expected.to match(

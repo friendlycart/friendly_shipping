@@ -30,8 +30,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
     let(:destination) { FactoryBot.build(:physical_location, zip: '91521') }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
+    let(:carriers) { [service.carriers.value!.data.last] }
+    let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new(carriers: carriers) }
 
-    subject { service.rate_estimates(shipment) }
+    subject { service.rate_estimates(shipment, options: options) }
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
       aggregate_failures do
@@ -44,7 +46,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'with debug set to true' do
-      subject { service.rate_estimates(shipment, debug: true) }
+      subject { service.rate_estimates(shipment, options: options, debug: true) }
 
       it 'returns original request and response along with the data', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
         aggregate_failures do
@@ -57,18 +59,11 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
-    context 'when specifying carriers' do
-      let(:carriers) { [service.carriers.value!.data.last] }
+    context 'when not specifying carriers' do
+      let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new }
 
-      subject { service.rate_estimates(shipment, selected_carriers: carriers) }
-
-      it 'returns Physical::Rate objects wrapped in a Success Monad',
-         vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
-        aggregate_failures do
-          is_expected.to be_success
-          expect(subject.value!.data).to be_a(Array)
-          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
-        end
+      it 'fails' do
+        expect { subject }.to raise_exception(ArgumentError)
       end
     end
   end
