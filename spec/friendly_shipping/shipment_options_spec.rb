@@ -22,5 +22,13 @@ RSpec.describe FriendlyShipping::ShipmentOptions do
       expect(subject.options_for_package(package_1)).to eq(options_for_package_1)
       expect(subject.options_for_package(package_2)).to eq(options_for_package_2)
     end
+
+    context 'if no package options are given' do
+      subject { described_class.new(package_options: []) }
+
+      it "returns an instance of the package options class" do
+        expect(subject.options_for_package(package_1)).to be_a(FriendlyShipping::PackageOptions)
+      end
+    end
   end
 end
