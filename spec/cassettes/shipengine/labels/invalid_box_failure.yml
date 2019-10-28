@@ -5,24 +5,24 @@ http_interactions:
     uri: https://api.shipengine.com/v1/labels
     body:
       encoding: UTF-8
-      string: '{"label_format":"pdf","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
+      string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10026","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10044","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10025","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":49.37931385397863,"unit":"ounce"},"package_code":"not_a_usps_package_code"}]},"test_label":true}'
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10043","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"package_code":"not_a_usps_package_code"}],"carrier_id":"<SHIPENGINE_CARRIER_ID>"},"test_label":true}'
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Type:
       - application/json
       Api-Key:
       - "<SHIPENGINE_API_KEY>"
       Content-Length:
-      - '727'
+      - '799'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - api.shipengine.com
   response:
@@ -31,24 +31,27 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Thu, 28 Feb 2019 11:27:00 GMT
+      - Mon, 28 Oct 2019 16:13:02 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '187'
+      - '383'
       Connection:
       - keep-alive
-      X-Newrelic-App-Data:
-      - PxQGVFZXCgITVVZbAwMCV1YGFB9AMQYAZBBZDEtZV0ZaCldOZgRRIzR/GC0HAV1fQ0sxF0VSXwcXVHpSAAMPQBxSFlIUCBoDB1YBWQJYH1VWARtDVyd8dwBUICd0cHJUJXR0cEBKBQNcEV0/
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+      Vary:
+      - Origin
       X-Shipengine-Requestid:
-      - 67446903-c055-426a-b2af-16b7e49a6311
-      X-Shipengine-Server:
-      - SS-J-WEB01
+      - ba7ae716-deda-4fef-bc25-b1eb88bb0911
     body:
       encoding: UTF-8
-      string: "{\r\n  \"request_id\": \"67446903-c055-426a-b2af-16b7e49a6311\",\r\n
-        \ \"errors\": [\r\n    {\r\n      \"error_code\": \"\",\r\n      \"message\":
-        \"invalid package_code 'not_a_usps_package_code'\"\r\n    }\r\n  ]\r\n}"
+      string: "{\r\n  \"request_id\": \"ba7ae716-deda-4fef-bc25-b1eb88bb0911\",\r\n
+        \ \"errors\": [\r\n    {\r\n      \"error_source\": \"shipengine\",\r\n      \"error_type\":
+        \"business_rules\",\r\n      \"error_code\": \"unspecified\",\r\n      \"message\":
+        \"invalid package_code 'not_a_usps_package_code'\",\r\n      \"field_name\":
+        \"shipment._packages[0]._package_code\",\r\n      \"field_value\": \"not_a_usps_package_code\"\r\n
+        \   }\r\n  ]\r\n}"
     http_version: 
-  recorded_at: Thu, 28 Feb 2019 11:27:00 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Mon, 28 Oct 2019 16:13:02 GMT
+recorded_with: VCR 5.0.0

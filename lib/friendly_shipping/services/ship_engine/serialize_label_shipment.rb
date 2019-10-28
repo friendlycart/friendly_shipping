@@ -5,20 +5,20 @@ module FriendlyShipping
     class ShipEngine
       class SerializeLabelShipment
         class << self
-          def call(shipment:, shipping_method:, test:)
+          def call(shipment:, options:, test:)
             shipment_hash = {
-              label_format: shipment.options[:label_format].presence || "pdf",
-              label_download_type: shipment.options[:label_download_type].presence || "url",
+              label_format: options.label_format,
+              label_download_type: options.label_download_type,
               shipment: {
-                service_code: shipping_method.service_code,
+                service_code: options.shipping_method.service_code,
                 ship_to: serialize_address(shipment.destination),
                 ship_from: serialize_address(shipment.origin),
-                packages: serialize_packages(shipment.packages)
+                packages: serialize_packages(shipment.packages, options)
               }
             }
             # A carrier might not be necessary if the service code is unique within ShipEngine.
-            if shipping_method.carrier
-              shipment_hash[:shipment][:carrier_id] = shipping_method.carrier.id
+            if options.shipping_method.carrier
+              shipment_hash[:shipment][:carrier_id] = options.shipping_method.carrier.id
             end
 
             if test
@@ -45,15 +45,16 @@ module FriendlyShipping
             }
           end
 
-          def serialize_packages(packages)
+          def serialize_packages(packages, options)
             packages.map do |package|
+              package_options = options.options_for_package(package)
               package_hash = serialize_weight(package.weight)
-              if package.container.properties[:usps_label_messages]
-                package_hash[:label_messages] = package.container.properties[:usps_label_messages]
-              end
-              package_code = package.container.properties[:usps_package_code]
-              if package_code
-                package_hash[:package_code] = package_code
+              package_hash[:label_messages] = package_options.messages.map.with_index do |message, index|
+                ["reference#{index + 1}".to_sym, message]
+              end.to_h
+
+              if package_options.package_code
+                package_hash[:package_code] = package_options.package_code
               else
                 package_hash[:dimensions] = {
                   unit: 'inch',

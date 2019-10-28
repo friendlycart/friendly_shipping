@@ -5,24 +5,24 @@ http_interactions:
     uri: https://api.shipengine.com/v1/labels
     body:
       encoding: UTF-8
-      string: '{"shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
+      string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10010","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10050","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10009","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":49.37931385397863,"unit":"ounce"}}]},"test_label":true}'
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10049","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"<SHIPENGINE_CARRIER_ID>"},"test_label":true}'
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Type:
       - application/json
       Api-Key:
       - invalid_token
       Content-Length:
-      - '665'
+      - '829'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - api.shipengine.com
   response:
@@ -31,16 +31,20 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Wed, 19 Dec 2018 16:06:03 GMT
+      - Mon, 28 Oct 2019 16:13:03 GMT
       Content-Type:
       - text/plain; charset=utf-8
       Content-Length:
       - '12'
       Connection:
       - keep-alive
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+      Vary:
+      - Origin
     body:
       encoding: UTF-8
       string: Unauthorized
     http_version: 
-  recorded_at: Wed, 19 Dec 2018 16:06:02 GMT
-recorded_with: VCR 3.0.3
+  recorded_at: Mon, 28 Oct 2019 16:13:03 GMT
+recorded_with: VCR 5.0.0

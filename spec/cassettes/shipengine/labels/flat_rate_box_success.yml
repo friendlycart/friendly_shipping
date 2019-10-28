@@ -5,24 +5,24 @@ http_interactions:
     uri: https://api.shipengine.com/v1/labels
     body:
       encoding: UTF-8
-      string: '{"label_format":"pdf","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
+      string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10012","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10024","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10011","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":49.37931385397863,"unit":"ounce"},"package_code":"large_flat_rate_box"}]},"test_label":true}'
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10023","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"package_code":"large_flat_rate_box"}],"carrier_id":"<SHIPENGINE_CARRIER_ID>"},"test_label":true}'
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Type:
       - application/json
       Api-Key:
       - "<SHIPENGINE_API_KEY>"
       Content-Length:
-      - '723'
+      - '795'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - api.shipengine.com
   response:
@@ -31,48 +31,44 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 27 Feb 2019 13:58:58 GMT
+      - Mon, 28 Oct 2019 16:13:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '1480'
+      - '1577'
       Connection:
       - keep-alive
-      Server:
-      - Microsoft-IIS/8.0
-      X-Newrelic-App-Data:
-      - PxQGVFZXCgITVVZbAwMCV1YGFB9AMQYAZBBZDEtZV0ZaCldOZgRRIzR/GC0HAV1fQ0sxF0VSXwcXVHpSAAMPQBxSFlIUCBoLC1MBVARNBFBXGhUlUScBcAAhIFoFcHJUVQQOEU4AAg5DB2U=
-      X-Powered-By:
-      - ASP.NET
-      X-Shipengine-Environment:
-      - j
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+      Vary:
+      - Origin
       X-Shipengine-Requestid:
-      - 5802b8a0-4dfd-41ef-b0d1-ee67d1f0dfa1
-      X-Shipengine-Server:
-      - SS-J-WEB01
+      - 92b0c2bf-7a60-406c-8024-a40c256bcaba
     body:
       encoding: UTF-8
-      string: "{\r\n  \"label_id\": \"se-test-1420575\",\r\n  \"status\": \"processing\",\r\n
-        \ \"shipment_id\": \"se-1420575\",\r\n  \"ship_date\": \"2019-02-27T00:00:00Z\",\r\n
-        \ \"created_at\": \"2019-02-27T13:58:58.6453147Z\",\r\n  \"shipment_cost\":
+      string: "{\r\n  \"label_id\": \"se-test-5237893\",\r\n  \"status\": \"processing\",\r\n
+        \ \"shipment_id\": \"se-5237893\",\r\n  \"ship_date\": \"2019-10-28T00:00:00Z\",\r\n
+        \ \"created_at\": \"2019-10-28T16:13:00.8242457Z\",\r\n  \"shipment_cost\":
         {\r\n    \"currency\": \"usd\",\r\n    \"amount\": 0.0\r\n  },\r\n  \"insurance_cost\":
         {\r\n    \"currency\": \"usd\",\r\n    \"amount\": 0.0\r\n  },\r\n  \"tracking_number\":
         \"9999999999999\",\r\n  \"is_return_label\": false,\r\n  \"rma_number\": null,\r\n
         \ \"is_international\": false,\r\n  \"batch_id\": \"\",\r\n  \"carrier_id\":
-        \"se-76432\",\r\n  \"service_code\": \"usps_priority_mail\",\r\n  \"package_code\":
-        \"large_flat_rate_box\",\r\n  \"voided\": false,\r\n  \"voided_at\": null,\r\n
-        \ \"label_format\": \"pdf\",\r\n  \"label_layout\": \"4x6\",\r\n  \"trackable\":
-        true,\r\n  \"carrier_code\": \"stamps_com\",\r\n  \"tracking_status\": \"unknown\",\r\n
-        \ \"label_download\": {\r\n    \"href\": \"https://api.shipengine.com/v1/downloads/10/yG10y3OEG0Oj-am8EPlNjw/testlabel-1420575.pdf\"\r\n
+        \"<SHIPENGINE_CARRIER_ID>\",\r\n  \"service_code\": \"usps_priority_mail\",\r\n
+        \ \"package_code\": \"large_flat_rate_box\",\r\n  \"voided\": false,\r\n  \"voided_at\":
+        null,\r\n  \"label_format\": \"pdf\",\r\n  \"label_layout\": \"4x6\",\r\n
+        \ \"trackable\": true,\r\n  \"label_image_id\": null,\r\n  \"carrier_code\":
+        \"endicia\",\r\n  \"tracking_status\": \"unknown\",\r\n  \"label_download\":
+        {\r\n    \"href\": \"https://api.shipengine.com/v1/downloads/10/8FQD3ySMG0uRcpngE89PYQ/testlabel-5237893.pdf\"\r\n
         \ },\r\n  \"form_download\": null,\r\n  \"insurance_claim\": null,\r\n  \"packages\":
         [\r\n    {\r\n      \"package_code\": \"large_flat_rate_box\",\r\n      \"weight\":
-        {\r\n        \"value\": 49.37,\r\n        \"unit\": \"ounce\"\r\n      },\r\n
+        {\r\n        \"value\": 9.77,\r\n        \"unit\": \"ounce\"\r\n      },\r\n
         \     \"dimensions\": {\r\n        \"unit\": \"inch\",\r\n        \"length\":
         0.0,\r\n        \"width\": 0.0,\r\n        \"height\": 0.0\r\n      },\r\n
         \     \"insured_value\": {\r\n        \"currency\": \"usd\",\r\n        \"amount\":
         0.00\r\n      },\r\n      \"tracking_number\": null,\r\n      \"label_messages\":
         {\r\n        \"reference1\": null,\r\n        \"reference2\": null,\r\n        \"reference3\":
-        null\r\n      }\r\n    }\r\n  ]\r\n}"
+        null\r\n      },\r\n      \"external_package_id\": null\r\n    }\r\n  ],\r\n
+        \ \"charge_event\": \"carrier_default\"\r\n}"
     http_version:
-  recorded_at: Wed, 27 Feb 2019 13:58:58 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Mon, 28 Oct 2019 16:13:00 GMT
+recorded_with: VCR 5.0.0
