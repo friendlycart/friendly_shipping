@@ -14,6 +14,17 @@ module FriendlyShipping
                 :original_request,
                 :original_response
 
+    # @param [Integer] id The label's ID
+    # @param [Integer] shipment_id The label's shipment ID
+    # @param [String] tracking_number The label's tracking number
+    # @param [String] service_code The label's service code
+    # @param [String] label_href The URL for the label
+    # @param [String] label_format The label's format
+    # @param [String] label_data The raw label data
+    # @param [Float] shipment_cost The cost of the shipment
+    # @param [Hash] data Additional data related to the label
+    # @param [FriendlyShipping::Request] original_request The HTTP request used to obtain the label
+    # @param [FriendlyShipping::Response] original_response The HTTP response for the label
     def initialize(
       id: nil,
       shipment_id: nil,

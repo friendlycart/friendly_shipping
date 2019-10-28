@@ -27,6 +27,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimateResponse
     expect(rate.delivery_date).to eq(Time.new(2019, 6, 7, 0, 0, 0, "+00:00"))
     expect(rate.warnings).to eq([])
     expect(rate.errors).to eq([])
+    expect(rate.data).to eq({})
     expect(rate.original_request).to eq(request)
     expect(rate.original_response).to eq(response)
   end
