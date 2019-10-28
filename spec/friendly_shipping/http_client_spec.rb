@@ -6,6 +6,7 @@ RSpec.describe FriendlyShipping::HttpClient do
   let(:response) { double }
 
   subject { described_class.new }
+  it { is_expected.to respond_to(:error_handler) }
 
   describe '.get' do
     let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', headers: { "X-Token" => "s3cr3t" }) }

@@ -10,11 +10,14 @@ RSpec.describe FriendlyShipping::Rate do
     )
   end
   it { is_expected.to respond_to(:shipping_method) }
+  it { is_expected.to respond_to(:amounts) }
   it { is_expected.to respond_to(:remote_service_id) }
   it { is_expected.to respond_to(:delivery_date) }
   it { is_expected.to respond_to(:warnings) }
   it { is_expected.to respond_to(:errors) }
   it { is_expected.to respond_to(:data) }
+  it { is_expected.to respond_to(:original_request) }
+  it { is_expected.to respond_to(:original_response) }
 
   describe '#total_amount' do
     subject do
