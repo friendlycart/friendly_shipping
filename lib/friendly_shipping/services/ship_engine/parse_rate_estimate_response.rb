@@ -10,14 +10,16 @@ module FriendlyShipping
         extend Dry::Monads::Result::Mixin
 
         class << self
-          def call(response:, carriers:, request:)
+          def call(response:, request:, options:)
             parsed_json = JSON.parse(response.body)
             rates = parsed_json.map do |rate|
-              carrier = carriers.detect { |c| c.id == rate['carrier_id'] }
+              carrier = options.carriers.detect { |c| c.id == rate['carrier_id'] }
               next unless carrier
 
-              shipping_method = carrier.shipping_methods.detect { |sm| sm.service_code == rate['service_code'] }
-              next unless shipping_method
+              shipping_method = FriendlyShipping::ShippingMethod.new(
+                carrier: carrier,
+                service_code: rate['service_code']
+              )
 
               amounts = get_amounts(rate)
               FriendlyShipping::Rate.new(
