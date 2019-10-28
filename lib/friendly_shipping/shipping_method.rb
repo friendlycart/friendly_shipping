@@ -4,6 +4,13 @@ module FriendlyShipping
   class ShippingMethod
     attr_reader :name, :service_code, :carrier, :origin_countries
 
+    # @param [String] name The shipping method's name
+    # @param [String] service_code The shipping method's service code
+    # @param [Boolean] domestic Whether this is a domestic shipping method
+    # @param [Boolean] international Whether this is an international shipping method
+    # @param [Boolean] multi_package Whether this is a multi-package shipping method
+    # @param [FriendlyShipping::Carrier] carrier This shipping method's carrier
+    # @param [Array] origin_countries Countries this shipping method ships from
     def initialize(
       name: nil,
       service_code: nil,

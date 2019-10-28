@@ -4,6 +4,9 @@ module FriendlyShipping
   class ApiFailure
     attr_reader :failure, :original_request, :original_response
 
+    # @param [Object] failure The API failure
+    # @param [FriendlyShipping::Request] original_request The HTTP request (when debugging is enabled)
+    # @param [FriendlyShipping::Response] original_response The HTTP response (when debugging is enabled)
     def initialize(failure, original_request:, original_response:)
       @failure = failure
 

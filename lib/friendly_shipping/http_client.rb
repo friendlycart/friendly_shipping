@@ -9,6 +9,7 @@ module FriendlyShipping
 
     attr_reader :error_handler
 
+    # @param [Proc] error_handler Called to handle an error if one occurs
     def initialize(error_handler: method(:wrap_in_failure))
       @error_handler = error_handler
     end

@@ -13,6 +13,15 @@ module FriendlyShipping
                 :original_request,
                 :original_response
 
+    # @param [FriendlyShipping::ShippingMethod] shipping_method The rate's shipping method
+    # @param [Hash] amounts The amounts (as Money objects) that make up the rate
+    # @param [Integer] remote_service_id The remote service ID for the rate
+    # @param [Time] delivery_date The delivery date for the rate
+    # @param [Array] warnings Any warnings that were generated
+    # @param [Array] errors Any errors that were generated
+    # @param [Hash] data Additional data related to the rate
+    # @param [FriendlyShipping::Request] original_request The HTTP request used to obtain the rate
+    # @param [FriendlyShipping::Response] original_response The HTTP response for the rate
     def initialize(
       shipping_method:,
       amounts:,
