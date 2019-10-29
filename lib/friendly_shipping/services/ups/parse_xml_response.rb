@@ -9,7 +9,8 @@ module FriendlyShipping
 
         class << self
           def call(response_body, expected_root_tag)
-            xml = Nokogiri.XML(response_body)
+            xml = Nokogiri.XML(response_body, &:strict)
+
             if xml.root.nil? || xml.root.name != expected_root_tag
               Failure('Invalid document')
             end

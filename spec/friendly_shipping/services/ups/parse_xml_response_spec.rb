@@ -26,4 +26,15 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseXMLResponse do
   it 'has the correct error message' do
     expect(subject.failure.to_s).to eq('Failure: Something went wrong')
   end
+
+  context 'with invalid XML in response body' do
+    let(:response) { 'invalid XML' }
+
+    it { is_expected.to be_failure }
+
+    it 'has the correct error' do
+      expect(subject.failure).to be_a(Nokogiri::XML::SyntaxError)
+      expect(subject.failure.message).to match(/Start tag expected/)
+    end
+  end
 end
