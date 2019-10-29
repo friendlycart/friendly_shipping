@@ -180,4 +180,81 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
   end
+
+  describe '#labels' do
+    let(:origin) do
+      FactoryBot.build(
+        :physical_location,
+        name: 'John Doe',
+        company_name: 'Company',
+        address1: '10 Lovely Street',
+        address2: 'Northwest',
+        region: 'NC',
+        city: 'Raleigh',
+        zip: '27615'
+      )
+    end
+
+    let(:shipper) do
+      FactoryBot.build(
+        :physical_location,
+        name: 'Jane Doe',
+        company_name: 'Company',
+        address1: '10 Lovely Street',
+        address2: 'Northwest',
+        region: 'NC',
+        city: 'Raleigh',
+        zip: '27615'
+      )
+    end
+
+    let(:destination) do
+      FactoryBot.build(
+        :physical_location,
+        address1: '7007 Sea World Dr',
+        city: 'Orlando',
+        region: 'FL',
+        zip: '32821'
+      )
+    end
+
+    # UPS Ground is 03
+    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '03') }
+    let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
+    let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
+
+    subject(:labels) { service.labels(shipment, options: options) }
+
+    let(:options) do
+      FriendlyShipping::Services::Ups::LabelOptions.new(
+        shipping_method: shipping_method,
+        shipper_number: shipper_number
+      )
+    end
+
+    it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/success" } do
+      expect(subject).to be_a(Dry::Monads::Result)
+      expect(subject.value!.data.length).to eq(2)
+      expect(subject.value!.data.map(&:tracking_number)).to be_present
+      expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
+      expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
+    end
+
+    context "if the address is invalid", vcr: { cassette_name: "ups/labels/failure" } do
+      let(:destination) do
+        FactoryBot.build(
+          :physical_location,
+          address1: "x" * 36, # only 35 characters are allowed
+          city: 'Orlando',
+          region: 'FL',
+          zip: '32821'
+        )
+      end
+
+      it "returns a failure with a good error message" do
+        is_expected.to be_failure
+        expect(subject.failure.to_s).to eq("Failure: Missing or invalid ship to address line 1")
+      end
+    end
+  end
 end

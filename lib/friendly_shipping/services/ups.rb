@@ -6,11 +6,16 @@ require 'friendly_shipping/services/ups/serialize_access_request'
 require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
-require 'friendly_shipping/services/ups/parse_address_classification_response'
+require 'friendly_shipping/services/ups/serialize_shipment_accept_request'
+require 'friendly_shipping/services/ups/serialize_shipment_confirm_request'
 require 'friendly_shipping/services/ups/parse_address_validation_response'
+require 'friendly_shipping/services/ups/parse_address_classification_response'
 require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
 require 'friendly_shipping/services/ups/parse_rate_response'
+require 'friendly_shipping/services/ups/parse_shipment_confirm_response'
+require 'friendly_shipping/services/ups/parse_shipment_accept_response'
 require 'friendly_shipping/services/ups/shipping_methods'
+require 'friendly_shipping/services/ups/label_options'
 
 module FriendlyShipping
   module Services
@@ -32,7 +37,9 @@ module FriendlyShipping
       RESOURCES = {
         address_validation: '/ups.app/xml/XAV',
         city_state_lookup: '/ups.app/xml/AV',
-        rates: '/ups.app/xml/Rate'
+        rates: '/ups.app/xml/Rate',
+        ship_confirm: '/ups.app/xml/ShipConfirm',
+        ship_accept: '/ups.app/xml/ShipAccept',
       }.freeze
 
       def initialize(key:, login:, password:, test: true, client: HttpClient.new)
@@ -62,6 +69,43 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)
+        end
+      end
+
+      def labels(shipment, options:, debug: false)
+        ## Method body starts
+        ship_confirm_request_xml = SerializeShipmentConfirmRequest.call(
+          shipment: shipment,
+          options: options
+        )
+        ship_confirm_url = base_url + RESOURCES[:ship_confirm]
+
+        ship_confirm_request = FriendlyShipping::Request.new(
+          url: ship_confirm_url,
+          body: access_request_xml + ship_confirm_request_xml,
+          debug: debug
+        )
+
+        client.post(ship_confirm_request).bind do |ship_confirm_response|
+          ParseShipmentConfirmResponse.call(
+            request: ship_confirm_request,
+            response: ship_confirm_response
+          )
+        end.bind do |ship_confirm_result|
+          ship_accept_url = base_url + RESOURCES[:ship_accept]
+          ship_accept_request_xml = SerializeShipmentAcceptRequest.call(
+            digest: ship_confirm_result.data
+          )
+
+          ship_accept_request = FriendlyShipping::Request.new(
+            url: ship_accept_url,
+            body: access_request_xml + ship_accept_request_xml,
+            debug: debug
+          )
+
+          client.post(ship_accept_request).bind do |ship_accept_response|
+            ParseShipmentAcceptResponse.call(request: ship_accept_request, response: ship_accept_response)
+          end
         end
       end
 
