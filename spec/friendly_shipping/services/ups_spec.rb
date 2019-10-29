@@ -195,19 +195,6 @@ RSpec.describe FriendlyShipping::Services::Ups do
       )
     end
 
-    let(:shipper) do
-      FactoryBot.build(
-        :physical_location,
-        name: 'Jane Doe',
-        company_name: 'Company',
-        address1: '10 Lovely Street',
-        address2: 'Northwest',
-        region: 'NC',
-        city: 'Raleigh',
-        zip: '27615'
-      )
-    end
-
     let(:destination) do
       FactoryBot.build(
         :physical_location,
