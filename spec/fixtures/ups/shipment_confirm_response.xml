@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipmentConfirmResponse>
+  <Response>
+    <ResponseStatusCode>1</ResponseStatusCode>
+    <ResponseStatusDescription>Success</ResponseStatusDescription>
+  </Response>
+  <ShipmentCharges>
+    <TransportationCharges>
+      <CurrencyCode>USD</CurrencyCode>
+      <MonetaryValue>11.98</MonetaryValue>
+    </TransportationCharges>
+    <ServiceOptionsCharges>
+      <CurrencyCode>USD</CurrencyCode>
+      <MonetaryValue>0.00</MonetaryValue>
+    </ServiceOptionsCharges>
+    <TotalCharges>
+      <CurrencyCode>USD</CurrencyCode>
+      <MonetaryValue>11.98</MonetaryValue>
+    </TotalCharges>
+  </ShipmentCharges>
+  <BillingWeight>
+    <UnitOfMeasurement>
+      <Code>LBS</Code>
+    </UnitOfMeasurement>
+    <Weight>5.0</Weight>
+  </BillingWeight>
+  <ShipmentIdentificationNumber>1ZY9319W0396828025</ShipmentIdentificationNumber>
+  <ShipmentDigest>very-long-digest-number</ShipmentDigest>
+</ShipmentConfirmResponse>

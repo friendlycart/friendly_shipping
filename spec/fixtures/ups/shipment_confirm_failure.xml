@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipmentConfirmResponse>
+  <Response>
+    <ResponseStatusCode>0</ResponseStatusCode>
+    <ResponseStatusDescription>Failure</ResponseStatusDescription>
+    <Error>
+      <ErrorSeverity>Hard</ErrorSeverity>
+      <ErrorCode>120203</ErrorCode>
+      <ErrorDescription>Invalid ShipTo AddressLine2</ErrorDescription>
+    </Error>
+  </Response>
+</ShipmentConfirmResponse>
