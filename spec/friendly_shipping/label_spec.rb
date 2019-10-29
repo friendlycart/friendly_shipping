@@ -12,6 +12,4 @@ RSpec.describe FriendlyShipping::Label do
   it { is_expected.to respond_to(:label_format) }
   it { is_expected.to respond_to(:shipment_cost) }
   it { is_expected.to respond_to(:label_data) }
-  it { is_expected.to respond_to(:original_request) }
-  it { is_expected.to respond_to(:original_response) }
 end

@@ -28,9 +28,7 @@ module FriendlyShipping
                 remote_service_id: rate['rate_id'],
                 delivery_date: Time.parse(rate['estimated_delivery_date']),
                 warnings: rate['warning_messages'],
-                errors: rate['error_messages'],
-                original_request: request,
-                original_response: response
+                errors: rate['error_messages']
               )
             end.compact
 

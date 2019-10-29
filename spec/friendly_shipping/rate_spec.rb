@@ -16,8 +16,6 @@ RSpec.describe FriendlyShipping::Rate do
   it { is_expected.to respond_to(:warnings) }
   it { is_expected.to respond_to(:errors) }
   it { is_expected.to respond_to(:data) }
-  it { is_expected.to respond_to(:original_request) }
-  it { is_expected.to respond_to(:original_response) }
 
   describe '#total_amount' do
     subject do
