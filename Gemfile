@@ -12,5 +12,6 @@ gem 'factory_bot'
 gem 'pry'
 gem 'rspec_junit_formatter'
 gem 'rubocop'
+gem 'simplecov', require: false
 gem 'vcr'
 gem 'webmock'
