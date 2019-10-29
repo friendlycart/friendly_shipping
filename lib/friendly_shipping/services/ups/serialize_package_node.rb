@@ -4,7 +4,13 @@ module FriendlyShipping
   module Services
     class Ups
       class SerializePackageNode
-        def self.call(xml:, package:)
+        def self.call(
+          xml:,
+          package:,
+          reference_numbers: {},
+          delivery_confirmation_code: nil,
+          shipper_release: false
+        )
           xml.Package do
             xml.PackagingType do
               xml.Code('02')
@@ -29,16 +35,21 @@ module FriendlyShipping
               xml.Weight([package.weight.convert_to(:pounds).value.to_f.round(2).ceil, 1].max)
             end
 
-            if package.properties[:shipper_release]
-              xml.PackageServiceOptions do
+            xml.PackageServiceOptions do
+              if shipper_release
                 xml.ShipperReleaseIndicator
+              end
+              if delivery_confirmation_code
+                xml.DeliveryConfirmation do
+                  xml.DCISType(delivery_confirmation_code)
+                end
               end
             end
 
-            Array.wrap(package.properties[:reference_numbers]).each do |reference_number_info|
+            reference_numbers.each do |reference_code, reference_number|
               xml.ReferenceNumber do
-                xml.Code(reference_number_info[:code] || "")
-                xml.Value(reference_number_info[:value])
+                xml.Code(reference_code)
+                xml.Value(reference_number)
               end
             end
           end
