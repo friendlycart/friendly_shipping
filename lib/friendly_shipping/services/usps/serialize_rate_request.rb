@@ -74,10 +74,6 @@ module FriendlyShipping
             ounces == 16 ? 15.999 : [ounces, 1].max
           end
 
-          def strip_zip(zip)
-            zip.to_s.scan(/\d{5}/).first || zip
-          end
-
           def girth(package)
             width, length = package.dimensions.sort.first(2)
             (width.scale(2) + length.scale(2)).convert_to(:inches).value.to_f
