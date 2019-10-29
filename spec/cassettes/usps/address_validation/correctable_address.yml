@@ -5,7 +5,7 @@ http_interactions:
     uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
     body:
       encoding: UTF-8
-      string: API=Verify&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CAddressValidateRequest+USERID%3D%22<USPS_LOGIN>%22%3E%0A++%3CAddress%3E%0A++++%3CAddress1%3ESouth%3C%2FAddress1%3E%0A++++%3CAddress2%3E406+East+43nd+Street%3C%2FAddress2%3E%0A++++%3CCity%3ENew+York%3C%2FCity%3E%0A++++%3CState%3ENY%3C%2FState%3E%0A++++%3CZip5%3E27777%3C%2FZip5%3E%0A++++%3CZip4%2F%3E%0A++%3C%2FAddress%3E%0A%3C%2FAddressValidateRequest%3E%0A
+      string: API=Verify&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CAddressValidateRequest+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CAddress%3E%0A++++%3CAddress1%3ESouth%3C%2FAddress1%3E%0A++++%3CAddress2%3E406+East+43nd+Street%3C%2FAddress2%3E%0A++++%3CCity%3ENew+York%3C%2FCity%3E%0A++++%3CState%3ENY%3C%2FState%3E%0A++++%3CZip5%3E27777%3C%2FZip5%3E%0A++++%3CZip4%2F%3E%0A++%3C%2FAddress%3E%0A%3C%2FAddressValidateRequest%3E%0A
     headers:
       Accept:
       - "*/*"
@@ -35,9 +35,9 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Wed, 09 Oct 2019 08:22:56 GMT
+      - Tue, 29 Oct 2019 16:07:43 GMT
       X-Global-Transaction-Id:
-      - '018fb36a5d9d98e009f6c057'
+      - '018fb36a5db863cf0fd0f0e1'
       Access-Control-Allow-Origin:
       - "*"
       Connection:
@@ -54,5 +54,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8"?>
         <AddressValidateResponse><Address><Error><Number>-2147219403</Number><Source>clsAMS</Source><Description>Multiple addresses were found for the information you entered, and no default exists.</Description><HelpFile/><HelpContext/></Error></Address></AddressValidateResponse>
     http_version: 
-  recorded_at: Wed, 09 Oct 2019 08:22:56 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:43 GMT
 recorded_with: VCR 5.0.0

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
     body:
       encoding: UTF-8
-      string: API=CityStateLookup&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CCityStateLookupRequest+USERID%3D%22<USPS_LOGIN>%22%3E%0A++%3CZipCode%3E%0A++++%3CZip5%3E81137%3C%2FZip5%3E%0A++%3C%2FZipCode%3E%0A%3C%2FCityStateLookupRequest%3E%0A
+      string: API=CityStateLookup&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CCityStateLookupRequest+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CZipCode%3E%0A++++%3CZip5%3E81137%3C%2FZip5%3E%0A++%3C%2FZipCode%3E%0A%3C%2FCityStateLookupRequest%3E%0A
     headers:
       Accept:
       - "*/*"
@@ -35,9 +35,9 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Wed, 09 Oct 2019 10:34:34 GMT
+      - Tue, 29 Oct 2019 16:07:40 GMT
       X-Global-Transaction-Id:
-      - '018fb36a5d9db7ba05aa126d'
+      - '018fb36a5db863cc08a39b7d'
       Access-Control-Allow-Origin:
       - "*"
       Connection:
@@ -54,5 +54,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8"?>
         <CityStateLookupResponse><ZipCode><Zip5>81137</Zip5><City>IGNACIO</City><State>CO</State></ZipCode></CityStateLookupResponse>
     http_version: 
-  recorded_at: Wed, 09 Oct 2019 10:34:34 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:40 GMT
 recorded_with: VCR 5.0.0

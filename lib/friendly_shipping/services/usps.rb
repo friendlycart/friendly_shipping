@@ -59,7 +59,7 @@ module FriendlyShipping
       #   can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, shipping_method: nil, debug: false)
         rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: shipping_method)
-        request = build_request(api: :rates_request, xml: rate_request_xml, debug: debug)
+        request = build_request(api: :rates, xml: rate_request_xml, debug: debug)
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)

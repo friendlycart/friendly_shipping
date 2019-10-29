@@ -8,9 +8,9 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <AccessRequest>
-          <AccessLicenseNumber><UPS_KEY></AccessLicenseNumber>
-          <UserId><UPS_LOGIN></UserId>
-          <Password><UPS_PASSWORD></Password>
+          <AccessLicenseNumber>%UPS_KEY%</AccessLicenseNumber>
+          <UserId>%UPS_LOGIN%</UserId>
+          <Password>%UPS_PASSWORD%</Password>
         </AccessRequest>
         <?xml version="1.0"?>
         <ShipmentConfirmRequest>
@@ -50,13 +50,13 @@ http_interactions:
                 <CountryCode>US</CountryCode>
                 <ResidentialAddressIndicator/>
               </Address>
-              <ShipperNumber>UPS_SHIPPER_NUMBER</ShipperNumber>
+              <ShipperNumber>%UPS_SHIPPER_NUMBER%</ShipperNumber>
             </Shipper>
             <ItemizedPaymentInformation>
               <ShipmentCharge>
                 <Type>01</Type>
                 <BillShipper>
-                  <AccountNumber>UPS_SHIPPER_NUMBER</AccountNumber>
+                  <AccountNumber>%UPS_SHIPPER_NUMBER%</AccountNumber>
                 </BillShipper>
               </ShipmentCharge>
             </ItemizedPaymentInformation>
@@ -133,7 +133,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 29 Oct 2019 12:39:32 GMT
+      - Tue, 29 Oct 2019 16:07:36 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -164,6 +164,6 @@ http_interactions:
       string: |-
         <?xml version="1.0"?>
         <ShipmentConfirmResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>120202</ErrorCode><ErrorDescription>Missing or invalid ship to address line 1</ErrorDescription></Error></Response></ShipmentConfirmResponse>
-    http_version:
-  recorded_at: Tue, 29 Oct 2019 12:39:33 GMT
+    http_version: 
+  recorded_at: Tue, 29 Oct 2019 16:07:36 GMT
 recorded_with: VCR 5.0.0

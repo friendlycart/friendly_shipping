@@ -7,9 +7,9 @@ http_interactions:
       encoding: UTF-8
       string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10044","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10060","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10043","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"package_code":"not_a_usps_package_code"}],"carrier_id":"<SHIPENGINE_CARRIER_ID>"},"test_label":true}'
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10059","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"package_code":"not_a_usps_package_code"}],"carrier_id":"%SHIPENGINE_CARRIER_ID%"},"test_label":true}'
     headers:
       Accept:
       - "*/*"
@@ -18,7 +18,7 @@ http_interactions:
       Content-Type:
       - application/json
       Api-Key:
-      - "<SHIPENGINE_API_KEY>"
+      - "%SHIPENGINE_API_KEY%"
       Content-Length:
       - '799'
       Accept-Encoding:
@@ -31,7 +31,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Mon, 28 Oct 2019 16:13:02 GMT
+      - Tue, 29 Oct 2019 16:07:21 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -43,15 +43,15 @@ http_interactions:
       Vary:
       - Origin
       X-Shipengine-Requestid:
-      - ba7ae716-deda-4fef-bc25-b1eb88bb0911
+      - '09d439d4-aa8b-4514-a432-e5c607664718'
     body:
       encoding: UTF-8
-      string: "{\r\n  \"request_id\": \"ba7ae716-deda-4fef-bc25-b1eb88bb0911\",\r\n
+      string: "{\r\n  \"request_id\": \"09d439d4-aa8b-4514-a432-e5c607664718\",\r\n
         \ \"errors\": [\r\n    {\r\n      \"error_source\": \"shipengine\",\r\n      \"error_type\":
         \"business_rules\",\r\n      \"error_code\": \"unspecified\",\r\n      \"message\":
         \"invalid package_code 'not_a_usps_package_code'\",\r\n      \"field_name\":
         \"shipment._packages[0]._package_code\",\r\n      \"field_value\": \"not_a_usps_package_code\"\r\n
         \   }\r\n  ]\r\n}"
     http_version: 
-  recorded_at: Mon, 28 Oct 2019 16:13:02 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:21 GMT
 recorded_with: VCR 5.0.0

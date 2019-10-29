@@ -31,19 +31,19 @@ http_interactions:
       Content-Type:
       - text/xml
       Ns-Client-Ip:
-      - 95.91.245.146
+      - 188.104.233.110
       Via:
       - 1.1 ApplicationError_XML_Firewall
       X-Client-Ip:
       - 56.0.71.6,56.0.71.6
       X-Global-Transaction-Id:
-      - 5a3857615d9742720af57787
+      - '018fb36a5db864f70f40b3b7'
       Client-Ip:
-      - 95.91.245.146
+      - 188.104.233.110
       X-Archived-Client-Ip:
       - 56.0.71.6
       Date:
-      - Fri, 04 Oct 2019 13:00:34 GMT
+      - Tue, 29 Oct 2019 16:12:39 GMT
       Access-Control-Allow-Origin:
       - "*"
       Connection:
@@ -60,5 +60,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8"?>
         <Error><Number>80040B1A</Number><Description>Authorization failure.  Perhaps username and/or password is incorrect.</Description><Source>USPSCOM::DoAuth</Source></Error>
     http_version: 
-  recorded_at: Fri, 04 Oct 2019 13:00:34 GMT
+  recorded_at: Tue, 29 Oct 2019 16:12:39 GMT
 recorded_with: VCR 5.0.0

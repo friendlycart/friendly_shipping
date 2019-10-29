@@ -8,9 +8,9 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <AccessRequest>
-          <AccessLicenseNumber><UPS_KEY></AccessLicenseNumber>
-          <UserId><UPS_LOGIN></UserId>
-          <Password><UPS_PASSWORD></Password>
+          <AccessLicenseNumber>%UPS_KEY%</AccessLicenseNumber>
+          <UserId>%UPS_LOGIN%</UserId>
+          <Password>%UPS_PASSWORD%</Password>
         </AccessRequest>
         <?xml version="1.0"?>
         <AddressValidationRequest>
@@ -32,9 +32,9 @@ http_interactions:
       Accept:
       - "*/*"
       User-Agent:
-      - rest-client/2.1.0 (darwin18.7.0 x86_64) ruby/2.6.5p114
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Length:
-      - '722'
+      - '741'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -45,7 +45,7 @@ http_interactions:
       message: '200'
     headers:
       Date:
-      - Fri, 25 Oct 2019 17:45:23 GMT
+      - Tue, 29 Oct 2019 16:07:30 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -101,5 +101,5 @@ http_interactions:
         E 43RD ST</AddressLine><AddressLine>FRNT A-B</AddressLine><Region>NEW YORK
         NY 10017-4017</Region><PoliticalDivision2>NEW YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10017</PostcodePrimaryLow><PostcodeExtendedLow>4017</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat></AddressValidationResponse>
     http_version: 
-  recorded_at: Fri, 25 Oct 2019 17:45:25 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:32 GMT
 recorded_with: VCR 5.0.0

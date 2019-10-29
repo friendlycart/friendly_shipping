@@ -12,13 +12,13 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
-  c.filter_sensitive_data('<SHIPENGINE_API_KEY>') { ENV['SHIPENGINE_API_KEY'] }
-  c.filter_sensitive_data('<SHIPENGINE_CARRIER_ID>') { ENV['SHIPENGINE_CARRIER_ID'] }
-  c.filter_sensitive_data('<UPS_LOGIN>') { ENV['UPS_LOGIN'] }
-  c.filter_sensitive_data('<UPS_KEY>') { ENV['UPS_KEY'] }
-  c.filter_sensitive_data('<UPS_PASSWORD>') { ENV['UPS_PASSWORD'] }
-  c.filter_sensitive_data('UPS_SHIPPER_NUMBER') { ENV['UPS_SHIPPER_NUMBER'] }
-  c.filter_sensitive_data('<USPS_LOGIN>') { ENV['USPS_LOGIN'] }
+  c.filter_sensitive_data('%SHIPENGINE_API_KEY%') { ENV['SHIPENGINE_API_KEY'] }
+  c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV['SHIPENGINE_CARRIER_ID'] }
+  c.filter_sensitive_data('%UPS_LOGIN%') { ENV['UPS_LOGIN'] }
+  c.filter_sensitive_data('%UPS_KEY%') { ENV['UPS_KEY'] }
+  c.filter_sensitive_data('%UPS_PASSWORD%') { ENV['UPS_PASSWORD'] }
+  c.filter_sensitive_data('%UPS_SHIPPER_NUMBER%') { ENV['UPS_SHIPPER_NUMBER'] }
+  c.filter_sensitive_data('%USPS_LOGIN%') { ENV['USPS_LOGIN'] }
 end
 
 RSpec.configure do |config|

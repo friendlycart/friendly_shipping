@@ -8,9 +8,9 @@ http_interactions:
       string: |
         <?xml version="1.0"?>
         <AccessRequest>
-          <AccessLicenseNumber><UPS_KEY></AccessLicenseNumber>
-          <UserId><UPS_LOGIN></UserId>
-          <Password><UPS_PASSWORD></Password>
+          <AccessLicenseNumber>%UPS_KEY%</AccessLicenseNumber>
+          <UserId>%UPS_LOGIN%</UserId>
+          <Password>%UPS_PASSWORD%</Password>
         </AccessRequest>
         <?xml version="1.0"?>
         <RatingServiceSelectionRequest>
@@ -63,16 +63,17 @@ http_interactions:
                 <UnitOfMeasurement>
                   <Code>IN</Code>
                 </UnitOfMeasurement>
-                <Length>15.748</Length>
-                <Width>19.685</Width>
-                <Height>23.622</Height>
+                <Length>7.874</Length>
+                <Width>5.906</Width>
+                <Height>11.811</Height>
               </Dimensions>
               <PackageWeight>
                 <UnitOfMeasurement>
                   <Code>LBS</Code>
                 </UnitOfMeasurement>
-                <Weight>3</Weight>
+                <Weight>1</Weight>
               </PackageWeight>
+              <PackageServiceOptions/>
             </Package>
             <Package>
               <PackagingType>
@@ -82,28 +83,29 @@ http_interactions:
                 <UnitOfMeasurement>
                   <Code>IN</Code>
                 </UnitOfMeasurement>
-                <Length>15.748</Length>
-                <Width>19.685</Width>
-                <Height>23.622</Height>
+                <Length>7.874</Length>
+                <Width>5.906</Width>
+                <Height>11.811</Height>
               </Dimensions>
               <PackageWeight>
                 <UnitOfMeasurement>
                   <Code>LBS</Code>
                 </UnitOfMeasurement>
-                <Weight>3</Weight>
+                <Weight>1</Weight>
               </PackageWeight>
+              <PackageServiceOptions/>
             </Package>
           </Shipment>
         </RatingServiceSelectionRequest>
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Length:
-      - '2498'
+      - '2556'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - wwwcie.ups.com
   response:
@@ -112,7 +114,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 03 Jul 2019 09:07:23 GMT
+      - Tue, 29 Oct 2019 16:07:23 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -122,12 +124,12 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Cache-Control:
-      - no-cache, no-store, must-revalidate, max-age=0
-      - no-cache=Set-Cookie, Set-Cookie2
+      - no-cache, no-store, must-revalidate, max-age=0, no-cache=Set-Cookie, Set-Cookie2
+      Pragma:
+      - no-cache
+      - no-cache
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
-      Pragma:
-      - no-cache, no-store
       Content-Length:
       - '382'
       Apierrormsg:
@@ -144,5 +146,5 @@ http_interactions:
         <?xml version="1.0"?>
         <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111285</ErrorCode><ErrorDescription>The postal code 78756 is invalid for IL United States.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
     http_version: 
-  recorded_at: Wed, 03 Jul 2019 09:07:24 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:24 GMT
 recorded_with: VCR 5.0.0
