@@ -37,13 +37,18 @@ module FriendlyShipping
               # StateProvinceCode required for negotiated rates but not otherwise, for some reason
               xml.StateProvinceCode(location.region.code) if location.region
               xml.CountryCode(location.country.code) if location.country
-
-              # Quote residential rates by default. If UPS doesn't know if the address is residential or
-              # commercial, it will quote a residential rate by default. Even with this flag being set,
-              # if UPS knows the address is commercial it will often quote a commercial rate.
-              #
-              xml.ResidentialAddressIndicator unless location.commercial?
+              residential_address_indicator(xml, location)
             end
+          end
+
+          private
+
+          def residential_address_indicator(xml, location)
+            # Quote residential rates by default. If UPS doesn't know if the address is residential or
+            # commercial, it will quote a residential rate by default. Even with this flag being set,
+            # if UPS knows the address is commercial it will often quote a commercial rate.
+            #
+            xml.ResidentialAddressIndicator unless location.commercial?
           end
         end
       end

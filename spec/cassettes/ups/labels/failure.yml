@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://wwwcie.ups.com/ups.app/xml/Rate
+    uri: https://wwwcie.ups.com/ups.app/xml/ShipConfirm
     body:
       encoding: UTF-8
       string: |
@@ -13,48 +13,56 @@ http_interactions:
           <Password>%UPS_PASSWORD%</Password>
         </AccessRequest>
         <?xml version="1.0"?>
-        <RatingServiceSelectionRequest>
+        <ShipmentConfirmRequest>
           <Request>
-            <RequestAction>Rate</RequestAction>
-            <RequestOption>Shop</RequestOption>
+            <RequestAction>ShipConfirm</RequestAction>
+            <RequestOption>validate</RequestOption>
             <SubVersion>1707</SubVersion>
           </Request>
-          <PickupType>
-            <Code>01</Code>
-          </PickupType>
-          <CustomerClassification>
-            <Code>01</Code>
-          </CustomerClassification>
           <Shipment>
-            <Shipper>
-              <Name>Company</Name>
-              <AttentionName>Jane Doe</AttentionName>
-              <PhoneNumber>555-555-0199</PhoneNumber>
-              <Address>
-                <AddressLine1>11 Lovely Street</AddressLine1>
-                <AddressLine2>South</AddressLine2>
-                <City>Herndon</City>
-                <PostalCode>78756</PostalCode>
-                <StateProvinceCode>IL</StateProvinceCode>
-                <CountryCode>US</CountryCode>
-                <ResidentialAddressIndicator/>
-              </Address>
-              <ShipperNumber/>
-            </Shipper>
+            <Service>
+              <Code>03</Code>
+            </Service>
             <ShipTo>
               <CompanyName>Company</CompanyName>
               <AttentionName>Jane Doe</AttentionName>
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
-                <AddressLine1>11 Lovely Street</AddressLine1>
+                <AddressLine1>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</AddressLine1>
                 <AddressLine2>South</AddressLine2>
-                <City>Herndon</City>
+                <City>Orlando</City>
                 <PostalCode>32821</PostalCode>
                 <StateProvinceCode>FL</StateProvinceCode>
                 <CountryCode>US</CountryCode>
                 <ResidentialAddressIndicator/>
               </Address>
             </ShipTo>
+            <Shipper>
+              <Name>Company</Name>
+              <AttentionName>John Doe</AttentionName>
+              <PhoneNumber>555-555-0199</PhoneNumber>
+              <Address>
+                <AddressLine1>10 Lovely Street</AddressLine1>
+                <AddressLine2>Northwest</AddressLine2>
+                <City>Raleigh</City>
+                <PostalCode>27615</PostalCode>
+                <StateProvinceCode>NC</StateProvinceCode>
+                <CountryCode>US</CountryCode>
+                <ResidentialAddressIndicator/>
+              </Address>
+              <ShipperNumber>%UPS_SHIPPER_NUMBER%</ShipperNumber>
+            </Shipper>
+            <ItemizedPaymentInformation>
+              <ShipmentCharge>
+                <Type>01</Type>
+                <BillShipper>
+                  <AccountNumber>%UPS_SHIPPER_NUMBER%</AccountNumber>
+                </BillShipper>
+              </ShipmentCharge>
+            </ItemizedPaymentInformation>
+            <ShipmentServiceOptions>
+              <UPScarbonneutralIndicator/>
+            </ShipmentServiceOptions>
             <Package>
               <PackagingType>
                 <Code>02</Code>
@@ -96,14 +104,25 @@ http_interactions:
               <PackageServiceOptions/>
             </Package>
           </Shipment>
-        </RatingServiceSelectionRequest>
+          <LabelSpecification>
+            <LabelStockSize>
+              <Height>4</Height>
+              <Width>6</Width>
+            </LabelStockSize>
+            <LabelPrintMethod>
+              <Code>GIF</Code>
+            </LabelPrintMethod>
+            <HTTPUserAgent>Mozilla/4.5</HTTPUserAgent>
+            <LabelImageFormat>GIF<Code>GIF</Code></LabelImageFormat>
+          </LabelSpecification>
+        </ShipmentConfirmRequest>
     headers:
       Accept:
       - "*/*"
       User-Agent:
       - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Length:
-      - '2556'
+      - '3164'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -114,7 +133,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 29 Oct 2019 16:07:23 GMT
+      - Tue, 29 Oct 2019 16:07:36 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -131,20 +150,20 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
       Content-Length:
-      - '382'
+      - '355'
       Apierrormsg:
-      - The postal code 78756 is invalid for IL United States.
+      - Missing or invalid ship to address line 1
       Apihttpstatus:
       - '400'
       Apierrorcode:
-      - '111285'
+      - '120202'
       Content-Type:
       - application/xml
     body:
       encoding: UTF-8
       string: |-
         <?xml version="1.0"?>
-        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111285</ErrorCode><ErrorDescription>The postal code 78756 is invalid for IL United States.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
+        <ShipmentConfirmResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>120202</ErrorCode><ErrorDescription>Missing or invalid ship to address line 1</ErrorDescription></Error></Response></ShipmentConfirmResponse>
     http_version: 
-  recorded_at: Tue, 29 Oct 2019 16:07:24 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:36 GMT
 recorded_with: VCR 5.0.0

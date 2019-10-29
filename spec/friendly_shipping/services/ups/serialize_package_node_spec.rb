@@ -61,15 +61,10 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
   end
 
   context 'if package has reference numbers' do
-    let(:package) do
-      Physical::Package.new(
-        container: Physical::Box.new(
-          weight: Measured::Weight.new(5, :pounds),
-          properties: {
-            reference_numbers: { code: "ix", value: '334455' }
-          }
-        )
-      )
+    subject(:context) do
+      Nokogiri::XML::Builder.new do |xml|
+        described_class.call(xml: xml, package: package, reference_numbers: { ix: '334455' })
+      end.doc
     end
 
     it 'adds reference numbers to the package' do
@@ -80,15 +75,10 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
   end
 
   context 'if package has shipper_release set to true' do
-    let(:package) do
-      Physical::Package.new(
-        container: Physical::Box.new(
-          weight: Measured::Weight.new(5, :pounds),
-          properties: {
-            shipper_release: true
-          }
-        )
-      )
+    subject(:context) do
+      Nokogiri::XML::Builder.new do |xml|
+        described_class.call(xml: xml, package: package, shipper_release: true)
+      end.doc
     end
 
     it 'adds the shipper release indicator to the package service options' do

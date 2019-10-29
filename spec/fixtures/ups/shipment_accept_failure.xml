@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ShipmentAcceptResponse>
+  <Response>
+    <ResponseStatusCode>0</ResponseStatusCode>
+    <ResponseStatusDescription>Failure</ResponseStatusDescription>
+    <Error>
+      <ErrorSeverity>Hard</ErrorSeverity>
+      <ErrorCode>125000</ErrorCode>
+      <ErrorDescription>Missing or invalid shipment digest.</ErrorDescription>
+    </Error>
+  </Response>
+  <ShipmentResults/>
+</ShipmentAcceptResponse>

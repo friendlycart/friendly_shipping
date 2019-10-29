@@ -7,9 +7,9 @@ http_interactions:
       encoding: UTF-8
       string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10050","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10066","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10049","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"<SHIPENGINE_CARRIER_ID>"},"test_label":true}'
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10065","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"%SHIPENGINE_CARRIER_ID%"},"test_label":true}'
     headers:
       Accept:
       - "*/*"
@@ -31,7 +31,7 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Mon, 28 Oct 2019 16:13:03 GMT
+      - Tue, 29 Oct 2019 16:07:21 GMT
       Content-Type:
       - text/plain; charset=utf-8
       Content-Length:
@@ -46,5 +46,5 @@ http_interactions:
       encoding: UTF-8
       string: Unauthorized
     http_version: 
-  recorded_at: Mon, 28 Oct 2019 16:13:03 GMT
+  recorded_at: Tue, 29 Oct 2019 16:07:21 GMT
 recorded_with: VCR 5.0.0
