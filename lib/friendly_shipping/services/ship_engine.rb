@@ -9,6 +9,9 @@ require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
 require 'friendly_shipping/services/ship_engine/parse_void_response'
 require 'friendly_shipping/services/ship_engine/parse_rate_estimate_response'
+require 'friendly_shipping/services/ship_engine/rate_estimates_options'
+require 'friendly_shipping/services/ship_engine/label_options'
+require 'friendly_shipping/services/ship_engine/label_package_options'
 
 module FriendlyShipping
   module Services
@@ -43,22 +46,20 @@ module FriendlyShipping
       #
       # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
       #
-      # @options[:carriers] [Physical::Carrier] The carriers we want to get rates from. What counts
-      # here is the carrier code, so by specifying them upfront you can save a request.
+      # @options [FriendlyShipping::Services::ShipEngine::RateEstimatesOptions] The options relevant to estimating rates. See object description.
       #
       # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, selected_carriers: nil, debug: false)
-        selected_carriers ||= carriers.value!.data
+      def rate_estimates(shipment, options: FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + 'rates/estimate',
-          body: SerializeRateEstimateRequest.call(shipment: shipment, carriers: selected_carriers).to_json,
+          body: SerializeRateEstimateRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
           debug: debug
         )
         client.post(request).bind do |response|
-          ParseRateEstimateResponse.call(response: response, request: request, carriers: selected_carriers)
+          ParseRateEstimateResponse.call(response: response, request: request, options: options)
         end
       end
 
@@ -67,16 +68,14 @@ module FriendlyShipping
       # @param [Physical::Shipment] shipment The shipment object we're trying to get labels for
       #   Note: Some ShipEngine carriers, notably USPS, only support one package per shipment, and that's
       #   all that the integration supports at this point.
-      # @param [FriendlyShipping::ShippingMethod] shipping_method The shipping method we want to use.
-      #   Specifically, the "#service_code" will be serialized. If a carrier is set, it's `#id` will
-      #   also be sent to ShipEngine.
+      # @param [FriendlyShipping::Services::ShipEngine::LabelOptions] The options relevant to estimating rates. See object description.
       #
       # @return [Result<ApiResult<Array<FriendlyShipping::Label>>>] The label returned.
       #
-      def labels(shipment, shipping_method:)
+      def labels(shipment, options:)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
-          body: SerializeLabelShipment.call(shipment: shipment, shipping_method: shipping_method, test: test).to_json,
+          body: SerializeLabelShipment.call(shipment: shipment, options: options, test: test).to_json,
           headers: request_headers
         )
         client.post(request).fmap do |response|

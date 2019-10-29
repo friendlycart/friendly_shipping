@@ -13,6 +13,7 @@ VCR.configure do |c|
   c.hook_into :webmock
   c.configure_rspec_metadata!
   c.filter_sensitive_data('<SHIPENGINE_API_KEY>') { ENV['SHIPENGINE_API_KEY'] }
+  c.filter_sensitive_data('<SHIPENGINE_CARRIER_ID>') { ENV['SHIPENGINE_CARRIER_ID'] }
   c.filter_sensitive_data('<UPS_LOGIN>') { ENV['UPS_LOGIN'] }
   c.filter_sensitive_data('<UPS_KEY>') { ENV['UPS_KEY'] }
   c.filter_sensitive_data('<UPS_PASSWORD>') { ENV['UPS_PASSWORD'] }

@@ -30,8 +30,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
     let(:destination) { FactoryBot.build(:physical_location, zip: '91521') }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
+    let(:carriers) { [service.carriers.value!.data.last] }
+    let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new(carriers: carriers) }
 
-    subject { service.rate_estimates(shipment) }
+    subject { service.rate_estimates(shipment, options: options) }
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
       aggregate_failures do
@@ -44,7 +46,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'with debug set to true' do
-      subject { service.rate_estimates(shipment, debug: true) }
+      subject { service.rate_estimates(shipment, options: options, debug: true) }
 
       it 'returns original request and response along with the data', vcr: { cassette_name: 'shipengine/rate_estimates/success' } do
         aggregate_failures do
@@ -57,18 +59,11 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
 
-    context 'when specifying carriers' do
-      let(:carriers) { [service.carriers.value!.data.last] }
+    context 'when not specifying carriers' do
+      let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new }
 
-      subject { service.rate_estimates(shipment, selected_carriers: carriers) }
-
-      it 'returns Physical::Rate objects wrapped in a Success Monad',
-         vcr: { cassette_name: 'shipengine/rate_estimates/success_with_one_carrier' } do
-        aggregate_failures do
-          is_expected.to be_success
-          expect(subject.value!.data).to be_a(Array)
-          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
-        end
+      it 'fails' do
+        expect { subject }.to raise_exception(ArgumentError)
       end
     end
   end
@@ -76,9 +71,23 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
   describe 'labels' do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
-    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "usps_priority_mail") }
+    let(:carrier) { FriendlyShipping::Carrier.new(id: ENV['SHIPENGINE_CARRIER_ID']) }
+    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "usps_priority_mail", carrier: carrier) }
+    let(:options) do
+      FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+        shipping_method: shipping_method,
+        package_options: package_options
+      )
+    end
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+          package_id: package.id
+        )
+      ]
+    end
 
-    subject(:labels) { service.labels(shipment, shipping_method: shipping_method) }
+    subject(:labels) { service.labels(shipment, options: options) }
 
     context 'with a successful request', vcr: { cassette_name: 'shipengine/labels/success' } do
       it { is_expected.to be_a Dry::Monads::Success }
@@ -104,11 +113,11 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'when requesting an inline label', vcr: { cassette_name: 'shipengine/labels/success_inline_label' } do
-      let(:shipment) do
-        FactoryBot.build(
-          :physical_shipment,
-          packages: [package],
-          options: { label_download_type: "inline", label_format: "zpl" }
+      let(:options) do
+        FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+          shipping_method: shipping_method,
+          label_download_type: :inline,
+          label_format: :zpl
         )
       end
 
@@ -139,8 +148,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'with a shipment specifying a large flat rate box', vcr: { cassette_name: 'shipengine/labels/flat_rate_box_success' } do
-      let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "large_flat_rate_box" }) }
-      let(:package) { FactoryBot.build(:physical_package, container: container) }
+      let(:package_options) do
+        [
+          FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+            package_id: package.id,
+            package_code: :large_flat_rate_box
+          )
+        ]
+      end
 
       it { is_expected.to be_a Dry::Monads::Success }
 
@@ -165,28 +180,27 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'with a shipment specifying a reference numbers', vcr: { cassette_name: 'shipengine/labels/reference_number_success' } do
-      let(:shipment) do
-        FactoryBot.build(
-          :physical_shipment,
-          packages: [package],
-          options: { label_download_type: "inline", label_format: "zpl" }
+      let(:options) do
+        FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+          shipping_method: shipping_method,
+          label_download_type: :inline,
+          label_format: :zpl,
+          package_options: package_options
         )
       end
 
-      let(:container) do
-        FactoryBot.build(
-          :physical_box,
-          properties: {
-            usps_label_messages: {
-              reference1: "Wer ist John Maynard?",
-              reference2: "John Maynard war unser Steuermann",
-              reference3: "aus hielt er, bis er das Ufer gewann"
-            }
-          }
-        )
+      let(:package_options) do
+        [
+          FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+            package_id: package.id,
+            messages: [
+              "Wer ist John Maynard?",
+              "John Maynard war unser Steuermann",
+              "aus hielt er, bis er das Ufer gewann"
+            ]
+          ),
+        ]
       end
-
-      let(:package) { FactoryBot.build(:physical_package, container: container) }
 
       it { is_expected.to be_a Dry::Monads::Success }
 
@@ -213,8 +227,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
 
     context 'with a shipment specifying an invalid package code', vcr: { cassette_name: 'shipengine/labels/invalid_box_failure' } do
-      let(:container) { FactoryBot.build(:physical_box, properties: { usps_package_code: "not_a_usps_package_code" }) }
-      let(:package) { FactoryBot.build(:physical_package, container: container) }
+      let(:package_options) do
+        [
+          FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+            package_id: package.id,
+            package_code: :not_a_usps_package_code
+          ),
+        ]
+      end
 
       it { is_expected.to be_a Dry::Monads::Failure }
 

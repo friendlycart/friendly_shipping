@@ -8,9 +8,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimateResponse
   let(:response) { double(body: response_body) }
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'rate_estimates_success.json')).read }
   let(:carriers) { FriendlyShipping::Services::ShipEngine::ParseCarrierResponse.call(request: request, response: double(body: carrier_json)).data }
+  let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new(carriers: carriers) }
   let(:rate) { subject.value!.data.first }
 
-  subject { described_class.call(request: request, response: response, carriers: carriers) }
+  subject { described_class.call(request: request, response: response, options: options) }
 
   it "returns an Array of FriendlyShipping::Rate" do
     expect(subject).to be_success

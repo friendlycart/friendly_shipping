@@ -6,17 +6,25 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   let(:container) { FactoryBot.build(:physical_box, weight: Measured::Weight(0, :g)) }
   let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(1, :ounce)) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Density(0, :g_ml), container: container) }
-  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], options: shipment_options) }
+  let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
   let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: 'usps_priority_mail') }
-  let(:shipment_options) { { label_format: 'zpl' } }
-  subject { described_class.call(shipment: shipment, shipping_method: shipping_method, test: true) }
+  let(:package_options) { Set.new }
+  let(:options) do
+    FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+      shipping_method: shipping_method,
+      label_format: :zpl,
+      package_options: package_options
+    )
+  end
+
+  subject { described_class.call(shipment: shipment, options: options, test: true) }
 
   it do
     is_expected.to match(
       hash_including(
         test_label: true,
-        label_format: "zpl",
-        label_download_type: "url",
+        label_format: :zpl,
+        label_download_type: :url,
         shipment: hash_including(
           service_code: 'usps_priority_mail',
           ship_to: hash_including(
@@ -63,7 +71,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   end
 
   context 'if the container is a special USPS thing' do
-    let(:container) { FactoryBot.build(:physical_box, weight: Measured::Weight(0, :g), properties: { usps_package_code: "large_flat_rate_box" }) }
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+          package_id: package.id,
+          package_code: :large_flat_rate_box
+        )
+      ]
+    end
 
     it 'does not include the dimensions array' do
       is_expected.to match(
@@ -79,28 +94,31 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   end
 
   context 'if requesting inline labels' do
-    let(:shipment_options) { { label_download_type: 'inline' } }
+    let(:options) do
+      FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+        shipping_method: shipping_method,
+        label_download_type: :inline,
+        package_options: package_options
+      )
+    end
 
     it 'includes the label download type' do
       is_expected.to match(
         hash_including(
-          label_download_type: 'inline'
+          label_download_type: :inline
         )
       )
     end
   end
 
   context 'if passing a reference number' do
-    let(:container) do
-      FactoryBot.build(
-        :physical_box,
-        weight: Measured::Weight(0, :g),
-        properties: {
-          usps_label_messages: {
-            reference1: "There's such a chill"
-          }
-        }
-      )
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+          package_id: package.id,
+          messages: ["There's such a chill"]
+        )
+      ]
     end
 
     it 'includes that reference number' do
@@ -117,20 +135,16 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
   end
 
   context 'if passing two reference numbers' do
-    let(:container) do
-      FactoryBot.build(
-        :physical_box,
-        weight: Measured::Weight(0, :g),
-        properties: {
-          usps_label_messages: {
-            reference1: "There's such a chill",
-            reference2: "Wake from your sleep"
-          }
-        }
-      )
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+          package_id: package.id,
+          messages: ["There's such a chill", "Wake from your sleep"]
+        )
+      ]
     end
 
-    it 'includes that reference number' do
+    it 'includes those references' do
       is_expected.to match(
         hash_including(
           shipment: hash_including(

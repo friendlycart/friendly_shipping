@@ -4,9 +4,9 @@ module FriendlyShipping
   module Services
     class ShipEngine
       class SerializeRateEstimateRequest
-        def self.call(shipment:, carriers:)
+        def self.call(shipment:, options:)
           {
-            carrier_ids: carriers.map(&:id),
+            carrier_ids: options.carrier_ids,
             from_country_code: shipment.origin.country.alpha_2_code,
             from_postal_code: shipment.origin.zip,
             to_country_code: shipment.destination.country.alpha_2_code,

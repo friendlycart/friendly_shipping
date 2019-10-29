@@ -9,14 +9,14 @@ http_interactions:
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Type:
       - application/json
       Api-Key:
       - "<SHIPENGINE_API_KEY>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - api.shipengine.com
   response:
@@ -25,215 +25,44 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 31 May 2019 13:52:55 GMT
+      - Mon, 28 Oct 2019 11:58:33 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '12936'
+      - '21289'
       Connection:
       - keep-alive
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+      Vary:
+      - Origin
       X-Shipengine-Requestid:
-      - 480b7869-9077-4e68-a28e-afbf22e03b1a
+      - a0f1f62c-8d16-4256-bc61-9d8ede2e0448
     body:
-      encoding: UTF-8
-      string: "{\r\n  \"carriers\": [\r\n    {\r\n      \"carrier_id\": \"se-76432\",\r\n
-        \     \"carrier_code\": \"stamps_com\",\r\n      \"account_number\": \"mswimm-1717e.\",\r\n
-        \     \"requires_funded_amount\": true,\r\n      \"balance\": 230.6200,\r\n
-        \     \"nickname\": \"CS Stamps\",\r\n      \"friendly_name\": \"Stamps.com\",\r\n
-        \     \"primary\": true,\r\n      \"has_multi_package_supporting_services\":
-        false,\r\n      \"supports_label_messages\": true,\r\n      \"services\":
-        [\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
-        \"stamps_com\",\r\n          \"service_code\": \"usps_first_class_mail\",\r\n
-        \         \"name\": \"USPS First Class Mail\",\r\n          \"domestic\":
-        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
-        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
-        \"usps_media_mail\",\r\n          \"name\": \"USPS Media Mail\",\r\n          \"domestic\":
-        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
-        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
-        \"usps_parcel_select\",\r\n          \"name\": \"USPS Parcel Select Ground\",\r\n
-        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
-        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
-        \"usps_priority_mail\",\r\n          \"name\": \"USPS Priority Mail\",\r\n
-        \         \"domestic\": true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
-        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
-        \"usps_priority_mail_express\",\r\n          \"name\": \"USPS Priority Mail
-        Express\",\r\n          \"domestic\": true,\r\n          \"international\":
-        false,\r\n          \"is_multi_package_supported\": false\r\n        },\r\n
-        \       {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
-        \"stamps_com\",\r\n          \"service_code\": \"usps_first_class_mail_international\",\r\n
-        \         \"name\": \"USPS First Class Mail Intl\",\r\n          \"domestic\":
-        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-76432\",\r\n
-        \         \"carrier_code\": \"stamps_com\",\r\n          \"service_code\":
-        \"usps_priority_mail_international\",\r\n          \"name\": \"USPS Priority
-        Mail Intl\",\r\n          \"domestic\": false,\r\n          \"international\":
-        true,\r\n          \"is_multi_package_supported\": false\r\n        },\r\n
-        \       {\r\n          \"carrier_id\": \"se-76432\",\r\n          \"carrier_code\":
-        \"stamps_com\",\r\n          \"service_code\": \"usps_priority_mail_express_international\",\r\n
-        \         \"name\": \"USPS Priority Mail Express Intl\",\r\n          \"domestic\":
-        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
-        false\r\n        }\r\n      ],\r\n      \"packages\": [\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"cubic\",\r\n          \"name\": \"Cubic\",\r\n
-        \         \"description\": \"Cubic\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"flat_rate_envelope\",\r\n          \"name\":
-        \"Flat Rate Envelope\",\r\n          \"description\": \"USPS flat rate envelope.
-        A special cardboard envelope provided by the USPS that clearly indicates \\\"Flat
-        Rate\\\".\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"flat_rate_legal_envelope\",\r\n          \"name\":
-        \"Flat Rate Legal Envelope\",\r\n          \"description\": \"Flat Rate Legal
-        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"flat_rate_padded_envelope\",\r\n          \"name\":
-        \"Flat Rate Padded Envelope\",\r\n          \"description\": \"Flat Rate Padded
-        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"large_envelope_or_flat\",\r\n          \"name\":
-        \"Large Envelope or Flat\",\r\n          \"description\": \"Large envelope
-        or flat. Has one dimension that is between 11 1/2\\\" and 15\\\" long, 6 1/18\\\"
-        and 12\\\" high, or 1/4\\\" and 3/4\\\" thick.\"\r\n        },\r\n        {\r\n
-        \         \"package_id\": null,\r\n          \"package_code\": \"large_flat_rate_box\",\r\n
-        \         \"name\": \"Large Flat Rate Box\",\r\n          \"description\":
-        \"Large Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"large_package\",\r\n          \"name\":
-        \"Large Package (any side > 12\\\")\",\r\n          \"description\": \"Large
-        package. Longest side plus the distance around the thickest part is over 84\\\"
-        and less than or equal to 108\\\".\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"letter\",\r\n          \"name\": \"Letter\",\r\n
-        \         \"description\": \"Letter\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"medium_flat_rate_box\",\r\n          \"name\":
-        \"Medium Flat Rate Box\",\r\n          \"description\": \"USPS flat rate box.
-        A special 11\\\" x 8 1/2\\\" x 5 1/2\\\" or 14\\\" x 3.5\\\" x 12\\\" USPS
-        box that clearly indicates \\\"Flat Rate Box\\\"\"\r\n        },\r\n        {\r\n
-        \         \"package_id\": null,\r\n          \"package_code\": \"package\",\r\n
-        \         \"name\": \"Package\",\r\n          \"description\": \"Package.
-        Longest side plus the distance around the thickest part is less than or equal
-        to 84\\\"\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"regional_rate_box_a\",\r\n          \"name\":
-        \"Regional Rate Box A\",\r\n          \"description\": \"Regional Rate Box
-        A\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n          \"package_code\":
-        \"regional_rate_box_b\",\r\n          \"name\": \"Regional Rate Box B\",\r\n
-        \         \"description\": \"Regional Rate Box B\"\r\n        },\r\n        {\r\n
-        \         \"package_id\": null,\r\n          \"package_code\": \"small_flat_rate_box\",\r\n
-        \         \"name\": \"Small Flat Rate Box\",\r\n          \"description\":
-        \"Small Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"thick_envelope\",\r\n          \"name\":
-        \"Thick Envelope\",\r\n          \"description\": \"Thick envelope. Envelopes
-        or flats greater than 3/4\\\" at the thickest point.\"\r\n        }\r\n      ],\r\n
-        \     \"options\": [\r\n        {\r\n          \"name\": \"non_machinable\",\r\n
-        \         \"default_value\": \"false\",\r\n          \"description\": \"\"\r\n
-        \       }\r\n      ]\r\n    },\r\n    {\r\n      \"carrier_id\": \"se-91692\",\r\n
-        \     \"carrier_code\": \"endicia\",\r\n      \"account_number\": \"1304176\",\r\n
-        \     \"requires_funded_amount\": true,\r\n      \"balance\": 1000.36,\r\n
-        \     \"nickname\": \"CandleScience Endicia\",\r\n      \"friendly_name\":
-        \"Endicia\",\r\n      \"primary\": true,\r\n      \"has_multi_package_supporting_services\":
-        false,\r\n      \"supports_label_messages\": true,\r\n      \"services\":
-        [\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n          \"carrier_code\":
-        \"endicia\",\r\n          \"service_code\": \"usps_first_class_mail\",\r\n
-        \         \"name\": \"USPS First Class Mail\",\r\n          \"domestic\":
-        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_media_mail\",\r\n
-        \         \"name\": \"USPS Media Mail\",\r\n          \"domestic\": true,\r\n
-        \         \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_parcel_select\",\r\n
-        \         \"name\": \"USPS Parcel Select Ground\",\r\n          \"domestic\":
-        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail\",\r\n
-        \         \"name\": \"USPS Priority Mail\",\r\n          \"domestic\": true,\r\n
-        \         \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail_express\",\r\n
-        \         \"name\": \"USPS Priority Mail Express\",\r\n          \"domestic\":
-        true,\r\n          \"international\": false,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_first_class_package_international\",\r\n
-        \         \"name\": \"USPS First Class Package Intl\",\r\n          \"domestic\":
-        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_first_class_mail_international\",\r\n
-        \         \"name\": \"USPS First Class Mail Intl\",\r\n          \"domestic\":
-        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail_international\",\r\n
-        \         \"name\": \"USPS Priority Mail Intl\",\r\n          \"domestic\":
-        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
-        false\r\n        },\r\n        {\r\n          \"carrier_id\": \"se-91692\",\r\n
-        \         \"carrier_code\": \"endicia\",\r\n          \"service_code\": \"usps_priority_mail_express_international\",\r\n
-        \         \"name\": \"USPS Priority Mail Express Intl\",\r\n          \"domestic\":
-        false,\r\n          \"international\": true,\r\n          \"is_multi_package_supported\":
-        false\r\n        }\r\n      ],\r\n      \"packages\": [\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"cubic\",\r\n          \"name\": \"Cubic\",\r\n
-        \         \"description\": \"Cubic\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"flat_rate_envelope\",\r\n          \"name\":
-        \"Flat Rate Envelope\",\r\n          \"description\": \"USPS flat rate envelope.
-        A special cardboard envelope provided by the USPS that clearly indicates \\\"Flat
-        Rate\\\".\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"flat_rate_legal_envelope\",\r\n          \"name\":
-        \"Flat Rate Legal Envelope\",\r\n          \"description\": \"Flat Rate Legal
-        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"flat_rate_padded_envelope\",\r\n          \"name\":
-        \"Flat Rate Padded Envelope\",\r\n          \"description\": \"Flat Rate Padded
-        Envelope\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"large_envelope_or_flat\",\r\n          \"name\":
-        \"Large Envelope or Flat\",\r\n          \"description\": \"Large envelope
-        or flat. Has one dimension that is between 11 1/2\\\" and 15\\\" long, 6 1/18\\\"
-        and 12\\\" high, or 1/4\\\" and 3/4\\\" thick.\"\r\n        },\r\n        {\r\n
-        \         \"package_id\": null,\r\n          \"package_code\": \"large_flat_rate_box\",\r\n
-        \         \"name\": \"Large Flat Rate Box\",\r\n          \"description\":
-        \"Large Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"large_package\",\r\n          \"name\":
-        \"Large Package (any side > 12\\\")\",\r\n          \"description\": \"Large
-        package. Longest side plus the distance around the thickest part is over 84\\\"
-        and less than or equal to 108\\\".\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"letter\",\r\n          \"name\": \"Letter\",\r\n
-        \         \"description\": \"Letter\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"medium_flat_rate_box\",\r\n          \"name\":
-        \"Medium Flat Rate Box\",\r\n          \"description\": \"USPS flat rate box.
-        A special 11\\\" x 8 1/2\\\" x 5 1/2\\\" or 14\\\" x 3.5\\\" x 12\\\" USPS
-        box that clearly indicates \\\"Flat Rate Box\\\"\"\r\n        },\r\n        {\r\n
-        \         \"package_id\": null,\r\n          \"package_code\": \"package\",\r\n
-        \         \"name\": \"Package\",\r\n          \"description\": \"Package.
-        Longest side plus the distance around the thickest part is less than or equal
-        to 84\\\"\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n
-        \         \"package_code\": \"regional_rate_box_a\",\r\n          \"name\":
-        \"Regional Rate Box A\",\r\n          \"description\": \"Regional Rate Box
-        A\"\r\n        },\r\n        {\r\n          \"package_id\": null,\r\n          \"package_code\":
-        \"regional_rate_box_b\",\r\n          \"name\": \"Regional Rate Box B\",\r\n
-        \         \"description\": \"Regional Rate Box B\"\r\n        },\r\n        {\r\n
-        \         \"package_id\": null,\r\n          \"package_code\": \"small_flat_rate_box\",\r\n
-        \         \"name\": \"Small Flat Rate Box\",\r\n          \"description\":
-        \"Small Flat Rate Box\"\r\n        },\r\n        {\r\n          \"package_id\":
-        null,\r\n          \"package_code\": \"thick_envelope\",\r\n          \"name\":
-        \"Thick Envelope\",\r\n          \"description\": \"Thick envelope. Envelopes
-        or flats greater than 3/4\\\" at the thickest point.\"\r\n        }\r\n      ],\r\n
-        \     \"options\": [\r\n        {\r\n          \"name\": \"non_machinable\",\r\n
-        \         \"default_value\": \"false\",\r\n          \"description\": \"\"\r\n
-        \       }\r\n      ]\r\n    }\r\n  ]\r\n}"
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ew0KICAiY2FycmllcnMiOiBbDQogICAgew0KICAgICAgImNhcnJpZXJfaWQiOiAic2UtNzY0MzIiLA0KICAgICAgImNhcnJpZXJfY29kZSI6ICJzdGFtcHNfY29tIiwNCiAgICAgICJhY2NvdW50X251bWJlciI6ICJtc3dpbW0tMTcxN2UuIiwNCiAgICAgICJyZXF1aXJlc19mdW5kZWRfYW1vdW50IjogdHJ1ZSwNCiAgICAgICJiYWxhbmNlIjogMC4wLA0KICAgICAgIm5pY2tuYW1lIjogIkNTIFN0YW1wcyIsDQogICAgICAiZnJpZW5kbHlfbmFtZSI6ICJTdGFtcHMuY29tIiwNCiAgICAgICJwcmltYXJ5IjogdHJ1ZSwNCiAgICAgICJoYXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0aW5nX3NlcnZpY2VzIjogZmFsc2UsDQogICAgICAic3VwcG9ydHNfbGFiZWxfbWVzc2FnZXMiOiB0cnVlLA0KICAgICAgInNlcnZpY2VzIjogWw0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtNzY0MzIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAic3RhbXBzX2NvbSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX2ZpcnN0X2NsYXNzX21haWwiLA0KICAgICAgICAgICJuYW1lIjogIlVTUFMgRmlyc3QgQ2xhc3MgTWFpbCIsDQogICAgICAgICAgImRvbWVzdGljIjogdHJ1ZSwNCiAgICAgICAgICAiaW50ZXJuYXRpb25hbCI6IGZhbHNlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IGZhbHNlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS03NjQzMiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJzdGFtcHNfY29tIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfbWVkaWFfbWFpbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVNQUyBNZWRpYSBNYWlsIiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiB0cnVlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogZmFsc2UsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogZmFsc2UNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTc2NDMyIiwNCiAgICAgICAgICAiY2Fycmllcl9jb2RlIjogInN0YW1wc19jb20iLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXNwc19wYXJjZWxfc2VsZWN0IiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIFBhcmNlbCBTZWxlY3QgR3JvdW5kIiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiB0cnVlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogZmFsc2UsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogZmFsc2UNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTc2NDMyIiwNCiAgICAgICAgICAiY2Fycmllcl9jb2RlIjogInN0YW1wc19jb20iLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXNwc19wcmlvcml0eV9tYWlsIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIFByaW9yaXR5IE1haWwiLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtNzY0MzIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAic3RhbXBzX2NvbSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX3ByaW9yaXR5X21haWxfZXhwcmVzcyIsDQogICAgICAgICAgIm5hbWUiOiAiVVNQUyBQcmlvcml0eSBNYWlsIEV4cHJlc3MiLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtNzY0MzIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAic3RhbXBzX2NvbSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX2ZpcnN0X2NsYXNzX21haWxfaW50ZXJuYXRpb25hbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVNQUyBGaXJzdCBDbGFzcyBNYWlsIEludGwiLA0KICAgICAgICAgICJkb21lc3RpYyI6IGZhbHNlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogdHJ1ZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtNzY0MzIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAic3RhbXBzX2NvbSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX3ByaW9yaXR5X21haWxfaW50ZXJuYXRpb25hbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVNQUyBQcmlvcml0eSBNYWlsIEludGwiLA0KICAgICAgICAgICJkb21lc3RpYyI6IGZhbHNlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogdHJ1ZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtNzY0MzIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAic3RhbXBzX2NvbSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX3ByaW9yaXR5X21haWxfZXhwcmVzc19pbnRlcm5hdGlvbmFsIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIFByaW9yaXR5IE1haWwgRXhwcmVzcyBJbnRsIiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiBmYWxzZSwNCiAgICAgICAgICAiaW50ZXJuYXRpb25hbCI6IHRydWUsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogZmFsc2UNCiAgICAgICAgfQ0KICAgICAgXSwNCiAgICAgICJwYWNrYWdlcyI6IFsNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogImN1YmljIiwNCiAgICAgICAgICAibmFtZSI6ICJDdWJpYyIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkN1YmljIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAiZmxhdF9yYXRlX2VudmVsb3BlIiwNCiAgICAgICAgICAibmFtZSI6ICJGbGF0IFJhdGUgRW52ZWxvcGUiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJVU1BTIGZsYXQgcmF0ZSBlbnZlbG9wZS4gQSBzcGVjaWFsIGNhcmRib2FyZCBlbnZlbG9wZSBwcm92aWRlZCBieSB0aGUgVVNQUyB0aGF0IGNsZWFybHkgaW5kaWNhdGVzIFwiRmxhdCBSYXRlXCIuIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAiZmxhdF9yYXRlX2xlZ2FsX2VudmVsb3BlIiwNCiAgICAgICAgICAibmFtZSI6ICJGbGF0IFJhdGUgTGVnYWwgRW52ZWxvcGUiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJGbGF0IFJhdGUgTGVnYWwgRW52ZWxvcGUiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJmbGF0X3JhdGVfcGFkZGVkX2VudmVsb3BlIiwNCiAgICAgICAgICAibmFtZSI6ICJGbGF0IFJhdGUgUGFkZGVkIEVudmVsb3BlIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiRmxhdCBSYXRlIFBhZGRlZCBFbnZlbG9wZSINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogImxhcmdlX2VudmVsb3BlX29yX2ZsYXQiLA0KICAgICAgICAgICJuYW1lIjogIkxhcmdlIEVudmVsb3BlIG9yIEZsYXQiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJMYXJnZSBlbnZlbG9wZSBvciBmbGF0LiBIYXMgb25lIGRpbWVuc2lvbiB0aGF0IGlzIGJldHdlZW4gMTEgMS8yXCIgYW5kIDE1XCIgbG9uZywgNiAxLzE4XCIgYW5kIDEyXCIgaGlnaCwgb3IgMS80XCIgYW5kIDMvNFwiIHRoaWNrLiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogImxhcmdlX2ZsYXRfcmF0ZV9ib3giLA0KICAgICAgICAgICJuYW1lIjogIkxhcmdlIEZsYXQgUmF0ZSBCb3giLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJMYXJnZSBGbGF0IFJhdGUgQm94Ig0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAibGFyZ2VfcGFja2FnZSIsDQogICAgICAgICAgIm5hbWUiOiAiTGFyZ2UgUGFja2FnZSAoYW55IHNpZGUgPiAxMlwiKSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkxhcmdlIHBhY2thZ2UuIExvbmdlc3Qgc2lkZSBwbHVzIHRoZSBkaXN0YW5jZSBhcm91bmQgdGhlIHRoaWNrZXN0IHBhcnQgaXMgb3ZlciA4NFwiIGFuZCBsZXNzIHRoYW4gb3IgZXF1YWwgdG8gMTA4XCIuIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAibGV0dGVyIiwNCiAgICAgICAgICAibmFtZSI6ICJMZXR0ZXIiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJMZXR0ZXIiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJtZWRpdW1fZmxhdF9yYXRlX2JveCIsDQogICAgICAgICAgIm5hbWUiOiAiTWVkaXVtIEZsYXQgUmF0ZSBCb3giLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJVU1BTIGZsYXQgcmF0ZSBib3guIEEgc3BlY2lhbCAxMVwiIHggOCAxLzJcIiB4IDUgMS8yXCIgb3IgMTRcIiB4IDMuNVwiIHggMTJcIiBVU1BTIGJveCB0aGF0IGNsZWFybHkgaW5kaWNhdGVzIFwiRmxhdCBSYXRlIEJveFwiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAicGFja2FnZSIsDQogICAgICAgICAgIm5hbWUiOiAiUGFja2FnZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlBhY2thZ2UuIExvbmdlc3Qgc2lkZSBwbHVzIHRoZSBkaXN0YW5jZSBhcm91bmQgdGhlIHRoaWNrZXN0IHBhcnQgaXMgbGVzcyB0aGFuIG9yIGVxdWFsIHRvIDg0XCIiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJyZWdpb25hbF9yYXRlX2JveF9hIiwNCiAgICAgICAgICAibmFtZSI6ICJSZWdpb25hbCBSYXRlIEJveCBBIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiUmVnaW9uYWwgUmF0ZSBCb3ggQSINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogInJlZ2lvbmFsX3JhdGVfYm94X2IiLA0KICAgICAgICAgICJuYW1lIjogIlJlZ2lvbmFsIFJhdGUgQm94IEIiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJSZWdpb25hbCBSYXRlIEJveCBCIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAic21hbGxfZmxhdF9yYXRlX2JveCIsDQogICAgICAgICAgIm5hbWUiOiAiU21hbGwgRmxhdCBSYXRlIEJveCIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlNtYWxsIEZsYXQgUmF0ZSBCb3giDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJ0aGlja19lbnZlbG9wZSIsDQogICAgICAgICAgIm5hbWUiOiAiVGhpY2sgRW52ZWxvcGUiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJUaGljayBlbnZlbG9wZS4gRW52ZWxvcGVzIG9yIGZsYXRzIGdyZWF0ZXIgdGhhbiAzLzRcIiBhdCB0aGUgdGhpY2tlc3QgcG9pbnQuIg0KICAgICAgICB9DQogICAgICBdLA0KICAgICAgIm9wdGlvbnMiOiBbDQogICAgICAgIHsNCiAgICAgICAgICAibmFtZSI6ICJub25fbWFjaGluYWJsZSIsDQogICAgICAgICAgImRlZmF1bHRfdmFsdWUiOiAiZmFsc2UiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICIiDQogICAgICAgIH0NCiAgICAgIF0NCiAgICB9LA0KICAgIHsNCiAgICAgICJjYXJyaWVyX2lkIjogInNlLTEwNzk4NyIsDQogICAgICAiY2Fycmllcl9jb2RlIjogInVwcyIsDQogICAgICAiYWNjb3VudF9udW1iZXIiOiAiWTkzMTlXIiwNCiAgICAgICJyZXF1aXJlc19mdW5kZWRfYW1vdW50IjogZmFsc2UsDQogICAgICAiYmFsYW5jZSI6IDAuMCwNCiAgICAgICJuaWNrbmFtZSI6ICJDUyBVUFMiLA0KICAgICAgImZyaWVuZGx5X25hbWUiOiAiVVBTIiwNCiAgICAgICJwcmltYXJ5IjogdHJ1ZSwNCiAgICAgICJoYXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0aW5nX3NlcnZpY2VzIjogdHJ1ZSwNCiAgICAgICJzdXBwb3J0c19sYWJlbF9tZXNzYWdlcyI6IHRydWUsDQogICAgICAic2VydmljZXMiOiBbDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc19zdGFuZGFyZF9pbnRlcm5hdGlvbmFsIiwNCiAgICAgICAgICAibmFtZSI6ICJVUFMgU3RhbmRhcmTCriIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IHRydWUNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTEwNzk4NyIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJ1cHMiLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXBzX25leHRfZGF5X2Fpcl9lYXJseV9hbSIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIE5leHQgRGF5IEFpcsKuIEVhcmx5IiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiB0cnVlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogZmFsc2UsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogdHJ1ZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtMTA3OTg3IiwNCiAgICAgICAgICAiY2Fycmllcl9jb2RlIjogInVwcyIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1cHNfd29ybGR3aWRlX2V4cHJlc3MiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyBXb3JsZHdpZGUgRXhwcmVzc8KuIiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiBmYWxzZSwNCiAgICAgICAgICAiaW50ZXJuYXRpb25hbCI6IHRydWUsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogdHJ1ZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtMTA3OTg3IiwNCiAgICAgICAgICAiY2Fycmllcl9jb2RlIjogInVwcyIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1cHNfbmV4dF9kYXlfYWlyIiwNCiAgICAgICAgICAibmFtZSI6ICJVUFMgTmV4dCBEYXkgQWlywq4iLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiB0cnVlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc19ncm91bmRfaW50ZXJuYXRpb25hbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIEdyb3VuZMKuIChJbnRlcm5hdGlvbmFsKSIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IHRydWUNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTEwNzk4NyIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJ1cHMiLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXBzX3dvcmxkd2lkZV9leHByZXNzX3BsdXMiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyBXb3JsZHdpZGUgRXhwcmVzcyBQbHVzwq4iLA0KICAgICAgICAgICJkb21lc3RpYyI6IGZhbHNlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogdHJ1ZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiB0cnVlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc19uZXh0X2RheV9haXJfc2F2ZXIiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyBOZXh0IERheSBBaXIgU2F2ZXLCriIsDQogICAgICAgICAgImRvbWVzdGljIjogdHJ1ZSwNCiAgICAgICAgICAiaW50ZXJuYXRpb25hbCI6IGZhbHNlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IHRydWUNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTEwNzk4NyIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJ1cHMiLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXBzX3dvcmxkd2lkZV9leHBlZGl0ZWQiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyBXb3JsZHdpZGUgRXhwZWRpdGVkwq4iLA0KICAgICAgICAgICJkb21lc3RpYyI6IGZhbHNlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogdHJ1ZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiB0cnVlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc18ybmRfZGF5X2Fpcl9hbSIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIDJuZCBEYXkgQWlyIEFNwq4iLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiB0cnVlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc18ybmRfZGF5X2FpciIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIDJuZCBEYXkgQWlywq4iLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiB0cnVlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc193b3JsZHdpZGVfc2F2ZXIiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyBXb3JsZHdpZGUgU2F2ZXLCriIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IHRydWUNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTEwNzk4NyIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJ1cHMiLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXBzXzJuZF9kYXlfYWlyX2ludGVybmF0aW9uYWwiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyAybmQgRGF5IEFpcsKuIChJbnRlcm5hdGlvbmFsKSIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IHRydWUNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTEwNzk4NyIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJ1cHMiLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXBzXzNfZGF5X3NlbGVjdCIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIDMgRGF5IFNlbGVjdMKuIiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiB0cnVlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogZmFsc2UsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogdHJ1ZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtMTA3OTg3IiwNCiAgICAgICAgICAiY2Fycmllcl9jb2RlIjogInVwcyIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1cHNfZ3JvdW5kIiwNCiAgICAgICAgICAibmFtZSI6ICJVUFPCriBHcm91bmQiLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiB0cnVlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS0xMDc5ODciLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAidXBzIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVwc19uZXh0X2RheV9haXJfaW50ZXJuYXRpb25hbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIE5leHQgRGF5IEFpcsKuIChJbnRlcm5hdGlvbmFsKSIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IHRydWUNCiAgICAgICAgfQ0KICAgICAgXSwNCiAgICAgICJwYWNrYWdlcyI6IFsNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogInBhY2thZ2UiLA0KICAgICAgICAgICJuYW1lIjogIlBhY2thZ2UiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJQYWNrYWdlLiBMb25nZXN0IHNpZGUgcGx1cyB0aGUgZGlzdGFuY2UgYXJvdW5kIHRoZSB0aGlja2VzdCBwYXJ0IGlzIGxlc3MgdGhhbiBvciBlcXVhbCB0byA4NFwiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAidXBzX19leHByZXNzX2JveF9sYXJnZSIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTICBFeHByZXNzwq4gQm94IC0gTGFyZ2UiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJFeHByZXNzIEJveCAtIExhcmdlIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAidXBzXzEwX2tnX2JveCIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIDEwIEtHIEJveMKuIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiMTAgS0cgQm94Ig0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAidXBzXzI1X2tnX2JveCIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIDI1IEtHIEJveMKuIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiMjUgS0cgQm94Ig0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAidXBzX2V4cHJlc3NfYm94IiwNCiAgICAgICAgICAibmFtZSI6ICJVUFMgRXhwcmVzc8KuIEJveCIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkV4cHJlc3MgQm94Ig0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAidXBzX2V4cHJlc3NfYm94X21lZGl1bSIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIEV4cHJlc3PCriBCb3ggLSBNZWRpdW0iLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJFeHByZXNzIEJveCAtIE1lZGl1bSINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogInVwc19leHByZXNzX2JveF9zbWFsbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIEV4cHJlc3PCriBCb3ggLSBTbWFsbCIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkV4cHJlc3MgQm94IC0gU21hbGwiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJ1cHNfZXhwcmVzc19wYWsiLA0KICAgICAgICAgICJuYW1lIjogIlVQUyBFeHByZXNzwq4gUGFrIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiUGFrIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAidXBzX2xldHRlciIsDQogICAgICAgICAgIm5hbWUiOiAiVVBTIExldHRlciIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkxldHRlciINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogInVwc190dWJlIiwNCiAgICAgICAgICAibmFtZSI6ICJVUFMgVHViZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlR1YmUiDQogICAgICAgIH0NCiAgICAgIF0sDQogICAgICAib3B0aW9ucyI6IFsNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogImJpbGxfdG9fYWNjb3VudCIsDQogICAgICAgICAgImRlZmF1bHRfdmFsdWUiOiAiIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgIm5hbWUiOiAiYmlsbF90b19jb3VudHJ5X2NvZGUiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogIiIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogImJpbGxfdG9fcGFydHkiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogIiIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogImJpbGxfdG9fcG9zdGFsX2NvZGUiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogIiIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogImNvbGxlY3Rfb25fZGVsaXZlcnkiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogIiIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogImNvbnRhaW5zX2FsY29ob2wiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogImZhbHNlIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgIm5hbWUiOiAiZGVsaXZlcmVkX2R1dHlfcGFpZCIsDQogICAgICAgICAgImRlZmF1bHRfdmFsdWUiOiAiZmFsc2UiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICIiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAibmFtZSI6ICJkcnlfaWNlIiwNCiAgICAgICAgICAiZGVmYXVsdF92YWx1ZSI6ICJmYWxzZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogImRyeV9pY2Vfd2VpZ2h0IiwNCiAgICAgICAgICAiZGVmYXVsdF92YWx1ZSI6ICIwIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgIm5hbWUiOiAiZnJlaWdodF9jbGFzcyIsDQogICAgICAgICAgImRlZmF1bHRfdmFsdWUiOiAiIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgIm5hbWUiOiAibm9uX21hY2hpbmFibGUiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogImZhbHNlIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgIm5hbWUiOiAic2F0dXJkYXlfZGVsaXZlcnkiLA0KICAgICAgICAgICJkZWZhdWx0X3ZhbHVlIjogImZhbHNlIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiIg0KICAgICAgICB9DQogICAgICBdDQogICAgfSwNCiAgICB7DQogICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAiY2Fycmllcl9jb2RlIjogImVuZGljaWEiLA0KICAgICAgImFjY291bnRfbnVtYmVyIjogIjEzMDQxNzYiLA0KICAgICAgInJlcXVpcmVzX2Z1bmRlZF9hbW91bnQiOiB0cnVlLA0KICAgICAgImJhbGFuY2UiOiA2MDkuOTYsDQogICAgICAibmlja25hbWUiOiAiQ2FuZGxlU2NpZW5jZSBFbmRpY2lhIiwNCiAgICAgICJmcmllbmRseV9uYW1lIjogIkVuZGljaWEiLA0KICAgICAgInByaW1hcnkiOiB0cnVlLA0KICAgICAgImhhc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRpbmdfc2VydmljZXMiOiBmYWxzZSwNCiAgICAgICJzdXBwb3J0c19sYWJlbF9tZXNzYWdlcyI6IHRydWUsDQogICAgICAic2VydmljZXMiOiBbDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJlbmRpY2lhIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfZmlyc3RfY2xhc3NfbWFpbCIsDQogICAgICAgICAgIm5hbWUiOiAiVVNQUyBGaXJzdCBDbGFzcyBNYWlsIiwNCiAgICAgICAgICAiZG9tZXN0aWMiOiB0cnVlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogZmFsc2UsDQogICAgICAgICAgImlzX211bHRpX3BhY2thZ2Vfc3VwcG9ydGVkIjogZmFsc2UNCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJjYXJyaWVyX2lkIjogInNlLTkxNjkyIiwNCiAgICAgICAgICAiY2Fycmllcl9jb2RlIjogImVuZGljaWEiLA0KICAgICAgICAgICJzZXJ2aWNlX2NvZGUiOiAidXNwc19tZWRpYV9tYWlsIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIE1lZGlhIE1haWwiLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtOTE2OTIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAiZW5kaWNpYSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX3BhcmNlbF9zZWxlY3QiLA0KICAgICAgICAgICJuYW1lIjogIlVTUFMgUGFyY2VsIFNlbGVjdCBHcm91bmQiLA0KICAgICAgICAgICJkb21lc3RpYyI6IHRydWUsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiBmYWxzZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgImNhcnJpZXJfaWQiOiAic2UtOTE2OTIiLA0KICAgICAgICAgICJjYXJyaWVyX2NvZGUiOiAiZW5kaWNpYSIsDQogICAgICAgICAgInNlcnZpY2VfY29kZSI6ICJ1c3BzX3ByaW9yaXR5X21haWwiLA0KICAgICAgICAgICJuYW1lIjogIlVTUFMgUHJpb3JpdHkgTWFpbCIsDQogICAgICAgICAgImRvbWVzdGljIjogdHJ1ZSwNCiAgICAgICAgICAiaW50ZXJuYXRpb25hbCI6IGZhbHNlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IGZhbHNlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJlbmRpY2lhIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfcHJpb3JpdHlfbWFpbF9leHByZXNzIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIFByaW9yaXR5IE1haWwgRXhwcmVzcyIsDQogICAgICAgICAgImRvbWVzdGljIjogdHJ1ZSwNCiAgICAgICAgICAiaW50ZXJuYXRpb25hbCI6IGZhbHNlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IGZhbHNlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJlbmRpY2lhIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfZmlyc3RfY2xhc3NfcGFja2FnZV9pbnRlcm5hdGlvbmFsIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIEZpcnN0IENsYXNzIFBhY2thZ2UgSW50bCIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IGZhbHNlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJlbmRpY2lhIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfZmlyc3RfY2xhc3NfbWFpbF9pbnRlcm5hdGlvbmFsIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIEZpcnN0IENsYXNzIE1haWwgSW50bCIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IGZhbHNlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJlbmRpY2lhIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfcHJpb3JpdHlfbWFpbF9pbnRlcm5hdGlvbmFsIiwNCiAgICAgICAgICAibmFtZSI6ICJVU1BTIFByaW9yaXR5IE1haWwgSW50bCIsDQogICAgICAgICAgImRvbWVzdGljIjogZmFsc2UsDQogICAgICAgICAgImludGVybmF0aW9uYWwiOiB0cnVlLA0KICAgICAgICAgICJpc19tdWx0aV9wYWNrYWdlX3N1cHBvcnRlZCI6IGZhbHNlDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAiY2Fycmllcl9pZCI6ICJzZS05MTY5MiIsDQogICAgICAgICAgImNhcnJpZXJfY29kZSI6ICJlbmRpY2lhIiwNCiAgICAgICAgICAic2VydmljZV9jb2RlIjogInVzcHNfcHJpb3JpdHlfbWFpbF9leHByZXNzX2ludGVybmF0aW9uYWwiLA0KICAgICAgICAgICJuYW1lIjogIlVTUFMgUHJpb3JpdHkgTWFpbCBFeHByZXNzIEludGwiLA0KICAgICAgICAgICJkb21lc3RpYyI6IGZhbHNlLA0KICAgICAgICAgICJpbnRlcm5hdGlvbmFsIjogdHJ1ZSwNCiAgICAgICAgICAiaXNfbXVsdGlfcGFja2FnZV9zdXBwb3J0ZWQiOiBmYWxzZQ0KICAgICAgICB9DQogICAgICBdLA0KICAgICAgInBhY2thZ2VzIjogWw0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAiY3ViaWMiLA0KICAgICAgICAgICJuYW1lIjogIkN1YmljIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiQ3ViaWMiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJmbGF0X3JhdGVfZW52ZWxvcGUiLA0KICAgICAgICAgICJuYW1lIjogIkZsYXQgUmF0ZSBFbnZlbG9wZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlVTUFMgZmxhdCByYXRlIGVudmVsb3BlLiBBIHNwZWNpYWwgY2FyZGJvYXJkIGVudmVsb3BlIHByb3ZpZGVkIGJ5IHRoZSBVU1BTIHRoYXQgY2xlYXJseSBpbmRpY2F0ZXMgXCJGbGF0IFJhdGVcIi4iDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJmbGF0X3JhdGVfbGVnYWxfZW52ZWxvcGUiLA0KICAgICAgICAgICJuYW1lIjogIkZsYXQgUmF0ZSBMZWdhbCBFbnZlbG9wZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkZsYXQgUmF0ZSBMZWdhbCBFbnZlbG9wZSINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogImZsYXRfcmF0ZV9wYWRkZWRfZW52ZWxvcGUiLA0KICAgICAgICAgICJuYW1lIjogIkZsYXQgUmF0ZSBQYWRkZWQgRW52ZWxvcGUiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJGbGF0IFJhdGUgUGFkZGVkIEVudmVsb3BlIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAibGFyZ2VfZW52ZWxvcGVfb3JfZmxhdCIsDQogICAgICAgICAgIm5hbWUiOiAiTGFyZ2UgRW52ZWxvcGUgb3IgRmxhdCIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkxhcmdlIGVudmVsb3BlIG9yIGZsYXQuIEhhcyBvbmUgZGltZW5zaW9uIHRoYXQgaXMgYmV0d2VlbiAxMSAxLzJcIiBhbmQgMTVcIiBsb25nLCA2IDEvMThcIiBhbmQgMTJcIiBoaWdoLCBvciAxLzRcIiBhbmQgMy80XCIgdGhpY2suIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAibGFyZ2VfZmxhdF9yYXRlX2JveCIsDQogICAgICAgICAgIm5hbWUiOiAiTGFyZ2UgRmxhdCBSYXRlIEJveCIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkxhcmdlIEZsYXQgUmF0ZSBCb3giDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJsYXJnZV9wYWNrYWdlIiwNCiAgICAgICAgICAibmFtZSI6ICJMYXJnZSBQYWNrYWdlIChhbnkgc2lkZSA+IDEyXCIpIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiTGFyZ2UgcGFja2FnZS4gTG9uZ2VzdCBzaWRlIHBsdXMgdGhlIGRpc3RhbmNlIGFyb3VuZCB0aGUgdGhpY2tlc3QgcGFydCBpcyBvdmVyIDg0XCIgYW5kIGxlc3MgdGhhbiBvciBlcXVhbCB0byAxMDhcIi4iDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJsZXR0ZXIiLA0KICAgICAgICAgICJuYW1lIjogIkxldHRlciIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIkxldHRlciINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogIm1lZGl1bV9mbGF0X3JhdGVfYm94IiwNCiAgICAgICAgICAibmFtZSI6ICJNZWRpdW0gRmxhdCBSYXRlIEJveCIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlVTUFMgZmxhdCByYXRlIGJveC4gQSBzcGVjaWFsIDExXCIgeCA4IDEvMlwiIHggNSAxLzJcIiBvciAxNFwiIHggMy41XCIgeCAxMlwiIFVTUFMgYm94IHRoYXQgY2xlYXJseSBpbmRpY2F0ZXMgXCJGbGF0IFJhdGUgQm94XCIiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJwYWNrYWdlIiwNCiAgICAgICAgICAibmFtZSI6ICJQYWNrYWdlIiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiUGFja2FnZS4gTG9uZ2VzdCBzaWRlIHBsdXMgdGhlIGRpc3RhbmNlIGFyb3VuZCB0aGUgdGhpY2tlc3QgcGFydCBpcyBsZXNzIHRoYW4gb3IgZXF1YWwgdG8gODRcIiINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogInJlZ2lvbmFsX3JhdGVfYm94X2EiLA0KICAgICAgICAgICJuYW1lIjogIlJlZ2lvbmFsIFJhdGUgQm94IEEiLA0KICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJSZWdpb25hbCBSYXRlIEJveCBBIg0KICAgICAgICB9LA0KICAgICAgICB7DQogICAgICAgICAgInBhY2thZ2VfaWQiOiBudWxsLA0KICAgICAgICAgICJwYWNrYWdlX2NvZGUiOiAicmVnaW9uYWxfcmF0ZV9ib3hfYiIsDQogICAgICAgICAgIm5hbWUiOiAiUmVnaW9uYWwgUmF0ZSBCb3ggQiIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlJlZ2lvbmFsIFJhdGUgQm94IEIiDQogICAgICAgIH0sDQogICAgICAgIHsNCiAgICAgICAgICAicGFja2FnZV9pZCI6IG51bGwsDQogICAgICAgICAgInBhY2thZ2VfY29kZSI6ICJzbWFsbF9mbGF0X3JhdGVfYm94IiwNCiAgICAgICAgICAibmFtZSI6ICJTbWFsbCBGbGF0IFJhdGUgQm94IiwNCiAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiU21hbGwgRmxhdCBSYXRlIEJveCINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJwYWNrYWdlX2lkIjogbnVsbCwNCiAgICAgICAgICAicGFja2FnZV9jb2RlIjogInRoaWNrX2VudmVsb3BlIiwNCiAgICAgICAgICAibmFtZSI6ICJUaGljayBFbnZlbG9wZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIlRoaWNrIGVudmVsb3BlLiBFbnZlbG9wZXMgb3IgZmxhdHMgZ3JlYXRlciB0aGFuIDMvNFwiIGF0IHRoZSB0aGlja2VzdCBwb2ludC4iDQogICAgICAgIH0NCiAgICAgIF0sDQogICAgICAib3B0aW9ucyI6IFsNCiAgICAgICAgew0KICAgICAgICAgICJuYW1lIjogIm5vbl9tYWNoaW5hYmxlIiwNCiAgICAgICAgICAiZGVmYXVsdF92YWx1ZSI6ICJmYWxzZSIsDQogICAgICAgICAgImRlc2NyaXB0aW9uIjogIiINCiAgICAgICAgfQ0KICAgICAgXQ0KICAgIH0NCiAgXQ0KfQ==
     http_version: 
-  recorded_at: Fri, 31 May 2019 13:52:55 GMT
+  recorded_at: Mon, 28 Oct 2019 11:58:33 GMT
 - request:
     method: post
     uri: https://api.shipengine.com/v1/rates/estimate
     body:
       encoding: UTF-8
-      string: '{"carrier_ids":["se-76432","se-91692"],"from_country_code":"US","from_postal_code":"78756","to_country_code":"US","to_postal_code":"91521","to_city_locality":"Herndon","to_state_province":"IL","weight":{"value":5.852699859126819,"unit":"pound"},"confirmation":"none","address_residential_indicator":"no"}'
+      string: '{"carrier_ids":["se-91692"],"from_country_code":"US","from_postal_code":"78756","to_country_code":"US","to_postal_code":"91521","to_city_locality":"Herndon","to_state_province":"IL","weight":{"value":1.2214491174090958,"unit":"pound"},"confirmation":"none","address_residential_indicator":"no"}'
     headers:
       Accept:
       - "*/*"
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Type:
       - application/json
       Api-Key:
       - "<SHIPENGINE_API_KEY>"
       Content-Length:
-      - '304'
+      - '294'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - api.shipengine.com
   response:
@@ -242,280 +71,74 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 31 May 2019 13:52:57 GMT
+      - Mon, 28 Oct 2019 11:58:35 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '18991'
+      - '3967'
       Connection:
       - keep-alive
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+      Vary:
+      - Origin
       X-Shipengine-Requestid:
-      - 1dd819f8-df30-4598-a946-c063800e781d
+      - 819cfaa3-f263-4324-8b48-d5473be3d3a9
     body:
       encoding: UTF-8
-      string: "[\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
+      string: "[\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-91692\",\r\n
         \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        5.35\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 7,\r\n
-        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-07T00:00:00Z\",\r\n
-        \   \"carrier_delivery_days\": \"6\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
-        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Media Mail\",\r\n
-        \   \"service_code\": \"usps_media_mail\",\r\n    \"trackable\": true,\r\n
-        \   \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\": \"CS Stamps\",\r\n
-        \   \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        17.68\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 7,\r\n
-        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-07T00:00:00Z\",\r\n
-        \   \"carrier_delivery_days\": \"6\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
-        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Parcel Select
-        Ground\",\r\n    \"service_code\": \"usps_parcel_select\",\r\n    \"trackable\":
-        true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        17.93\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 4,\r\n
-        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-04T00:00:00Z\",\r\n
-        \   \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
-        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Priority Mail\",\r\n
-        \   \"service_code\": \"usps_priority_mail\",\r\n    \"trackable\": true,\r\n
-        \   \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\": \"CS Stamps\",\r\n
-        \   \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        12.8\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"medium_flat_rate_box\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        7.5\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"small_flat_rate_box\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        17.6\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"large_flat_rate_box\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        6.95\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"flat_rate_envelope\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        7.55\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"flat_rate_padded_envelope\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        9.95\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"regional_rate_box_a\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        16.1\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"regional_rate_box_b\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        7.25\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"flat_rate_legal_envelope\",\r\n    \"delivery_days\":
-        4,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-04T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"3\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail\",\r\n    \"service_code\": \"usps_priority_mail\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        58.61\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"package\",\r\n    \"delivery_days\": 2,\r\n
-        \   \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\": \"2019-06-03T00:00:00Z\",\r\n
-        \   \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n
-        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"USPS Priority Mail
-        Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n    \"trackable\":
-        true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        22.68\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"flat_rate_envelope\",\r\n    \"delivery_days\":
-        2,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        23.18\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"flat_rate_padded_envelope\",\r\n    \"delivery_days\":
-        2,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-76432\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        22.8\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
-        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
-        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
-        6,\r\n    \"package_type\": \"flat_rate_legal_envelope\",\r\n    \"delivery_days\":
-        2,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
-        \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\": \"1-2\",\r\n    \"ship_date\":
-        \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\": false,\r\n    \"service_type\":
-        \"USPS Priority Mail Express\",\r\n    \"service_code\": \"usps_priority_mail_express\",\r\n
-        \   \"trackable\": true,\r\n    \"carrier_code\": \"stamps_com\",\r\n    \"carrier_nickname\":
-        \"CS Stamps\",\r\n    \"carrier_friendly_name\": \"Stamps.com\",\r\n    \"validation_status\":
-        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
-        \ },\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-91692\",\r\n
-        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
-        5.35\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        3.27\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
         \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
         \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
         \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
         6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 0,\r\n    \"guaranteed_service\":
-        false,\r\n    \"estimated_delivery_date\": \"2019-05-31T00:00:00Z\",\r\n    \"carrier_delivery_days\":
-        \"0\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-10-28T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"0\",\r\n    \"ship_date\": \"2019-10-28T00:00:00Z\",\r\n    \"negotiated_rate\":
         false,\r\n    \"service_type\": \"USPS Media Mail\",\r\n    \"service_code\":
         \"usps_media_mail\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
         \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
         \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
         [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n    \"rate_type\": \"check\",\r\n
         \   \"carrier_id\": \"se-91692\",\r\n    \"shipping_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 17.68\r\n    },\r\n    \"insurance_amount\":
-        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
+        \"usd\",\r\n      \"amount\": 9.5\r\n    },\r\n    \"insurance_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
         6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 0,\r\n    \"guaranteed_service\":
-        false,\r\n    \"estimated_delivery_date\": \"2019-05-31T00:00:00Z\",\r\n    \"carrier_delivery_days\":
-        \"0\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-10-28T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"0\",\r\n    \"ship_date\": \"2019-10-28T00:00:00Z\",\r\n    \"negotiated_rate\":
         false,\r\n    \"service_type\": \"USPS Parcel Select Ground\",\r\n    \"service_code\":
         \"usps_parcel_select\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
         \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
         \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
         [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n    \"rate_type\": \"check\",\r\n
         \   \"carrier_id\": \"se-91692\",\r\n    \"shipping_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 17.93\r\n    },\r\n    \"insurance_amount\":
-        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
+        \"usd\",\r\n      \"amount\": 9.7\r\n    },\r\n    \"insurance_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
         6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 3,\r\n    \"guaranteed_service\":
-        false,\r\n    \"estimated_delivery_date\": \"2019-06-03T00:00:00Z\",\r\n    \"carrier_delivery_days\":
-        \"3\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-10-31T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"3\",\r\n    \"ship_date\": \"2019-10-28T00:00:00Z\",\r\n    \"negotiated_rate\":
         false,\r\n    \"service_type\": \"USPS Priority Mail\",\r\n    \"service_code\":
         \"usps_priority_mail\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
         \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
         \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
         [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n    \"rate_type\": \"check\",\r\n
         \   \"carrier_id\": \"se-91692\",\r\n    \"shipping_amount\": {\r\n      \"currency\":
-        \"usd\",\r\n      \"amount\": 58.61\r\n    },\r\n    \"insurance_amount\":
+        \"usd\",\r\n      \"amount\": 36.54\r\n    },\r\n    \"insurance_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\":
         {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"zone\":
         6,\r\n    \"package_type\": null,\r\n    \"delivery_days\": 1,\r\n    \"guaranteed_service\":
-        false,\r\n    \"estimated_delivery_date\": \"2019-06-01T00:00:00Z\",\r\n    \"carrier_delivery_days\":
-        \"1\",\r\n    \"ship_date\": \"2019-05-31T00:00:00Z\",\r\n    \"negotiated_rate\":
+        false,\r\n    \"estimated_delivery_date\": \"2019-10-29T00:00:00Z\",\r\n    \"carrier_delivery_days\":
+        \"1\",\r\n    \"ship_date\": \"2019-10-28T00:00:00Z\",\r\n    \"negotiated_rate\":
         false,\r\n    \"service_type\": \"USPS Priority Mail Express\",\r\n    \"service_code\":
         \"usps_priority_mail_express\",\r\n    \"trackable\": true,\r\n    \"carrier_code\":
         \"endicia\",\r\n    \"carrier_nickname\": \"CandleScience Endicia\",\r\n    \"carrier_friendly_name\":
         \"Endicia\",\r\n    \"validation_status\": \"unknown\",\r\n    \"warning_messages\":
         [],\r\n    \"error_messages\": []\r\n  }\r\n]"
     http_version: 
-  recorded_at: Fri, 31 May 2019 13:52:57 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Mon, 28 Oct 2019 11:58:35 GMT
+recorded_with: VCR 5.0.0
