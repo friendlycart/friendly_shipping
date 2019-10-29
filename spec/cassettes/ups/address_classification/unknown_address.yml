@@ -1,0 +1,81 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/ups.app/xml/XAV
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <AccessRequest>
+          <AccessLicenseNumber>%UPS_KEY%</AccessLicenseNumber>
+          <UserId>%UPS_LOGIN%</UserId>
+          <Password>%UPS_PASSWORD%</Password>
+        </AccessRequest>
+        <?xml version="1.0"?>
+        <AddressValidationRequest>
+          <Request>
+            <RequestAction>XAV</RequestAction>
+            <RequestOption>3</RequestOption>
+          </Request>
+          <AddressKeyFormat>
+            <ConsigneeName>Company</ConsigneeName>
+            <AddressLine>123 Does Not Exist St</AddressLine>
+            <AddressLine>South</AddressLine>
+            <PoliticalDivision2>New York</PoliticalDivision2>
+            <PoliticalDivision1>NY</PoliticalDivision1>
+            <PostcodePrimaryLow>10005</PostcodePrimaryLow>
+            <CountryCode>US</CountryCode>
+          </AddressKeyFormat>
+        </AddressValidationRequest>
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin18.7.0 x86_64) ruby/2.6.5p114
+      Content-Length:
+      - '720'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: '200'
+    headers:
+      Date:
+      - Tue, 29 Oct 2019 18:30:14 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, max-age=0, no-cache=Set-Cookie, Set-Cookie2
+      Pragma:
+      - no-cache
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Apihttpstatus:
+      - '200'
+      Content-Length:
+      - '1375'
+      Content-Type:
+      - application/xml
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0"?><AddressValidationResponse><Response><TransactionReference></TransactionReference><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><AmbiguousAddressIndicator/><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><ConsigneeName>COMPANY
+        TOURS</ConsigneeName><AddressLine>345 PARK AVE</AddressLine><AddressLine>STE
+        1706</AddressLine><Region>NEW YORK NY 10154-1788</Region><PoliticalDivision2>NEW
+        YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10154</PostcodePrimaryLow><PostcodeExtendedLow>1788</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat><AddressKeyFormat><AddressClassification><Code>0</Code><Description>Unknown</Description></AddressClassification><ConsigneeName>COMPANY
+        STORE</ConsigneeName><AddressLine>200 PARK AVE</AddressLine><AddressLine>UPPR
+        8NE</AddressLine><Region>NEW YORK NY 10166-0008</Region><PoliticalDivision2>NEW
+        YORK</PoliticalDivision2><PoliticalDivision1>NY</PoliticalDivision1><PostcodePrimaryLow>10166</PostcodePrimaryLow><PostcodeExtendedLow>0008</PostcodeExtendedLow><CountryCode>US</CountryCode></AddressKeyFormat></AddressValidationResponse>
+    http_version: 
+  recorded_at: Tue, 29 Oct 2019 18:30:14 GMT
+recorded_with: VCR 5.0.0

@@ -70,4 +70,21 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
       end
     end
   end
+
+  context 'with first class mail type' do
+    let(:properties) { { first_class_mail_type: :letter } }
+
+    it 'uses correct first class mail type' do
+      expect(node.at_xpath('FirstClassMailType').text).to eq('LETTER')
+    end
+  end
+
+  context 'with large package' do
+    # Package is considered large if any dimension exceeds 12 in
+    let(:dimensions) { [35, 21.321539, 24].map { |e| Measured::Length(e, :cm) } }
+
+    it 'uses correct size code' do
+      expect(node.at_xpath('Size').text).to eq('LARGE')
+    end
+  end
 end

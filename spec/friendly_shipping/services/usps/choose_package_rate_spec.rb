@@ -50,4 +50,22 @@ RSpec.describe FriendlyShipping::Services::Usps::ChoosePackageRate do
       expect(subject.data[:hold_for_pickup]).to be false
     end
   end
+
+  context 'if not left with single rate at end' do
+    let(:rates) do
+      [
+        FriendlyShipping::Rate.new(
+          shipping_method: shipping_method,
+          amounts: { package.id => 1 },
+          data: { hold_for_pickup: false }
+        )
+      ] * 2
+    end
+
+    it 'raises an exception' do
+      expect { subject }.to raise_exception(
+        FriendlyShipping::Services::Usps::ChoosePackageRate::CannotDetermineRate
+      )
+    end
+  end
 end
