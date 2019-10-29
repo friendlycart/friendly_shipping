@@ -9,9 +9,7 @@ module FriendlyShipping
                 :delivery_date,
                 :warnings,
                 :errors,
-                :data,
-                :original_request,
-                :original_response
+                :data
 
     # @param [FriendlyShipping::ShippingMethod] shipping_method The rate's shipping method
     # @param [Hash] amounts The amounts (as Money objects) that make up the rate
@@ -20,8 +18,6 @@ module FriendlyShipping
     # @param [Array] warnings Any warnings that were generated
     # @param [Array] errors Any errors that were generated
     # @param [Hash] data Additional data related to the rate
-    # @param [FriendlyShipping::Request] original_request The HTTP request used to obtain the rate
-    # @param [FriendlyShipping::Response] original_response The HTTP response for the rate
     def initialize(
       shipping_method:,
       amounts:,
@@ -29,9 +25,7 @@ module FriendlyShipping
       delivery_date: nil,
       warnings: [],
       errors: [],
-      data: {},
-      original_request: nil,
-      original_response: nil
+      data: {}
     )
       @remote_service_id = remote_service_id
       @shipping_method = shipping_method
@@ -40,8 +34,6 @@ module FriendlyShipping
       @warnings = warnings
       @errors = errors
       @data = data
-      @original_request = original_request
-      @original_response = original_response
     end
 
     def total_amount
