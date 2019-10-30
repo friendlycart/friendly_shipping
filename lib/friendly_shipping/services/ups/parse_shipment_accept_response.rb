@@ -25,17 +25,23 @@ module FriendlyShipping
 
           def build_labels(xml)
             packages = xml.xpath('//ShipmentAcceptResponse/ShipmentResults/PackageResults')
+            form_format = xml.at('Form/Image/ImageFormat/Code')&.text
+            encoded_form = xml.at('Form/Image/GraphicImage')&.text
+            decoded_form = encoded_form ? Base64.decode64(encoded_form) : nil
             packages.map do |package|
               cost_breakdown = build_cost_breakdown(package)
+              package_cost = cost_breakdown.values.any? ? cost_breakdown.values.sum : nil
               FriendlyShipping::Label.new(
                 tracking_number: package.at('TrackingNumber').text,
                 label_data: Base64.decode64(package.at('LabelImage/GraphicImage').text),
                 label_format: package.at('LabelImage/LabelImageFormat/Code').text,
-                cost: cost_breakdown.values.sum,
+                cost: package_cost,
                 shipment_cost: get_shipment_cost(xml),
                 data: {
                   cost_breakdown: cost_breakdown,
-                  negotiated_rate: get_negotiated_rate(xml)
+                  negotiated_rate: get_negotiated_rate(xml),
+                  form_format: form_format,
+                  form: decoded_form
                 }.compact
               )
             end

@@ -41,4 +41,15 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
       expect(subject.failure.to_s).to eq("Failure: Missing or invalid shipment digest.")
     end
   end
+
+  context "with a response with paperless invoice" do
+    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_international.xml')).read }
+
+    it { is_expected.to be_success }
+
+    it 'contains document data' do
+      expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
+      expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+    end
+  end
 end
