@@ -338,6 +338,32 @@ RSpec.describe FriendlyShipping::Services::Ups do
         expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
         expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
       end
+
+      context 'when shipping to Puerto Rico' do
+        let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '03') }
+
+        let(:destination) do
+          Physical::Location.new(
+            name: 'John Doe',
+            company_name: 'Acme, Inc',
+            address1: '1230 Calle Amapolas Apt 103',
+            phone: '999-999-9999',
+            city: 'Carolina',
+            country: 'PR',
+            zip: '00979'
+          )
+        end
+
+        it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/international_puerto_rico" } do
+          expect(subject).to be_a(Dry::Monads::Result)
+          expect(subject.value!.data.length).to eq(2)
+          expect(subject.value!.data.map(&:tracking_number)).to be_present
+          expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
+          expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
+          expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
+          expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+        end
+      end
     end
 
     context "if the address is invalid", vcr: { cassette_name: "ups/labels/failure" } do

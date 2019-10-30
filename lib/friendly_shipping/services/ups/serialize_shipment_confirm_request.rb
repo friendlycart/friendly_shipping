@@ -111,7 +111,7 @@ module FriendlyShipping
                       # Required for shipments from the US to Puerto Rico or Canada
                       # We'll assume USD as the origin country is the United States here.
                       xml.InvoiceLineTotal do
-                        total_value = packages.inject(Money.new(0, 'USD')) do |shipment_sum, package|
+                        total_value = shipment.packages.inject(Money.new(0, 'USD')) do |shipment_sum, package|
                           shipment_sum + package.items.inject(Money.new(0, 'USD')) do |package_sum, item|
                             package_sum + (item.cost || Money.new(0, 'USD'))
                           end
