@@ -19,6 +19,10 @@ module FriendlyShipping
             label_url = label_uri_string
           end
 
+          currency = parsed_json.dig('shipment_cost', 'currency')
+          cents = parsed_json.dig('shipment_cost', 'amount') * 100
+          shipment_cost = Money.new(cents, currency)
+
           label = FriendlyShipping::Label.new(
             id: parsed_json['label_id'],
             shipment_id: parsed_json['shipment_id'],
@@ -27,7 +31,7 @@ module FriendlyShipping
             label_href: label_url,
             label_data: label_data,
             label_format: parsed_json['label_format'].to_sym,
-            shipment_cost: parsed_json['shipment_cost']['amount'],
+            shipment_cost: shipment_cost,
             data: parsed_json
           )
 

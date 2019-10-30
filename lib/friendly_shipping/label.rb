@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'friendly_shipping/types'
+
 module FriendlyShipping
   class Label
     attr_reader :id,
@@ -9,6 +11,7 @@ module FriendlyShipping
                 :label_href,
                 :data,
                 :label_format,
+                :cost,
                 :shipment_cost,
                 :label_data
 
@@ -29,6 +32,7 @@ module FriendlyShipping
       label_href: nil,
       label_format: nil,
       label_data: nil,
+      cost: nil,
       shipment_cost: nil,
       data: {}
     )
@@ -38,7 +42,8 @@ module FriendlyShipping
       @service_code = service_code
       @label_href = label_href
       @label_format = label_format
-      @shipment_cost = shipment_cost
+      @cost = FriendlyShipping::Types::Money.optional[cost]
+      @shipment_cost = FriendlyShipping::Types::Money.optional[shipment_cost]
       @label_data = label_data
       @data = data
     end
