@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe FriendlyShipping::Services::Ups do
   subject(:service) { described_class.new(key: ENV['UPS_KEY'], login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD']) }
 
-  describe 'carriers' do
+  describe '#carriers' do
     subject { service.carriers }
     let(:ups) { FriendlyShipping::Carrier.new(code: 'ups', id: 'ups', name: 'United Parcel Service') }
 
@@ -27,7 +27,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
     end
   end
 
-  describe 'rate_estimates' do
+  describe '#rate_estimates' do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:destination) { FactoryBot.build(:physical_location, region: "FL", zip: '32821') }
     let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
@@ -55,7 +55,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
     end
   end
 
-  describe 'city_state_lookup' do
+  describe '#city_state_lookup' do
     subject { service.city_state_lookup(location) }
 
     context 'with a good ZIP code', vcr: { cassette_name: 'ups/city_state_lookup/success' } do
@@ -95,7 +95,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
     end
   end
 
-  describe 'address_validation' do
+  describe '#address_validation' do
     subject { service.address_validation(address) }
 
     context 'with a valid address', vcr: { cassette_name: 'ups/address_validation/valid_address' } do
@@ -181,24 +181,70 @@ RSpec.describe FriendlyShipping::Services::Ups do
     end
   end
 
+  describe '#address_classification' do
+    subject { service.address_classification(address) }
+
+    context 'with a commercial address', vcr: { cassette_name: 'ups/address_classification/commercial_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Dag Hammerskjöld",
+          company_name: "United Nations",
+          address1: "405 East 42nd Street",
+          city: "New York",
+          region: "NY",
+          zip: "10017"
+        )
+      end
+
+      it 'returns the address type' do
+        expect(subject).to be_success
+        expect(subject.value!.data).to eq('commercial')
+      end
+    end
+
+    context 'with a residential address', vcr: { cassette_name: 'ups/address_classification/residential_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "John Doe",
+          address1: "401 Dover St",
+          city: "Westbury",
+          region: "NY",
+          zip: "11590"
+        )
+      end
+
+      it 'returns the address type' do
+        expect(subject).to be_success
+        expect(subject.value!.data).to eq('residential')
+      end
+    end
+
+    context 'with an unknown address', vcr: { cassette_name: 'ups/address_classification/unknown_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Jane Doe",
+          address1: "123 Does Not Exist St",
+          city: "New York",
+          region: "NY",
+          zip: "10005"
+        )
+      end
+
+      it 'returns the address type' do
+        expect(subject).to be_success
+        expect(subject.value!.data).to eq('unknown')
+      end
+    end
+  end
+
   describe '#labels' do
     let(:origin) do
       FactoryBot.build(
         :physical_location,
         name: 'John Doe',
-        company_name: 'Company',
-        address1: '10 Lovely Street',
-        address2: 'Northwest',
-        region: 'NC',
-        city: 'Raleigh',
-        zip: '27615'
-      )
-    end
-
-    let(:shipper) do
-      FactoryBot.build(
-        :physical_location,
-        name: 'Jane Doe',
         company_name: 'Company',
         address1: '10 Lovely Street',
         address2: 'Northwest',

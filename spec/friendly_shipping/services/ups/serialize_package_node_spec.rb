@@ -85,4 +85,17 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
       expect(subject.at_xpath('//Package/PackageServiceOptions/ShipperReleaseIndicator')).to be_present
     end
   end
+
+  context 'with delivery confirmation code' do
+    subject(:context) do
+      Nokogiri::XML::Builder.new do |xml|
+        described_class.call(xml: xml, package: package, delivery_confirmation_code: '5678')
+      end.doc
+    end
+
+    it 'adds the delivery confirmation to the package service options' do
+      expect(subject.at_xpath('//Package//PackageServiceOptions/DeliveryConfirmation')).to be_present
+      expect(subject.at_xpath('//Package//PackageServiceOptions/DeliveryConfirmation/DCISType').text).to eq('5678')
+    end
+  end
 end

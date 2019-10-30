@@ -81,4 +81,14 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
       end
     end
   end
+
+  context 'with a destination account' do
+    let(:options) { { destination_account: '98765' } }
+
+    it 'contains a ShipperAssignedIdentificationNumber element' do
+      expect(
+        subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipTo/ShipperAssignedIdentificationNumber').text
+      ).to eq('98765')
+    end
+  end
 end
