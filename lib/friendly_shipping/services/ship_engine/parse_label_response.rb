@@ -32,6 +32,7 @@ module FriendlyShipping
             label_data: label_data,
             label_format: parsed_json['label_format'].to_sym,
             shipment_cost: shipment_cost,
+            cost: shipment_cost,
             data: parsed_json
           )
 

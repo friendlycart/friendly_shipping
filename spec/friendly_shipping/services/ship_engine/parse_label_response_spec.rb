@@ -23,6 +23,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: 
     expect(label.label_href).to start_with('https://')
     expect(label.label_format).to eq(:pdf)
     expect(label.shipment_cost).to eq(0.0)
+    expect(label.cost).to eq(0.0)
     expect(subject.original_request).to eq(request)
     expect(subject.original_response).to eq(response)
   end

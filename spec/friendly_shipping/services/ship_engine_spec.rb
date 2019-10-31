@@ -165,16 +165,12 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
 
         it { is_expected.to be_a Array }
 
-        it "contains a valid label object" do
+        it "contains a valid label object with a URL" do
           expect(label).to be_a(FriendlyShipping::Label)
-        end
-
-        it "has a valid URL" do
           expect(label.label_href).to start_with("https://")
-        end
-
-        it "has the right format" do
           expect(label.label_format).to eq(:pdf)
+          expect(label.cost).to eq(0.0)
+          expect(label.shipment_cost).to eq(0.0)
         end
       end
     end
