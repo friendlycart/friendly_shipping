@@ -33,7 +33,10 @@ module FriendlyShipping
                 label_format: package.at('LabelImage/LabelImageFormat/Code').text,
                 cost: cost_breakdown.values.sum,
                 shipment_cost: get_shipment_cost(xml),
-                data: { cost_breakdown: cost_breakdown }
+                data: {
+                  cost_breakdown: cost_breakdown,
+                  negotiated_rate: get_negotiated_rate(xml)
+                }.compact
               )
             end
           end
@@ -51,6 +54,11 @@ module FriendlyShipping
           def get_shipment_cost(shipment_xml)
             total_charges_element = shipment_xml.at('ShipmentResults/ShipmentCharges/TotalCharges')
             ParseMoneyElement.call(total_charges_element).last
+          end
+
+          def get_negotiated_rate(shipment_xml)
+            negotiated_total_element = shipment_xml.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
+            ParseMoneyElement.call(negotiated_total_element)&.last
           end
         end
       end

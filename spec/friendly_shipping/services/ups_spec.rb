@@ -274,16 +274,21 @@ RSpec.describe FriendlyShipping::Services::Ups do
     let(:options) do
       FriendlyShipping::Services::Ups::LabelOptions.new(
         shipping_method: shipping_method,
-        shipper_number: shipper_number
+        shipper_number: shipper_number,
+        negotiated_rates: true
       )
     end
 
     it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/success" } do
       expect(subject).to be_a(Dry::Monads::Result)
+      first_label = subject.value!.data.first
       expect(subject.value!.data.length).to eq(2)
-      expect(subject.value!.data.map(&:tracking_number)).to be_present
-      expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
-      expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
+      expect(first_label.tracking_number).to be_present
+      expect(first_label.label_data.first(5)).to eq("GIF87")
+      expect(first_label.label_format).to eq("GIF")
+      expect(first_label.cost).to eq(Money.new(1257, 'USD'))
+      expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
+      expect(first_label.data[:negotiated_rate]).to eq(Money.new(2479, 'USD'))
     end
 
     context "if the address is invalid", vcr: { cassette_name: "ups/labels/failure" } do
