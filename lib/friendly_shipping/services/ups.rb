@@ -94,7 +94,8 @@ module FriendlyShipping
         end.bind do |ship_confirm_result|
           ship_accept_url = base_url + RESOURCES[:ship_accept]
           ship_accept_request_xml = SerializeShipmentAcceptRequest.call(
-            digest: ship_confirm_result.data
+            digest: ship_confirm_result.data,
+            options: options
           )
 
           ship_accept_request = FriendlyShipping::Request.new(

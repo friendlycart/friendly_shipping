@@ -274,7 +274,8 @@ RSpec.describe FriendlyShipping::Services::Ups do
       FriendlyShipping::Services::Ups::LabelOptions.new(
         shipping_method: shipping_method,
         shipper_number: shipper_number,
-        negotiated_rates: true
+        negotiated_rates: true,
+        customer_context: 'request-id-12345'
       )
     end
 
@@ -288,6 +289,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       expect(first_label.cost).to eq(Money.new(1257, 'USD'))
       expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
       expect(first_label.data[:negotiated_rate]).to eq(Money.new(2479, 'USD'))
+      expect(first_label.data[:customer_context]).to eq('request-id-12345')
     end
 
     context 'shipping internationally with paperless invoice' do

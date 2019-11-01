@@ -41,7 +41,8 @@ module FriendlyShipping
                   cost_breakdown: cost_breakdown,
                   negotiated_rate: get_negotiated_rate(xml),
                   form_format: form_format,
-                  form: decoded_form
+                  form: decoded_form,
+                  customer_context: xml.xpath('//TransactionReference/CustomerContext')&.text
                 }.compact
               )
             end
