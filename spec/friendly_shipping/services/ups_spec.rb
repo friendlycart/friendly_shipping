@@ -358,7 +358,8 @@ RSpec.describe FriendlyShipping::Services::Ups do
           shipping_method: shipping_method,
           shipper_number: shipper_number,
           paperless_invoice: true,
-          terms_of_shipment: :delivery_duty_paid
+          terms_of_shipment: :delivery_duty_paid,
+          delivery_confirmation: :delivery_confirmation_adult_signature_required
         )
       end
 
