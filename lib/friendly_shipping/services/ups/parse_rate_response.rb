@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/ups/parse_xml_response'
+require 'friendly_shipping/services/ups/parse_money_element'
 
 module FriendlyShipping
   module Services
@@ -24,16 +25,16 @@ module FriendlyShipping
               sm.service_code == service_code && shipment.origin.country.in?(sm.origin_countries)
             end
             days_to_delivery = rated_shipment.at('GuaranteedDaysToDelivery').text.to_i
-            currency = Money::Currency.new(rated_shipment.at('TotalCharges/CurrencyCode').text)
-            total_cents = rated_shipment.at('TotalCharges/MonetaryValue').text.to_d * currency.subunit_to_unit
-            insurance_price = rated_shipment.at('ServiceOptionsCharges/MonetaryValue').text.to_f
-            negotiated_rate = rated_shipment.at(
-              'NegotiatedRates/NetSummaryCharges/GrandTotal/MonetaryValue'
-            )&.text.to_f
+
+            total = ParseMoneyElement.call(rated_shipment.at('TotalCharges')).last
+            insurance_price = ParseMoneyElement.call(rated_shipment.at('ServiceOptionsCharges'))&.last
+            negotiated_rate = ParseMoneyElement.call(
+              rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
+            )&.last
 
             FriendlyShipping::Rate.new(
               shipping_method: shipping_method,
-              amounts: { total: Money.new(total_cents, currency) },
+              amounts: { total: total },
               warnings: [rated_shipment.at("RatedShipmentWarning")&.text].compact,
               errors: [],
               data: {

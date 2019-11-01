@@ -25,11 +25,10 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
       expect(subject.map(&:tracking_number)).to be_present
       expect(subject.map(&:label_data).first.first(5)).to eq("GIF87")
       expect(subject.map(&:label_format).first.to_s).to eq("GIF")
-      expect(subject.map(&:shipment_cost).first).to eq(11.98)
+      expect(subject.map(&:shipment_cost).first.to_d).to eq(11.98)
       expect(subject.map(&:data).first[:cost_breakdown]).to eq(
-        "BaseServiceCharge" => 11.17.to_d,
-        "ServiceOptionsCharges" => 0.0.to_d,
-        "FUEL SURCHARGE" => 0.81.to_d
+        "BaseServiceCharge" => Money.new(1117, 'USD'),
+        "FUEL SURCHARGE" => Money.new(81, 'USD')
       )
     end
   end
