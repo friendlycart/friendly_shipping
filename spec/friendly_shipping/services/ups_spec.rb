@@ -292,6 +292,36 @@ RSpec.describe FriendlyShipping::Services::Ups do
       expect(first_label.data[:customer_context]).to eq('request-id-12345')
     end
 
+    context 'prepaid' do
+      let(:options) do
+        FriendlyShipping::Services::Ups::LabelOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          billing_options: billing_options
+        )
+      end
+
+      let(:billing_options) do
+        FriendlyShipping::Services::Ups::LabelBillingOptions.new(
+          prepay: true,
+          billing_account: ENV['UPS_SHIPPER_NUMBER'],
+          billing_zip: '27703',
+          billing_country: 'US'
+        )
+      end
+
+      it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/prepaid" } do
+        expect(subject).to be_a(Dry::Monads::Result)
+        first_label = subject.value!.data.first
+        expect(subject.value!.data.length).to eq(2)
+        expect(first_label.tracking_number).to be_present
+        expect(first_label.label_data.first(5)).to eq("GIF87")
+        expect(first_label.label_format).to eq("GIF")
+        expect(first_label.cost).to eq(Money.new(1257, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
+      end
+    end
+
     context 'shipping internationally with paperless invoice' do
       let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '54') }
       let(:destination) do
@@ -327,7 +357,8 @@ RSpec.describe FriendlyShipping::Services::Ups do
         FriendlyShipping::Services::Ups::LabelOptions.new(
           shipping_method: shipping_method,
           shipper_number: shipper_number,
-          paperless_invoice: true
+          paperless_invoice: true,
+          terms_of_shipment: :delivery_duty_paid
         )
       end
 
