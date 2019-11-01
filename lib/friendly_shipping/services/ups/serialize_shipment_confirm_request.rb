@@ -51,9 +51,10 @@ module FriendlyShipping
                     xml.ShipperNumber(options.shipper_number)
                   end
 
-                  if options.shipper
+                  if options.shipper || options.return_service_code
+                    origin = options.return_service_code ? shipment.destination : shipment.origin
                     xml.ShipFrom do
-                      SerializeShipmentAddressSnippet.call(xml: xml, location: shipment.origin)
+                      SerializeShipmentAddressSnippet.call(xml: xml, location: origin)
                     end
                   end
 

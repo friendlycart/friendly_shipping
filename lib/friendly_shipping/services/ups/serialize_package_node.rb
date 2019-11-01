@@ -16,6 +16,10 @@ module FriendlyShipping
               xml.Code('02')
             end
 
+            if package.items.any?(&:description)
+              xml.Description(package.items.map(&:description).compact.join(', '))
+            end
+
             if package.dimensions.all? { |dim| !dim.value.zero? && !dim.value.infinite? }
               xml.Dimensions do
                 xml.UnitOfMeasurement do

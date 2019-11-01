@@ -292,6 +292,43 @@ RSpec.describe FriendlyShipping::Services::Ups do
       expect(first_label.data[:customer_context]).to eq('request-id-12345')
     end
 
+    context 'return shipments' do
+      let(:options) do
+        FriendlyShipping::Services::Ups::LabelOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          negotiated_rates: true,
+          return_service: :ups_print_and_mail
+        )
+      end
+
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          packages: [package_1],
+          origin: origin,
+          destination: destination
+        )
+      end
+
+      let(:package_1) { FactoryBot.build(:physical_package, items: [item_1, item_2]) }
+
+      let(:item_1) { FactoryBot.build(:physical_item, description: 'Earrings', cost: Money.new(1000, "USD")) }
+      let(:item_2) { FactoryBot.build(:physical_item, description: 'DVDs', cost: Money.new(1500, "USD")) }
+
+      it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/return_label" } do
+        expect(subject).to be_a(Dry::Monads::Result)
+        first_label = subject.value!.data.first
+        expect(subject.value!.data.length).to eq(1)
+        expect(first_label.tracking_number).to be_present
+        expect(first_label.label_data).to be nil
+        expect(first_label.label_format).to be nil
+        expect(first_label.cost).to eq(Money.new(1235, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(1235, 'USD'))
+        expect(first_label.data[:negotiated_rate]).to eq(Money.new(995, 'USD'))
+      end
+    end
+
     context 'prepaid' do
       let(:options) do
         FriendlyShipping::Services::Ups::LabelOptions.new(

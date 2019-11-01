@@ -31,10 +31,11 @@ module FriendlyShipping
             packages.map do |package|
               cost_breakdown = build_cost_breakdown(package)
               package_cost = cost_breakdown.values.any? ? cost_breakdown.values.sum : nil
+              encoded_label_data = package.at('LabelImage/GraphicImage')&.text
               FriendlyShipping::Label.new(
                 tracking_number: package.at('TrackingNumber').text,
-                label_data: Base64.decode64(package.at('LabelImage/GraphicImage').text),
-                label_format: package.at('LabelImage/LabelImageFormat/Code').text,
+                label_data: encoded_label_data ? Base64.decode64(encoded_label_data) : nil,
+                label_format: package.at('LabelImage/LabelImageFormat/Code')&.text,
                 cost: package_cost,
                 shipment_cost: get_shipment_cost(xml),
                 data: {
