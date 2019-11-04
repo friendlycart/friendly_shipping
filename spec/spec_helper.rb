@@ -13,6 +13,8 @@ require "physical/spec_support/factories"
 
 Dotenv.load
 
+Money.locale_backend = nil
+
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock

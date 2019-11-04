@@ -51,9 +51,10 @@ module FriendlyShipping
                     xml.ShipperNumber(options.shipper_number)
                   end
 
-                  if options.shipper
+                  if options.shipper || options.return_service_code
+                    origin = options.return_service_code ? shipment.destination : shipment.origin
                     xml.ShipFrom do
-                      SerializeShipmentAddressSnippet.call(xml: xml, location: shipment.origin)
+                      SerializeShipmentAddressSnippet.call(xml: xml, location: origin)
                     end
                   end
 
@@ -107,11 +108,11 @@ module FriendlyShipping
                       end
                     end
 
-                    if origin.country.code == 'US' && ['CA', 'PR'].include?(destination.country.code)
+                    if shipment.origin.country.code == 'US' && ['CA', 'PR'].include?(shipment.destination.country.code)
                       # Required for shipments from the US to Puerto Rico or Canada
                       # We'll assume USD as the origin country is the United States here.
                       xml.InvoiceLineTotal do
-                        total_value = packages.inject(Money.new(0, 'USD')) do |shipment_sum, package|
+                        total_value = shipment.packages.inject(Money.new(0, 'USD')) do |shipment_sum, package|
                           shipment_sum + package.items.inject(Money.new(0, 'USD')) do |package_sum, item|
                             package_sum + (item.cost || Money.new(0, 'USD'))
                           end
@@ -120,7 +121,7 @@ module FriendlyShipping
                       end
                     end
 
-                    contents_description = packages.flat_map do |package|
+                    contents_description = shipment.packages.flat_map do |package|
                       package.items.map(&:description)
                     end.compact.join(', ')
 
@@ -240,8 +241,14 @@ module FriendlyShipping
               if options.terms_of_shipment_code
                 xml.TermsOfShipment(options.terms_of_shipment_code)
               end
-              all_items = shipment.packages.flat_map(&:items)
-              all_item_options = options.package_options.flat_map(&:item_options)
+              all_items = shipment.packages.map(&:items).map(&:to_a).flatten
+              all_item_options = shipment.packages.flat_map do |package|
+                package_options = options.options_for_package(package)
+                package.items.flat_map do |item|
+                  package_options.options_for_item(item)
+                end
+              end
+
               all_items.group_by(&:description).each do |description, items|
                 # This is a group of identically described items
                 reference_item = items.first
@@ -249,11 +256,12 @@ module FriendlyShipping
                 item_options = all_item_options.detect { |o| o.item_id == reference_item.id } || LabelItemOptions.new(item_id: nil)
 
                 xml.Product do
+                  cost = reference_item.cost || Money.new(0, 'USD')
                   xml.Description(description)
                   xml.CommodityCode(item_options.commodity_code)
                   xml.OriginCountryCode(shipment.origin.country.code)
                   xml.Unit do
-                    xml.Value(reference_item.cost * items.length)
+                    xml.Value(cost * items.length)
                     xml.Number(items.length)
                     xml.UnitOfMeasurement do
                       xml.Code(item_options.product_unit_of_measure_code)

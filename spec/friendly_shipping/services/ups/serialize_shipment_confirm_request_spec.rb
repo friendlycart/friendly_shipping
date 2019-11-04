@@ -158,4 +158,30 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipmentServiceOptions/UPScarbonneutralIndicator')).to be_present
     end
   end
+
+  context 'with third-party billing' do
+    let(:options) do
+      FriendlyShipping::Services::Ups::LabelOptions.new(
+        shipping_method: shipping_method,
+        shipper_number: 'X234X',
+        billing_options: billing_options
+      )
+    end
+
+    let(:billing_options) do
+      FriendlyShipping::Services::Ups::LabelBillingOptions.new(
+        bill_third_party: true,
+        billing_account: '12345',
+        billing_zip: '22222',
+        billing_country: 'US'
+      )
+    end
+
+    it 'contains the relevant xml elements' do
+      expect(subject.at('Shipper/ShipperNumber').text).to eq('X234X')
+      expect(subject.at('BillThirdPartyShipper/AccountNumber').text).to eq('12345')
+      expect(subject.at('BillThirdPartyShipper/ThirdParty/Address/PostalCode').text).to eq('22222')
+      expect(subject.at('BillThirdPartyShipper/ThirdParty/Address/CountryCode').text).to eq('US')
+    end
+  end
 end

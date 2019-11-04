@@ -116,7 +116,7 @@ module FriendlyShipping
           return_service: nil,
           paperless_invoice: false,
           terms_of_shipment: nil,
-          reason_for_export: nil,
+          reason_for_export: 'SALE',
           invoice_date: nil,
           package_options_class: LabelPackageOptions,
           **kwargs

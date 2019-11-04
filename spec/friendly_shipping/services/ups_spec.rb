@@ -28,7 +28,6 @@ RSpec.describe FriendlyShipping::Services::Ups do
   end
 
   describe '#rate_estimates' do
-    let(:package) { FactoryBot.build(:physical_package) }
     let(:destination) { FactoryBot.build(:physical_location, region: "FL", zip: '32821') }
     let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
@@ -269,13 +268,14 @@ RSpec.describe FriendlyShipping::Services::Ups do
     let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
 
-    subject(:labels) { service.labels(shipment, options: options) }
+    subject(:labels) { service.labels(shipment, options: options, debug: true) }
 
     let(:options) do
       FriendlyShipping::Services::Ups::LabelOptions.new(
         shipping_method: shipping_method,
         shipper_number: shipper_number,
-        negotiated_rates: true
+        negotiated_rates: true,
+        customer_context: 'request-id-12345'
       )
     end
 
@@ -289,6 +289,152 @@ RSpec.describe FriendlyShipping::Services::Ups do
       expect(first_label.cost).to eq(Money.new(1257, 'USD'))
       expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
       expect(first_label.data[:negotiated_rate]).to eq(Money.new(2479, 'USD'))
+      expect(first_label.data[:customer_context]).to eq('request-id-12345')
+    end
+
+    context 'return shipments' do
+      let(:options) do
+        FriendlyShipping::Services::Ups::LabelOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          negotiated_rates: true,
+          return_service: :ups_print_and_mail
+        )
+      end
+
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          packages: [package_1],
+          origin: origin,
+          destination: destination
+        )
+      end
+
+      let(:package_1) { FactoryBot.build(:physical_package, items: [item_1, item_2]) }
+
+      let(:item_1) { FactoryBot.build(:physical_item, description: 'Earrings', cost: Money.new(1000, "USD")) }
+      let(:item_2) { FactoryBot.build(:physical_item, description: 'DVDs', cost: Money.new(1500, "USD")) }
+
+      it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/return_label" } do
+        expect(subject).to be_a(Dry::Monads::Result)
+        first_label = subject.value!.data.first
+        expect(subject.value!.data.length).to eq(1)
+        expect(first_label.tracking_number).to be_present
+        expect(first_label.label_data).to be nil
+        expect(first_label.label_format).to be nil
+        expect(first_label.cost).to eq(Money.new(1235, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(1235, 'USD'))
+        expect(first_label.data[:negotiated_rate]).to eq(Money.new(995, 'USD'))
+      end
+    end
+
+    context 'prepaid' do
+      let(:options) do
+        FriendlyShipping::Services::Ups::LabelOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          billing_options: billing_options
+        )
+      end
+
+      let(:billing_options) do
+        FriendlyShipping::Services::Ups::LabelBillingOptions.new(
+          prepay: true,
+          billing_account: ENV['UPS_SHIPPER_NUMBER'],
+          billing_zip: '27703',
+          billing_country: 'US'
+        )
+      end
+
+      it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/prepaid" } do
+        expect(subject).to be_a(Dry::Monads::Result)
+        first_label = subject.value!.data.first
+        expect(subject.value!.data.length).to eq(2)
+        expect(first_label.tracking_number).to be_present
+        expect(first_label.label_data.first(5)).to eq("GIF87")
+        expect(first_label.label_format).to eq("GIF")
+        expect(first_label.cost).to eq(Money.new(1257, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
+      end
+    end
+
+    context 'shipping internationally with paperless invoice' do
+      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '54') }
+      let(:destination) do
+        FactoryBot.build(
+          :physical_location,
+          company_name: 'Free Software Foundation Europe e.V.',
+          address1: 'Schoenhauser Allee 6/7',
+          city: 'Berlin',
+          region: 'BE',
+          country: 'DE',
+          zip: '10119'
+        )
+      end
+
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          packages: [package_1, package_2],
+          origin: origin,
+          destination: destination
+        )
+      end
+
+      let(:package_1) { FactoryBot.build(:physical_package, items: [item_1, item_2]) }
+      let(:package_2) { FactoryBot.build(:physical_package, items: [item_3, item_4]) }
+
+      let(:item_1) { FactoryBot.build(:physical_item, description: 'Earrings', cost: Money.new(1000, "USD")) }
+      let(:item_2) { FactoryBot.build(:physical_item, description: 'DVDs', cost: Money.new(1500, "USD")) }
+      let(:item_3) { FactoryBot.build(:physical_item, description: 'Rice', cost: Money.new(20_000, "USD")) }
+      let(:item_4) { FactoryBot.build(:physical_item, description: 'Computer', cost: Money.new(30_000, "USD")) }
+
+      let(:options) do
+        FriendlyShipping::Services::Ups::LabelOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          paperless_invoice: true,
+          terms_of_shipment: :delivery_duty_paid,
+          delivery_confirmation: :delivery_confirmation_adult_signature_required
+        )
+      end
+
+      it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/international_paperless" } do
+        expect(subject).to be_a(Dry::Monads::Result)
+        expect(subject.value!.data.length).to eq(2)
+        expect(subject.value!.data.map(&:tracking_number)).to be_present
+        expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
+        expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
+        expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
+        expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+      end
+
+      context 'when shipping to Puerto Rico' do
+        let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '03') }
+
+        let(:destination) do
+          Physical::Location.new(
+            name: 'John Doe',
+            company_name: 'Acme, Inc',
+            address1: '1230 Calle Amapolas Apt 103',
+            phone: '999-999-9999',
+            city: 'Carolina',
+            country: 'PR',
+            zip: '00979'
+          )
+        end
+
+        it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/international_puerto_rico" } do
+          expect(subject).to be_a(Dry::Monads::Result)
+          expect(subject.value!.data.length).to eq(2)
+          expect(subject.value!.data.map(&:tracking_number)).to be_present
+          expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
+          expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
+          expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
+          expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+        end
+      end
     end
 
     context "if the address is invalid", vcr: { cassette_name: "ups/labels/failure" } do
