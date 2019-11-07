@@ -1,0 +1,17 @@
+{
+  "Fault": {
+    "faultcode": "Client",
+    "faultstring": "An exception has been raised as a result of client data.",
+    "detail": {
+      "Errors": {
+        "ErrorDetail": {
+          "Severity": "Hard",
+          "PrimaryErrorCode": {
+            "Code": "9360256",
+            "Description": "Missing Commodity."
+          }
+        }
+      }
+    }
+  }
+}
