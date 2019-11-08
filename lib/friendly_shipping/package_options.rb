@@ -7,26 +7,20 @@ module FriendlyShipping
     def initialize(
       package_id:,
       item_options: Set.new,
-      item_options_finder: method(:find_item_options),
       item_options_class: ItemOptions
     )
       @package_id = package_id
       @item_options = item_options
-      @item_options_finder = item_options_finder
       @item_options_class = item_options_class
     end
 
     def options_for_item(item)
-      @item_options_finder.call(item_options, item)
-    end
-
-    private
-
-    def find_item_options(item_options, item)
       item_options.detect do |item_option|
         item_option.item_id == item.id
       end || item_options_class.new(item_id: nil)
     end
+
+    private
 
     attr_reader :item_options,
                 :item_options_class
