@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/ups_freight/rates_package_options'
+require 'friendly_shipping/services/ups_freight/generate_commodity_information'
 
 module FriendlyShipping
   module Services
@@ -16,7 +17,8 @@ module FriendlyShipping
                     :billing_address,
                     :billing_code,
                     :customer_context,
-                    :shipping_method
+                    :shipping_method,
+                    :commodity_information_generator
 
         def initialize(
           shipper_number:,
@@ -24,6 +26,7 @@ module FriendlyShipping
           shipping_method:,
           billing: :prepaid,
           customer_context: nil,
+          commodity_information_generator: GenerateCommodityInformation,
           **kwargs
         )
           @shipper_number = shipper_number
@@ -31,6 +34,7 @@ module FriendlyShipping
           @shipping_method = shipping_method
           @billing_code = BILLING_CODES.fetch(billing)
           @customer_context = customer_context
+          @commodity_information_generator = commodity_information_generator
           super kwargs.merge(package_options_class: RatesPackageOptions)
         end
       end

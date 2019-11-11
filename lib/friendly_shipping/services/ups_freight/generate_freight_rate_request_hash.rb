@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/ups_freight/generate_location_hash'
-require 'friendly_shipping/services/ups_freight/generate_commodity_information'
 
 module FriendlyShipping
   module Services
@@ -19,7 +18,7 @@ module FriendlyShipping
                 Service: {
                   Code: options.shipping_method.service_code
                 },
-                Commodity: GenerateCommodityInformation.call(shipment: shipment, options: options),
+                Commodity: options.commodity_information_generator.call(shipment: shipment, options: options),
                 TimeInTransitIndicator: true
               }.compact.merge(handling_units(shipment, options).reduce(&:merge).to_h)
             }
