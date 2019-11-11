@@ -6,6 +6,16 @@ require 'friendly_shipping/services/ups_freight/generate_commodity_information'
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Options for generating UPS Freight rates for a shipment
+      #
+      # @attribute [Physical::Location] billing_address The billing address
+      # @attribute [String] shipper_number The shipper number associated with the shipper
+      # @attribute [String] customer_context A reference to match this request with an order or shipment
+      # @attribute [FriendlyShipping::ShippingMethod] shipping_method The shipping method to use
+      # @attribute [Callable] commodity_information_generator A callable that takes a shipment
+      #     and an options object to create an Array of commodity fields as per the UPS docs.
+      # @attribute [Symbol] billing One of the keys in the `BILLING_CODES` constant. How the shipment
+      #     would be billed.
       class RatesOptions < FriendlyShipping::ShipmentOptions
         BILLING_CODES = {
           prepaid: '10',

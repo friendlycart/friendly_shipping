@@ -3,6 +3,11 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Options for Items in a UPS Freight shipment
+      #
+      # @attribute [Symbol] packaging How the item is packaged, one of the keys of `PACKAGING_TYPES`
+      # @attribute [String] freight_class The freight class of this item, for example '55' or '92.5'
+      # @attribute [String] nmfc_code The national motor freight corporation code for this item. Something like '13050 sub 4'
       class RatesItemOptions < FriendlyShipping::ItemOptions
         PACKAGING_TYPES = {
           bag: { code: "BAG", description: "Bag" },
