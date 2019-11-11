@@ -1,0 +1,135 @@
+{
+  "FreightRateResponse": {
+    "Response": {
+      "ResponseStatus": {
+        "Code": "1",
+        "Description": "Success"
+      },
+      "Alert": {
+        "Code": "9369055",
+        "Description": "User is not eligible for contract rates."
+      },
+      "TransactionReference": {
+        "CustomerContext": "order-12345"
+      }
+    },
+    "Rate": [
+      {
+        "Type": {
+          "Code": "DSCNT",
+          "Description": "DSCNT"
+        },
+        "Factor": {
+          "Value": "1405.81",
+          "UnitOfMeasurement": {
+            "Code": "USD"
+          }
+        }
+      },
+      {
+        "Type": {
+          "Code": "DSCNT_RATE",
+          "Description": "DSCNT_RATE"
+        },
+        "Factor": {
+          "Value": "70.00",
+          "UnitOfMeasurement": {
+            "Code": "%"
+          }
+        }
+      },
+      {
+        "Type": {
+          "Code": "2",
+          "Description": "2"
+        },
+        "Factor": {
+          "Value": "154.24",
+          "UnitOfMeasurement": {
+            "Code": "USD"
+          }
+        }
+      },
+      {
+        "Type": {
+          "Code": "LND_GROSS",
+          "Description": "LND_GROSS"
+        },
+        "Factor": {
+          "Value": "2008.30",
+          "UnitOfMeasurement": {
+            "Code": "USD"
+          }
+        }
+      },
+      {
+        "Type": {
+          "Code": "AFTR_DSCNT",
+          "Description": "AFTR_DSCNT"
+        },
+        "Factor": {
+          "Value": "602.49",
+          "UnitOfMeasurement": {
+            "Code": "USD"
+          }
+        }
+      }
+    ],
+    "Commodity": [
+      {
+        "Description": "Commodities",
+        "Weight": {
+          "Value": "500.0",
+          "UnitOfMeasurement": {
+            "Code": "LBS"
+          }
+        },
+        "AdjustedWeight": {
+          "Value": "500.0",
+          "UnitOfMeasurement": {
+            "Code": "LBS"
+          }
+        }
+      },
+      {
+        "Description": "Commodities",
+        "Weight": {
+          "Value": "500.0",
+          "UnitOfMeasurement": {
+            "Code": "LBS"
+          }
+        },
+        "AdjustedWeight": {
+          "Value": "500.0",
+          "UnitOfMeasurement": {
+            "Code": "LBS"
+          }
+        }
+      }
+    ],
+    "TotalShipmentCharge": {
+      "CurrencyCode": "USD",
+      "MonetaryValue": "756.73"
+    },
+    "BillableShipmentWeight": {
+      "Value": "1000",
+      "UnitOfMeasurement": {
+        "Code": "LBS"
+      }
+    },
+    "DimensionalWeight": {
+      "Value": "0",
+      "UnitOfMeasurement": {
+        "Code": "LBS"
+      }
+    },
+    "Service": {
+      "Code": "308"
+    },
+    "GuaranteedIndicator": "",
+    "RatingSchedule": {
+      "Code": "02",
+      "Description": "Published Rates"
+    }
+  }
+}

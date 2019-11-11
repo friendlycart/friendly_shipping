@@ -25,6 +25,7 @@ The entry point for using FriendlyShipping are the `service` objects that each r
 1. `FriendlyShipping::Services::Ups`
 2. `FriendlyShipping::Services::Usps`
 3. `FriendlyShipping::Services::ShipEngine`
+4. `FriendlyShipping::Services::UpsFreight`
 
 The services are instantiated with the credentials they need as well as a `test` flag to indicate whether to use their respective `sandbox` environments.
 
@@ -89,6 +90,23 @@ The following methods are supported:
 - `#rate_estimates(physical_shipment)` - Get rate estimates for a shipment
 - `#address_validation(physical_location)` - Perform a detailed address validation and determine whether an address is commercial or residential.
 - `#city_state_lookup(physical_location)` - Lookup City and State for a given ZIP code.
+
+#### UPS Freight
+
+The service class for UPS is `FriendlyShipping::Services::UpsFreight`. It functions quite differently from normal, package-level shipping. Initialize like so:
+
+```rb
+service = FriendlyShipping::Services::UpsFreight.new(
+  key: ENV['UPS_API_KEY'],
+  login: ENV['UPS_API_LOGIN'],
+  password: ENV['UPS_API_PASSWORD'],
+  test: true
+)
+```
+
+The following methods are supported:
+
+- `#rate_estimates(physical_shipment, options: options)` - Get rate estimates for a shipment
 
 ## Development
 
