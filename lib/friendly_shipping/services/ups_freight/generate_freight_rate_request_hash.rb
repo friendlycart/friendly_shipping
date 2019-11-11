@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/ups_freight/generate_location_hash'
+require 'friendly_shipping/services/ups_freight/generate_commodity_information'
 
 module FriendlyShipping
   module Services
@@ -18,35 +19,13 @@ module FriendlyShipping
                 Service: {
                   Code: options.shipping_method.service_code
                 },
-                Commodity: shipment.packages.flat_map { |package| commodity_information(package, options) },
+                Commodity: GenerateCommodityInformation.call(shipment: shipment, options: options),
                 TimeInTransitIndicator: true
               }.compact.merge(handling_units(shipment, options).reduce(&:merge).to_h)
             }
           end
 
           private
-
-          def commodity_information(package, options)
-            package_options = options.options_for_package(package)
-            package.items.map do |item|
-              item_options = package_options.options_for_item(item)
-              {
-                # This is a required field
-                Description: item.description || 'Commodities',
-                Weight: {
-                  UnitOfMeasurement: {
-                    Code: 'LBS' # Only Pounds are supported
-                  },
-                  Value: item.weight.convert_to(:pounds).value.to_f.round(2).to_s
-                },
-                NumberOfPieces: '1', # We won't support this yet.
-                PackagingType: {
-                  Code: item_options.packaging_code
-                },
-                FreightClass: item_options.freight_class
-              }
-            end
-          end
 
           def handling_units(shipment, options)
             all_package_options = shipment.packages.map { |package| options.options_for_package(package) }
