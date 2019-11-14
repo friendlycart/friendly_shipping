@@ -16,6 +16,7 @@ module FriendlyShipping
       #     and an options object to create an Array of commodity fields as per the UPS docs.
       # @attribute [Symbol] billing One of the keys in the `BILLING_CODES` constant. How the shipment
       #     would be billed.
+      # @attribute [RatesPackageOptions] package_options Options for each of the packages/pallets in this shipment
       class RatesOptions < FriendlyShipping::ShipmentOptions
         BILLING_CODES = {
           prepaid: '10',
