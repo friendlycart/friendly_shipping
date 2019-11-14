@@ -48,8 +48,8 @@ service = FriendlyShipping::Services::ShipEngine.new(token: ENV['SHIPENGINE_TOKE
 The following methods are supported:
 
 - `#carriers` - List all configured carriers
-- `#rate_estimates(physical_shipment, carriers: [friendly_shipping_carrier])` - Get rate estimates for a shipment
-- `#labels(physical_shipment, shipping_method:)` - Get labels for a shipments. Currently only supports USPS labels, other services are untested.
+- `#rate_estimates(physical_shipment, options: options)` - Get rate estimates for a shipment
+- `#labels(physical_shipment, options: options)` - Get labels for a shipments. Currently only supports USPS labels, other services are untested.
 - `#void(physical_label)` - Void a label and get the cost refunded
 
 #### UPS (United Parcel Service)
@@ -69,6 +69,7 @@ The following methods are supported:
 
 - `#carriers` - List all configured carriers (always returns UPS)
 - `#rate_estimates(physical_shipment)` - Get rate estimates for a shipment
+- `#labels(physical_shipment, options: options)` - Get labels for a shipment
 - `#address_classification(physical_location)` - Determine whether an address is commercial or residential.
 - `#address_validation(physical_location)` - Perform a detailed address validation and determine whether an address is commercial or residential.
 - `#city_state_lookup(physical_location)` - Lookup City and State for a given ZIP code.
