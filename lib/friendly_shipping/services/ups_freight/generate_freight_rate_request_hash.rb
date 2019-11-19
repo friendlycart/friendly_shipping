@@ -19,7 +19,7 @@ module FriendlyShipping
                   Code: options.shipping_method.service_code
                 },
                 Commodity: options.commodity_information_generator.call(shipment: shipment, options: options),
-                TimeInTransitIndicator: true
+                TimeInTransitIndicator: 'true'
               }.compact.merge(handling_units(shipment, options).reduce(&:merge).to_h)
             }
           end
