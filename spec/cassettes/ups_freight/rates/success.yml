@@ -9,14 +9,14 @@ http_interactions:
         Test 1","Address":{"AddressLine":"01 Developer Way","City":"Richmond","StateProvinceCode":"VA","PostalCode":"23224","CountryCode":"US"},"AttentionName":null},"ShipTo":{"Name":"Consignee
         Test 1","Address":{"AddressLine":"000 Consignee Street","City":"Allanton","StateProvinceCode":"MO","PostalCode":"63025","CountryCode":"US"},"AttentionName":null},"PaymentInformation":{"Payer":{"Name":"Acme
         Co.","Address":{"AddressLine":"Far away on the outer rim","City":"Durham","StateProvinceCode":"NC","PostalCode":"27703","CountryCode":"US"},"AttentionName":"Test
-        Testman","ShipperNumber":"%UPS_SHIPPER_NUMBER%"},"ShipmentBillingOption":{"Code":"10"}},"Service":{"Code":"308"},"Commodity":[{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"CTN"},"FreightClass":"92.5"},{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"PLT"},"FreightClass":"92.5"}],"TimeInTransitIndicator":true,"HandlingUnitOne":{"Quantity":"2","Type":{"Code":"PLT","Description":"Pallet"}}}}'
+        Testman","ShipperNumber":"%UPS_SHIPPER_NUMBER%"},"ShipmentBillingOption":{"Code":"10"}},"Service":{"Code":"308"},"Commodity":[{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"CTN"},"FreightClass":"92.5"},{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"PLT"},"FreightClass":"92.5"}],"TimeInTransitIndicator":"true","HandlingUnitOne":{"Quantity":"2","Type":{"Code":"PLT","Description":"Pallet"}}}}'
     headers:
       Accept:
       - "*/*"
       User-Agent:
       - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
       Content-Length:
-      - '1420'
+      - '1422'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 07 Nov 2019 17:30:17 GMT
+      - Tue, 19 Nov 2019 15:25:11 GMT
       Server:
       - Apache
       X-Frame-Options:
@@ -44,7 +44,7 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
       X-Oracle-Dms-Ecid:
-      - 51c9e8ea-8d43-4b63-b35e-1af7a7c99015-000064d3
+      - 46af41a1-279b-419f-b19b-a02c802dc1fb-000254b8
       X-Oracle-Dms-Rid:
       - '0'
       Apihttpstatus:
@@ -61,17 +61,17 @@ http_interactions:
         "Description":"DSCNT"}, "Factor":{"Value":"1405.81", "UnitOfMeasurement":{"Code":"USD"}}},
         {"Type":{"Code":"DSCNT_RATE", "Description":"DSCNT_RATE"}, "Factor":{"Value":"70.00",
         "UnitOfMeasurement":{"Code":"%"}}}, {"Type":{"Code":"2", "Description":"2"},
-        "Factor":{"Value":"154.24", "UnitOfMeasurement":{"Code":"USD"}}}, {"Type":{"Code":"LND_GROSS",
+        "Factor":{"Value":"144.60", "UnitOfMeasurement":{"Code":"USD"}}}, {"Type":{"Code":"LND_GROSS",
         "Description":"LND_GROSS"}, "Factor":{"Value":"2008.30", "UnitOfMeasurement":{"Code":"USD"}}},
         {"Type":{"Code":"AFTR_DSCNT", "Description":"AFTR_DSCNT"}, "Factor":{"Value":"602.49",
         "UnitOfMeasurement":{"Code":"USD"}}}], "Commodity":[{"Description":"Commodities",
         "Weight":{"Value":"500.0", "UnitOfMeasurement":{"Code":"LBS"}}, "AdjustedWeight":{"Value":"500.0",
         "UnitOfMeasurement":{"Code":"LBS"}}}, {"Description":"Commodities", "Weight":{"Value":"500.0",
         "UnitOfMeasurement":{"Code":"LBS"}}, "AdjustedWeight":{"Value":"500.0", "UnitOfMeasurement":{"Code":"LBS"}}}],
-        "TotalShipmentCharge":{"CurrencyCode":"USD", "MonetaryValue":"756.73"}, "BillableShipmentWeight":{"Value":"1000",
+        "TotalShipmentCharge":{"CurrencyCode":"USD", "MonetaryValue":"747.09"}, "BillableShipmentWeight":{"Value":"1000",
         "UnitOfMeasurement":{"Code":"LBS"}}, "DimensionalWeight":{"Value":"0", "UnitOfMeasurement":{"Code":"LBS"}},
         "Service":{"Code":"308"}, "GuaranteedIndicator":"", "RatingSchedule":{"Code":"02",
-        "Description":"Published Rates"}}}'
+        "Description":"Published Rates"}, "TimeInTransit":{"DaysInTransit":"2"}}}'
     http_version: 
-  recorded_at: Thu, 07 Nov 2019 17:30:18 GMT
+  recorded_at: Tue, 19 Nov 2019 15:25:11 GMT
 recorded_with: VCR 5.0.0

@@ -141,13 +141,14 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
 
     subject { service.rate_estimates(shipment, options: options) }
 
-    it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success' } do
+    it 'has all the right data', vcr: { cassette_name: 'ups_freight/rates/success' } do
       rates = subject.value!.data
       expect(rates.length).to eq(1)
       rate = rates.first
       expect(rate).to be_a(FriendlyShipping::Rate)
-      expect(rate.total_amount).to eq(Money.new(75_673, 'USD'))
+      expect(rate.total_amount).to eq(Money.new(74_709, 'USD'))
       expect(rate.shipping_method.name).to eq('UPS Freight LTL')
+      expect(rate.data[:days_in_transit]).to eq(2)
     end
   end
 end
