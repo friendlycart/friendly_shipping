@@ -389,4 +389,29 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
       end
     end
   end
+
+  context 'with a Pickup Date given' do
+    let(:options) do
+      FriendlyShipping::Services::UpsFreight::RatesOptions.new(
+        shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
+        shipper_number: 'xxx1234',
+        billing_address: billing_location,
+        customer_context: customer_context,
+        package_options: package_options,
+        pickup_date: Date.new(2019, 11, 10),
+        pickup_comments: 'Bring pitch forks, there will be hay'
+      )
+    end
+
+    it do
+      is_expected.to include(
+        'FreightRateRequest' => hash_including(
+          'PickupRequest' => {
+            'PickupDate' => '20191110',
+            'AdditionalComments' => 'Bring pitch forks, there will be hay'
+          }
+        )
+      )
+    end
+  end
 end

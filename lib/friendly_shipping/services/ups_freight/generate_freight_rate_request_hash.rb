@@ -19,12 +19,22 @@ module FriendlyShipping
                   Code: options.shipping_method.service_code
                 },
                 Commodity: options.commodity_information_generator.call(shipment: shipment, options: options),
-                TimeInTransitIndicator: 'true'
+                TimeInTransitIndicator: 'true',
+                PickupRequest: pickup_request(options)
               }.compact.merge(handling_units(shipment, options).reduce(&:merge).to_h)
             }
           end
 
           private
+
+          def pickup_request(options)
+            return unless options.pickup_date
+
+            {
+              PickupDate: options.pickup_date.strftime('%Y%m%d'),
+              AdditionalComments: options.pickup_comments
+            }
+          end
 
           def handling_units(shipment, options)
             all_package_options = shipment.packages.map { |package| options.options_for_package(package) }
