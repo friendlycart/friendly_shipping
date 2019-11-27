@@ -84,7 +84,9 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         shipper_number: ENV['UPS_SHIPPER_NUMBER'],
         billing_address: billing_location,
         customer_context: customer_context,
-        package_options: package_options
+        package_options: package_options,
+        pickup_date: Time.new(2019, 12, 24),
+        pickup_comments: 'Fork lift needed'
       )
     end
 
