@@ -12,7 +12,7 @@ module FriendlyShipping
             # Rates use ResidentialAddressIndicator whereas shipments use ResidentialAddress.
             # Presence indicates residential address. Absence indicates commercial address.
             #
-            xml.ResidentialAddressIndicator unless location.commercial?
+            xml.ResidentialAddress unless location.commercial?
           end
         end
       end
