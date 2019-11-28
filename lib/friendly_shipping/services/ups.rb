@@ -8,12 +8,14 @@ require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
 require 'friendly_shipping/services/ups/serialize_shipment_accept_request'
 require 'friendly_shipping/services/ups/serialize_shipment_confirm_request'
+require 'friendly_shipping/services/ups/serialize_void_shipment_request'
 require 'friendly_shipping/services/ups/parse_address_validation_response'
 require 'friendly_shipping/services/ups/parse_address_classification_response'
 require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
 require 'friendly_shipping/services/ups/parse_rate_response'
 require 'friendly_shipping/services/ups/parse_shipment_confirm_response'
 require 'friendly_shipping/services/ups/parse_shipment_accept_response'
+require 'friendly_shipping/services/ups/parse_void_shipment_response'
 require 'friendly_shipping/services/ups/shipping_methods'
 require 'friendly_shipping/services/ups/label_options'
 
@@ -40,6 +42,7 @@ module FriendlyShipping
         rates: '/ups.app/xml/Rate',
         ship_confirm: '/ups.app/xml/ShipConfirm',
         ship_accept: '/ups.app/xml/ShipAccept',
+        void: '/ups.app/xml/Void',
       }.freeze
 
       def initialize(key:, login:, password:, test: true, client: HttpClient.new)
@@ -162,6 +165,19 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseCityStateLookupResponse.call(response: response, request: request, location: location)
+        end
+      end
+
+      def void(label, debug: false)
+        url = base_url + RESOURCES[:void]
+        void_request_xml = SerializeVoidShipmentRequest.call(label: label)
+        request = FriendlyShipping::Request.new(
+          url: url,
+          body: access_request_xml + void_request_xml,
+          debug: debug
+        )
+        client.post(request).bind do |response|
+          ParseVoidShipmentResponse.call(request: request, response: response)
         end
       end
 
