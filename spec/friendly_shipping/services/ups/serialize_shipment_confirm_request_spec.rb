@@ -29,6 +29,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
 
   let(:package) do
     Physical::Package.new(
+      id: 'package_1',
       items: [
         Physical::Item.new(
           weight: Measured::Weight.new(5, :pounds)
@@ -182,6 +183,27 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at('BillThirdPartyShipper/AccountNumber').text).to eq('12345')
       expect(subject.at('BillThirdPartyShipper/ThirdParty/Address/PostalCode').text).to eq('22222')
       expect(subject.at('BillThirdPartyShipper/ThirdParty/Address/CountryCode').text).to eq('US')
+    end
+  end
+
+  context 'with a package that has shipper release set' do
+    let(:options) do
+      FriendlyShipping::Services::Ups::LabelOptions.new(
+        shipping_method: shipping_method,
+        shipper_number: '12345',
+        package_options: [package_options]
+      )
+    end
+
+    let(:package_options) do
+      FriendlyShipping::Services::Ups::LabelPackageOptions.new(
+        package_id: 'package_1',
+        shipper_release: true
+      )
+    end
+
+    it 'contains the relevant XML element' do
+      expect(subject.at('//ShipmentConfirmRequest/Shipment/Package/PackageServiceOptions/ShipperReleaseIndicator')).to be_present
     end
   end
 end
