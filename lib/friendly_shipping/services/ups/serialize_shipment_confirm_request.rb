@@ -158,7 +158,8 @@ module FriendlyShipping
                       xml: xml,
                       package: package,
                       reference_numbers: reference_numbers,
-                      delivery_confirmation_code: delivery_confirmation_code
+                      delivery_confirmation_code: delivery_confirmation_code,
+                      shipper_release: package_options.shipper_release
                     )
                   end
                 end
