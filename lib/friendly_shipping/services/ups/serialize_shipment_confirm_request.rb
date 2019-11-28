@@ -192,7 +192,7 @@ module FriendlyShipping
           # if the package is US -> US or PR -> PR the only type of reference numbers that are allowed are package-level
           # Otherwise the only type of reference numbers that are allowed are shipment-level
           def allow_package_level_reference_numbers(shipment)
-            origin, destination = shipment.origin.country, shipment.destination.country
+            origin, destination = shipment.origin.country.code, shipment.destination.country.code
             [['US', 'US'], ['PR', 'PR']].include?([origin, destination])
           end
 
@@ -201,7 +201,7 @@ module FriendlyShipping
           # otherwise the delivery_confirmation option must be specified on the entire shipment.
           # See Appendix P of UPS Shipping Package XML Developers Guide for the rules on which the logic below is based.
           def package_level_delivery_confirmation?(shipment)
-            origin, destination = shipment.origin.country, shipment.destination.country
+            origin, destination = shipment.origin.country.code, shipment.destination.country.code
             origin == destination || [['US', 'PR'], ['PR', 'US']].include?([origin, destination])
           end
 
