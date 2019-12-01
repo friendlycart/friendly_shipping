@@ -454,4 +454,29 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
   end
+
+  describe '#void' do
+    let(:label) { FriendlyShipping::Label.new(tracking_number: tracking_number) }
+    subject { service.void(label) }
+
+    context 'for a successful void attempt', vcr: { cassette_name: 'ups/void/success' } do
+      let(:tracking_number) { '1Z12345E0390817264' }
+
+      it { is_expected.to be_success }
+
+      it 'says "Success"' do
+        expect(subject.value!.data).to eq("Success")
+      end
+    end
+
+    context 'for an unsuccessful void attempt', vcr: { cassette_name: 'ups/void/failure' } do
+      let(:tracking_number) { '1Z12345E1290420899' }
+
+      it { is_expected.to be_failure }
+
+      it 'raises a ResponseError' do
+        expect(subject.failure).to eq('Failure: The Pickup Request associated with this shipment has already been completed')
+      end
+    end
+  end
 end
