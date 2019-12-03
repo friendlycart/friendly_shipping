@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SDCGetLocationsResponse>
+  <Release>2.0</Release>
+  <CallerID>4</CallerID>
+  <SourceID>004</SourceID>
+  <MailClass>0</MailClass>
+  <OriginZIP>27703</OriginZIP>
+  <OriginCity>DURHAM</OriginCity>
+  <OriginState>NC</OriginState>
+  <DestZIP>27703</DestZIP>
+  <DestCity>DURHAM</DestCity>
+  <DestState>NC</DestState>
+  <AcceptDate>2019-12-03</AcceptDate>
+  <AcceptTime>0815</AcceptTime>
+  <Expedited>
+    <EAD>2019-12-03</EAD>
+    <Commitment>
+      <MailClass>1</MailClass>
+      <CommitmentName>1-Day</CommitmentName>
+      <CommitmentTime>1200</CommitmentTime>
+      <CommitmentSeq>A0112</CommitmentSeq>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1600</COT>
+        <FacType>POST OFFICE</FacType>
+        <Street>1100 N MIAMI BLVD</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>1</IsGuaranteed>
+      </Location>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1705</COT>
+        <FacType>CONTRACT POSTAL UNIT</FacType>
+        <Street>3801 WAKE FOREST RD STE 118</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>1</IsGuaranteed>
+      </Location>
+    </Commitment>
+    <Commitment>
+      <MailClass>1</MailClass>
+      <CommitmentName>1-Day</CommitmentName>
+      <CommitmentTime>1500</CommitmentTime>
+      <CommitmentSeq>B0115</CommitmentSeq>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1600</COT>
+        <FacType>POST OFFICE</FacType>
+        <Street>1100 N MIAMI BLVD</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>1</IsGuaranteed>
+      </Location>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1705</COT>
+        <FacType>CONTRACT POSTAL UNIT</FacType>
+        <Street>3801 WAKE FOREST RD STE 118</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>1</IsGuaranteed>
+      </Location>
+    </Commitment>
+    <Commitment>
+      <MailClass>2</MailClass>
+      <CommitmentName>1-Day</CommitmentName>
+      <CommitmentTime/>
+      <CommitmentSeq>C0100</CommitmentSeq>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1600</COT>
+        <FacType>POST OFFICE</FacType>
+        <Street>1100 N MIAMI BLVD</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>2</IsGuaranteed>
+      </Location>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1700</COT>
+        <FacType>CONTRACT POSTAL UNIT</FacType>
+        <Street>3801 WAKE FOREST RD STE 118</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>2</IsGuaranteed>
+      </Location>
+    </Commitment>
+    <Commitment>
+      <MailClass>2</MailClass>
+      <CommitmentName>1-Day</CommitmentName>
+      <CommitmentTime/>
+      <CommitmentSeq>D0100</CommitmentSeq>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1600</COT>
+        <FacType>POST OFFICE</FacType>
+        <Street>1100 N MIAMI BLVD</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>2</IsGuaranteed>
+      </Location>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1700</COT>
+        <FacType>CONTRACT POSTAL UNIT</FacType>
+        <Street>3801 WAKE FOREST RD STE 118</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>2</IsGuaranteed>
+      </Location>
+    </Commitment>
+    <Commitment>
+      <MailClass>2</MailClass>
+      <CommitmentName>1-Day</CommitmentName>
+      <CommitmentTime/>
+      <CommitmentSeq>E0100</CommitmentSeq>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1600</COT>
+        <FacType>POST OFFICE</FacType>
+        <Street>1100 N MIAMI BLVD</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>2</IsGuaranteed>
+      </Location>
+      <Location>
+        <SDD>2019-12-04</SDD>
+        <COT>1700</COT>
+        <FacType>CONTRACT POSTAL UNIT</FacType>
+        <Street>3801 WAKE FOREST RD STE 118</Street>
+        <City>DURHAM</City>
+        <State>NC</State>
+        <ZIP>27703</ZIP>
+        <IsGuaranteed>2</IsGuaranteed>
+      </Location>
+    </Commitment>
+  </Expedited>
+  <NonExpedited>
+    <MailClass>3</MailClass>
+    <NonExpeditedDestType>1</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>1 Day</SvcStdMsg>
+    <SvcStdDays>1</SvcStdDays>
+    <SchedDlvryDate>2019-12-04</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>3</MailClass>
+    <NonExpeditedDestType>2</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>1 Day</SvcStdMsg>
+    <SvcStdDays>1</SvcStdDays>
+    <SchedDlvryDate>2019-12-04</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>3</MailClass>
+    <NonExpeditedDestType>3</NonExpeditedDestType>
+    <HFPU>
+      <EAD>2019-12-03</EAD>
+      <COT>1600</COT>
+      <ServiceStandard>
+        <SvcStdMsg>1 Day</SvcStdMsg>
+        <SvcStdDays>1</SvcStdDays>
+        <Location>
+          <SchedDlvryDate>2019-12-04</SchedDlvryDate>
+          <RAUName>EAST DURHAM</RAUName>
+          <Street>1100 N MIAMI BLVD</Street>
+          <ZIP>277039998</ZIP>
+          <CloseTimes>
+            <M>1600</M>
+            <Tu>1600</Tu>
+            <W>1600</W>
+            <Th>1600</Th>
+            <F>1600</F>
+            <Sa>1200</Sa>
+            <Su>0000</Su>
+            <H>0000</H>
+          </CloseTimes>
+          <City>DURHAM</City>
+          <State>NC</State>
+        </Location>
+      </ServiceStandard>
+    </HFPU>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>4</MailClass>
+    <NonExpeditedDestType>1</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>3 Days</SvcStdMsg>
+    <SvcStdDays>3</SvcStdDays>
+    <SchedDlvryDate>2019-12-06</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>4</MailClass>
+    <NonExpeditedDestType>2</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>3 Days</SvcStdMsg>
+    <SvcStdDays>3</SvcStdDays>
+    <SchedDlvryDate>2019-12-06</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>4</MailClass>
+    <NonExpeditedDestType>3</NonExpeditedDestType>
+    <HFPU>
+      <EAD>2019-12-03</EAD>
+      <COT>1600</COT>
+      <ServiceStandard>
+        <SvcStdMsg>3 Days</SvcStdMsg>
+        <SvcStdDays>3</SvcStdDays>
+        <Location>
+          <SchedDlvryDate>2019-12-06</SchedDlvryDate>
+          <RAUName>EAST DURHAM</RAUName>
+          <Street>1100 N MIAMI BLVD</Street>
+          <ZIP>277039998</ZIP>
+          <CloseTimes>
+            <M>1600</M>
+            <Tu>1600</Tu>
+            <W>1600</W>
+            <Th>1600</Th>
+            <F>1600</F>
+            <Sa>1200</Sa>
+            <Su>0000</Su>
+            <H>0000</H>
+          </CloseTimes>
+          <City>DURHAM</City>
+          <State>NC</State>
+        </Location>
+      </ServiceStandard>
+    </HFPU>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>5</MailClass>
+    <NonExpeditedDestType>1</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>2 Days</SvcStdMsg>
+    <SvcStdDays>2</SvcStdDays>
+    <SchedDlvryDate>2019-12-05</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>5</MailClass>
+    <NonExpeditedDestType>2</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>2 Days</SvcStdMsg>
+    <SvcStdDays>2</SvcStdDays>
+    <SchedDlvryDate>2019-12-05</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>5</MailClass>
+    <NonExpeditedDestType>3</NonExpeditedDestType>
+    <HFPU>
+      <EAD>2019-12-03</EAD>
+      <COT>1600</COT>
+      <ServiceStandard>
+        <SvcStdMsg>2 Days</SvcStdMsg>
+        <SvcStdDays>2</SvcStdDays>
+        <Location>
+          <SchedDlvryDate>2019-12-05</SchedDlvryDate>
+          <RAUName>EAST DURHAM</RAUName>
+          <Street>1100 N MIAMI BLVD</Street>
+          <ZIP>277039998</ZIP>
+          <CloseTimes>
+            <M>1600</M>
+            <Tu>1600</Tu>
+            <W>1600</W>
+            <Th>1600</Th>
+            <F>1600</F>
+            <Sa>1200</Sa>
+            <Su>0000</Su>
+            <H>0000</H>
+          </CloseTimes>
+          <City>DURHAM</City>
+          <State>NC</State>
+        </Location>
+      </ServiceStandard>
+    </HFPU>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>6</MailClass>
+    <NonExpeditedDestType>1</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>2 Days</SvcStdMsg>
+    <SvcStdDays>2</SvcStdDays>
+    <SchedDlvryDate>2019-12-05</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>6</MailClass>
+    <NonExpeditedDestType>2</NonExpeditedDestType>
+    <EAD>2019-12-03</EAD>
+    <COT>1600</COT>
+    <SvcStdMsg>2 Days</SvcStdMsg>
+    <SvcStdDays>2</SvcStdDays>
+    <SchedDlvryDate>2019-12-05</SchedDlvryDate>
+  </NonExpedited>
+  <NonExpedited>
+    <MailClass>6</MailClass>
+    <NonExpeditedDestType>3</NonExpeditedDestType>
+    <HFPU>
+      <EAD>2019-12-03</EAD>
+      <COT>1600</COT>
+      <ServiceStandard>
+        <SvcStdMsg>2 Days</SvcStdMsg>
+        <SvcStdDays>2</SvcStdDays>
+        <Location>
+          <SchedDlvryDate>2019-12-05</SchedDlvryDate>
+          <RAUName>EAST DURHAM</RAUName>
+          <Street>1100 N MIAMI BLVD</Street>
+          <ZIP>277039998</ZIP>
+          <CloseTimes>
+            <M>1600</M>
+            <Tu>1600</Tu>
+            <W>1600</W>
+            <Th>1600</Th>
+            <F>1600</F>
+            <Sa>1200</Sa>
+            <Su>0000</Su>
+            <H>0000</H>
+          </CloseTimes>
+          <City>DURHAM</City>
+          <State>NC</State>
+        </Location>
+      </ServiceStandard>
+    </HFPU>
+  </NonExpedited>
+</SDCGetLocationsResponse>
