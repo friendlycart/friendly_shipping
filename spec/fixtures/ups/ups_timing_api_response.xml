@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<TimeInTransitResponse>
+  <Response>
+    <TransactionReference>
+      <CustomerContext>Time in Transit</CustomerContext>
+      <XpciVersion>1.0002</XpciVersion>
+    </TransactionReference>
+    <ResponseStatusCode>1</ResponseStatusCode>
+    <ResponseStatusDescription>Success</ResponseStatusDescription>
+  </Response>
+  <TransitResponse>
+    <PickupDate>2018-06-20</PickupDate>
+    <TransitFrom>
+      <AddressArtifactFormat>
+        <PoliticalDivision2>SPARKS</PoliticalDivision2>
+        <PoliticalDivision1>NV</PoliticalDivision1>
+        <Country>UNITED STATES</Country>
+        <CountryCode>US</CountryCode>
+        <PostcodePrimaryLow>89431</PostcodePrimaryLow>
+      </AddressArtifactFormat>
+    </TransitFrom>
+    <TransitTo>
+      <AddressArtifactFormat>
+        <PoliticalDivision2>ORLANDO</PoliticalDivision2>
+        <PoliticalDivision1>FL</PoliticalDivision1>
+        <Country>UNITED STATES</Country>
+        <CountryCode>US</CountryCode>
+        <PostcodePrimaryLow>32821</PostcodePrimaryLow>
+      </AddressArtifactFormat>
+    </TransitTo>
+    <ShipmentWeight>
+      <UnitOfMeasurement>
+        <Code>LBS</Code>
+      </UnitOfMeasurement>
+      <Weight>1.0</Weight>
+    </ShipmentWeight>
+    <InvoiceLineTotal>
+      <CurrencyCode>USD</CurrencyCode>
+      <MonetaryValue>50.00</MonetaryValue>
+    </InvoiceLineTotal>
+    <Disclaimer>Services
+  listed as guaranteed are backed by a money-back guarantee for transportation
+  charges only. UPS guarantees the day of delivery for every ground package
+  you ship to any address within all 50 states and Puerto Rico. See Terms and
+  Conditions in the Service Guide for details.</Disclaimer>
+    <ServiceSummary>
+      <Service>
+        <Code>1DM</Code>
+        <Description>UPS Next Day Air Early</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>1</BusinessTransitDays>
+        <Time>08:00:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-21</Date>
+        <DayOfWeek>THU</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <ServiceSummary>
+      <Service>
+        <Code>1DA</Code>
+        <Description>UPS Next Day Air</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>1</BusinessTransitDays>
+        <Time>10:30:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-21</Date>
+        <DayOfWeek>THU</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <ServiceSummary>
+      <Service>
+        <Code>1DP</Code>
+        <Description>UPS Next Day Air Saver</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>1</BusinessTransitDays>
+        <Time>15:00:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-21</Date>
+        <DayOfWeek>THU</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <ServiceSummary>
+      <Service>
+        <Code>2DM</Code>
+        <Description>UPS 2nd Day Air A.M.</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>2</BusinessTransitDays>
+        <Time>10:30:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-22</Date>
+        <DayOfWeek>FRI</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <ServiceSummary>
+      <Service>
+        <Code>2DA</Code>
+        <Description>UPS 2nd Day Air</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>2</BusinessTransitDays>
+        <Time>23:00:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-22</Date>
+        <DayOfWeek>FRI</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <ServiceSummary>
+      <Service>
+        <Code>3DS</Code>
+        <Description>UPS
+  3 Day Select</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>3</BusinessTransitDays>
+        <Time>23:00:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-25</Date>
+        <DayOfWeek>MON</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <ServiceSummary>
+      <Service>
+        <Code>GND</Code>
+        <Description>UPS Ground</Description>
+      </Service>
+      <Guaranteed>
+        <Code>Y</Code>
+      </Guaranteed>
+      <EstimatedArrival>
+        <BusinessTransitDays>5</BusinessTransitDays>
+        <Time>23:00:00</Time>
+        <PickupDate>2018-06-20</PickupDate>
+        <PickupTime>17:00:00</PickupTime>
+        <Date>2018-06-27</Date>
+        <DayOfWeek>WED</DayOfWeek>
+        <CustomerCenterCutoff>16:00:00</CustomerCenterCutoff>
+      </EstimatedArrival>
+    </ServiceSummary>
+    <MaximumListSize>35</MaximumListSize>
+  </TransitResponse>
+</TimeInTransitResponse>
