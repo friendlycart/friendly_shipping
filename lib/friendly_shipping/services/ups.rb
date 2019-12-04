@@ -8,6 +8,7 @@ require 'friendly_shipping/services/ups/serialize_address_validation_request'
 require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
 require 'friendly_shipping/services/ups/serialize_shipment_accept_request'
 require 'friendly_shipping/services/ups/serialize_shipment_confirm_request'
+require 'friendly_shipping/services/ups/serialize_time_in_transit_request'
 require 'friendly_shipping/services/ups/serialize_void_shipment_request'
 require 'friendly_shipping/services/ups/parse_address_validation_response'
 require 'friendly_shipping/services/ups/parse_address_classification_response'
@@ -15,9 +16,11 @@ require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
 require 'friendly_shipping/services/ups/parse_rate_response'
 require 'friendly_shipping/services/ups/parse_shipment_confirm_response'
 require 'friendly_shipping/services/ups/parse_shipment_accept_response'
+require 'friendly_shipping/services/ups/parse_time_in_transit_response'
 require 'friendly_shipping/services/ups/parse_void_shipment_response'
 require 'friendly_shipping/services/ups/shipping_methods'
 require 'friendly_shipping/services/ups/label_options'
+require 'friendly_shipping/services/ups/timing_options'
 
 module FriendlyShipping
   module Services
@@ -42,6 +45,7 @@ module FriendlyShipping
         rates: '/ups.app/xml/Rate',
         ship_confirm: '/ups.app/xml/ShipConfirm',
         ship_accept: '/ups.app/xml/ShipAccept',
+        timings: '/ups.app/xml/TimeInTransit',
         void: '/ups.app/xml/Void',
       }.freeze
 
@@ -72,6 +76,27 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)
+        end
+      end
+
+      # Get timing information for a shipment
+      # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
+      # @param [FriendlyShipping::Services::Ups::TimingOptions] Options for this call
+      def timings(shipment, options:, debug: false)
+        time_in_transit_request_xml = SerializeTimeInTransitRequest.call(
+          shipment: shipment,
+          options: options
+        )
+        time_in_transit_url = base_url + RESOURCES[:timings]
+
+        request = FriendlyShipping::Request.new(
+          url: time_in_transit_url,
+          body: access_request_xml + time_in_transit_request_xml,
+          debug: debug
+        )
+
+        client.post(request).bind do |response|
+          ParseTimeInTransitResponse.call(response: response, request: request)
         end
       end
 
