@@ -62,7 +62,7 @@ module FriendlyShipping
       end
 
       # Get rates for a shipment
-      # @param [Physical::Shipment] location The shipment we want to get rates for
+      # @param [Physical::Shipment] shipment The shipment we want to get rates for
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
       def rate_estimates(shipment, debug: false)

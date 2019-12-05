@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'ups_rates_api_response.xml')).read }
+  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', fixture)).read }
+  let(:fixture) { 'ups_rates_api_response.xml' }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
   let(:shipment) { FactoryBot.build(:physical_shipment) }
@@ -27,5 +28,40 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
       "UPS Next Day Air Early",
       "UPS Next Day Air"
     )
+  end
+
+  describe 'address type changed' do
+    context 'when changed to residential' do
+      let(:fixture) { 'ups_rates_address_type_residential_api_response.xml' }
+      it { is_expected.to be_success }
+
+      it 'returns rates with new address type' do
+        rates = subject.value!.data
+        expect(rates.first.warnings).to include('Ship To Address Classification is changed from Commercial to Residential')
+        expect(rates.first.data[:new_address_type]).to eq('residential')
+      end
+    end
+
+    context 'when changed to commercial' do
+      let(:fixture) { 'ups_rates_address_type_commercial_api_response.xml' }
+      it { is_expected.to be_success }
+
+      it 'returns rates with new address type' do
+        rates = subject.value!.data
+        expect(rates.first.warnings).to include('Ship To Address Classification is changed from Residential to Commercial')
+        expect(rates.first.data[:new_address_type]).to eq('commercial')
+      end
+    end
+
+    context 'when unchanged' do
+      let(:fixture) { 'ups_rates_api_response.xml' }
+      it { is_expected.to be_success }
+
+      it 'returns rates without address type' do
+        rates = subject.value!.data
+        expect(rates.first.warnings).to eq(['Your invoice may vary from the displayed reference rates'])
+        expect(rates.first.data).to_not have_key(:new_address_type)
+      end
+    end
   end
 end

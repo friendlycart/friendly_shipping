@@ -32,16 +32,24 @@ module FriendlyShipping
               rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
             )&.last
 
+            rated_shipment_warnings = rated_shipment.css('RatedShipmentWarning').map { |e| e.text.strip }
+            if rated_shipment_warnings.any? { |e| e.match?(/to Residential/) }
+              new_address_type = 'residential'
+            elsif rated_shipment_warnings.any? { |e| e.match?(/to Commercial/) }
+              new_address_type = 'commercial'
+            end
+
             FriendlyShipping::Rate.new(
               shipping_method: shipping_method,
               amounts: { total: total },
-              warnings: [rated_shipment.at("RatedShipmentWarning")&.text].compact,
+              warnings: rated_shipment_warnings,
               errors: [],
               data: {
                 insurance_price: insurance_price,
                 negotiated_rate: negotiated_rate,
-                days_to_delivery: days_to_delivery
-              }
+                days_to_delivery: days_to_delivery,
+                new_address_type: new_address_type
+              }.compact
             )
           end
         end
