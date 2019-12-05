@@ -5,9 +5,12 @@ require 'friendly_shipping/services/usps/shipping_methods'
 require 'friendly_shipping/services/usps/serialize_address_validation_request'
 require 'friendly_shipping/services/usps/serialize_city_state_lookup_request'
 require 'friendly_shipping/services/usps/serialize_rate_request'
+require 'friendly_shipping/services/usps/serialize_time_in_transit_request'
 require 'friendly_shipping/services/usps/parse_address_validation_response'
 require 'friendly_shipping/services/usps/parse_city_state_lookup_response'
 require 'friendly_shipping/services/usps/parse_rate_response'
+require 'friendly_shipping/services/usps/parse_time_in_transit_response'
+require 'friendly_shipping/services/usps/timing_options'
 
 module FriendlyShipping
   module Services
@@ -29,7 +32,8 @@ module FriendlyShipping
       RESOURCES = {
         address_validation: 'Verify',
         city_state_lookup: 'CityStateLookup',
-        rates: 'RateV4'
+        rates: 'RateV4',
+        timings: 'SDCGetLocations'
       }.freeze
 
       def initialize(login:, test: true, client: HttpClient.new)
@@ -63,6 +67,19 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseRateResponse.call(response: response, request: request, shipment: shipment)
+        end
+      end
+
+      # Get timing estimates from USPS
+      #
+      # @param [Physical::Shipment] shipment The shipment we want to estimate. Only destination zip and origin zip are used.
+      # @param [FriendlyShipping::Services::Usps::TimingOptions] options Options for the timing estimate call
+      def timings(shipment, options:, debug: false)
+        timings_request_xml = SerializeTimeInTransitRequest.call(shipment: shipment, options: options, login: login)
+        request = build_request(api: :timings, xml: timings_request_xml, debug: debug)
+
+        client.post(request).bind do |response|
+          ParseTimeInTransitResponse.call(response: response, request: request)
         end
       end
 

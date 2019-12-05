@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
+    body:
+      encoding: UTF-8
+      string: API=SDCGetLocations&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CSDCGetLocationsRequest+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CMailClass%3E0%3C%2FMailClass%3E%0A++%3COriginZIP%3E27703%3C%2FOriginZIP%3E%0A++%3CDestinationZIP%3E32821%3C%2FDestinationZIP%3E%0A++%3CAcceptDate%3E04-Dec-2019%3C%2FAcceptDate%3E%0A++%3CNonEMDetail%3Etrue%3C%2FNonEMDetail%3E%0A%3C%2FSDCGetLocationsRequest%3E%0A
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
+      Content-Length:
+      - '387'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - stg-secure.shippingapis.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 04 Dec 2019 09:13:59 GMT
+      X-Global-Transaction-Id:
+      - ec50ae425de778d707166b6f
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Ntcoent-Length:
+      - '7364'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '909'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <SDCGetLocationsResponse><Release>2.0</Release><CallerID>4</CallerID><SourceID>004</SourceID><MailClass>0</MailClass><OriginZIP>27703</OriginZIP><OriginCity>DURHAM</OriginCity><OriginState>NC</OriginState><DestZIP>32821</DestZIP><DestCity>ORLANDO</DestCity><DestState>FL</DestState><AcceptDate>2019-12-04</AcceptDate><AcceptTime>0313</AcceptTime><Expedited><EAD>2019-12-04</EAD><Commitment><MailClass>1</MailClass><CommitmentName>1-Day</CommitmentName><CommitmentTime>1200</CommitmentTime><CommitmentSeq>A0112</CommitmentSeq><Location><SDD>2019-12-05</SDD><COT>1600</COT><FacType>POST OFFICE</FacType><Street>1100 N MIAMI BLVD</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>1</IsGuaranteed></Location><Location><SDD>2019-12-05</SDD><COT>1705</COT><FacType>CONTRACT POSTAL UNIT</FacType><Street>3801 WAKE FOREST RD STE 118</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>1</IsGuaranteed></Location></Commitment><Commitment><MailClass>1</MailClass><CommitmentName>1-Day</CommitmentName><CommitmentTime>1500</CommitmentTime><CommitmentSeq>B0115</CommitmentSeq><Location><SDD>2019-12-05</SDD><COT>1600</COT><FacType>POST OFFICE</FacType><Street>1100 N MIAMI BLVD</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>1</IsGuaranteed></Location><Location><SDD>2019-12-05</SDD><COT>1705</COT><FacType>CONTRACT POSTAL UNIT</FacType><Street>3801 WAKE FOREST RD STE 118</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>1</IsGuaranteed></Location></Commitment><Commitment><MailClass>2</MailClass><CommitmentName>2-Day</CommitmentName><CommitmentTime/><CommitmentSeq>C0200</CommitmentSeq><Location><SDD>2019-12-06</SDD><COT>1600</COT><FacType>POST OFFICE</FacType><Street>1100 N MIAMI BLVD</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>2</IsGuaranteed></Location><Location><SDD>2019-12-06</SDD><COT>1700</COT><FacType>CONTRACT POSTAL UNIT</FacType><Street>3801 WAKE FOREST RD STE 118</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>2</IsGuaranteed></Location></Commitment><Commitment><MailClass>2</MailClass><CommitmentName>2-Day</CommitmentName><CommitmentTime/><CommitmentSeq>D0200</CommitmentSeq><Location><SDD>2019-12-06</SDD><COT>1600</COT><FacType>POST OFFICE</FacType><Street>1100 N MIAMI BLVD</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>2</IsGuaranteed></Location><Location><SDD>2019-12-06</SDD><COT>1700</COT><FacType>CONTRACT POSTAL UNIT</FacType><Street>3801 WAKE FOREST RD STE 118</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>2</IsGuaranteed></Location></Commitment><Commitment><MailClass>2</MailClass><CommitmentName>2-Day</CommitmentName><CommitmentTime/><CommitmentSeq>E0200</CommitmentSeq><Location><SDD>2019-12-06</SDD><COT>1600</COT><FacType>POST OFFICE</FacType><Street>1100 N MIAMI BLVD</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>2</IsGuaranteed></Location><Location><SDD>2019-12-06</SDD><COT>1700</COT><FacType>CONTRACT POSTAL UNIT</FacType><Street>3801 WAKE FOREST RD STE 118</Street><City>DURHAM</City><State>NC</State><ZIP>27703</ZIP><IsGuaranteed>2</IsGuaranteed></Location></Commitment></Expedited><NonExpedited><MailClass>3</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>3 Days</SvcStdMsg><SvcStdDays>3</SvcStdDays><SchedDlvryDate>2019-12-07</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>3</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>3 Days</SvcStdMsg><SvcStdDays>3</SvcStdDays><SchedDlvryDate>2019-12-07</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>3</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2019-12-04</EAD><COT>1820</COT><ServiceStandard><SvcStdMsg>3 Days</SvcStdMsg><SvcStdDays>3</SvcStdDays><Location><SchedDlvryDate>2019-12-07</SchedDlvryDate><RAUName>SAND LAKE</RAUName><Street>10450 TURKEY LAKE RD</Street><ZIP>328199998</ZIP><CloseTimes><M>1900</M><Tu>1900</Tu><W>1900</W><Th>1900</Th><F>1900</F><Sa>1700</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>ORLANDO</City><State>FL</State></Location></ServiceStandard></HFPU></NonExpedited><NonExpedited><MailClass>4</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>6 Days</SvcStdMsg><SvcStdDays>6</SvcStdDays><SchedDlvryDate>2019-12-10</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>4</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>6 Days</SvcStdMsg><SvcStdDays>6</SvcStdDays><SchedDlvryDate>2019-12-10</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>4</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2019-12-04</EAD><COT>1820</COT><ServiceStandard><SvcStdMsg>6 Days</SvcStdMsg><SvcStdDays>6</SvcStdDays><Location><SchedDlvryDate>2019-12-10</SchedDlvryDate><RAUName>SAND LAKE</RAUName><Street>10450 TURKEY LAKE RD</Street><ZIP>328199998</ZIP><CloseTimes><M>1900</M><Tu>1900</Tu><W>1900</W><Th>1900</Th><F>1900</F><Sa>1700</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>ORLANDO</City><State>FL</State></Location></ServiceStandard></HFPU></NonExpedited><NonExpedited><MailClass>5</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>4 Days</SvcStdMsg><SvcStdDays>4</SvcStdDays><SchedDlvryDate>2019-12-09</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>5</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>4 Days</SvcStdMsg><SvcStdDays>4</SvcStdDays><SchedDlvryDate>2019-12-09</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>5</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2019-12-04</EAD><COT>1820</COT><ServiceStandard><SvcStdMsg>4 Days</SvcStdMsg><SvcStdDays>4</SvcStdDays><Location><SchedDlvryDate>2019-12-09</SchedDlvryDate><RAUName>SAND LAKE</RAUName><Street>10450 TURKEY LAKE RD</Street><ZIP>328199998</ZIP><CloseTimes><M>1900</M><Tu>1900</Tu><W>1900</W><Th>1900</Th><F>1900</F><Sa>1700</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>ORLANDO</City><State>FL</State></Location></ServiceStandard></HFPU></NonExpedited><NonExpedited><MailClass>6</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>5 Days</SvcStdMsg><SvcStdDays>5</SvcStdDays><SchedDlvryDate>2019-12-09</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>6</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2019-12-04</EAD><COT>1820</COT><SvcStdMsg>5 Days</SvcStdMsg><SvcStdDays>5</SvcStdDays><SchedDlvryDate>2019-12-09</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>6</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2019-12-04</EAD><COT>1820</COT><ServiceStandard><SvcStdMsg>5 Days</SvcStdMsg><SvcStdDays>5</SvcStdDays><Location><SchedDlvryDate>2019-12-09</SchedDlvryDate><RAUName>SAND LAKE</RAUName><Street>10450 TURKEY LAKE RD</Street><ZIP>328199998</ZIP><CloseTimes><M>1900</M><Tu>1900</Tu><W>1900</W><Th>1900</Th><F>1900</F><Sa>1700</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>ORLANDO</City><State>FL</State></Location></ServiceStandard></HFPU></NonExpedited></SDCGetLocationsResponse>
+    http_version: 
+  recorded_at: Wed, 04 Dec 2019 09:14:00 GMT
+recorded_with: VCR 5.0.0

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'friendly_shipping/services/usps/timing_options'
 
 RSpec.describe FriendlyShipping::Services::Usps do
   subject(:service) { described_class.new(login: ENV['USPS_LOGIN']) }
@@ -50,6 +51,34 @@ RSpec.describe FriendlyShipping::Services::Usps do
     end
 
     context 'if the login is wrong', vcr: { cassette_name: 'usps/rate_estimates/failure' } do
+      let(:service) { described_class.new(login: 'WRONG_LOGIN') }
+
+      it 'returns a Failure with the correct error message' do
+        aggregate_failures do
+          is_expected.to be_failure
+          expect(subject.failure.to_s).to eq("80040B1A: Authorization failure.  Perhaps username and/or password is incorrect.")
+        end
+      end
+    end
+  end
+
+  describe 'timings' do
+    let(:destination) { FactoryBot.build(:physical_location, region: "FL", zip: '32821') }
+    let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
+    let(:shipment) { FactoryBot.build(:physical_shipment, packages: [], origin: origin, destination: destination) }
+    let(:options) { FriendlyShipping::Services::Usps::TimingOptions.new }
+
+    subject { service.timings(shipment, options: options) }
+
+    it 'returns FriendlyShipping::Timing Objects in a Success Monad', vcr: { cassette_name: 'usps/timings/success' } do
+      aggregate_failures do
+        is_expected.to be_success
+        expect(subject.value!.data).to be_a(Array)
+        expect(subject.value!.data.first).to be_a(FriendlyShipping::Timing)
+      end
+    end
+
+    context 'if the login is wrong', vcr: { cassette_name: 'usps/timings/failure' } do
       let(:service) { described_class.new(login: 'WRONG_LOGIN') }
 
       it 'returns a Failure with the correct error message' do
