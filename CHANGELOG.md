@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.7] - 2019-11-28
+
+### Changed
+- UPS Service: Add timing support
+- UPS Service: Add indicator for address type changes when quoting rates
+- USPS Service: Add timing support
+- Explicitly set Money rounding mode
+
 ## [0.4.6] - 2019-11-28
 
 ### Changed
