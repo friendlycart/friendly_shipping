@@ -34,6 +34,8 @@ module FriendlyShipping
           private
 
           def parse_expedited_commitment_nodes(expedited_commitment_nodes)
+            return [] if expedited_commitment_nodes.empty?
+
             # All Expedited Commitments have the same acceptance date
             effective_acceptance_date = Time.parse(expedited_commitment_nodes.at('EAD').text)
             expedited_commitment_nodes.xpath('Commitment').map do |commitment_node|
