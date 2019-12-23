@@ -9,6 +9,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeTimeInTransitRequest do
     Physical::Location.new(
       country: 'US',
       region: 'NC',
+      city: 'Durham',
       zip: '27703'
     )
   end
@@ -52,22 +53,19 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeTimeInTransitRequest do
 
   it 'contains the right data' do
     aggregate_failures do
-      expect(subject.at_xpath('//TimeInTransitRequest')).to be_present
-      expect(subject.at_xpath('//TimeInTransitRequest/Request')).to be_present
-      expect(subject.at_xpath('//TimeInTransitRequest/Request/TransactionReference')).to be_present
-      expect(subject.at_xpath('//TimeInTransitRequest/Request/TransactionReference/CustomerContext').text).
-        to eq('Time in Transit')
-      expect(subject.at_xpath('//TimeInTransitRequest/Request/RequestAction').text).to eq('TimeInTransit')
-      expect(
-        subject.at_xpath('//TimeInTransitRequest/TransitFrom/AddressArtifactFormat/PostcodePrimaryLow').text
-      ).to eq('27703')
-      expect(
-        subject.at_xpath('//TimeInTransitRequest/TransitTo/AddressArtifactFormat/PostcodePrimaryLow').text
-      ).to eq('32821')
-      expect(
-        subject.at_xpath('//TimeInTransitRequest/ShipmentWeight/UnitOfMeasurement/Code').text
-      ).to eq('LBS')
-      expect(subject.at_xpath('//TimeInTransitRequest/ShipmentWeight/Weight').text).to eq('5.0')
+      node = subject.at_xpath('//TimeInTransitRequest')
+      expect(node.at_xpath('Request/TransactionReference/CustomerContext').text).to eq('Time in Transit')
+      expect(node.at_xpath('Request/RequestAction').text).to eq('TimeInTransit')
+
+      expect(node.at_xpath('TransitFrom/AddressArtifactFormat/PoliticalDivision2').text).to eq('Durham')
+      expect(node.at_xpath('TransitFrom/AddressArtifactFormat/PoliticalDivision1').text).to eq('NC')
+      expect(node.at_xpath('TransitFrom/AddressArtifactFormat/CountryCode').text).to eq('US')
+      expect(node.at_xpath('TransitFrom/AddressArtifactFormat/PostcodePrimaryLow').text).to eq('27703')
+
+      expect(node.at_xpath('TransitTo/AddressArtifactFormat/PostcodePrimaryLow').text).to eq('32821')
+
+      expect(node.at_xpath('ShipmentWeight/UnitOfMeasurement/Code').text).to eq('LBS')
+      expect(node.at_xpath('ShipmentWeight/Weight').text).to eq('5.0')
     end
   end
 end
