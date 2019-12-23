@@ -17,6 +17,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeTimeInTransitRequest do
     Physical::Location.new(
       country: 'US',
       region: 'FL',
+      city: 'Orlando',
       zip: '32821'
     )
   end
@@ -62,6 +63,9 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeTimeInTransitRequest do
       expect(node.at_xpath('TransitFrom/AddressArtifactFormat/CountryCode').text).to eq('US')
       expect(node.at_xpath('TransitFrom/AddressArtifactFormat/PostcodePrimaryLow').text).to eq('27703')
 
+      expect(node.at_xpath('TransitTo/AddressArtifactFormat/PoliticalDivision2').text).to eq('Orlando')
+      expect(node.at_xpath('TransitTo/AddressArtifactFormat/PoliticalDivision1').text).to eq('FL')
+      expect(node.at_xpath('TransitTo/AddressArtifactFormat/CountryCode').text).to eq('US')
       expect(node.at_xpath('TransitTo/AddressArtifactFormat/PostcodePrimaryLow').text).to eq('32821')
 
       expect(node.at_xpath('ShipmentWeight/UnitOfMeasurement/Code').text).to eq('LBS')
