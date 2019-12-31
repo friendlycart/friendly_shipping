@@ -25,8 +25,8 @@ module FriendlyShipping
               end
               xml.TransitTo do
                 xml.AddressArtifactFormat do
-                  # We no longer include the destination city since it doesn't seem to change the timing
-                  # result and can prevent the time in transit request from succeeding when invalid.
+                  xml.PoliticalDivision2(shipment.destination.city)
+                  xml.PoliticalDivision1(shipment.destination.region.code)
                   xml.CountryCode(shipment.destination.country.code)
                   xml.PostcodePrimaryLow(shipment.destination.zip)
                 end
