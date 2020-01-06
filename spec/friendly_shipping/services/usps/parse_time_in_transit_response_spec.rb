@@ -36,5 +36,20 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
         destination_type: :hold_for_pickup
       )
     end
+
+    context 'if there are no expedited nodes' do
+      let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response_without_expedited.xml')).read }
+
+      it "does not break" do
+        last_rate = subject.last
+        expect(last_rate.shipping_method.name).to eq('First-Class Package Service')
+        expect(last_rate.pickup).to eq(Time.new(2019, 12, 0o3))
+        expect(last_rate.delivery).to eq(Time.new(2019, 12, 0o5))
+        expect(last_rate.properties).to eq(
+          commitment: '2 Days',
+          destination_type: :hold_for_pickup
+        )
+      end
+    end
   end
 end
