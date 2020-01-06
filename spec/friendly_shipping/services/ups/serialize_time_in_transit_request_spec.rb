@@ -72,4 +72,17 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeTimeInTransitRequest do
       expect(node.at_xpath('ShipmentWeight/Weight').text).to eq('5.0')
     end
   end
+
+  context 'if shipment weighs more than 150 pounds' do
+    let(:package) do
+      Physical::Package.new(
+        weight: Measured::Weight.new(151, :pounds),
+      )
+    end
+
+    it 'lowers the weight to just 150 pounds' do
+      node = subject.at_xpath('//TimeInTransitRequest')
+      expect(node.at_xpath('ShipmentWeight/Weight').text).to eq('150.0')
+    end
+  end
 end

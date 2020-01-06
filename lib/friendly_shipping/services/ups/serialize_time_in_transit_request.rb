@@ -4,6 +4,8 @@ module FriendlyShipping
   module Services
     class Ups
       class SerializeTimeInTransitRequest
+        MAX_SHIPMENT_WEIGHT = Measured::Weight.new(150, :pounds)
+
         def self.call(shipment:, options:)
           xml_builder = Nokogiri::XML::Builder.new do |xml|
             xml.TimeInTransitRequest do
@@ -36,7 +38,8 @@ module FriendlyShipping
                   xml.Code('LBS')
                 end
                 shipment_weight = shipment.packages.map(&:weight).inject(Measured::Weight(0, :pounds), :+)
-                xml.Weight(shipment_weight.convert_to(:pounds).value.to_f.round(3))
+                weight_for_ups = [shipment_weight, MAX_SHIPMENT_WEIGHT].min
+                xml.Weight(weight_for_ups.convert_to(:pounds).value.to_f.round(3))
               end
               xml.InvoiceLineTotal do
                 xml.CurrencyCode(options.invoice_total.currency.iso_code)
