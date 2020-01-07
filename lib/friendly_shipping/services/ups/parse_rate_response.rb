@@ -48,9 +48,29 @@ module FriendlyShipping
                 insurance_price: insurance_price,
                 negotiated_rate: negotiated_rate,
                 days_to_delivery: days_to_delivery,
-                new_address_type: new_address_type
+                new_address_type: new_address_type,
+                packages: build_packages(rated_shipment)
               }.compact
             )
+          end
+        end
+
+        private
+
+        def self.build_packages(rated_shipment)
+          rated_shipment.css('RatedPackage').map do |rated_package|
+            itemized_charges = rated_package.xpath('ItemizedCharges').map do |element|
+              ParseMoneyElement.call(element)
+            end.compact.to_h
+            {
+              transportation_charges: ParseMoneyElement.call(rated_package.at('TransportationCharges')).last,
+              base_service_charge: ParseMoneyElement.call(rated_package.at('BaseServiceCharge')).last,
+              service_options_charges: ParseMoneyElement.call(rated_package.at('ServiceOptionsCharges'))&.last,
+              itemized_charges: itemized_charges,
+              total_charges: ParseMoneyElement.call(rated_package.at('TotalCharges')).last,
+              weight: BigDecimal(rated_package.at('Weight').text),
+              billing_weight: BigDecimal(rated_package.at('BillingWeight/Weight').text)
+            }.compact
           end
         end
       end
