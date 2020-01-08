@@ -64,7 +64,7 @@ module FriendlyShipping
           @packaging_description = PACKAGING_TYPES.fetch(packaging).fetch(:description)
           @freight_class = freight_class
           @nmfc_code = nmfc_code
-          super kwargs
+          super(**kwargs)
         end
       end
     end

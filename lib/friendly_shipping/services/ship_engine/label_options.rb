@@ -26,7 +26,7 @@ module FriendlyShipping
           @shipping_method = shipping_method
           @label_format = label_format
           @label_download_type = label_download_type
-          super kwargs.merge(package_options_class: LabelPackageOptions)
+          super(**kwargs.merge(package_options_class: LabelPackageOptions))
         end
       end
     end
