@@ -64,4 +64,22 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
       end
     end
   end
+
+  describe 'packages' do
+    it 'returns data for each package' do
+      rates = subject.value!.data
+      expect(rates.first.data[:packages]).to eq(
+        [
+          transportation_charges: Money.new(1551, 'USD'),
+          base_service_charge: Money.new(1086, 'USD'),
+          total_charges: Money.new(1551, 'USD'),
+          itemized_charges: {
+            'FUEL SURCHARGE' => Money.new(105, 'USD')
+          },
+          weight: 4.0,
+          billing_weight: 4.0
+        ]
+      )
+    end
+  end
 end
