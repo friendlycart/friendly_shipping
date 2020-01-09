@@ -168,6 +168,11 @@ module FriendlyShipping
               commitment_time: '10:30 AM',
               destination_type: :hold_for_pickup
             },
+            'B0215' => {
+              commitment: '2-Day',
+              commitment_time: '3:00 PM',
+              destination_type: :hold_for_pickup
+            },
             'C0100' => {
               commitment: '1-Day',
               destination_type: :street
