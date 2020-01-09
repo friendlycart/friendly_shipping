@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.9] - 2020-01-09
+
+### Changed
+- USPS Service: Add missing Commitment sequence (#68)
+- Code quality: Add double splats for Ruby 2.7 compatibility (#67)
+- UPS Service: Add more package-level detail to rate responses (#65)
+
 ## [0.4.8] - 2020-01-06
 
 ### Changed
