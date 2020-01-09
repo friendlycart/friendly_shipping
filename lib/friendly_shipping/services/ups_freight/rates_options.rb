@@ -54,7 +54,7 @@ module FriendlyShipping
           @pickup_date = pickup_date
           @pickup_comments = pickup_comments
           @commodity_information_generator = commodity_information_generator
-          super kwargs.merge(package_options_class: RatesPackageOptions)
+          super(**kwargs.merge(package_options_class: RatesPackageOptions))
         end
       end
     end

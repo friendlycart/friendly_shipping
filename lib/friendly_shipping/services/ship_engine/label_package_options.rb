@@ -20,7 +20,7 @@ module FriendlyShipping
         def initialize(package_code: nil, messages: [], **kwargs)
           @package_code = package_code
           @messages = messages
-          super kwargs
+          super(**kwargs)
         end
       end
     end

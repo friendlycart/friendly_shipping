@@ -58,7 +58,7 @@ module FriendlyShipping
         )
           @commodity_code = commodity_code
           @product_unit_of_measure = product_unit_of_measure
-          super kwargs
+          super(**kwargs)
         end
 
         def product_unit_of_measure_code

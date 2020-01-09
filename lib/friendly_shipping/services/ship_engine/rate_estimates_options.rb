@@ -13,7 +13,7 @@ module FriendlyShipping
 
         def initialize(carriers:, **kwargs)
           @carriers = carriers
-          super kwargs
+          super(**kwargs)
         end
 
         def carrier_ids
