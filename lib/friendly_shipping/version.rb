@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module FriendlyShipping
-  VERSION = "0.4.9"
+  VERSION = "0.4.10"
 end
