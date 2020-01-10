@@ -78,6 +78,23 @@ RSpec.describe FriendlyShipping::Services::Usps do
       end
     end
 
+    context 'if one mail class does not return a timing estimate' do
+      let(:destination) { FactoryBot.build(:physical_location, zip: '89431') }
+      let(:origin) { FactoryBot.build(:physical_location, zip: '99744') }
+
+      it 'returns FriendlyShipping::Timing Objects in a Success Monad', vcr: { cassette_name: 'usps/timings/success_without_timing_estimate' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first).to be_a(FriendlyShipping::Timing)
+          expect(subject.value!.data.last).to be_a(FriendlyShipping::Timing)
+          expect(subject.value!.data.last.properties[:warning]).to eq(
+            "The timeliness of service to destinations outside the contiguous US may be affected by the limited availability of transportation."
+          )
+        end
+      end
+    end
+
     context 'if the login is wrong', vcr: { cassette_name: 'usps/timings/failure' } do
       let(:service) { described_class.new(login: 'WRONG_LOGIN') }
 

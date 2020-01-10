@@ -67,12 +67,17 @@ module FriendlyShipping
               # We cannot find a shipping method for Mail Classes 4 and 5 because USPS' docs are not clear
               next unless shipping_method
 
+              warning_text = commitment_node.xpath('HFPU//NonExpeditedTransMsg/Msg')&.text
+              warning = warning_text unless warning_text.empty?
+
               properties = {
-                commitment: commitment_node.at('SvcStdMsg').text,
-                destination_type: NON_EXPEDITED_DESTINATION_TYPES[commitment_node.at('NonExpeditedDestType').text]
-              }
-              scheduled_delivery_date = commitment_node.at('SchedDlvryDate').text
-              parsed_delivery_time = Time.parse(scheduled_delivery_date)
+                commitment: commitment_node.at('SvcStdMsg')&.text,
+                destination_type: NON_EXPEDITED_DESTINATION_TYPES[commitment_node.at('NonExpeditedDestType').text],
+                warning: warning
+              }.compact
+
+              scheduled_delivery_date = commitment_node.at('SchedDlvryDate')&.text
+              parsed_delivery_time = Time.parse(scheduled_delivery_date) if scheduled_delivery_date
               effective_acceptance_date = Time.parse(commitment_node.at('EAD').text)
 
               FriendlyShipping::Timing.new(
