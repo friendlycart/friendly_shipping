@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
+    body:
+      encoding: UTF-8
+      string: API=SDCGetLocations&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CSDCGetLocationsRequest+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CMailClass%3E0%3C%2FMailClass%3E%0A++%3COriginZIP%3E99744%3C%2FOriginZIP%3E%0A++%3CDestinationZIP%3E89431%3C%2FDestinationZIP%3E%0A++%3CAcceptDate%3E10-Jan-2020%3C%2FAcceptDate%3E%0A++%3CNonEMDetail%3Etrue%3C%2FNonEMDetail%3E%0A%3C%2FSDCGetLocationsRequest%3E%0A
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin17.6.0 x86_64) ruby/2.6.5p114
+      Content-Length:
+      - '387'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - stg-secure.shippingapis.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Backside-Transport:
+      - OK OK
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/xml
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 10 Jan 2020 10:24:01 GMT
+      X-Global-Transaction-Id:
+      - ec50ae425e1850c114710051
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - Keep-Alive
+      Ntcoent-Length:
+      - '7530'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Content-Length:
+      - '1013'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <SDCGetLocationsResponse><Release>2.0</Release><CallerID>4</CallerID><SourceID>004</SourceID><MailClass>0</MailClass><OriginZIP>99744</OriginZIP><OriginCity>ANDERSON</OriginCity><OriginState>AK</OriginState><DestZIP>89431</DestZIP><DestCity>SPARKS</DestCity><DestState>NV</DestState><AcceptDate>2020-01-10</AcceptDate><AcceptTime>0424</AcceptTime><Expedited><EAD>2020-01-10</EAD><Commitment><MailClass>1</MailClass><CommitmentName>2-Day</CommitmentName><CommitmentTime>1500</CommitmentTime><CommitmentSeq>A0215</CommitmentSeq><Location><SDD>2020-01-12</SDD><COT>0800</COT><FacType>POST OFFICE</FacType><Street>260 W 1ST ST</Street><City>ANDERSON</City><State>AK</State><ZIP>99744</ZIP><IsGuaranteed>1</IsGuaranteed></Location></Commitment><Commitment><MailClass>1</MailClass><CommitmentName>2-Day</CommitmentName><CommitmentTime>1500</CommitmentTime><CommitmentSeq>B0215</CommitmentSeq><Location><SDD>2020-01-13</SDD><COT>0800</COT><FacType>POST OFFICE</FacType><Street>260 W 1ST ST</Street><City>ANDERSON</City><State>AK</State><ZIP>99744</ZIP><IsGuaranteed>1</IsGuaranteed></Location></Commitment><Commitment><MailClass>2</MailClass><CommitmentName>3-Day</CommitmentName><CommitmentTime/><CommitmentSeq>C0300</CommitmentSeq><Location><SDD>2020-01-13</SDD><COT>1515</COT><FacType>POST OFFICE</FacType><Street>260 W 1ST ST</Street><City>ANDERSON</City><State>AK</State><ZIP>99744</ZIP><IsGuaranteed>2</IsGuaranteed></Location></Commitment><Commitment><MailClass>2</MailClass><CommitmentName>3-Day</CommitmentName><CommitmentTime/><CommitmentSeq>D0300</CommitmentSeq><Location><SDD>2020-01-13</SDD><COT>1515</COT><FacType>POST OFFICE</FacType><Street>260 W 1ST ST</Street><City>ANDERSON</City><State>AK</State><ZIP>99744</ZIP><IsGuaranteed>2</IsGuaranteed></Location></Commitment><Commitment><MailClass>2</MailClass><CommitmentName>3-Day</CommitmentName><CommitmentTime/><CommitmentSeq>E0300</CommitmentSeq><Location><SDD>2020-01-13</SDD><COT>1515</COT><FacType>POST OFFICE</FacType><Street>260 W 1ST ST</Street><City>ANDERSON</City><State>AK</State><ZIP>99744</ZIP><IsGuaranteed>2</IsGuaranteed></Location></Commitment></Expedited><NonExpedited><MailClass>3</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>4 Days</SvcStdMsg><SvcStdDays>4</SvcStdDays><SchedDlvryDate>2020-01-14</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>3</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>4 Days</SvcStdMsg><SvcStdDays>4</SvcStdDays><SchedDlvryDate>2020-01-14</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>3</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2020-01-10</EAD><COT>1515</COT><ServiceStandard><SvcStdMsg>4 Days</SvcStdMsg><SvcStdDays>4</SvcStdDays><Location><SchedDlvryDate>2020-01-14</SchedDlvryDate><RAUName>SPARKS</RAUName><Street>750 4TH ST</Street><ZIP>894317419</ZIP><CloseTimes><M>1730</M><Tu>1730</Tu><W>1730</W><Th>1730</Th><F>1730</F><Sa>0000</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>SPARKS</City><State>NV</State></Location><Location><SchedDlvryDate>2020-01-14</SchedDlvryDate><RAUName>CPU GOLDEN GATE PETROLEUM</RAUName><Street>1055 S ROCK BLVD</Street><ZIP>894315937</ZIP><CloseTimes><M>1700</M><Tu>1700</Tu><W>1700</W><Th>1700</Th><F>1700</F><Sa>0000</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>SPARKS</City><State>NV</State></Location></ServiceStandard></HFPU></NonExpedited><NonExpedited><MailClass>4</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>17 Days</SvcStdMsg><SvcStdDays>17</SvcStdDays><SchedDlvryDate>2020-01-27</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>4</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>17 Days</SvcStdMsg><SvcStdDays>17</SvcStdDays><SchedDlvryDate>2020-01-27</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>4</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2020-01-10</EAD><COT>1515</COT><ServiceStandard><SvcStdMsg>17 Days</SvcStdMsg><SvcStdDays>17</SvcStdDays><Location><SchedDlvryDate>2020-01-27</SchedDlvryDate><RAUName>SPARKS</RAUName><Street>750 4TH ST</Street><ZIP>894317419</ZIP><CloseTimes><M>1730</M><Tu>1730</Tu><W>1730</W><Th>1730</Th><F>1730</F><Sa>0000</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>SPARKS</City><State>NV</State></Location><Location><SchedDlvryDate>2020-01-27</SchedDlvryDate><RAUName>CPU GOLDEN GATE PETROLEUM</RAUName><Street>1055 S ROCK BLVD</Street><ZIP>894315937</ZIP><CloseTimes><M>1700</M><Tu>1700</Tu><W>1700</W><Th>1700</Th><F>1700</F><Sa>0000</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>SPARKS</City><State>NV</State></Location></ServiceStandard></HFPU></NonExpedited><NonExpedited><MailClass>5</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>16 Days</SvcStdMsg><SvcStdDays>16</SvcStdDays><SchedDlvryDate>2020-01-27</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>5</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>16 Days</SvcStdMsg><SvcStdDays>16</SvcStdDays><SchedDlvryDate>2020-01-27</SchedDlvryDate></NonExpedited><NonExpedited><MailClass>5</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2020-01-10</EAD><COT>1515</COT><ServiceStandard><SvcStdMsg>16 Days</SvcStdMsg><SvcStdDays>16</SvcStdDays><Location><SchedDlvryDate>2020-01-27</SchedDlvryDate><RAUName>SPARKS</RAUName><Street>750 4TH ST</Street><ZIP>894317419</ZIP><CloseTimes><M>1730</M><Tu>1730</Tu><W>1730</W><Th>1730</Th><F>1730</F><Sa>0000</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>SPARKS</City><State>NV</State></Location><Location><SchedDlvryDate>2020-01-27</SchedDlvryDate><RAUName>CPU GOLDEN GATE PETROLEUM</RAUName><Street>1055 S ROCK BLVD</Street><ZIP>894315937</ZIP><CloseTimes><M>1700</M><Tu>1700</Tu><W>1700</W><Th>1700</Th><F>1700</F><Sa>0000</Sa><Su>0000</Su><H>0000</H></CloseTimes><City>SPARKS</City><State>NV</State></Location></ServiceStandard></HFPU></NonExpedited><NonExpedited><MailClass>6</MailClass><NonExpeditedDestType>1</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>15 Days</SvcStdMsg><SvcStdDays>15</SvcStdDays><SchedDlvryDate>2020-01-25</SchedDlvryDate><NonExpeditedExceptions><NonExpeditedTransMsg><MsgCode>001</MsgCode><Msg>The timeliness of service to destinations outside the contiguous US may be affected by the limited availability of transportation.</Msg></NonExpeditedTransMsg></NonExpeditedExceptions></NonExpedited><NonExpedited><MailClass>6</MailClass><NonExpeditedDestType>2</NonExpeditedDestType><EAD>2020-01-10</EAD><COT>1515</COT><SvcStdMsg>15 Days</SvcStdMsg><SvcStdDays>15</SvcStdDays><SchedDlvryDate>2020-01-25</SchedDlvryDate><NonExpeditedExceptions><NonExpeditedTransMsg><MsgCode>001</MsgCode><Msg>The timeliness of service to destinations outside the contiguous US may be affected by the limited availability of transportation.</Msg></NonExpeditedTransMsg></NonExpeditedExceptions></NonExpedited><NonExpedited><MailClass>6</MailClass><NonExpeditedDestType>3</NonExpeditedDestType><HFPU><EAD>2020-01-10</EAD><COT>1515</COT><HFPUGlobalExcept><NonExpeditedTransMsg><MsgCode>001</MsgCode><Msg>The timeliness of service to destinations outside the contiguous US may be affected by the limited availability of transportation.</Msg></NonExpeditedTransMsg></HFPUGlobalExcept></HFPU></NonExpedited></SDCGetLocationsResponse>
+    http_version: 
+  recorded_at: Fri, 10 Jan 2020 10:24:02 GMT
+recorded_with: VCR 5.0.0
