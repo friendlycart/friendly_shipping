@@ -19,8 +19,8 @@ module FriendlyShipping
           def call(shipment:, login:, shipping_method: nil)
             xml_builder = Nokogiri::XML::Builder.new do |xml|
               xml.RateV4Request('USERID' => login) do
-                shipment.packages.each do |package|
-                  xml.Package('ID' => package.id) do
+                shipment.packages.each_with_index do |package, index|
+                  xml.Package('ID' => index) do
                     xml.Service(service_code_by(shipping_method, package))
                     if package.properties[:first_class_mail_type]
                       xml.FirstClassMailType(FIRST_CLASS_MAIL_TYPES[package.properties[:first_class_mail_type]])
