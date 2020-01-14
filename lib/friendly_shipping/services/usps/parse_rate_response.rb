@@ -65,7 +65,7 @@ module FriendlyShipping
           def rates_from_response_node(xml, shipment)
             xml.xpath(PACKAGE_NODE_XPATH).each_with_object({}) do |package_node, result|
               package_id = package_node['ID']
-              corresponding_package = shipment.packages.detect { |p| p.id == package_id }
+              corresponding_package = shipment.packages[package_id.to_i]
 
               # There should always be a package in the original shipment that corresponds to the package ID
               # in the USPS response.

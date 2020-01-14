@@ -31,13 +31,8 @@ module FriendlyShipping
             r.data[:hold_for_pickup] == !!package.properties[:hold_for_pickup]
           end
 
-          # At this point we should be left with a single rate. If we are not, raise an error,
-          # as that means we're missing some code.
-          if rates_with_this_hold_for_pickup_option.length > 1
-            raise CannotDetermineRate
-          end
-
-          # As we only have one rate left, return that without the array.
+          # At this point, we have one or two rates left, and they're similar enough.
+          # Once this poses an actual problem, we'll fix it.
           rates_with_this_hold_for_pickup_option.first
         end
       end
