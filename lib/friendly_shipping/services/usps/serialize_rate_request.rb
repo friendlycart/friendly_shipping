@@ -33,10 +33,12 @@ module FriendlyShipping
                     container = CONTAINERS[package.properties[:box_name] || :rectangular]
                     xml.Container(container)
                     xml.Size(size_code)
-                    xml.Width("%<width>0.2f" % { width: package.width.convert_to(:inches).value.to_f })
-                    xml.Length("%<length>0.2f" % { length: package.length.convert_to(:inches).value.to_f })
-                    xml.Height("%<height>0.2f" % { height: package.height.convert_to(:inches).value.to_f })
-                    xml.Girth("%<girth>0.2f" % { girth: girth(package) })
+                    if ['RECTANGULAR', 'VARIABLE'].include?(container)
+                      xml.Width("%<width>0.2f" % { width: package.width.convert_to(:inches).value.to_f })
+                      xml.Length("%<length>0.2f" % { length: package.length.convert_to(:inches).value.to_f })
+                      xml.Height("%<height>0.2f" % { height: package.height.convert_to(:inches).value.to_f })
+                      xml.Girth("%<girth>0.2f" % { girth: girth(package) })
+                    end
                     xml.Machinable(machinable(package))
                   end
                 end

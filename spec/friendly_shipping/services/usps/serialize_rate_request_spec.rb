@@ -32,6 +32,10 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
 
     it 'uses correct container' do
       expect(node.at_xpath('Container').text).to eq('REGIONALRATEBOXA')
+      expect(node.at_xpath('Width')).to be nil
+      expect(node.at_xpath('Length')).to be nil
+      expect(node.at_xpath('Height')).to be nil
+      expect(node.at_xpath('Girth')).to be nil
     end
   end
 
