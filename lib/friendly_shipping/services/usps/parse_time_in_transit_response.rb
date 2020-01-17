@@ -44,6 +44,8 @@ module FriendlyShipping
               end
               commitment_sequence = commitment_node.at('CommitmentSeq').text
               properties = COMMITMENT_SEQUENCES[commitment_sequence]
+              next unless properties # Sometimes USPS returns an invalid CommitmentSeq
+
               scheduled_delivery_time = properties.delete(:commitment_time)
               scheduled_delivery_date = commitment_node.at('SDD').text
               parsed_delivery_time = Time.parse("#{scheduled_delivery_date} #{scheduled_delivery_time}")
@@ -56,7 +58,7 @@ module FriendlyShipping
                 guaranteed: guaranteed,
                 properties: properties
               )
-            end
+            end.compact
           end
 
           def parse_non_expedited_commitment_nodes(non_expedited_commitment_nodes)

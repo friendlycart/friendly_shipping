@@ -46,7 +46,7 @@ RSpec.describe FriendlyShipping::Services::Usps do
       aggregate_failures do
         is_expected.to be_success
         expect(subject.value!.data).to be_a(Array)
-        expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+        expect(subject.value!.data).to all(be_a(FriendlyShipping::Rate))
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe FriendlyShipping::Services::Usps do
       aggregate_failures do
         is_expected.to be_success
         expect(subject.value!.data).to be_a(Array)
-        expect(subject.value!.data.first).to be_a(FriendlyShipping::Timing)
+        expect(subject.value!.data).to all(be_a(FriendlyShipping::Timing))
       end
     end
 
@@ -86,11 +86,22 @@ RSpec.describe FriendlyShipping::Services::Usps do
         aggregate_failures do
           is_expected.to be_success
           expect(subject.value!.data).to be_a(Array)
-          expect(subject.value!.data.first).to be_a(FriendlyShipping::Timing)
-          expect(subject.value!.data.last).to be_a(FriendlyShipping::Timing)
+          expect(subject.value!.data).to all(be_a(FriendlyShipping::Timing))
           expect(subject.value!.data.last.properties[:warning]).to eq(
             "The timeliness of service to destinations outside the contiguous US may be affected by the limited availability of transportation."
           )
+        end
+      end
+    end
+
+    context 'if one mail class has an invalid commitment sequence' do
+      let(:destination) { FactoryBot.build(:physical_location, zip: '20189') }
+
+      it 'skips the invalid commitment', vcr: { cassette_name: 'usps/timings/success_with_invalid_commitment_seq' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data).to all(be_a(FriendlyShipping::Timing))
         end
       end
     end
