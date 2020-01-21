@@ -58,8 +58,8 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
       it "does not break" do
         first_rate = subject.first
         expect(first_rate.shipping_method.name).to eq('Priority')
-        expect(first_rate.pickup).to eq(Time.new(0o001, 0o1, 0o1))
-        expect(first_rate.delivery).to eq(Time.new(2020, 0o1, 19))
+        expect(first_rate.pickup).to eq(Time.new(2020, 1, 17))
+        expect(first_rate.delivery).to eq(Time.new(2020, 1, 19))
         expect(first_rate.properties).to eq(
           commitment: '2-Day',
           destination_type: :street

@@ -37,7 +37,11 @@ module FriendlyShipping
             return [] if expedited_commitment_nodes.empty?
 
             # All Expedited Commitments have the same acceptance date
-            effective_acceptance_date = Time.parse(expedited_commitment_nodes.at('EAD').text)
+            # However, sometimes that date is invalid.
+            effective_acceptance_date = [
+              Time.parse(expedited_commitment_nodes.at('EAD').text),
+              Time.parse(expedited_commitment_nodes.document.at('AcceptDate').text)
+            ].max
             expedited_commitment_nodes.xpath('Commitment').map do |commitment_node|
               shipping_method = SHIPPING_METHODS.detect do |potential_shipping_method|
                 potential_shipping_method.name == MAIL_CLASSES[commitment_node.at('MailClass').text]
