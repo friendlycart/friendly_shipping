@@ -10,10 +10,10 @@ module FriendlyShipping
 
         class << self
           # @param [Physical::Shipment] shipment The shipment we want to get rates for
-          #   shipment.packages[0].properties[:box_code] Can be :rectangular, :variable,
+          #   shipment.packages[0].properties[:box_name] Can be :rectangular, :variable,
           #     or a flat rate container defined in CONTAINERS.
           # @param [String] login The USPS login code
-          # @param [FriendlyShipping::ShippingMethod] service The shipping methods we want to get rates
+          # @param [FriendlyShipping::ShippingMethod] shipping_method The shipping method we want to get rates
           #   for. If empty, we get all of them
           # @return Array<[FriendlyShipping::Rate]> A set of Rates that this package may be sent with
           def call(shipment:, login:, shipping_method: nil)
