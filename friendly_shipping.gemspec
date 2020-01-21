@@ -31,6 +31,14 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.4'
 
   spec.add_development_dependency "bundler"
+  spec.add_development_dependency "dotenv"
+  spec.add_development_dependency "factory_bot", "~> 5.0"
+  spec.add_development_dependency "pry"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "rspec_junit_formatter", "~> 0.4"
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "webmock"
 end
