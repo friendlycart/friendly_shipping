@@ -69,7 +69,7 @@ module FriendlyShipping
           shipper: nil,
           shipping_method: nil,
           with_time_in_transit: false,
-          package_options_class: RateEstimatePackageOptions,
+          package_options_class: FriendlyShipping::Services::Ups::RateEstimatePackageOptions,
           **kwargs
         )
           @carbon_neutral = carbon_neutral

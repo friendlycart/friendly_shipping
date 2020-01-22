@@ -57,7 +57,12 @@ module FriendlyShipping
                 end
 
                 shipment.packages.each do |package|
-                  SerializePackageNode.call(xml: xml, package: package)
+                  package_options = options.options_for_package(package)
+                  SerializePackageNode.call(
+                    xml: xml,
+                    package: package,
+                    transmit_dimensions: package_options.transmit_dimensions
+                  )
                 end
 
                 if options.shipping_method

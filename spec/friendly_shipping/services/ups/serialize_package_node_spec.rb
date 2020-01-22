@@ -58,6 +58,18 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
         expect(subject.at_xpath('//Package/Dimensions')).not_to be_present
       end
     end
+
+    context 'if serializer is told to not transmit dimensions' do
+      subject(:context) do
+        Nokogiri::XML::Builder.new do |xml|
+          described_class.call(xml: xml, package: package, transmit_dimensions: false)
+        end.doc
+      end
+
+      it 'does not add dimensions' do
+        expect(subject.at_xpath('//Package/Dimensions')).not_to be_present
+      end
+    end
   end
 
   context 'if package has reference numbers' do

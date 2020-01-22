@@ -17,6 +17,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
   end
   let(:package) do
     Physical::Package.new(
+      id: "my_id_one",
       container: Physical::Box.new(
         weight: Measured::Weight.new(5, :pounds),
         dimensions: dimensions
@@ -60,6 +61,8 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
       ).not_to be_present
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom')).not_to be_present
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package')).to be_present
+      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).to be_present
+
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackagingType/Code').text).to eq('02')
       expect(
         subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackageWeight/UnitOfMeasurement/Code').text
@@ -207,6 +210,24 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
       expect(
         subject.at_xpath('/RatingServiceSelectionRequest/Shipment/Service/Code').text
       ).to eq('44')
+    end
+  end
+
+  context 'when `transmit_dimensions` is set to false' do
+    let(:options) do
+      FriendlyShipping::Services::Ups::RateEstimateOptions.new(
+        shipper_number: "12345",
+        package_options: [
+          FriendlyShipping::Services::Ups::RateEstimatePackageOptions.new(
+            package_id: package.id,
+            transmit_dimensions: false
+          )
+        ]
+      )
+    end
+
+    it 'does not transmit dimensions' do
+      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).not_to be_present
     end
   end
 end

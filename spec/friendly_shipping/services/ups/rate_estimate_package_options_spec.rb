@@ -11,4 +11,10 @@ RSpec.describe FriendlyShipping::Services::Ups::RateEstimatePackageOptions do
   ].each do |message|
     it { is_expected.to respond_to(message) }
   end
+
+  describe 'package_id' do
+    subject { options.package_id }
+
+    it { is_expected.to eq('my_package_id') }
+  end
 end
