@@ -77,8 +77,10 @@ module FriendlyShipping
                   xml.SaturdayPickup if options.saturday_pickup
                 end
 
-                xml.RateInformation do
-                  xml.NegotiatedRatesIndicator if options.negotiated_rates
+                if options.negotiated_rates
+                  xml.RateInformation do
+                    xml.NegotiatedRatesIndicator if options.negotiated_rates
+                  end
                 end
               end
             end
