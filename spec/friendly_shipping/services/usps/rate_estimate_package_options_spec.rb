@@ -10,7 +10,8 @@ RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
     :box_name,
     :commercial_pricing,
     :hold_for_pickup,
-    :shipping_method
+    :shipping_method,
+    :transmit_dimensions
   ].each do |message|
     it { is_expected.to respond_to(message) }
   end

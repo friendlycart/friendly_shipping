@@ -120,4 +120,20 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
       expect(node.at_xpath('Size').text).to eq('LARGE')
     end
   end
+
+  context 'with transmit_dimensions set to false' do
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        transmit_dimensions: false
+      )
+    end
+
+    it 'does not transmit dimensions' do
+      expect(node.at_xpath('Width')).to be nil
+      expect(node.at_xpath('Length')).to be nil
+      expect(node.at_xpath('Height')).to be nil
+      expect(node.at_xpath('Girth')).to be nil
+    end
+  end
 end

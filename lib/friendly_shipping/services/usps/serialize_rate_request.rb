@@ -33,7 +33,7 @@ module FriendlyShipping
                     size_code = size_code_for(package)
                     xml.Container(package_options.container_code)
                     xml.Size(size_code)
-                    if package_options.container_code == 'VARIABLE'
+                    if package_options.transmit_dimensions && package_options.container_code == 'VARIABLE'
                       xml.Width("%<width>0.2f" % { width: package.width.convert_to(:inches).value.to_f })
                       xml.Length("%<length>0.2f" % { length: package.length.convert_to(:inches).value.to_f })
                       xml.Height("%<height>0.2f" % { height: package.height.convert_to(:inches).value.to_f })

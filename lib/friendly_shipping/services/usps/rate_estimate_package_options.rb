@@ -14,7 +14,8 @@ module FriendlyShipping
                     :commercial_pricing,
                     :first_class_mail_type,
                     :hold_for_pickup,
-                    :shipping_method
+                    :shipping_method,
+                    :transmit_dimensions
 
         def initialize(
           box_name: :variable,
@@ -22,6 +23,7 @@ module FriendlyShipping
           first_class_mail_type: nil,
           hold_for_pickup: false,
           shipping_method: nil,
+          transmit_dimensions: true,
           **kwargs
         )
           @box_name = CONTAINERS.key?(box_name) ? box_name : :variable
@@ -29,6 +31,7 @@ module FriendlyShipping
           @first_class_mail_type = first_class_mail_type
           @hold_for_pickup = hold_for_pickup
           @shipping_method = shipping_method
+          @transmit_dimensions = transmit_dimensions
           super kwargs
         end
 
