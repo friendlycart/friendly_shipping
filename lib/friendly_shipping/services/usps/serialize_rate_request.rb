@@ -16,24 +16,24 @@ module FriendlyShipping
           # @param [FriendlyShipping::ShippingMethod] shipping_method The shipping method we want to get rates
           #   for. If empty, we get all of them
           # @return Array<[FriendlyShipping::Rate]> A set of Rates that this package may be sent with
-          def call(shipment:, login:, shipping_method: nil)
+          def call(shipment:, login:, options:)
             xml_builder = Nokogiri::XML::Builder.new do |xml|
               xml.RateV4Request('USERID' => login) do
                 shipment.packages.each_with_index do |package, index|
+                  package_options = options.options_for_package(package)
                   xml.Package('ID' => index) do
-                    xml.Service(service_code_by(shipping_method, package))
-                    if package.properties[:first_class_mail_type]
-                      xml.FirstClassMailType(FIRST_CLASS_MAIL_TYPES[package.properties[:first_class_mail_type]])
+                    xml.Service(package_options.service_code)
+                    if package_options.first_class_mail_type
+                      xml.FirstClassMailType(package_options.first_class_mail_type_code)
                     end
                     xml.ZipOrigination(shipment.origin.zip)
                     xml.ZipDestination(shipment.destination.zip)
                     xml.Pounds(0)
                     xml.Ounces(ounces_for(package))
                     size_code = size_code_for(package)
-                    container = CONTAINERS[package.properties[:box_name] || :rectangular]
-                    xml.Container(container)
+                    xml.Container(package_options.container_code)
                     xml.Size(size_code)
-                    if ['RECTANGULAR', 'VARIABLE'].include?(container)
+                    if package_options.container_code == 'VARIABLE'
                       xml.Width("%<width>0.2f" % { width: package.width.convert_to(:inches).value.to_f })
                       xml.Length("%<length>0.2f" % { length: package.length.convert_to(:inches).value.to_f })
                       xml.Height("%<height>0.2f" % { height: package.height.convert_to(:inches).value.to_f })
@@ -58,16 +58,6 @@ module FriendlyShipping
               'REGULAR'
             else
               'LARGE'
-            end
-          end
-
-          def service_code_by(shipping_method, package)
-            return 'ALL' unless shipping_method
-
-            if package.properties[:commercial_pricing]
-              "#{shipping_method.service_code} COMMERCIAL"
-            else
-              shipping_method.service_code
             end
           end
 

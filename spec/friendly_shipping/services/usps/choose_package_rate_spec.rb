@@ -9,21 +9,20 @@ RSpec.describe FriendlyShipping::Services::Usps::ChoosePackageRate do
   let(:shipping_method_name) { 'Priority Mail Express' }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
   let(:package_id) { '0' }
-  let(:package) { FactoryBot.build(:physical_package, id: package_id, container: container) }
-  let(:container) { FactoryBot.build(:physical_box, properties: properties) }
+  let(:package) { FactoryBot.build(:physical_package, id: package_id) }
   let(:properties) { {} }
   let(:xml) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response.xml')).read }
   let(:rate_nodes) { Nokogiri::XML(xml).xpath('//Postage') }
-  let(:rates) { rate_nodes.map { |node| FriendlyShipping::Services::Usps::ParsePackageRate.call(node, package) } }
-
-  subject { described_class.call(shipping_method, package, rates) }
+  let(:rates) { rate_nodes.map { |node| FriendlyShipping::Services::Usps::ParsePackageRate.call(node, package, package_options) } }
+  let(:package_options) { FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(properties.merge(package_id: package_id)) }
+  subject { described_class.call(shipping_method, rates, package_options) }
 
   it { is_expected.to be_a(FriendlyShipping::Rate) }
 
   it 'has the right attributes' do
     expect(subject.shipping_method).to eq(shipping_method)
     expect(subject.total_amount.to_f).to eq(36.6)
-    expect(subject.data[:box_name]).to be_nil
+    expect(subject.data[:box_name]).to eq(:variable)
     expect(subject.data[:hold_for_pickup]).to be false
   end
 
@@ -33,7 +32,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ChoosePackageRate do
     it 'has the right attributes' do
       expect(subject.shipping_method).to eq(shipping_method)
       expect(subject.total_amount.to_f).to eq(36.6)
-      expect(subject.data[:box_name]).to be_nil
+      expect(subject.data[:box_name]).to eq(:variable)
       expect(subject.data[:hold_for_pickup]).to be true
     end
   end

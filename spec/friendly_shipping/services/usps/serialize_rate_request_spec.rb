@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'friendly_shipping/services/usps/rate_estimate_options'
 
 RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   let(:dimensions) { [10, 21.321539, 24].map { |e| Measured::Length(e, :cm) } }
   let(:weight) { Measured::Weight.new(14.025, :ounces) }
   let(:properties) { {} }
-  let(:container) { FactoryBot.build(:physical_box, dimensions: dimensions, weight: weight, properties: properties) }
+  let(:container) { FactoryBot.build(:physical_box, dimensions: dimensions, weight: weight) }
   let(:package) { FactoryBot.build(:physical_package, container: container, items: [], void_fill_density: Measured::Density(0, :g_ml)) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
-  let(:shipping_method) { nil }
-  subject(:parser) { described_class.call(shipment: shipment, login: 'fake', shipping_method: shipping_method) }
+  let(:options) { FriendlyShipping::Services::Usps::RateEstimateOptions.new(package_options: [package_options]) }
+  let(:package_options) { FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(package_id: package.id) }
+  subject(:parser) { described_class.call(shipment: shipment, login: 'fake', options: options) }
 
   let(:node) { Nokogiri::XML(subject).xpath('//RateV4Request/Package') }
 
   it 'serializes the request' do
     expect(node.at_xpath('Service').text).to eq('ALL')
-    expect(node.at_xpath('Container').text).to eq('RECTANGULAR')
+    expect(node.at_xpath('Container').text).to eq('VARIABLE')
     expect(node.at_xpath('Size').text).to eq('REGULAR')
     expect(node.at_xpath('Width').text).to eq('8.39')
     expect(node.at_xpath('Length').text).to eq('3.94')
@@ -28,7 +30,12 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   end
 
   context 'with regional rate box name' do
-    let(:properties) { { box_name: :regional_rate_box_a } }
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        box_name: :regional_rate_box_a
+      )
+    end
 
     it 'uses correct container' do
       expect(node.at_xpath('Container').text).to eq('REGIONALRATEBOXA')
@@ -40,7 +47,12 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   end
 
   context 'with large flat rate box name' do
-    let(:properties) { { box_name: :large_flat_rate_box } }
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        box_name: :large_flat_rate_box
+      )
+    end
 
     it 'uses correct container' do
       expect(node.at_xpath('Container').text).to eq('LG FLAT RATE BOX')
@@ -61,13 +73,25 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
         shipping_method.name == 'Priority'
       end
     end
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        shipping_method: shipping_method
+      )
+    end
 
     it 'uses correct shipping_method' do
       expect(node.at_xpath('Service').text).to eq('PRIORITY')
     end
 
     context 'with commercial_pricing true' do
-      let(:properties) { { commercial_pricing: true } }
+      let(:package_options) do
+        FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+          package_id: package.id,
+          shipping_method: shipping_method,
+          commercial_pricing: true
+        )
+      end
 
       it 'uses correct shipping_method' do
         expect(node.at_xpath('Service').text).to eq('PRIORITY COMMERCIAL')
@@ -76,7 +100,12 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   end
 
   context 'with first class mail type' do
-    let(:properties) { { first_class_mail_type: :letter } }
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        first_class_mail_type: :letter
+      )
+    end
 
     it 'uses correct first class mail type' do
       expect(node.at_xpath('FirstClassMailType').text).to eq('LETTER')

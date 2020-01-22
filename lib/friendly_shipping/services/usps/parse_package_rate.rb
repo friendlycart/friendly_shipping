@@ -57,7 +57,7 @@ module FriendlyShipping
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
-          def call(rate_node, package)
+          def call(rate_node, package, package_options)
             # "A mail class identifier for the postage returned. Not necessarily unique within a <Package/>."
             # (from the USPS docs). We save this on the data Hash, but do not use it for identifying shipping methods.
             service_code = rate_node.attributes[SERVICE_CODE_TAG].value
@@ -84,7 +84,7 @@ module FriendlyShipping
             # In these cases, return the commercial rate instead of the normal rate.
             # Some rates are available in both commercial and retail pricing - if we want the commercial pricing here,
             # we need to specify the commercial_pricing property on the `Physical::Package`.
-            rate_value = if (package.properties[:commercial_pricing] || rate_node.at(RATE_TAG).text.to_d.zero?) && rate_node.at(COMMERCIAL_RATE_TAG)
+            rate_value = if (package_options.commercial_pricing || rate_node.at(RATE_TAG).text.to_d.zero?) && rate_node.at(COMMERCIAL_RATE_TAG)
                            rate_node.at(COMMERCIAL_RATE_TAG).text.to_d
                          else
                            rate_node.at(RATE_TAG).text.to_d
@@ -107,9 +107,7 @@ module FriendlyShipping
             # We find out the box name using a bit of Regex magic using named captures. See the `BOX_REGEX`
             # constant above.
             box_name_match = service_name.match(/#{BOX_REGEX}/)
-            box_name = if box_name_match
-                         box_name_match.named_captures.compact.keys.last.to_sym
-                       end
+            box_name = box_name_match ? box_name_match.named_captures.compact.keys.last.to_sym : :variable
 
             # Combine all the gathered information in a FriendlyShipping::Rate object.
             # Careful: This rate is only for one package within the shipment, and we get multiple

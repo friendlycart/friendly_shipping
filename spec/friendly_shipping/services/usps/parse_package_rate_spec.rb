@@ -9,8 +9,12 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
   let(:commercial_rate) { nil }
   let(:commercial_plus_rate) { nil }
   let(:class_id) { '0' }
-
-  subject { described_class.call(node, package) }
+  let(:package_options) do
+    FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+      package_id: package.id
+    )
+  end
+  subject { described_class.call(node, package, package_options) }
 
   let(:node) do
     serialized = Nokogiri::XML::Builder.new do |xml|
