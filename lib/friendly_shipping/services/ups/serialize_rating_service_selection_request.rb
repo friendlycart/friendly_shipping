@@ -8,47 +8,30 @@ module FriendlyShipping
   module Services
     class Ups
       class SerializeRatingServiceSelectionRequest
-        PICKUP_CODES = HashWithIndifferentAccess.new(
-          daily_pickup: "01",
-          customer_counter: "03",
-          one_time_pickup: "06",
-          on_call_air: "07",
-          suggested_retail_rates: "11",
-          letter_center: "19",
-          air_service_center: "20"
-        )
-
-        CUSTOMER_CLASSIFICATIONS = HashWithIndifferentAccess.new(
-          shipper_number: "00",
-          daily_rates: "01",
-          retail_rates: "04",
-          regional_rates: "05",
-          general_rates: "06",
-          standard_rates: "53"
-        )
-
-        def self.call(shipment:)
-          shipper = shipment.options[:shipper] || shipment.origin
-          pickup_type = PICKUP_CODES[shipment.options[:pickup_type] || :daily_pickup]
-          customer_classification = CUSTOMER_CLASSIFICATIONS[
-            shipment.options[:customer_classification] || :daily_rates
-          ]
-          origin_account = shipment.options[:origin_account]
-          destination_account = shipment.options[:destination_account]
+        def self.call(shipment:, options:)
+          shipper = options.shipper || shipment.origin
 
           xml_builder = Nokogiri::XML::Builder.new do |xml|
             xml.RatingServiceSelectionRequest do
               xml.Request do
                 xml.RequestAction('Rate')
-                xml.RequestOption('Shop')
+                # If no shipping method is given, request all of them
+                # I one is given, omit the request option. It then becomes "Rate", the default.
+                xml.RequestOption('Shop') unless options.shipping_method
                 xml.SubVersion('1707')
+                # Optional element to identify transactions between client and server.
+                if options.customer_context
+                  xml.TransactionReference do
+                    xml.CustomerContext(options.customer_context)
+                  end
+                end
               end
 
               xml.PickupType do
-                xml.Code(pickup_type)
+                xml.Code(options.pickup_type_code)
               end
               xml.CustomerClassification do
-                xml.Code(customer_classification)
+                xml.Code(options.customer_classification_code)
               end
 
               xml.Shipment do
@@ -56,14 +39,14 @@ module FriendlyShipping
                 xml.Shipper do
                   SerializeAddressSnippet.call(xml: xml, location: shipper)
 
-                  xml.ShipperNumber(origin_account)
+                  xml.ShipperNumber(options.shipper_number)
                 end
 
                 xml.ShipTo do
                   SerializeAddressSnippet.call(xml: xml, location: shipment.destination)
 
-                  if destination_account
-                    xml.ShipperAssignedIdentificationNumber(destination_account)
+                  if options.destination_account
+                    xml.ShipperAssignedIdentificationNumber(options.destination_account)
                   end
                 end
 
@@ -74,7 +57,30 @@ module FriendlyShipping
                 end
 
                 shipment.packages.each do |package|
-                  SerializePackageNode.call(xml: xml, package: package)
+                  package_options = options.options_for_package(package)
+                  SerializePackageNode.call(
+                    xml: xml,
+                    package: package,
+                    transmit_dimensions: package_options.transmit_dimensions
+                  )
+                end
+
+                if options.shipping_method
+                  xml.Service do
+                    xml.Code options.shipping_method.service_code
+                  end
+                end
+
+                xml.ShipmentServiceOptions do
+                  xml.UPScarbonneutralIndicator if options.carbon_neutral
+                  xml.SaturdayDelivery if options.saturday_delivery
+                  xml.SaturdayPickup if options.saturday_pickup
+                end
+
+                if options.negotiated_rates
+                  xml.RateInformation do
+                    xml.NegotiatedRatesIndicator if options.negotiated_rates
+                  end
                 end
               end
             end

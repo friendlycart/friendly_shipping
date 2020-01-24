@@ -9,7 +9,8 @@ module FriendlyShipping
           package:,
           reference_numbers: {},
           delivery_confirmation_code: nil,
-          shipper_release: false
+          shipper_release: false,
+          transmit_dimensions: true
         )
           xml.Package do
             xml.PackagingType do
@@ -20,7 +21,7 @@ module FriendlyShipping
               xml.Description(package.items.map(&:description).compact.join(', '))
             end
 
-            if package.dimensions.all? { |dim| !dim.value.zero? && !dim.value.infinite? }
+            if transmit_dimensions && package.dimensions.all? { |dim| !dim.value.zero? && !dim.value.infinite? }
               xml.Dimensions do
                 xml.UnitOfMeasurement do
                   xml.Code('IN')

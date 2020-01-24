@@ -32,7 +32,11 @@ RSpec.describe FriendlyShipping::Services::Ups do
     let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
 
-    subject { service.rate_estimates(shipment) }
+    let(:options) do
+      FriendlyShipping::Services::Ups::RateEstimateOptions.new(shipper_number: "12345")
+    end
+
+    subject { service.rate_estimates(shipment, options: options) }
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups/rate_estimates/success' } do
       aggregate_failures do

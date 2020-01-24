@@ -16,19 +16,18 @@ module FriendlyShipping
         # @param [Array<FriendlyShipping::Rate>] The rates we select from
         #
         # @return [FriendlyShipping::Rate] The rate that most closely matches our package
-        def self.call(shipping_method, package, rates)
+        def self.call(shipping_method, rates, package_options)
           # Keep all rates with the requested shipping method
           rates_with_this_shipping_method = rates.select { |r| r.shipping_method == shipping_method }
 
           # Keep only rates with the package type of this package
           rates_with_this_package_type = rates_with_this_shipping_method.select do |r|
-            r.data[:box_name] == package.properties[:box_name] ||
-              r.data[:box_name] == :flat_rate_boxes && package.properties[:box_name]&.match?(FLAT_RATE_BOX)
+            r.data[:box_name] == package_options.box_name
           end
 
           # Filter by our package's `hold_for_pickup` option
           rates_with_this_hold_for_pickup_option = rates_with_this_package_type.select do |r|
-            r.data[:hold_for_pickup] == !!package.properties[:hold_for_pickup]
+            r.data[:hold_for_pickup] == package_options.hold_for_pickup
           end
 
           # At this point, we have one or two rates left, and they're similar enough.

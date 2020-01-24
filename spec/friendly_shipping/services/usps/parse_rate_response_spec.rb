@@ -12,8 +12,16 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
     ]
   end
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages) }
-
-  subject { described_class.call(request: request, response: response, shipment: shipment) }
+  let(:options) do
+    FriendlyShipping::Services::Usps::RateEstimateOptions.new(
+      package_options: shipment.packages.map do |package|
+        FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+          package_id: package.id
+        )
+      end
+    )
+  end
+  subject { described_class.call(request: request, response: response, shipment: shipment, options: options) }
 
   it { is_expected.to be_success }
 
@@ -34,10 +42,19 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
     let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')).read }
     let(:packages) do
       [
-        FactoryBot.build(:physical_package, id: '0', container: container),
+        FactoryBot.build(:physical_package, id: '0'),
       ]
     end
-    let(:container) { FactoryBot.build(:physical_box, properties: { box_name: :regional_rate_box_b } ) }
+    let(:options) do
+      FriendlyShipping::Services::Usps::RateEstimateOptions.new(
+        package_options: shipment.packages.map do |package|
+          FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+            package_id: package.id,
+            box_name: :regional_rate_box_b
+          )
+        end
+      )
+    end
 
     it 'returns regional rate' do
       expect(subject).to be_success
@@ -57,6 +74,16 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
     end
     let(:regional_rate_box_a) { FactoryBot.build(:physical_box, properties: { box_name: :regional_rate_box_a } ) }
     let(:regional_rate_box_b) { FactoryBot.build(:physical_box, properties: { box_name: :regional_rate_box_b } ) }
+    let(:options) do
+      FriendlyShipping::Services::Usps::RateEstimateOptions.new(
+        package_options: shipment.packages.map do |package|
+          FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+            package_id: package.id,
+            box_name: package.properties[:box_name]
+          )
+        end
+      )
+    end
 
     it 'returns regional rates' do
       expect(subject).to be_success
@@ -73,10 +100,20 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
     let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_large_box.xml')).read }
     let(:packages) do
       [
-        FactoryBot.build(:physical_package, id: '0', container: container),
+        FactoryBot.build(:physical_package, id: '0'),
       ]
     end
-    let(:container) { FactoryBot.build(:physical_box, properties: { box_name: :large_flat_rate_box, commercial_pricing: true } ) }
+    let(:options) do
+      FriendlyShipping::Services::Usps::RateEstimateOptions.new(
+        package_options: shipment.packages.map do |package|
+          FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+            package_id: package.id,
+            box_name: :large_flat_rate_box,
+            commercial_pricing: true
+          )
+        end
+      )
+    end
 
     it 'returns flat rate' do
       expect(subject).to be_success

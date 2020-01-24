@@ -11,6 +11,7 @@ require 'friendly_shipping/services/usps/parse_city_state_lookup_response'
 require 'friendly_shipping/services/usps/parse_rate_response'
 require 'friendly_shipping/services/usps/parse_time_in_transit_response'
 require 'friendly_shipping/services/usps/timing_options'
+require 'friendly_shipping/services/usps/rate_estimate_options'
 
 module FriendlyShipping
   module Services
@@ -48,25 +49,19 @@ module FriendlyShipping
 
       # Get rate estimates from USPS
       #
-      # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
-      #   USPS returns rates on a package-by-package basis, so the options for obtaining rates are
-      #   set on the [Physical::Package.container.properties] hash. The possible options are:
-      #   @property [Symbol] box_name The type of box we want to get rates for. Has to be one of the keys
-      #      of FriendlyShipping::Services::Usps::CONTAINERS.
-      #   @property [Boolean] commercial_pricing Whether we prefer commercial pricing results or retail results
-      #   @property [Boolean] hold_for_pickup Whether we want a rate with Hold For Pickup Service
-      # @param [Physical::ShippingMethod] shipping_method The shipping method ("service" in USPS parlance) we want
-      #   to get rates for.
+      # @param [Physical::Shipment] shipment
+      # @param [FriendlyShipping::Services::Usps::RateEstimateOptions] options What options
+      #    to use for this rate estimate call
       #
       # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
-      def rate_estimates(shipment, shipping_method: nil, debug: false)
-        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, shipping_method: shipping_method)
+      def rate_estimates(shipment, options: RateEstimateOptions.new, debug: false)
+        rate_request_xml = SerializeRateRequest.call(shipment: shipment, login: login, options: options)
         request = build_request(api: :rates, xml: rate_request_xml, debug: debug)
 
         client.post(request).bind do |response|
-          ParseRateResponse.call(response: response, request: request, shipment: shipment)
+          ParseRateResponse.call(response: response, request: request, shipment: shipment, options: options)
         end
       end
 

@@ -20,6 +20,7 @@ require 'friendly_shipping/services/ups/parse_time_in_transit_response'
 require 'friendly_shipping/services/ups/parse_void_shipment_response'
 require 'friendly_shipping/services/ups/shipping_methods'
 require 'friendly_shipping/services/ups/label_options'
+require 'friendly_shipping/services/ups/rate_estimate_options'
 require 'friendly_shipping/services/ups/timing_options'
 
 module FriendlyShipping
@@ -63,10 +64,12 @@ module FriendlyShipping
 
       # Get rates for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to get rates for
+      # @param [FriendlyShipping::Services::Ups::RateEstimateOptions] options What options
+      #    to use for this rate estimate call
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
-      def rate_estimates(shipment, debug: false)
-        rate_request_xml = SerializeRatingServiceSelectionRequest.call(shipment: shipment)
+      def rate_estimates(shipment, options:, debug: false)
+        rate_request_xml = SerializeRatingServiceSelectionRequest.call(shipment: shipment, options: options)
         url = base_url + RESOURCES[:rates]
         request = FriendlyShipping::Request.new(
           url: url,
