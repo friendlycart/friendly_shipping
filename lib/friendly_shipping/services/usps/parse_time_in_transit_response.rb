@@ -113,7 +113,7 @@ module FriendlyShipping
             '1' => 'Priority Mail Express',
             '2' => 'Priority',
             '3' => 'First-Class',
-            '6' => 'First-Class Package Service'
+            '6' => 'Package Services'
           }.freeze
 
           # This code carries a few details about the shipment:

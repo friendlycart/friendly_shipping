@@ -26,12 +26,13 @@ module FriendlyShipping
         flat: 'FLAT',
         parcel: 'PARCEL',
         post_card: 'POSTCARD',
-        package_service: 'PACKAGESERVICE'
+        package_service: 'PACKAGE SERVICE',
+        package_service_retail: 'PACKAGE SERVICE RETAIL'
       }.freeze
 
       SHIPPING_METHODS = [
         'First-Class',
-        'First-Class Package Service',
+        'Package Services',
         'Priority',
         'Priority Mail Express',
         'Standard Post',

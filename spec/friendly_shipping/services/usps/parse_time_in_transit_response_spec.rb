@@ -28,7 +28,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
         commitment: '1-Day'
       )
       last_rate = subject.last
-      expect(last_rate.shipping_method.name).to eq('First-Class Package Service')
+      expect(last_rate.shipping_method.name).to eq('Package Services')
       expect(last_rate.pickup).to eq(Time.new(2019, 12, 0o3))
       expect(last_rate.delivery).to eq(Time.new(2019, 12, 0o5))
       expect(last_rate.properties).to eq(
@@ -42,7 +42,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
 
       it "does not break" do
         last_rate = subject.last
-        expect(last_rate.shipping_method.name).to eq('First-Class Package Service')
+        expect(last_rate.shipping_method.name).to eq('Package Services')
         expect(last_rate.pickup).to eq(Time.new(2019, 12, 0o3))
         expect(last_rate.delivery).to eq(Time.new(2019, 12, 0o5))
         expect(last_rate.properties).to eq(
