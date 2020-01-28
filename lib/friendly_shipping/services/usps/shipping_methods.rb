@@ -26,7 +26,7 @@ module FriendlyShipping
         flat: 'FLAT',
         parcel: 'PARCEL',
         post_card: 'POSTCARD',
-        package_service: 'PACKAGESERVICE'
+        package_service: 'PACKAGE SERVICE'
       }.freeze
 
       SHIPPING_METHODS = [
