@@ -31,7 +31,7 @@ module FriendlyShipping
 
       SHIPPING_METHODS = [
         'First-Class',
-        'First-Class Package Service',
+        'Package Services',
         'Priority',
         'Priority Mail Express',
         'Standard Post',
