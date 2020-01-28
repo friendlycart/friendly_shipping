@@ -8,7 +8,7 @@ module FriendlyShipping
     #
     # Context: The shipment object we're trying to get results for
     # USPS returns rates on a package-by-package basis, so the options for obtaining rates are
-    # set on the [FriendlyShipping/RateEstimateobect] hash. The possible options are:
+    # set on the [FriendlyShipping/RateEstimateObject] hash. The possible options are:
 
     # @param [Physical::ShippingMethod] shipping_method The shipping method ("service" in USPS parlance) we want
     #   to get rates for.

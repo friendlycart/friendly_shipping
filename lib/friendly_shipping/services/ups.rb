@@ -84,7 +84,7 @@ module FriendlyShipping
 
       # Get timing information for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
-      # @param [FriendlyShipping::Services::Ups::TimingOptions] Options for this call
+      # @param [FriendlyShipping::Services::Ups::TimingOptions] options Options for this call
       def timings(shipment, options:, debug: false)
         time_in_transit_request_xml = SerializeTimeInTransitRequest.call(
           shipment: shipment,
