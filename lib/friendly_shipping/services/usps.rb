@@ -112,6 +112,7 @@ module FriendlyShipping
         FriendlyShipping::Request.new(
           url: base_url,
           body: "API=#{RESOURCES[api]}&XML=#{CGI.escape xml}",
+          readable_body: xml,
           debug: debug
         )
       end
