@@ -37,7 +37,13 @@ module FriendlyShipping
                       xml.Width("%<width>0.2f" % { width: package.width.convert_to(:inches).value.to_f })
                       xml.Length("%<length>0.2f" % { length: package.length.convert_to(:inches).value.to_f })
                       xml.Height("%<height>0.2f" % { height: package.height.convert_to(:inches).value.to_f })
-                      xml.Girth("%<girth>0.2f" % { girth: girth(package) })
+
+                      # When girth is present, the package is treated as non-rectangular
+                      # when calculating dimensional weight. This results in a smaller
+                      # dimensional weight than a rectangular package would have.
+                      unless package_options.rectangular
+                        xml.Girth("%<girth>0.2f" % { girth: girth(package) })
+                      end
                     end
                     xml.Machinable(machinable(package))
                   end
