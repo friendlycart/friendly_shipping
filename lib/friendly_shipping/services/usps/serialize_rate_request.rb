@@ -10,8 +10,8 @@ module FriendlyShipping
 
         class << self
           # @param [Physical::Shipment] shipment The shipment we want to get rates for
-          #   shipment.packages[0].properties[:box_name] Can be :rectangular, :variable,
-          #     or a flat rate container defined in CONTAINERS.
+          #   shipment.packages[0].properties[:box_name] Can be :variable or a
+          #     flat rate container defined in CONTAINERS.
           # @param [String] login The USPS login code
           # @param [FriendlyShipping::Services::Usps::RateEstimateOptions] options The options
           #   object to use with this request.

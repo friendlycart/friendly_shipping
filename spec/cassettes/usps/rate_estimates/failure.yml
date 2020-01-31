@@ -5,14 +5,14 @@ http_interactions:
     uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
     body:
       encoding: UTF-8
-      string: API=RateV4&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CRateV4Request+USERID%3D%22WRONG_LOGIN%22%3E%0A++%3CPackage+ID%3D%220%22%3E%0A++++%3CService%3EALL%3C%2FService%3E%0A++++%3CZipOrigination%3E27703%3C%2FZipOrigination%3E%0A++++%3CZipDestination%3E32821%3C%2FZipDestination%3E%0A++++%3CPounds%3E0%3C%2FPounds%3E%0A++++%3COunces%3E4%3C%2FOunces%3E%0A++++%3CContainer%3ERECTANGULAR%3C%2FContainer%3E%0A++++%3CSize%3EREGULAR%3C%2FSize%3E%0A++++%3CWidth%3E4.00%3C%2FWidth%3E%0A++++%3CLength%3E8.00%3C%2FLength%3E%0A++++%3CHeight%3E2.00%3C%2FHeight%3E%0A++++%3CGirth%3E12.00%3C%2FGirth%3E%0A++++%3CMachinable%3ETRUE%3C%2FMachinable%3E%0A++%3C%2FPackage%3E%0A%3C%2FRateV4Request%3E%0A
+      string: API=RateV4&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CRateV4Request+USERID%3D%22WRONG_LOGIN%22%3E%0A++%3CPackage+ID%3D%220%22%3E%0A++++%3CService%3EALL%3C%2FService%3E%0A++++%3CZipOrigination%3E27703%3C%2FZipOrigination%3E%0A++++%3CZipDestination%3E32821%3C%2FZipDestination%3E%0A++++%3CPounds%3E0%3C%2FPounds%3E%0A++++%3COunces%3E4%3C%2FOunces%3E%0A++++%3CContainer%3EVARIABLE%3C%2FContainer%3E%0A++++%3CSize%3EREGULAR%3C%2FSize%3E%0A++++%3CWidth%3E4.00%3C%2FWidth%3E%0A++++%3CLength%3E8.00%3C%2FLength%3E%0A++++%3CHeight%3E2.00%3C%2FHeight%3E%0A++++%3CGirth%3E12.00%3C%2FGirth%3E%0A++++%3CMachinable%3ETRUE%3C%2FMachinable%3E%0A++%3C%2FPackage%3E%0A%3C%2FRateV4Request%3E%0A
     headers:
       Accept:
       - "*/*"
       User-Agent:
-      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (darwin19.0.0 x86_64) ruby/2.6.5p114
       Content-Length:
-      - '681'
+      - '678'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -25,25 +25,25 @@ http_interactions:
       X-Backside-Transport:
       - OK OK
       User-Agent:
-      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.4.4p296
+      - rest-client/2.1.0 (darwin19.0.0 x86_64) ruby/2.6.5p114
       Host:
       - 127.0.0.1:2048
       Content-Type:
       - text/xml
       Ns-Client-Ip:
-      - 188.104.233.110
+      - 64.20.56.211
       Via:
       - 1.1 ApplicationError_XML_Firewall
       X-Client-Ip:
       - 56.0.71.6,56.0.71.6
       X-Global-Transaction-Id:
-      - '018fb36a5db864f70f40b3b7'
+      - ec50ae425e339114032f1e11
       Client-Ip:
-      - 188.104.233.110
+      - 64.20.56.211
       X-Archived-Client-Ip:
       - 56.0.71.6
       Date:
-      - Tue, 29 Oct 2019 16:12:39 GMT
+      - Fri, 31 Jan 2020 02:29:40 GMT
       Access-Control-Allow-Origin:
       - "*"
       Connection:
@@ -60,5 +60,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8"?>
         <Error><Number>80040B1A</Number><Description>Authorization failure.  Perhaps username and/or password is incorrect.</Description><Source>USPSCOM::DoAuth</Source></Error>
     http_version: 
-  recorded_at: Tue, 29 Oct 2019 16:12:39 GMT
+  recorded_at: Fri, 31 Jan 2020 02:29:40 GMT
 recorded_with: VCR 5.0.0
