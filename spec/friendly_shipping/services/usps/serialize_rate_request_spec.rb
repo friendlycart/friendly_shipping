@@ -23,7 +23,7 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
     expect(node.at_xpath('Width').text).to eq('8.39')
     expect(node.at_xpath('Length').text).to eq('3.94')
     expect(node.at_xpath('Height').text).to eq('9.45')
-    expect(node.at_xpath('Girth').text).to eq('24.66')
+    expect(node.at_xpath('Girth')).to be nil
     expect(node.at_xpath('Pounds').text).to eq('0')
     expect(node.at_xpath('Ounces').text).to eq('15')
     expect(node.at_xpath('Machinable').text).to eq('FALSE')
@@ -95,6 +95,20 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
 
       it 'uses correct shipping_method' do
         expect(node.at_xpath('Service').text).to eq('PRIORITY COMMERCIAL')
+      end
+    end
+
+    context 'with rectangular false' do
+      let(:package_options) do
+        FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+          package_id: package.id,
+          shipping_method: shipping_method,
+          rectangular: false
+        )
+      end
+
+      it 'includes girth' do
+        expect(node.at_xpath('Girth').text).to eq('24.66')
       end
     end
   end

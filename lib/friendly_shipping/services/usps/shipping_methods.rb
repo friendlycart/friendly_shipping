@@ -5,7 +5,6 @@ module FriendlyShipping
     class Usps
       CONTAINERS = {
         variable: 'VARIABLE',
-        rectangular: 'RECTANGULAR',
         large_flat_rate_box: 'LG FLAT RATE BOX',
         medium_flat_rate_box: 'MD FLAT RATE BOX',
         small_flat_rate_box: 'SM FLAT RATE BOX',
@@ -18,7 +17,7 @@ module FriendlyShipping
         window_flat_rate_envelope: 'WINDOW FLAT RATE ENVELOPE',
         small_flat_rate_envelope: 'SM FLAT RATE ENVELOPE',
         cubic_soft_pack: 'CUBIC SOFT PACK',
-        cubic_parcels: 'CUBIC_PARCELS'
+        cubic_parcels: 'CUBIC PARCELS'
       }.freeze
 
       FIRST_CLASS_MAIL_TYPES = {

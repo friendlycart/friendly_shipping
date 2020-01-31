@@ -10,8 +10,8 @@ module FriendlyShipping
 
         class << self
           # @param [Physical::Shipment] shipment The shipment we want to get rates for
-          #   shipment.packages[0].properties[:box_name] Can be :rectangular, :variable,
-          #     or a flat rate container defined in CONTAINERS.
+          #   shipment.packages[0].properties[:box_name] Can be :variable or a
+          #     flat rate container defined in CONTAINERS.
           # @param [String] login The USPS login code
           # @param [FriendlyShipping::Services::Usps::RateEstimateOptions] options The options
           #   object to use with this request.
@@ -37,7 +37,13 @@ module FriendlyShipping
                       xml.Width("%<width>0.2f" % { width: package.width.convert_to(:inches).value.to_f })
                       xml.Length("%<length>0.2f" % { length: package.length.convert_to(:inches).value.to_f })
                       xml.Height("%<height>0.2f" % { height: package.height.convert_to(:inches).value.to_f })
-                      xml.Girth("%<girth>0.2f" % { girth: girth(package) })
+
+                      # When girth is present, the package is treated as non-rectangular
+                      # when calculating dimensional weight. This results in a smaller
+                      # dimensional weight than a rectangular package would have.
+                      unless package_options.rectangular
+                        xml.Girth("%<girth>0.2f" % { girth: girth(package) })
+                      end
                     end
                     xml.Machinable(machinable(package))
                   end
