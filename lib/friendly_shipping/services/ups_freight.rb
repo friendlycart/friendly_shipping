@@ -4,10 +4,20 @@ require 'dry/monads/result'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups_freight/shipping_methods'
 require 'friendly_shipping/services/ups_freight/rates_options'
+require 'friendly_shipping/services/ups_freight/label_options'
 require 'friendly_shipping/services/ups_freight/rates_package_options'
 require 'friendly_shipping/services/ups_freight/rates_item_options'
+require 'friendly_shipping/services/ups_freight/label_package_options'
+require 'friendly_shipping/services/ups_freight/label_item_options'
+require 'friendly_shipping/services/ups_freight/label_document_options'
+require 'friendly_shipping/services/ups_freight/label_email_options'
+require 'friendly_shipping/services/ups_freight/label_pickup_options'
+require 'friendly_shipping/services/ups_freight/label_delivery_options'
+require 'friendly_shipping/services/ups_freight/pickup_request_options'
+require 'friendly_shipping/services/ups_freight/parse_freight_label_response'
 require 'friendly_shipping/services/ups_freight/parse_freight_rate_response'
 require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
+require 'friendly_shipping/services/ups_freight/generate_freight_ship_request_hash'
 require 'friendly_shipping/services/ups_freight/restful_api_error_handler'
 
 module FriendlyShipping
@@ -28,7 +38,8 @@ module FriendlyShipping
       LIVE_URL = 'https://onlinetools.ups.com'
 
       RESOURCES = {
-        rates: '/ship/v1801/freight/rating/ground'
+        rates: '/ship/v1801/freight/rating/ground',
+        labels: '/ship/v1607/freight/shipments/Ground'
       }.freeze
 
       def initialize(key:, login:, password:, test: true, client: HttpClient.new(error_handler: RestfulApiErrorHandler))
@@ -54,6 +65,19 @@ module FriendlyShipping
 
         client.post(request).fmap do |response|
           ParseFreightRateResponse.call(response: response, request: request)
+        end
+      end
+
+      # Get labels for a shipment
+      # @param [Physical::Shipment] location The shipment we want to get rates for
+      # @param [FriendlyShipping::Services::UpsFreight::LabelOptions] options Options for shipping this shipment.
+      # @return [Result<ApiResult<ShipmentInformation>] The information that you need for shipping this shipment.
+      def labels(shipment, options:, debug: false)
+        freight_ship_request_hash = GenerateFreightShipRequestHash.call(shipment: shipment, options: options)
+        request = build_request(:labels, freight_ship_request_hash, debug)
+
+        client.post(request).fmap do |response|
+          ParseFreightLabelResponse.call(response: response, request: request)
         end
       end
 
