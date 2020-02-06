@@ -12,5 +12,8 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::LabelOptions do
     )
   end
 
-  it { is_expected.to be_a(FriendlyShipping::Services::UpsFreight::RatesOptions) }
+  it { is_expected.to be_a(FriendlyShipping::Services::UpsFreight::LabelOptions) }
+  it { is_expected.to respond_to(:pickup_instructions) }
+  it { is_expected.to respond_to(:delivery_instructions) }
+  it { is_expected.to respond_to(:handling_instructions) }
 end
