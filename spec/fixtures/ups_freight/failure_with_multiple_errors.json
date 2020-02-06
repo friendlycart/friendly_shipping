@@ -1,0 +1,14 @@
+{
+  "response": {
+    "errors": [
+      {
+        "code": "9360721",
+        "message": "Missing or Invalid Attention name in the request."
+      },
+      {
+        "code": "9370701",
+        "message": "Invalid processing option."
+      }
+    ]
+  }
+}

@@ -148,9 +148,26 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
       expect(rates.length).to eq(1)
       rate = rates.first
       expect(rate).to be_a(FriendlyShipping::Rate)
-      expect(rate.total_amount).to eq(Money.new(74_709, 'USD'))
+      expect(rate.total_amount).to eq(Money.new(74_528, 'USD'))
       expect(rate.shipping_method.name).to eq('UPS Freight LTL')
       expect(rate.data[:days_in_transit]).to eq(2)
+    end
+
+    context 'with a missing destination postal code', vcr: { cassette_name: 'ups_freight/rates/failure' } do
+      let(:destination) do
+        Physical::Location.new(
+          company_name: 'Consignee Test 1',
+          city: 'Allanton',
+          region: 'MO',
+          country: 'US'
+        )
+      end
+
+      it { is_expected.to be_failure }
+
+      it 'has the correct error message' do
+        expect(subject.failure).to eq("9360703: Missing or Invalid Postal Code(s) provided in request.")
+      end
     end
   end
 end

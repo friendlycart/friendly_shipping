@@ -7,7 +7,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"FreightRateRequest":{"Request":{"TransactionReference":{"CustomerContext":"order-12345"}},"ShipperNumber":"%UPS_SHIPPER_NUMBER%","ShipFrom":{"Name":"Developer
         Test 1","Address":{"AddressLine":"01 Developer Way","City":"Richmond","StateProvinceCode":"VA","PostalCode":"23224","CountryCode":"US"},"AttentionName":null},"ShipTo":{"Name":"Consignee
-        Test 1","Address":{"AddressLine":"000 Consignee Street","City":"Allanton","StateProvinceCode":"MO","PostalCode":"63025","CountryCode":"US"},"AttentionName":null},"PaymentInformation":{"Payer":{"Name":"Acme
+        Test 1","Address":{"AddressLine":"","City":"Allanton","StateProvinceCode":"MO","PostalCode":null,"CountryCode":"US"},"AttentionName":null},"PaymentInformation":{"Payer":{"Name":"Acme
         Co.","Address":{"AddressLine":"Far away on the outer rim","City":"Durham","StateProvinceCode":"NC","PostalCode":"27703","CountryCode":"US"},"AttentionName":"Test
         Testman","ShipperNumber":"%UPS_SHIPPER_NUMBER%"},"ShipmentBillingOption":{"Code":"10"}},"Service":{"Code":"308"},"Commodity":[{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"CTN"},"FreightClass":"92.5"},{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"PLT"},"FreightClass":"92.5"}],"TimeInTransitIndicator":"true","PickupRequest":{"PickupDate":"20191224","AdditionalComments":"Fork
         lift needed"},"HandlingUnitOne":{"Quantity":"2","Type":{"Code":"PLT","Description":"Pallet"}}}}'
@@ -23,18 +23,18 @@ http_interactions:
       Accesslicensenumber:
       - "%UPS_KEY%"
       Content-Length:
-      - '1341'
+      - '1318'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
       - wwwcie.ups.com
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
     headers:
       Date:
-      - Thu, 06 Feb 2020 11:12:14 GMT
+      - Thu, 06 Feb 2020 11:20:07 GMT
       X-Frame-Options:
       - SAMEORIGIN
       X-Xss-Protection:
@@ -52,34 +52,29 @@ http_interactions:
       Content-Type:
       - application/json
       X-Global-Transaction-Id:
-      - 749824bf5e3bf48e67e9548f
+      - e00613ae5e3bf667241a6a6f
+      Apierrormsg:
+      - Missing or Invalid Postal Code(s) provided in request.
       X-Oracle-Dms-Ecid:
-      - 449f6d6f-fd43-4bda-b248-7f9de6ae688d-00001ab9
+      - 449f6d6f-fd43-4bda-b248-7f9de6ae688d-00001b30
       X-Oracle-Dms-Rid:
       - '0'
       Apihttpstatus:
-      - '200'
+      - '400'
+      Apierrorcode:
+      - '9360703'
+      Errorcode:
+      - '9360703'
+      Errordescription:
+      - Missing or Invalid Postal Code(s) provided in request.
+      Connection:
+      - close
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"FreightRateResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"},
-        "Alert":{"Code":"9369055", "Description":"User is not eligible for contract
-        rates."}, "TransactionReference":{"CustomerContext":"order-12345"}}, "Rate":[{"Type":{"Code":"DSCNT",
-        "Description":"DSCNT"}, "Factor":{"Value":"1405.81", "UnitOfMeasurement":{"Code":"USD"}}},
-        {"Type":{"Code":"DSCNT_RATE", "Description":"DSCNT_RATE"}, "Factor":{"Value":"70.00",
-        "UnitOfMeasurement":{"Code":"%"}}}, {"Type":{"Code":"2", "Description":"2"},
-        "Factor":{"Value":"142.79", "UnitOfMeasurement":{"Code":"USD"}}}, {"Type":{"Code":"LND_GROSS",
-        "Description":"LND_GROSS"}, "Factor":{"Value":"2008.30", "UnitOfMeasurement":{"Code":"USD"}}},
-        {"Type":{"Code":"AFTR_DSCNT", "Description":"AFTR_DSCNT"}, "Factor":{"Value":"602.49",
-        "UnitOfMeasurement":{"Code":"USD"}}}], "Commodity":[{"Description":"Commodities",
-        "Weight":{"Value":"500.0", "UnitOfMeasurement":{"Code":"LBS"}}, "AdjustedWeight":{"Value":"500.0",
-        "UnitOfMeasurement":{"Code":"LBS"}}}, {"Description":"Commodities", "Weight":{"Value":"500.0",
-        "UnitOfMeasurement":{"Code":"LBS"}}, "AdjustedWeight":{"Value":"500.0", "UnitOfMeasurement":{"Code":"LBS"}}}],
-        "TotalShipmentCharge":{"CurrencyCode":"USD", "MonetaryValue":"745.28"}, "BillableShipmentWeight":{"Value":"1000",
-        "UnitOfMeasurement":{"Code":"LBS"}}, "DimensionalWeight":{"Value":"0", "UnitOfMeasurement":{"Code":"LBS"}},
-        "Service":{"Code":"308"}, "GuaranteedIndicator":"", "RatingSchedule":{"Code":"02",
-        "Description":"Published Rates"}, "TimeInTransit":{"DaysInTransit":"2"}}}'
+      string: '{"response":{"errors":[{"code":"9360703","message":"Missing or Invalid
+        Postal Code(s) provided in request."}]}}'
     http_version: 
-  recorded_at: Thu, 06 Feb 2020 11:12:16 GMT
+  recorded_at: Thu, 06 Feb 2020 11:20:07 GMT
 recorded_with: VCR 5.0.0
