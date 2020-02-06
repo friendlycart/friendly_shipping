@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
 require 'friendly_shipping/services/ups_freight/rates_options'
+require 'friendly_shipping/services/ups_freight/pickup_request_options'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateRequestHash do
   subject(:full_request) { JSON.parse(described_class.call(shipment: shipment, options: options).to_json) }
@@ -398,18 +399,22 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         billing_address: billing_location,
         customer_context: customer_context,
         package_options: package_options,
-        pickup_date: Date.new(2019, 11, 10),
-        pickup_comments: 'Bring pitch forks, there will be hay'
+        pickup_request_options: FriendlyShipping::Services::UpsFreight::PickupRequestOptions.new(
+          pickup_time_window: Time.new(2019, 11, 10, 17, 0)..Time.new(2019, 11, 10, 17, 0),
+          comments: 'Bring pitch forks, there will be hay',
+          requester: billing_location,
+          requester_email: 'me@example.com'
+        )
       )
     end
 
     it do
       is_expected.to include(
         'FreightRateRequest' => hash_including(
-          'PickupRequest' => {
+          'PickupRequest' => hash_including(
             'PickupDate' => '20191110',
             'AdditionalComments' => 'Bring pitch forks, there will be hay'
-          }
+          )
         )
       )
     end

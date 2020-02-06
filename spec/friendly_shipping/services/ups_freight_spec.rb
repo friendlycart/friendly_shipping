@@ -85,10 +85,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         billing_address: billing_location,
         customer_context: customer_context,
         package_options: package_options,
-        pickup_date: Time.new(2019, 12, 24),
-        pickup_comments: 'Fork lift needed'
+        pickup_request_options: pickup_request_options
       )
     end
+
+    let(:pickup_request_options) { nil }
 
     let(:customer_context) { 'order-12345' }
 
