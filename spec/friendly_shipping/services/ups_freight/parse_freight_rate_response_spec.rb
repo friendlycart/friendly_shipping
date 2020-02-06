@@ -10,10 +10,8 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightRateResponse 
 
   subject { described_class.call(request: request, response: response) }
 
-  it { is_expected.to be_success }
-
   it 'has the right data' do
-    rates = subject.value!.data
+    rates = subject.data
     expect(rates.length).to eq(1)
     rate = rates.first
     expect(rate).to be_a(FriendlyShipping::Rate)

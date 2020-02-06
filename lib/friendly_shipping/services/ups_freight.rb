@@ -8,7 +8,7 @@ require 'friendly_shipping/services/ups_freight/rates_package_options'
 require 'friendly_shipping/services/ups_freight/rates_item_options'
 require 'friendly_shipping/services/ups_freight/parse_freight_rate_response'
 require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
-require 'friendly_shipping/services/ups_freight/generate_ups_security_hash'
+require 'friendly_shipping/services/ups_freight/restful_api_error_handler'
 
 module FriendlyShipping
   module Services
@@ -28,10 +28,10 @@ module FriendlyShipping
       LIVE_URL = 'https://onlinetools.ups.com'
 
       RESOURCES = {
-        rates: '/rest/FreightRate'
+        rates: '/ship/v1801/freight/rating/ground'
       }.freeze
 
-      def initialize(key:, login:, password:, test: true, client: HttpClient.new)
+      def initialize(key:, login:, password:, test: true, client: HttpClient.new(error_handler: RestfulApiErrorHandler))
         @key = key
         @login = login
         @password = password
@@ -50,22 +50,28 @@ module FriendlyShipping
       #   `FriendlyShipping::ApiResult` object.
       def rate_estimates(shipment, options:, debug: false)
         freight_rate_request_hash = GenerateFreightRateRequestHash.call(shipment: shipment, options: options)
-        url = base_url + RESOURCES[:rates]
-        request = FriendlyShipping::Request.new(
-          url: url,
-          body: authentication_hash.merge(freight_rate_request_hash).to_json,
-          debug: debug
-        )
+        request = build_request(:rates, freight_rate_request_hash, debug)
 
-        client.post(request).bind do |response|
+        client.post(request).fmap do |response|
           ParseFreightRateResponse.call(response: response, request: request)
         end
       end
 
       private
 
-      def authentication_hash
-        GenerateUpsSecurityHash.call(key: key, login: login, password: password)
+      def build_request(action, payload, debug)
+        url = base_url + RESOURCES[action]
+        FriendlyShipping::Request.new(
+          url: url,
+          body: payload.to_json,
+          headers: {
+            Accept: 'application/json',
+            Username: login,
+            Password: password,
+            AccessLicenseNumber: key
+          },
+          debug: debug
+        )
       end
 
       def base_url
