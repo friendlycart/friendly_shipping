@@ -20,6 +20,8 @@ RSpec.describe FriendlyShipping::Request do
   it { is_expected.to respond_to(:url) }
   it { is_expected.to respond_to(:body) }
   it { is_expected.to respond_to(:headers) }
+  it { is_expected.to respond_to(:open_timeout) }
+  it { is_expected.to respond_to(:read_timeout) }
   it { is_expected.to respond_to(:debug) }
 
   describe '#readable_body' do
