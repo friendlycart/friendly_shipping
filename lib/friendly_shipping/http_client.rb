@@ -18,37 +18,39 @@ module FriendlyShipping
     end
 
     def get(request)
-      http_response = ::RestClient.get(
-        request.url, request.headers
-      )
-
+      http_response = execute(:get, request)
       Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
     def post(request)
-      http_response = ::RestClient.post(
-        request.url,
-        request.body,
-        request.headers
-      )
-
+      http_response = execute(:post, request)
       Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
     def put(request)
-      http_response = ::RestClient.put(
-        request.url,
-        request.body,
-        request.headers
-      )
-
+      http_response = execute(:put, request)
       Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
       error_handler.call(e, original_request: request, original_response: e.response)
+    end
+
+    private
+
+    def execute(method, request)
+      ::RestClient::Request.execute(
+        **{
+          method: method,
+          url: request.url,
+          body: request.body,
+          headers: request.headers,
+          open_timeout: request.open_timeout,
+          read_timeout: request.read_timeout
+        }.compact
+      )
     end
   end
 end

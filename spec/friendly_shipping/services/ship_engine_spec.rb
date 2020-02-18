@@ -358,9 +358,12 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     let(:response) { instance_double('RestClient::Response', code: 200, body: response_body.to_json, headers: {}) }
 
     before do
-      expect(RestClient).to receive(:put).
-        with("https://api.shipengine.com/v1/labels/se-123456/void", "", service.send(:request_headers)).
-        and_return(response)
+      expect(::RestClient::Request).to receive(:execute).with(
+          method: :put,
+          url: "https://api.shipengine.com/v1/labels/se-123456/void",
+          body: "",
+          headers: service.send(:request_headers)
+        ).and_return(response)
     end
 
     context 'with a voidable label' do
