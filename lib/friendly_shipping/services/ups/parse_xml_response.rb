@@ -13,8 +13,7 @@ module FriendlyShipping
 
             if xml.root.nil? || xml.root.name != expected_root_tag
               Failure('Invalid document')
-            end
-            if request_successful?(xml)
+            elsif request_successful?(xml)
               Success(xml)
             else
               Failure(error_message(xml))
