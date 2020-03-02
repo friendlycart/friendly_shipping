@@ -8,18 +8,18 @@ module FriendlyShipping
         SUCCESSFUL_RESPONSE_STATUS_CODE = '1'
 
         class << self
-          def call(response_body, expected_root_tag)
-            xml = Nokogiri.XML(response_body, &:strict)
+          def call(request:, response:, expected_root_tag:)
+            xml = Nokogiri.XML(response.body, &:strict)
 
             if xml.root.nil? || xml.root.name != expected_root_tag
-              Failure('Invalid document')
+              wrap_failure('Invalid document', request, response)
             elsif request_successful?(xml)
               Success(xml)
             else
-              Failure(error_message(xml))
+              wrap_failure(error_message(xml), request, response)
             end
           rescue Nokogiri::XML::SyntaxError => e
-            Failure(e)
+            wrap_failure(e, request, response)
           end
 
           private
@@ -32,6 +32,16 @@ module FriendlyShipping
             status = xml.root.at_xpath('Response/ResponseStatusDescription')&.text
             desc = xml.root.at_xpath('Response/Error/ErrorDescription')&.text
             [status, desc].compact.join(": ").presence || 'UPS could not process the request.'
+          end
+
+          def wrap_failure(failure, request, response)
+            Failure(
+              FriendlyShipping::ApiFailure.new(
+                failure,
+                original_request: request,
+                original_response: response
+              )
+            )
           end
         end
       end
