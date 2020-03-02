@@ -531,7 +531,8 @@ RSpec.describe FriendlyShipping::Services::Ups do
       it { is_expected.to be_failure }
 
       it 'raises a ResponseError' do
-        expect(subject.failure).to eq('Failure: The Pickup Request associated with this shipment has already been completed')
+        expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(subject.failure.failure).to eq('Failure: The Pickup Request associated with this shipment has already been completed')
       end
     end
   end

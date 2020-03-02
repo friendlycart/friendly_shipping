@@ -7,7 +7,11 @@ module FriendlyShipping
     class Ups
       class ParseVoidShipmentResponse
         def self.call(request:, response:)
-          parsing_result = ParseXMLResponse.call(response.body, 'VoidShipmentResponse')
+          parsing_result = ParseXMLResponse.call(
+            request: request,
+            response: response,
+            expected_root_tag: 'VoidShipmentResponse'
+          )
           parsing_result.fmap do |xml|
             FriendlyShipping::ApiResult.new(
               xml.root.at('ResponseStatusDescription').text,

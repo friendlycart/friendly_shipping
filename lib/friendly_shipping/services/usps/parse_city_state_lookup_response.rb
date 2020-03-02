@@ -12,7 +12,11 @@ module FriendlyShipping
           # @return [Result<FriendlyShipping::AddressValidationResult>]
           def call(request:, response:)
             # Filter out error responses and directly return a failure
-            parsing_result = ParseXMLResponse.call(response.body, 'CityStateLookupResponse')
+            parsing_result = ParseXMLResponse.call(
+              request: request,
+              response: response,
+              expected_root_tag: 'CityStateLookupResponse'
+            )
             parsing_result.fmap do |xml|
               address = xml.root.at('ZipCode')
               suggestions = [

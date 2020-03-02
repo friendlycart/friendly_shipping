@@ -20,8 +20,11 @@ module FriendlyShipping
           # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
           def call(request:, response:, shipment:, options:)
             # Filter out error responses and directly return a failure
-            parsing_result = ParseXMLResponse.call(response.body, 'RateV4Response')
-            rates = []
+            parsing_result = ParseXMLResponse.call(
+              request: request,
+              response: response,
+              expected_root_tag: 'RateV4Response'
+            )
             parsing_result.fmap do |xml|
               # Get all the possible rates for each package
               rates_by_package = rates_from_response_node(xml, shipment, options)

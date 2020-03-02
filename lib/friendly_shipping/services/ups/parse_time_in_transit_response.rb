@@ -5,7 +5,11 @@ module FriendlyShipping
     class Ups
       class ParseTimeInTransitResponse
         def self.call(request:, response:)
-          parsing_result = ParseXMLResponse.call(response.body, 'TimeInTransitResponse')
+          parsing_result = ParseXMLResponse.call(
+            request: request,
+            response: response,
+            expected_root_tag: 'TimeInTransitResponse'
+          )
           parsing_result.fmap do |xml|
             origin_country_code = xml.at('TransitResponse/TransitFrom/AddressArtifactFormat/CountryCode').text
             timings = xml.root.xpath('//TransitResponse/ServiceSummary').map do |service_summary|
