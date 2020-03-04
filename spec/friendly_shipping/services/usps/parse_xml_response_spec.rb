@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
-  let(:response) do
+  let(:body) do
     Nokogiri::XML::Builder.new do |xml|
       xml.Error do
         xml.Number '0'
@@ -13,16 +13,28 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
     end.to_xml
   end
 
-  subject(:parser) { described_class.call(response, 'RateV4Response') }
+  let(:request) { FriendlyShipping::Request.new(url: nil, debug: true) }
+  let(:response) { FriendlyShipping::Response.new(status: nil, body: body, headers: nil) }
+
+  subject(:parser) do
+    described_class.call(
+      request: request,
+      response: response,
+      expected_root_tag: 'RateV4Response'
+    )
+  end
 
   it { is_expected.to be_failure }
 
   it 'has the correct error message' do
-    expect(subject.failure.to_s).to eq('0: Something went wrong')
+    expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+    expect(subject.failure.failure).to eq('0: Something went wrong')
+    expect(subject.failure.original_request).to eq(request)
+    expect(subject.failure.original_response).to eq(response)
   end
 
   context 'with a successful response' do
-    let(:response) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')).read }
+    let(:body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')).read }
 
     it { is_expected.to be_success }
 
@@ -32,20 +44,34 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
     end
 
     context 'when requesting the wrong root tag' do
-      subject(:parser) { described_class.call(response, 'Wat') }
+      subject(:parser) do
+        described_class.call(
+          request: request,
+          response: response,
+          expected_root_tag: 'Wat'
+        )
+      end
 
       it { is_expected.to be_failure }
+
+      it 'has the correct error message' do
+        expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(subject.failure.failure).to eq('Invalid document')
+        expect(subject.failure.original_request).to eq(request)
+        expect(subject.failure.original_response).to eq(response)
+      end
     end
   end
 
   context 'with invalid XML in response body' do
-    let(:response) { 'invalid XML' }
+    let(:body) { 'invalid XML' }
 
     it { is_expected.to be_failure }
 
     it 'has the correct error' do
-      expect(subject.failure).to be_a(Nokogiri::XML::SyntaxError)
-      expect(subject.failure.message).to match(/Start tag expected/)
+      expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+      expect(subject.failure.failure).to be_a(Nokogiri::XML::SyntaxError)
+      expect(subject.failure.failure.message).to match(/Start tag expected/)
     end
   end
 end

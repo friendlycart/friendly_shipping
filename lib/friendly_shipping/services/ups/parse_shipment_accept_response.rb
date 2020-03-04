@@ -11,7 +11,11 @@ module FriendlyShipping
 
         class << self
           def call(request:, response:)
-            parsing_result = ParseXMLResponse.call(response.body, 'ShipmentAcceptResponse')
+            parsing_result = ParseXMLResponse.call(
+              request: request,
+              response: response,
+              expected_root_tag: 'ShipmentAcceptResponse'
+            )
             parsing_result.fmap do |xml|
               FriendlyShipping::ApiResult.new(
                 build_labels(xml),

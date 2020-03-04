@@ -9,7 +9,11 @@ module FriendlyShipping
       class ParseRateResponse
         class << self
           def call(request:, response:, shipment:)
-            parsing_result = ParseXMLResponse.call(response.body, 'RatingServiceSelectionResponse')
+            parsing_result = ParseXMLResponse.call(
+              request: request,
+              response: response,
+              expected_root_tag: 'RatingServiceSelectionResponse'
+            )
             parsing_result.fmap do |xml|
               FriendlyShipping::ApiResult.new(
                 build_rates(xml, shipment),

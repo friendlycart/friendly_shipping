@@ -15,7 +15,11 @@ module FriendlyShipping
           # @return [Result<ApiResult<Array<FriendlyShipping::Timing>>>] When successfully parsing, an array of timings in a Success Monad.
           def call(request:, response:)
             # Filter out error responses and directly return a failure
-            parsing_result = ParseXMLResponse.call(response.body, 'SDCGetLocationsResponse')
+            parsing_result = ParseXMLResponse.call(
+              request: request,
+              response: response,
+              expected_root_tag: 'SDCGetLocationsResponse'
+            )
             parsing_result.fmap do |xml|
               expedited_commitments = xml.xpath('//Expedited')
               expedited_timings = parse_expedited_commitment_nodes(expedited_commitments)
