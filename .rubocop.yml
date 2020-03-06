@@ -6,3 +6,12 @@ inherit_from:
 
 Metrics/BlockLength:
   Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true

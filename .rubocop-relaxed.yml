@@ -133,6 +133,9 @@ Style/WordArray:
   Enabled: false
   StyleGuide: https://relaxed.ruby.style/#stylewordarray
 
+Layout/LineLength:
+  Enabled: false
+
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
   StyleGuide: https://relaxed.ruby.style/#lintambiguousregexpliteral
@@ -156,9 +159,6 @@ Metrics/ModuleLength:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
-Metrics/LineLength:
-  Enabled: false
-
 Metrics/MethodLength:
   Enabled: false
 
@@ -167,4 +167,3 @@ Metrics/ParameterLists:
 
 Metrics/PerceivedComplexity:
   Enabled: false
-
