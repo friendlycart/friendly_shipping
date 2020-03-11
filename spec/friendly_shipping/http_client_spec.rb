@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'friendly_shipping/http_client'
 
 RSpec.describe FriendlyShipping::HttpClient do
   let(:response) { double }
@@ -22,6 +23,7 @@ RSpec.describe FriendlyShipping::HttpClient do
       expect(::RestClient).to receive(:get).with('https://example.com', "X-Token" => "s3cr3t").and_raise(RestClient::ExceptionWithResponse)
       result = subject.get(request)
       expect(result).to be_failure
+      expect(result.failure).to be_a(FriendlyShipping::ApiFailure)
     end
   end
 
@@ -39,6 +41,7 @@ RSpec.describe FriendlyShipping::HttpClient do
       expect(::RestClient).to receive(:post).with('https://example.com', 'body', "X-Token" => "s3cr3t").and_raise(RestClient::ExceptionWithResponse)
       result = subject.post(request)
       expect(result).to be_failure
+      expect(result.failure).to be_a(FriendlyShipping::ApiFailure)
     end
   end
 
@@ -56,6 +59,7 @@ RSpec.describe FriendlyShipping::HttpClient do
       expect(::RestClient).to receive(:put).with('https://example.com', 'body', "X-Token" => "s3cr3t").and_raise(RestClient::ExceptionWithResponse)
       result = subject.put(request)
       expect(result).to be_failure
+      expect(result.failure).to be_a(FriendlyShipping::ApiFailure)
     end
   end
 end

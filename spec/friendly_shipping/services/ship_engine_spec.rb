@@ -237,7 +237,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       context "when unwrapped" do
         subject { labels.failure }
 
-        it { is_expected.to be_a FriendlyShipping::Services::ShipEngine::BadRequest }
+        it { is_expected.to be_a FriendlyShipping::ApiFailure }
 
         it "converts to an understandable error message" do
           expect(subject.to_s).to eq("invalid package_code 'not_a_usps_package_code'")

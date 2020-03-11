@@ -16,6 +16,6 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::RestfulApiErrorHandler do
   it { is_expected.to be_failure }
 
   it 'contains the correct string' do
-    expect(subject.failure).to eq("9360721: Missing or Invalid Attention name in the request.\n9370701: Invalid processing option.")
+    expect(subject.failure.to_s).to eq("9360721: Missing or Invalid Attention name in the request.\n9370701: Invalid processing option.")
   end
 end

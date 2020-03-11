@@ -8,11 +8,23 @@ module FriendlyShipping
       class BadRequestHandler
         extend Dry::Monads::Result::Mixin
 
-        def self.call(error)
+        def self.call(error, original_request: nil, original_response: nil)
           if error.http_code == 400
-            Failure(BadRequest.new(error))
+            Failure(
+              ApiFailure.new(
+                BadRequest.new(error),
+                original_request: original_request,
+                original_response: original_response
+              )
+            )
           else
-            Failure(error)
+            Failure(
+              ApiFailure.new(
+                error,
+                original_request: original_request,
+                original_response: original_response
+              )
+            )
           end
         end
       end
