@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'dry/monads/result'
+require 'friendly_shipping/api_failure'
 require 'rest-client'
 
 module FriendlyShipping
@@ -21,19 +22,19 @@ module FriendlyShipping
 
       Success(convert_to_friendly_response(http_response))
     rescue ::RestClient::Exception => e
-      error_handler.call(e)
+      error_handler.call(e, original_request: request, original_response: e.response)
     end
 
-    def post(friendly_shipping_request)
+    def post(request)
       http_response = ::RestClient.post(
-        friendly_shipping_request.url,
-        friendly_shipping_request.body,
-        friendly_shipping_request.headers
+        request.url,
+        request.body,
+        request.headers
       )
 
       Success(convert_to_friendly_response(http_response))
     rescue ::RestClient::Exception => e
-      error_handler.call(e)
+      error_handler.call(e, original_request: request, original_response: e.response)
     end
 
     def put(request)
@@ -45,13 +46,19 @@ module FriendlyShipping
 
       Success(convert_to_friendly_response(http_response))
     rescue ::RestClient::Exception => e
-      error_handler.call(e)
+      error_handler.call(e, original_request: request, original_response: e.response)
     end
 
     private
 
-    def wrap_in_failure(error)
-      Failure(error)
+    def wrap_in_failure(error, original_request: nil, original_response: nil)
+      Failure(
+        ApiFailure.new(
+          error,
+          original_request: original_request,
+          original_response: original_response
+        )
+      )
     end
 
     def convert_to_friendly_response(http_response)

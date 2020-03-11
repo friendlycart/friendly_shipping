@@ -167,7 +167,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
       it { is_expected.to be_failure }
 
       it 'has the correct error message' do
-        expect(subject.failure).to eq("9360703: Missing or Invalid Postal Code(s) provided in request.")
+        expect(subject.failure.to_s).to eq("9360703: Missing or Invalid Postal Code(s) provided in request.")
       end
     end
   end
