@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
-require 'friendly_shipping/services/ups_freight/rates_options'
-require 'friendly_shipping/services/ups_freight/pickup_request_options'
+require 'friendly_shipping/services/ups_freight/generate_freight_ship_request_hash'
+require 'friendly_shipping/services/ups_freight/label_options'
 
-RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateRequestHash do
+RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightShipRequestHash do
   subject(:full_request) { JSON.parse(described_class.call(shipment: shipment, options: options).to_json) }
 
   let(:shipment) { Physical::Shipment.new(packages: packages, origin: origin, destination: destination) }
@@ -50,7 +49,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
   end
 
   let(:options) do
-    FriendlyShipping::Services::UpsFreight::RatesOptions.new(
+    FriendlyShipping::Services::UpsFreight::LabelOptions.new(
       shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
       shipper_number: 'xxx1234',
       billing_address: billing_location,
@@ -75,7 +74,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
 
   let(:package_options) do
     [
-      FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
+      FriendlyShipping::Services::UpsFreight::LabelPackageOptions.new(
         package_id: package_one.id,
         handling_unit: handling_unit,
         item_options: item_one_options
@@ -85,7 +84,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
 
   let(:item_one_options) do
     [
-      FriendlyShipping::Services::UpsFreight::RatesItemOptions.new(
+      FriendlyShipping::Services::UpsFreight::LabelItemOptions.new(
         item_id: 'item_one',
         packaging: commodity_packaging,
         freight_class: '92.5',
@@ -97,12 +96,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
   let(:handling_unit) { :pallet }
   let(:commodity_packaging) { :pallet }
 
-  describe "FreightRateRequest" do
-    subject(:freight_rate_request) { full_request["FreightRateRequest"] }
+  describe "FreightShipRequest" do
+    subject(:freight_ship_request) { full_request["FreightShipRequest"]["Shipment"] }
 
     it do
       is_expected.to include(
-        "Request",
         "ShipperNumber",
         "ShipFrom",
         "ShipTo",
@@ -113,25 +111,13 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
       )
     end
 
-    describe 'Request' do
-      subject(:request_section) { freight_rate_request["Request"] }
-
-      it { is_expected.to have_key("TransactionReference") }
-
-      context 'with a transaction identifier in the options' do
-        let(:customer_context) { "MyOrder" }
-
-        it { is_expected.to include("TransactionReference" => { "CustomerContext" => "MyOrder" }) }
-      end
-    end
-
     describe 'ShipperNumber' do
-      subject(:shipper_number) { freight_rate_request["ShipperNumber"] }
+      subject(:shipper_number) { freight_ship_request["ShipperNumber"] }
       it { is_expected.to eq('xxx1234') }
     end
 
     describe 'ShipFrom' do
-      subject(:ship_from) { freight_rate_request["ShipFrom"] }
+      subject(:ship_from) { freight_ship_request["ShipFrom"] }
 
       it do
         is_expected.to include(
@@ -148,7 +134,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     end
 
     describe 'ShipTo' do
-      subject(:ship_to) { freight_rate_request["ShipTo"] }
+      subject(:ship_to) { freight_ship_request["ShipTo"] }
 
       it do
         is_expected.to include(
@@ -165,7 +151,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     end
 
     describe 'PaymentInformation' do
-      subject(:payment_information) { freight_rate_request["PaymentInformation"] }
+      subject(:payment_information) { freight_ship_request["PaymentInformation"] }
 
       it do
         is_expected.to include(
@@ -189,7 +175,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     end
 
     describe "Service" do
-      subject(:service) { freight_rate_request["Service"] }
+      subject(:service) { freight_ship_request["Service"] }
 
       it { is_expected.to eq('Code' => '308') }
     end
@@ -197,11 +183,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     describe 'HandlingUnit information' do
       context 'if package unspecified' do
         it 'has a HandlingUnitOne and assumes a Pallet' do
-          expect(freight_rate_request).to have_key("HandlingUnitOne")
+          expect(freight_ship_request).to have_key("HandlingUnitOne")
         end
 
         describe "HandlingUnitOne" do
-          subject(:handling_unit_one) { freight_rate_request["HandlingUnitOne"] }
+          subject(:handling_unit_one) { freight_ship_request["HandlingUnitOne"] }
 
           it { is_expected.to include("Quantity" => "1") }
           it { is_expected.to include("Type" => hash_including("Code" => "PLT")) }
@@ -212,11 +198,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         let(:handling_unit) { :skid }
 
         it 'has a HandlingUnitOne with the right options' do
-          expect(freight_rate_request).to have_key("HandlingUnitOne")
+          expect(freight_ship_request).to have_key("HandlingUnitOne")
         end
 
         describe "HandlingUnitOne" do
-          subject(:handling_unit_one) { freight_rate_request["HandlingUnitOne"] }
+          subject(:handling_unit_one) { freight_ship_request["HandlingUnitOne"] }
 
           it { is_expected.to include("Quantity" => "1") }
           it { is_expected.to include("Type" => hash_including("Code" => "SKD")) }
@@ -227,11 +213,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         let(:handling_unit) { :carboy }
 
         it 'has a HandlingUnitOne with the right options' do
-          expect(freight_rate_request).to have_key("HandlingUnitOne")
+          expect(freight_ship_request).to have_key("HandlingUnitOne")
         end
 
         describe "HandlingUnitOne" do
-          subject(:handling_unit_one) { freight_rate_request["HandlingUnitOne"] }
+          subject(:handling_unit_one) { freight_ship_request["HandlingUnitOne"] }
 
           it { is_expected.to include("Quantity" => "1") }
           it { is_expected.to include("Type" => hash_including("Code" => "CBY")) }
@@ -242,11 +228,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         let(:handling_unit) { :totes }
 
         it 'has a HandlingUnitOne with the right options' do
-          expect(freight_rate_request).to have_key("HandlingUnitOne")
+          expect(freight_ship_request).to have_key("HandlingUnitOne")
         end
 
         describe "HandlingUnitOne" do
-          subject(:handling_unit_one) { freight_rate_request["HandlingUnitOne"] }
+          subject(:handling_unit_one) { freight_ship_request["HandlingUnitOne"] }
 
           it { is_expected.to include("Quantity" => "1") }
           it { is_expected.to include("Type" => hash_including("Code" => "TOT")) }
@@ -257,11 +243,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         let(:handling_unit) { :loose }
 
         it 'has a HandlingUnitTwo with the right options' do
-          expect(freight_rate_request).to have_key("HandlingUnitTwo")
+          expect(freight_ship_request).to have_key("HandlingUnitTwo")
         end
 
         describe "HandlingUnitTwo" do
-          subject(:handling_unit_two) { freight_rate_request["HandlingUnitTwo"] }
+          subject(:handling_unit_two) { freight_ship_request["HandlingUnitTwo"] }
 
           it { is_expected.to include("Quantity" => "1") }
           it { is_expected.to include("Type" => hash_including("Code" => "LOO")) }
@@ -272,11 +258,11 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         let(:handling_unit) { :other }
 
         it 'has a HandlingUnitTwo with the right options' do
-          expect(freight_rate_request).to have_key("HandlingUnitTwo")
+          expect(freight_ship_request).to have_key("HandlingUnitTwo")
         end
 
         describe "HandlingUnitTwo" do
-          subject(:handling_unit_two) { freight_rate_request["HandlingUnitTwo"] }
+          subject(:handling_unit_two) { freight_ship_request["HandlingUnitTwo"] }
 
           it { is_expected.to include("Quantity" => "1") }
           it { is_expected.to include("Type" => hash_including("Code" => "OTH")) }
@@ -316,12 +302,12 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
 
         let(:package_options) do
           [
-            FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
+            FriendlyShipping::Services::UpsFreight::LabelPackageOptions.new(
               package_id: package_one.id,
               handling_unit: :pallet,
               item_options: item_one_options
             ),
-            FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
+            FriendlyShipping::Services::UpsFreight::LabelPackageOptions.new(
               package_id: package_two.id,
               handling_unit: :pallet,
               item_options: item_two_options
@@ -331,7 +317,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
 
         let(:item_one_options) do
           [
-            FriendlyShipping::Services::UpsFreight::RatesItemOptions.new(
+            FriendlyShipping::Services::UpsFreight::LabelItemOptions.new(
               item_id: 'item_one',
               packaging: :carton,
               freight_class: '92.5',
@@ -342,7 +328,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
 
         let(:item_two_options) do
           [
-            FriendlyShipping::Services::UpsFreight::RatesItemOptions.new(
+            FriendlyShipping::Services::UpsFreight::LabelItemOptions.new(
               item_id: 'item_two',
               packaging: :pallet,
               freight_class: '92.5',
@@ -351,7 +337,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
           ]
         end
 
-        subject(:handling_unit_one) { freight_rate_request["HandlingUnitOne"] }
+        subject(:handling_unit_one) { freight_ship_request["HandlingUnitOne"] }
 
         it { is_expected.to include("Quantity" => "2") }
         it { is_expected.to include("Type" => hash_including("Code" => "PLT")) }
@@ -359,7 +345,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     end
 
     describe 'Commodity information' do
-      subject(:commodity) { freight_rate_request["Commodity"] }
+      subject(:commodity) { freight_ship_request["Commodity"] }
 
       it { is_expected.to be_a(Array) }
 
@@ -388,35 +374,6 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
           it { is_expected.to include("PackagingType" => hash_including("Code" => "CAN")) }
         end
       end
-    end
-  end
-
-  context 'with a Pickup Date given' do
-    let(:options) do
-      FriendlyShipping::Services::UpsFreight::RatesOptions.new(
-        shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
-        shipper_number: 'xxx1234',
-        billing_address: billing_location,
-        customer_context: customer_context,
-        package_options: package_options,
-        pickup_request_options: FriendlyShipping::Services::UpsFreight::PickupRequestOptions.new(
-          pickup_time_window: Time.new(2019, 11, 10, 17, 0)..Time.new(2019, 11, 10, 17, 0),
-          comments: 'Bring pitch forks, there will be hay',
-          requester: billing_location,
-          requester_email: 'me@example.com'
-        )
-      )
-    end
-
-    it do
-      is_expected.to include(
-        'FreightRateRequest' => hash_including(
-          'PickupRequest' => hash_including(
-            'PickupDate' => '20191110',
-            'AdditionalComments' => 'Bring pitch forks, there will be hay'
-          )
-        )
-      )
     end
   end
 end

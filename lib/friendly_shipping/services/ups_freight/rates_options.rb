@@ -31,8 +31,7 @@ module FriendlyShipping
                     :billing_code,
                     :customer_context,
                     :shipping_method,
-                    :pickup_date,
-                    :pickup_comments,
+                    :pickup_request_options,
                     :commodity_information_generator
 
         def initialize(
@@ -41,8 +40,7 @@ module FriendlyShipping
           shipping_method:,
           billing: :prepaid,
           customer_context: nil,
-          pickup_date: nil,
-          pickup_comments: nil,
+          pickup_request_options: nil,
           commodity_information_generator: GenerateCommodityInformation,
           **kwargs
         )
@@ -51,8 +49,7 @@ module FriendlyShipping
           @shipping_method = shipping_method
           @billing_code = BILLING_CODES.fetch(billing)
           @customer_context = customer_context
-          @pickup_date = pickup_date
-          @pickup_comments = pickup_comments
+          @pickup_request_options = pickup_request_options
           @commodity_information_generator = commodity_information_generator
           super(**kwargs.merge(package_options_class: RatesPackageOptions))
         end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/ups_freight/generate_location_hash'
+require 'friendly_shipping/services/ups_freight/generate_pickup_request_hash'
 
 module FriendlyShipping
   module Services
@@ -20,21 +21,12 @@ module FriendlyShipping
                 },
                 Commodity: options.commodity_information_generator.call(shipment: shipment, options: options),
                 TimeInTransitIndicator: 'true',
-                PickupRequest: pickup_request(options)
+                PickupRequest: GeneratePickupRequestHash.call(pickup_request_options: options.pickup_request_options),
               }.compact.merge(handling_units(shipment, options).reduce(&:merge).to_h)
             }
           end
 
           private
-
-          def pickup_request(options)
-            return unless options.pickup_date
-
-            {
-              PickupDate: options.pickup_date.strftime('%Y%m%d'),
-              AdditionalComments: options.pickup_comments
-            }
-          end
 
           def handling_units(shipment, options)
             all_package_options = shipment.packages.map { |package| options.options_for_package(package) }

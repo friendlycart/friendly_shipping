@@ -19,8 +19,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::RatesOptions do
     :billing_address,
     :billing_code,
     :customer_context,
-    :pickup_date,
-    :pickup_comments,
+    :pickup_request_options,
     :shipping_method
   ].each do |option|
     it { is_expected.to respond_to(option) }

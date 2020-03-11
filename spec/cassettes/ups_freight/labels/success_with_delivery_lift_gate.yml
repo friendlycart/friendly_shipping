@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/ship/v1607/freight/shipments/Ground
+    body:
+      encoding: UTF-8
+      string: '{"FreightShipRequest":{"Shipment":{"ShipperNumber":"%UPS_SHIPPER_NUMBER%","ShipFrom":{"Name":"Developer
+        Test 1","Address":{"AddressLine":"01 Developer Way","City":"Richmond","StateProvinceCode":"VA","PostalCode":"23224","CountryCode":"US"},"Phone":{"Number":"919-459-4280"}},"ShipTo":{"Name":"Consignee
+        Test 1","Address":{"AddressLine":"000 Consignee Street","City":"Allanton","StateProvinceCode":"MO","PostalCode":"63025","CountryCode":"US"}},"PaymentInformation":{"Payer":{"Name":"Candle
+        Science","Address":{"AddressLine":"1717 E Lawson St","City":"Durham","StateProvinceCode":"NC","PostalCode":"27703","CountryCode":"US"},"Phone":{"Number":"919-459-4280"},"ShipperNumber":"%UPS_SHIPPER_NUMBER%"},"ShipmentBillingOption":{"Code":"10"}},"Service":{"Code":"308"},"Commodity":[{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"PLT"},"FreightClass":"92.5"}],"Documents":{"Image":[]},"ShipmentServiceOptions":[{"DeliveryOptions":{"LiftGateRequiredIndicator":""}}],"HandlingInstructions":"Handle
+        with care","PickupInstructions":"Do not feed the bear","DeliveryInstructions":"Up
+        on the 20th Floor","HandlingUnitOne":{"Quantity":"1","Type":{"Code":"PLT","Description":"Pallet"}}}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux-gnu x86_64) ruby/2.6.5p114
+      Username:
+      - "%UPS_LOGIN%"
+      Password:
+      - "%UPS_PASSWORD%"
+      Accesslicensenumber:
+      - "%UPS_KEY%"
+      Content-Length:
+      - '1234'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 06 Feb 2020 13:55:01 GMT
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, max-age=0, no-cache=Set-Cookie
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Backside-Transport:
+      - OK OK
+      Content-Type:
+      - application/json
+      X-Global-Transaction-Id:
+      - 85919b6f5e3c1ab53088f7ed
+      Accept:
+      - application/json
+      X-Forwarded-Host:
+      - wwwcie.ups.com
+      X-Forwarded-Server:
+      - wwwcie.ups.com
+      Via:
+      - 1.1 BQAAACaPccw-
+      X-Oracle-Dms-Ecid:
+      - 76b0211a-8382-4ba0-9e3c-8ea084a9eee6-00025e6e
+      X-Oracle-Dms-Rid:
+      - '0'
+      Apihttpstatus:
+      - '200'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"FreightShipResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"},
+        "Alert":{"Code":"9369055", "Description":"User is not eligible for contract
+        rates."}}, "ShipmentResults":{"OriginServiceCenterCode":"RIC", "ShipmentNumber":"022845303",
+        "BOLID":"44799604", "Rate":[{"Type":{"Code":"DSCNT", "Description":"DSCNT"},
+        "Factor":{"Value":"857.01", "UnitOfMeasurement":{"Code":"USD"}}}, {"Type":{"Code":"DSCNT_RATE",
+        "Description":"DSCNT_RATE"}, "Factor":{"Value":"70.00", "UnitOfMeasurement":{"Code":"%"}}},
+        {"Type":{"Code":"LIFTGATE", "Description":"LIFTGATE"}, "Factor":{"Value":"125.00",
+        "UnitOfMeasurement":{"Code":"USD"}}}, {"Type":{"Code":"2", "Description":"2"},
+        "Factor":{"Value":"87.05", "UnitOfMeasurement":{"Code":"USD"}}}, {"Type":{"Code":"LND_GROSS",
+        "Description":"LND_GROSS"}, "Factor":{"Value":"1224.30", "UnitOfMeasurement":{"Code":"USD"}}},
+        {"Type":{"Code":"AFTR_DSCNT", "Description":"AFTR_DSCNT"}, "Factor":{"Value":"367.29",
+        "UnitOfMeasurement":{"Code":"USD"}}}], "TotalShipmentCharge":{"CurrencyCode":"USD",
+        "MonetaryValue":"579.34"}, "BillableShipmentWeight":{"UnitOfMeasurement":{"Code":"LBS"},
+        "Value":"500"}, "Service":{"Code":"308"}}}}'
+    http_version: 
+  recorded_at: Thu, 06 Feb 2020 13:55:02 GMT
+recorded_with: VCR 5.0.0

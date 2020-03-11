@@ -17,8 +17,11 @@ module FriendlyShipping
                 PostalCode: location.zip,
                 CountryCode: location.country.code
               },
-              AttentionName: location.name
-            }
+              AttentionName: location.name,
+              Phone: {
+                Number: location.phone
+              }.compact.presence
+            }.compact
           end
 
           private
