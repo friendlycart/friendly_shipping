@@ -4,9 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2020-03-11
+
+- Changelog additions missed in previous release
+
 ## [0.5.3] - 2020-03-11
 
-- UPS Service: Add support for shipping labels / bills of lading
+- UPS Service: Add support for shipping labels / bills of lading (#92)
+- UPS/USPS Services: Return ApiFailure instead of a string for failed API responses (#95)
+- UPS/USPS Services: Refactor ApiFailure to subclass ApiResponse (#96)
 
 ## [0.5.2] - 2020-01-31
 
