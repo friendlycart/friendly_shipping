@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "An integration layer for shipping services"
   spec.description   = "Allows you to quote or ship a Physical::Shipment object"
-  spec.homepage      = "https://github.com/friendly_cart/friendly_shipping"
+  spec.homepage      = "https://github.com/friendlycart/friendly_shipping"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
