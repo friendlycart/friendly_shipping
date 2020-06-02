@@ -61,8 +61,8 @@ module FriendlyShipping
       # @param [FriendlyShipping::Services::UpsFreight::RatesOptions] options Options for obtaining rates for this shipment.
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
-      def rate_estimates(shipment, options:, debug: false)
-        freight_rate_request_hash = GenerateFreightRateRequestHash.call(shipment: shipment, options: options)
+      def rate_estimates(shipment, options:, request_generator: GenerateFreightRateRequestHash, debug: false)
+        freight_rate_request_hash = request_generator.call(shipment: shipment, options: options)
         request = build_request(:rates, freight_rate_request_hash, debug)
 
         client.post(request).fmap do |response|
@@ -74,8 +74,8 @@ module FriendlyShipping
       # @param [Physical::Shipment] shipment The shipment we want to get rates for
       # @param [FriendlyShipping::Services::UpsFreight::LabelOptions] options Options for shipping this shipment.
       # @return [Result<ApiResult<ShipmentInformation>] The information that you need for shipping this shipment.
-      def labels(shipment, options:, debug: false)
-        freight_ship_request_hash = GenerateFreightShipRequestHash.call(shipment: shipment, options: options)
+      def labels(shipment, options:, request_generator: GenerateFreightShipRequestHash, debug: false)
+        freight_ship_request_hash = request_generator.call(shipment: shipment, options: options)
         request = build_request(:labels, freight_ship_request_hash, debug)
 
         client.post(request).fmap do |response|
