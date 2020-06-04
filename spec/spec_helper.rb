@@ -26,6 +26,11 @@ VCR.configure do |c|
   c.filter_sensitive_data('%UPS_PASSWORD%') { ENV['UPS_PASSWORD'] }
   c.filter_sensitive_data('%UPS_SHIPPER_NUMBER%') { ENV['UPS_SHIPPER_NUMBER'] }
   c.filter_sensitive_data('%USPS_LOGIN%') { ENV['USPS_LOGIN'] }
+
+  # Matches the Content-Type request header
+  c.register_request_matcher :content_type do |r1, r2|
+    r1.headers['Content-Type'] == r2.headers['Content-Type']
+  end
 end
 
 RSpec.configure do |config|

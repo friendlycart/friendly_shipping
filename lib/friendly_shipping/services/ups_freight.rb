@@ -55,7 +55,7 @@ module FriendlyShipping
       end
 
       # Get rates for a shipment
-      # @param [Physical::Shipment] location The shipment we want to get rates for
+      # @param [Physical::Shipment] shipment The shipment we want to get rates for
       # @param [FriendlyShipping::Services::UpsFreight::RatesOptions] options Options for obtaining rates for this shipment.
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
@@ -69,7 +69,7 @@ module FriendlyShipping
       end
 
       # Get labels for a shipment
-      # @param [Physical::Shipment] location The shipment we want to get rates for
+      # @param [Physical::Shipment] shipment The shipment we want to get rates for
       # @param [FriendlyShipping::Services::UpsFreight::LabelOptions] options Options for shipping this shipment.
       # @return [Result<ApiResult<ShipmentInformation>] The information that you need for shipping this shipment.
       def labels(shipment, options:, debug: false)
@@ -89,6 +89,7 @@ module FriendlyShipping
           url: url,
           body: payload.to_json,
           headers: {
+            Content_Type: 'application/json',
             Accept: 'application/json',
             Username: login,
             Password: password,
