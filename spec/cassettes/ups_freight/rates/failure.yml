@@ -12,6 +12,8 @@ http_interactions:
         Testman","ShipperNumber":"%UPS_SHIPPER_NUMBER%"},"ShipmentBillingOption":{"Code":"10"}},"Service":{"Code":"308"},"Commodity":[{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"CTN"},"FreightClass":"92.5"},{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"PLT"},"FreightClass":"92.5"}],"TimeInTransitIndicator":"true","PickupRequest":{"PickupDate":"20191224","AdditionalComments":"Fork
         lift needed"},"HandlingUnitOne":{"Quantity":"2","Type":{"Code":"PLT","Description":"Pallet"}}}}'
     headers:
+      Content-Type:
+      - application/json
       Accept:
       - application/json
       User-Agent:
@@ -75,6 +77,6 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"response":{"errors":[{"code":"9360703","message":"Missing or Invalid
         Postal Code(s) provided in request."}]}}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 06 Feb 2020 11:20:07 GMT
 recorded_with: VCR 5.0.0

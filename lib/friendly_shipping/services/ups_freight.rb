@@ -89,6 +89,7 @@ module FriendlyShipping
           url: url,
           body: payload.to_json,
           headers: {
+            Content_Type: 'application/json',
             Accept: 'application/json',
             Username: login,
             Password: password,

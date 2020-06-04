@@ -144,7 +144,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
 
     subject { service.rate_estimates(shipment, options: options) }
 
-    it 'has all the right data', vcr: { cassette_name: 'ups_freight/rates/success' } do
+    it 'has all the right data', vcr: { cassette_name: 'ups_freight/rates/success', match_requests_on: [:method, :uri, :content_type] } do
       rates = subject.value!.data
       expect(rates.length).to eq(1)
       rate = rates.first
@@ -154,7 +154,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
       expect(rate.data[:days_in_transit]).to eq(2)
     end
 
-    context 'with a missing destination postal code', vcr: { cassette_name: 'ups_freight/rates/failure' } do
+    context 'with a missing destination postal code', vcr: { cassette_name: 'ups_freight/rates/failure', match_requests_on: [:method, :uri, :content_type] } do
       let(:destination) do
         Physical::Location.new(
           company_name: 'Consignee Test 1',
@@ -281,7 +281,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
 
     subject { service.labels(shipment, options: options) }
 
-    it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success' } do
+    it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success', match_requests_on: [:method, :uri, :content_type] } do
       data = subject.value!.data
       expect(data).to be_a(FriendlyShipping::Services::UpsFreight::ShipmentInformation)
       expect(data.total).to eq(Money.new(45_434, 'USD'))
@@ -310,7 +310,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         ]
       end
 
-      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_notifications' } do
+      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_notifications', match_requests_on: [:method, :uri, :content_type] } do
         data = subject.value!.data
         expect(data).to be_a(FriendlyShipping::Services::UpsFreight::ShipmentInformation)
         expect(data.total).to eq(Money.new(45_434, 'USD'))
@@ -328,7 +328,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         )
       end
 
-      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_pickup_lift_gate' } do
+      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_pickup_lift_gate', match_requests_on: [:method, :uri, :content_type] } do
         data = subject.value!.data
         expect(data).to be_a(FriendlyShipping::Services::UpsFreight::ShipmentInformation)
         expect(data.total).to eq(Money.new(57_934, 'USD'))
@@ -345,7 +345,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         )
       end
 
-      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_delivery_lift_gate' } do
+      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_delivery_lift_gate', match_requests_on: [:method, :uri, :content_type] } do
         data = subject.value!.data
         expect(data).to be_a(FriendlyShipping::Services::UpsFreight::ShipmentInformation)
         expect(data.total).to eq(Money.new(57_934, 'USD'))
@@ -372,7 +372,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         )
       end
 
-      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_pickup_date' } do
+      it 'has all the right data', vcr: { cassette_name: 'ups_freight/labels/success_with_pickup_date', match_requests_on: [:method, :uri, :content_type] } do
         data = subject.value!.data
         expect(data).to be_a(FriendlyShipping::Services::UpsFreight::ShipmentInformation)
         expect(data.total).to eq(Money.new(45_434, 'USD'))
