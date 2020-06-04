@@ -170,6 +170,34 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
         expect(subject.failure.to_s).to eq("9360703: Missing or Invalid Postal Code(s) provided in request.")
       end
     end
+
+    context 'with custom resources' do
+      let(:service) { described_class.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD'], key: ENV['UPS_KEY'], resources: { rates: '/rest/FreightRate' }) }
+
+      let(:options) do
+        FriendlyShipping::Services::UpsFreight::RatesOptions.new(
+          shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
+          shipper_number: ENV['UPS_SHIPPER_NUMBER'],
+          billing_address: billing_location,
+          customer_context: customer_context,
+          package_options: package_options,
+          pickup_request_options: pickup_request_options,
+          security_tokens_generator: GenerateFreightSecurityTokensHash
+        )
+      end
+
+      subject { service.rate_estimates(shipment, options: options) }
+
+      it 'has all the right data', vcr: { cassette_name: 'ups_freight/rates/custom/success' } do
+        rates = subject.value!.data
+        expect(rates.length).to eq(1)
+        rate = rates.first
+        expect(rate).to be_a(FriendlyShipping::Rate)
+        expect(rate.total_amount).to eq(Money.new(74_528, 'USD'))
+        expect(rate.shipping_method.name).to eq('UPS Freight LTL')
+        expect(rate.data[:days_in_transit]).to eq(2)
+      end
+    end
   end
 
   describe 'labels' do

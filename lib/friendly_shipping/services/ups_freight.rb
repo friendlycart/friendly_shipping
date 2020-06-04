@@ -25,7 +25,7 @@ module FriendlyShipping
     class UpsFreight
       include Dry::Monads[:result]
 
-      attr_reader :test, :key, :login, :password, :client
+      attr_reader :key, :login, :password, :test, :resources, :client
 
       CARRIER = FriendlyShipping::Carrier.new(
         id: 'ups_freight',
@@ -42,11 +42,12 @@ module FriendlyShipping
         labels: '/ship/v1607/freight/shipments/Ground'
       }.freeze
 
-      def initialize(key:, login:, password:, test: true, client: nil)
+      def initialize(key:, login:, password:, test: true, resources: RESOURCES, client: nil)
         @key = key
         @login = login
         @password = password
         @test = test
+        @resources = resources
 
         error_handler = ApiErrorHandler.new(api_error_class: UpsFreight::ApiError)
         @client = client || HttpClient.new(error_handler: error_handler)
@@ -86,7 +87,7 @@ module FriendlyShipping
       private
 
       def build_request(action, payload, debug)
-        url = base_url + RESOURCES[action]
+        url = base_url + resources[action]
         FriendlyShipping::Request.new(
           url: url,
           http_method: "POST",

@@ -32,7 +32,8 @@ module FriendlyShipping
                     :customer_context,
                     :shipping_method,
                     :pickup_request_options,
-                    :commodity_information_generator
+                    :commodity_information_generator,
+                    :security_tokens_generator
 
         def initialize(
           shipper_number:,
@@ -42,6 +43,7 @@ module FriendlyShipping
           customer_context: nil,
           pickup_request_options: nil,
           commodity_information_generator: GenerateCommodityInformation,
+          security_tokens_generator: nil,
           **kwargs
         )
           @shipper_number = shipper_number
@@ -51,6 +53,7 @@ module FriendlyShipping
           @customer_context = customer_context
           @pickup_request_options = pickup_request_options
           @commodity_information_generator = commodity_information_generator
+          @security_tokens_generator = security_tokens_generator
           super(**kwargs.reverse_merge(package_options_class: RatesPackageOptions))
         end
       end

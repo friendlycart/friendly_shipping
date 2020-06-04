@@ -25,6 +25,9 @@ module FriendlyShipping
                 PickupRequest: GeneratePickupRequestHash.call(pickup_request_options: options.pickup_request_options),
               }.compact.
                 merge(GenerateHandlingUnitsHash.call(shipment: shipment, options: options))
+              # if options.security_tokens_generator
+              #   options.security_tokens_generator.call(login: login, password: password, key: key)
+              # end
             }
           end
 

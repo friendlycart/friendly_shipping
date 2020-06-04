@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/rest/FreightRate
+    body:
+      encoding: UTF-8
+      string: '{"FreightRateRequest":{"Request":{"TransactionReference":{"CustomerContext":"order-12345"}},"ShipFrom":{"Name":"Developer
+        Test 1","Address":{"AddressLine":"01 Developer Way","City":"Richmond","StateProvinceCode":"VA","PostalCode":"23224","CountryCode":"US"}},"ShipTo":{"Name":"Consignee
+        Test 1","Address":{"AddressLine":"000 Consignee Street","City":"Allanton","StateProvinceCode":"MO","PostalCode":"63025","CountryCode":"US"}},"PaymentInformation":{"Payer":{"Name":"Acme
+        Co.","Address":{"AddressLine":"Far away on the outer rim","City":"Durham","StateProvinceCode":"NC","PostalCode":"27703","CountryCode":"US"},"AttentionName":"Test
+        Testman","ShipperNumber":null},"ShipmentBillingOption":{"Code":"10"}},"Service":{"Code":"308"},"Commodity":[{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"CTN"},"FreightClass":"92.5"},{"Description":"Commodities","Weight":{"UnitOfMeasurement":{"Code":"LBS"},"Value":"500.0"},"NumberOfPieces":"1","PackagingType":{"Code":"PLT"},"FreightClass":"92.5"}],"TimeInTransitIndicator":"true","HandlingUnitOne":{"Quantity":"2","Type":{"Code":"PLT","Description":"Pallet"}}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin19.5.0 x86_64) ruby/2.7.0p0
+      Username:
+      - "%UPS_LOGIN%"
+      Password:
+      - "%UPS_PASSWORD%"
+      Accesslicensenumber:
+      - "%UPS_KEY%"
+      Content-Length:
+      - '1188'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 03 Jun 2020 23:30:16 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Cache-Control:
+      - no-cache, no-store, must-revalidate, max-age=0, no-cache=Set-Cookie
+      Pragma:
+      - no-cache
+      Apierrormsg:
+      - Invalid Access License number
+      Apihttpstatus:
+      - '401'
+      Apierrorcode:
+      - '250003'
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"Fault":{"faultcode":"Client", "faultstring":"An exception has been
+        raised as a result of client data.", "detail":{"Errors":{"ErrorDetail":{"Severity":"Authentication",
+        "PrimaryErrorCode":{"Code":"250003", "Description":"Invalid Access License
+        number"}, "Location":{"LocationElementName":""}, "SubErrorCode":{"Code":"01",
+        "Description":"Missing required element"}}}}}}'
+    http_version: 
+  recorded_at: Wed, 03 Jun 2020 23:30:16 GMT
+recorded_with: VCR 5.0.0
