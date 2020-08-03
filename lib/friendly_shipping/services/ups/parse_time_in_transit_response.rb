@@ -25,7 +25,7 @@ module FriendlyShipping
               delivery_time = service_summary.at('EstimatedArrival/Time').text
               delivery = Time.parse("#{delivery_date} #{delivery_time}")
               pickup_date = service_summary.at('EstimatedArrival/PickupDate').text
-              pickup_time = service_summary.at('EstimatedArrival/PickupTime').text
+              pickup_time = service_summary.at('EstimatedArrival/PickupTime')&.text
               pickup = Time.parse("#{pickup_date} #{pickup_time}")
 
               # Some additional data
