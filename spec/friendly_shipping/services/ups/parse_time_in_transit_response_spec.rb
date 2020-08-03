@@ -40,4 +40,10 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseTimeInTransitResponse do
       expect(subject.map { |h| h.properties[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "3", "5"])
     end
   end
+
+  context 'if pickup time is not given in the response' do
+    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "ups", "ups_timing_without_pickup_time.xml")).read }
+
+    it { is_expected.to be_success }
+  end
 end
