@@ -40,7 +40,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     let(:mail_service) { "Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;" }
 
     it 'has the correct shipping method' do
-      expect(subject.shipping_method.name).to eq('Priority')
+      expect(subject.shipping_method.name).to eq('Priority Mail')
     end
   end
 

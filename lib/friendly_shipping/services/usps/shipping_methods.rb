@@ -32,7 +32,7 @@ module FriendlyShipping
       SHIPPING_METHODS = [
         ['FIRST CLASS', 'First-Class'],
         ['PACKAGE SERVICES', 'Package Services'],
-        ['PRIORITY', 'Priority'],
+        ['PRIORITY', 'Priority Mail'],
         ['PRIORITY MAIL EXPRESS', 'Priority Mail Express'],
         ['STANDARD POST', 'Standard Post'],
         ['RETAIL GROUND', 'Retail Ground'],
