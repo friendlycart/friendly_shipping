@@ -49,11 +49,10 @@ module FriendlyShipping
         def service_code
           return 'ALL' unless shipping_method
 
-          if commercial_pricing
-            "#{shipping_method.service_code} COMMERCIAL"
-          else
-            shipping_method.service_code
-          end
+          service_code = [shipping_method.service_code]
+          service_code << 'HFP' if hold_for_pickup
+          service_code << 'COMMERCIAL' if commercial_pricing
+          service_code.join(' ')
         end
       end
     end
