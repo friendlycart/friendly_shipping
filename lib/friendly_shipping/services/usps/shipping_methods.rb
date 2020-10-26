@@ -35,7 +35,7 @@ module FriendlyShipping
           hold_for_pickup: '2',
           sunday_holiday_delivery: '23'
         }
-      }
+      }.freeze
 
       SHIPPING_METHODS = [
         ['FIRST CLASS', 'First-Class'],

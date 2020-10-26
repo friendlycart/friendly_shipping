@@ -8,7 +8,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
   let(:rate) { "26.40" }
   let(:commercial_rate) { nil }
   let(:commercial_plus_rate) { nil }
-  let(:class_id) { '0' }
+  let(:class_id) { "3" }
   let(:package_options) do
     FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
       package_id: package.id
@@ -33,32 +33,58 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     expect(subject.amounts.keys).to eq([package.id])
     expect(subject.shipping_method.name).to eq("Priority Mail Express")
     expect(subject.data[:days_to_delivery]).to eq(1)
-    expect(subject.data[:service_code]).to eq('0')
+    expect(subject.data[:service_code]).to eq("3")
   end
 
   context 'with a non-express Priority Mail rate' do
+    let(:class_id) { "1" }
     let(:mail_service) { "Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;" }
 
     it 'has the correct shipping method' do
       expect(subject.shipping_method.name).to eq('Priority Mail')
+      expect(subject.data[:service_code]).to eq("1")
+    end
+  end
+
+  context "Priority Mail Express Hold for Pickup" do
+    let(:class_id) { "2" }
+    let(:mail_service) { "Priority Mail Express 1-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Hold For Pickup" }
+
+    it "has the correct shipping method" do
+      expect(subject.shipping_method.name).to eq("Priority Mail Express")
+      expect(subject.data[:service_code]).to eq("2")
+    end
+  end
+
+  context "Priority Mail Express Saturday/Holiday delivery" do
+    let(:class_id) { "23" }
+    let(:mail_service) { "Priority Mail Express 1-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Sunday/Holiday Delivery" }
+
+    it "has the correct shipping method" do
+      expect(subject.shipping_method.name).to eq("Priority Mail Express")
+      expect(subject.data[:service_code]).to eq("23")
     end
   end
 
   context 'Priority Mail in a Flat Rate Box' do
-    let(:class_id) { "1" }
+    let(:class_id) { "22" }
     let(:mail_service) { "Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box" }
 
-    it 'contains the box code in the rate data' do
+    it "has the correct shipping method" do
+      expect(subject.shipping_method.name).to eq("Priority Mail")
       expect(subject.data[:box_name]).to eq(:large_flat_rate_box)
+      expect(subject.data[:service_code]).to eq("22")
     end
   end
 
   context 'First-Class Mail' do
+    let(:class_id) { "0" }
     let(:mail_service) { "First-Class Mail&lt;sup&gt;&#174;&lt;/sup&gt; Parcel" }
 
-    it 'finds a shipping method' do
+    it "has the correct shipping method" do
       expect(subject.shipping_method.name).to eq('First-Class')
       expect(subject.data[:box_name]).to eq(:parcel)
+      expect(subject.data[:service_code]).to eq("0")
     end
   end
 
