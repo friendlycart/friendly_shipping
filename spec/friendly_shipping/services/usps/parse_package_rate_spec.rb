@@ -66,6 +66,16 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     end
   end
 
+  context "Priority Mail Cubic" do
+    let(:class_id) { "999" }
+    let(:mail_service) { "Priority Mail 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Cubic" }
+
+    it "has the correct shipping method" do
+      expect(subject.shipping_method.name).to eq("Priority Mail Cubic")
+      expect(subject.data[:service_code]).to eq("999")
+    end
+  end
+
   context 'Priority Mail in a Flat Rate Box' do
     let(:class_id) { "22" }
     let(:mail_service) { "Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box" }
