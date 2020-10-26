@@ -4,6 +4,7 @@
 /coverage/
 /doc/
 /.idea/
+/.vscode/
 /pkg/
 /spec/reports/
 /tmp/
