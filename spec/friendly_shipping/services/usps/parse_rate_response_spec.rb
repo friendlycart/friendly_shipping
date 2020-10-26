@@ -32,7 +32,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
     ].map { |cents| Money.new(cents, 'USD') })
     expect(subject.value!.data.map(&:shipping_method).map(&:name)).to contain_exactly(
       "First-Class",
-      "Priority",
+      "Priority Mail",
       "Priority Mail Express",
       "Standard Post"
     )
@@ -91,7 +91,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
 
       expect(subject.value!.data.map(&:total_amount).map(&:cents)).to contain_exactly(812 + 940)
       expect(subject.value!.data.map(&:shipping_method).map(&:name)).to contain_exactly(
-        "Priority"
+        "Priority Mail"
       )
     end
   end

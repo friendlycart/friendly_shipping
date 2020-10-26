@@ -115,7 +115,7 @@ module FriendlyShipping
           # This will likely be somewhat more work in the future.
           MAIL_CLASSES = {
             '1' => 'Priority Mail Express',
-            '2' => 'Priority',
+            '2' => 'Priority Mail',
             '3' => 'First-Class',
             '6' => 'Package Services'
           }.freeze

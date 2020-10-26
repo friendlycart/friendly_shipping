@@ -70,7 +70,7 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   context 'with priority shipping method' do
     let(:shipping_method) do
       FriendlyShipping::Services::Usps::SHIPPING_METHODS.detect do |shipping_method|
-        shipping_method.name == 'Priority'
+        shipping_method.name == 'Priority Mail'
       end
     end
     let(:package_options) do

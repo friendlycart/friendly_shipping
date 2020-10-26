@@ -39,7 +39,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ChoosePackageRate do
 
   context 'if requesting a rate for a special box type' do
     # There are no rates for Priority Mail Express and Large Flat Rate Box
-    let(:shipping_method_name) { 'Priority' }
+    let(:shipping_method_name) { 'Priority Mail' }
     let(:properties) { { box_name: :large_flat_rate_box } }
 
     it 'has the right attributes' do

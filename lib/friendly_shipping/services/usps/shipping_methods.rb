@@ -30,19 +30,19 @@ module FriendlyShipping
       }.freeze
 
       SHIPPING_METHODS = [
-        'First-Class',
-        'Package Services',
-        'Priority',
-        'Priority Mail Express',
-        'Standard Post',
-        'Retail Ground',
-        'Media Mail',
-        'Library Mail',
-      ].map do |shipping_method_name|
+        ['FIRST CLASS', 'First-Class'],
+        ['PACKAGE SERVICES', 'Package Services'],
+        ['PRIORITY', 'Priority Mail'],
+        ['PRIORITY MAIL EXPRESS', 'Priority Mail Express'],
+        ['STANDARD POST', 'Standard Post'],
+        ['RETAIL GROUND', 'Retail Ground'],
+        ['MEDIA MAIL', 'Media Mail'],
+        ['LIBRARY MAIL', 'Library Mail'],
+      ].map do |code, name|
         FriendlyShipping::ShippingMethod.new(
           origin_countries: [Carmen::Country.coded('US')],
-          name: shipping_method_name,
-          service_code: shipping_method_name.tr('-', ' ').upcase,
+          name: name,
+          service_code: code,
           domestic: true,
           international: false
         )
