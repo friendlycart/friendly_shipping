@@ -54,6 +54,7 @@ module FriendlyShipping
         SERVICE_NAME_TAG = 'MailService'
         RATE_TAG = 'Rate'
         COMMERCIAL_RATE_TAG = 'CommercialRate'
+        COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusRate'
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
@@ -84,8 +85,8 @@ module FriendlyShipping
             # In these cases, return the commercial rate instead of the normal rate.
             # Some rates are available in both commercial and retail pricing - if we want the commercial pricing here,
             # we need to specify the commercial_pricing property on the `Physical::Package`.
-            rate_value = if (package_options.commercial_pricing || rate_node.at(RATE_TAG).text.to_d.zero?) && rate_node.at(COMMERCIAL_RATE_TAG)
-                           rate_node.at(COMMERCIAL_RATE_TAG).text.to_d
+            rate_value = if (package_options.commercial_pricing || rate_node.at(RATE_TAG).text.to_d.zero?) && (rate_node.at(COMMERCIAL_RATE_TAG) || rate_node.at(COMMERCIAL_PLUS_RATE_TAG))
+                           rate_node.at(COMMERCIAL_RATE_TAG)&.text&.to_d || rate_node.at(COMMERCIAL_PLUS_RATE_TAG).text.to_d
                          else
                            rate_node.at(RATE_TAG).text.to_d
                          end

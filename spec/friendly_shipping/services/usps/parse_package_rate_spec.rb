@@ -106,4 +106,13 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
       expect(subject.total_amount.to_f).to eq(4.5)
     end
   end
+
+  context "if rate is 0 and commercial rate is missing" do
+    let(:rate) { "0.0" }
+    let(:commercial_plus_rate) { "5.70" }
+
+    it "uses commercial plus rate" do
+      expect(subject.total_amount.to_f).to eq(5.7)
+    end
+  end
 end
