@@ -20,7 +20,7 @@ RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
 
   describe 'box_name' do
     context 'when setting it to something that is no USPS box' do
-      let(:options) do
+      subject do
         described_class.new(
           package_id: package_id,
           box_name: :package
@@ -28,109 +28,84 @@ RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
       end
 
       it 'become "variable"' do
-        expect(options.box_name).to eq(:variable)
+        expect(subject.box_name).to eq(:variable)
       end
     end
   end
 
   describe '#service_code' do
-    let(:options) do
+    subject do
       described_class.new(
         package_id: package_id,
-        shipping_method: shipping_method
+        shipping_method: shipping_method,
+        commercial_pricing: commercial_pricing,
+        hold_for_pickup: hold_for_pickup
       )
     end
 
-    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: 'PRIORITY') }
+    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: service_code) }
+    let(:service_code) { "PRIORITY" }
+    let(:commercial_pricing) { false }
+    let(:hold_for_pickup) { false }
 
     it 'returns service code from shipping method' do
-      expect(options.service_code).to eq('PRIORITY')
+      expect(subject.service_code).to eq('PRIORITY')
     end
 
     context 'with no shipping method' do
       let(:shipping_method) { nil }
 
       it 'returns ALL' do
-        expect(options.service_code).to eq('ALL')
+        expect(subject.service_code).to eq('ALL')
       end
     end
 
     context "with cubic shipping method" do
-      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "PRIORITY MAIL CUBIC") }
+      let(:service_code) { "PRIORITY MAIL CUBIC" }
 
       it "returns unmodified service code" do
-        expect(options.service_code).to eq("PRIORITY MAIL CUBIC")
+        expect(subject.service_code).to eq("PRIORITY MAIL CUBIC")
       end
 
       context "with commercial pricing" do
-        let(:options) do
-          described_class.new(
-            package_id: package_id,
-            shipping_method: shipping_method,
-            commercial_pricing: true
-          )
-        end
+        let(:commercial_pricing) { true }
 
         it "returns unmodified service code" do
-          expect(options.service_code).to eq("PRIORITY MAIL CUBIC")
+          expect(subject.service_code).to eq("PRIORITY MAIL CUBIC")
         end
       end
 
       context "with hold for pickup" do
-        let(:options) do
-          described_class.new(
-            package_id: package_id,
-            shipping_method: shipping_method,
-            hold_for_pickup: true
-          )
-        end
+        let(:hold_for_pickup) { true }
 
         it "returns unmodified service code" do
-          expect(options.service_code).to eq("PRIORITY MAIL CUBIC")
+          expect(subject.service_code).to eq("PRIORITY MAIL CUBIC")
         end
       end
     end
 
     context 'with commercial pricing' do
-      let(:options) do
-        described_class.new(
-          package_id: package_id,
-          shipping_method: shipping_method,
-          commercial_pricing: true
-        )
-      end
+      let(:commercial_pricing) { true }
 
       it 'appends COMMERCIAL to service code' do
-        expect(options.service_code).to eq('PRIORITY COMMERCIAL')
+        expect(subject.service_code).to eq('PRIORITY COMMERCIAL')
       end
     end
 
     context 'with hold for pickup' do
-      let(:options) do
-        described_class.new(
-          package_id: package_id,
-          shipping_method: shipping_method,
-          hold_for_pickup: true
-        )
-      end
+      let(:hold_for_pickup) { true }
 
       it 'appends HFP to service code' do
-        expect(options.service_code).to eq('PRIORITY HFP')
+        expect(subject.service_code).to eq('PRIORITY HFP')
       end
     end
 
     context 'with commercial pricing and hold for pickup' do
-      let(:options) do
-        described_class.new(
-          package_id: package_id,
-          shipping_method: shipping_method,
-          commercial_pricing: true,
-          hold_for_pickup: true
-        )
-      end
+      let(:commercial_pricing) { true }
+      let(:hold_for_pickup) { true }
 
       it 'appends HFP and COMMERCIAL to service code' do
-        expect(options.service_code).to eq('PRIORITY HFP COMMERCIAL')
+        expect(subject.service_code).to eq('PRIORITY HFP COMMERCIAL')
       end
     end
   end
