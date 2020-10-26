@@ -49,6 +49,9 @@ module FriendlyShipping
         def service_code
           return 'ALL' unless shipping_method
 
+          # Cubic shipping methods don't have HFP or COMMERCIAL modifiers
+          return shipping_method.service_code if shipping_method.service_code =~ /CUBIC/
+
           service_code = [shipping_method.service_code]
           service_code << 'HFP' if hold_for_pickup
           service_code << 'COMMERCIAL' if commercial_pricing

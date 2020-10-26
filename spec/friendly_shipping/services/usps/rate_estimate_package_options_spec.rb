@@ -55,6 +55,42 @@ RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
       end
     end
 
+    context "with cubic shipping method" do
+      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "PRIORITY MAIL CUBIC") }
+
+      it "returns unmodified service code" do
+        expect(options.service_code).to eq("PRIORITY MAIL CUBIC")
+      end
+
+      context "with commercial pricing" do
+        let(:options) do
+          described_class.new(
+            package_id: package_id,
+            shipping_method: shipping_method,
+            commercial_pricing: true
+          )
+        end
+
+        it "returns unmodified service code" do
+          expect(options.service_code).to eq("PRIORITY MAIL CUBIC")
+        end
+      end
+
+      context "with hold for pickup" do
+        let(:options) do
+          described_class.new(
+            package_id: package_id,
+            shipping_method: shipping_method,
+            hold_for_pickup: true
+          )
+        end
+
+        it "returns unmodified service code" do
+          expect(options.service_code).to eq("PRIORITY MAIL CUBIC")
+        end
+      end
+    end
+
     context 'with commercial pricing' do
       let(:options) do
         described_class.new(
