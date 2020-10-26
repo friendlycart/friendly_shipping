@@ -93,16 +93,19 @@ module FriendlyShipping
             # The rate expressed as a RubyMoney objext
             rate = Money.new(rate_value * CURRENCY.subunit_to_unit, CURRENCY)
 
-            # Which shipping method does this rate belong to? This is trickier than it sounds, because we match
-            # strings here, and we have a `Priority Mail` and `Priority Mail Express` shipping method.
-            # If we have multiple matches, we take the longest matching shipping method name so `Express` rates
-            # do not accidentally get marked as `Priority` only.
-            possible_shipping_methods = SHIPPING_METHODS.select do |sm|
-              service_name.tr('-', ' ').upcase.starts_with?(sm.service_code)
-            end.sort_by do |shipping_method|
-              shipping_method.name.length
-            end
-            shipping_method = possible_shipping_methods.last
+            # Which shipping method does this rate belong to? We first try to match a rate to a shipping method
+            # by class ID (the CLASSID attribute in the USPS API rate response). Not every shipping method
+            # has a class ID defined, and a shipping method can have multiple class IDs (for example, Priority
+            # Express has different class IDs for standard, hold for pickup, and Sunday/Holiday delivery).
+            #
+            # If we don't find a match for class ID, we next try to match a rate to a shipping method using the
+            # shipping method's service code. The USPS API rate response includes a name for each rate in the
+            # MailService element. We match to see if the name starts with the given value. For example:
+            #   `Priority Mail Express 2-day™`
+            #
+            shipping_method =
+              SHIPPING_METHODS.detect { |sm| sm.data[:class_ids]&.include?(service_code) } ||
+              SHIPPING_METHODS.detect { |sm| service_name.tr('-', ' ').upcase.starts_with?(sm.service_code) }
 
             # We find out the box name using a bit of Regex magic using named captures. See the `BOX_REGEX`
             # constant above.

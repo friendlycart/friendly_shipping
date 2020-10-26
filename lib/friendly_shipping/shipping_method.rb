@@ -2,7 +2,7 @@
 
 module FriendlyShipping
   class ShippingMethod
-    attr_reader :name, :service_code, :carrier, :origin_countries
+    attr_reader :name, :service_code, :carrier, :origin_countries, :data
 
     # @param [String] name The shipping method's name
     # @param [String] service_code The shipping method's service code
@@ -11,6 +11,7 @@ module FriendlyShipping
     # @param [Boolean] multi_package Whether this is a multi-package shipping method
     # @param [FriendlyShipping::Carrier] carrier This shipping method's carrier
     # @param [Array] origin_countries Countries this shipping method ships from
+    # @param [Hash] data Additional carrier-specific data for this shipping method
     def initialize(
       name: nil,
       service_code: nil,
@@ -18,7 +19,8 @@ module FriendlyShipping
       international: nil,
       multi_package: nil,
       carrier: nil,
-      origin_countries: []
+      origin_countries: [],
+      data: {}
     )
       @name = name
       @service_code = service_code
@@ -27,6 +29,7 @@ module FriendlyShipping
       @multi_package = multi_package
       @carrier = carrier
       @origin_countries = origin_countries
+      @data = data
     end
 
     def domestic?

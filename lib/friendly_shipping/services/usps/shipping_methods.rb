@@ -29,22 +29,31 @@ module FriendlyShipping
         package_service_retail: 'PACKAGE SERVICE RETAIL'
       }.freeze
 
+      CLASS_IDS = {
+        priority_mail_express: {
+          standard: '3',
+          hold_for_pickup: '2',
+          sunday_holiday_delivery: '23'
+        }
+      }.freeze
+
       SHIPPING_METHODS = [
         ['FIRST CLASS', 'First-Class'],
         ['PACKAGE SERVICES', 'Package Services'],
         ['PRIORITY', 'Priority Mail'],
-        ['PRIORITY MAIL EXPRESS', 'Priority Mail Express'],
+        ['PRIORITY MAIL EXPRESS', 'Priority Mail Express', CLASS_IDS[:priority_mail_express].values],
         ['STANDARD POST', 'Standard Post'],
         ['RETAIL GROUND', 'Retail Ground'],
         ['MEDIA MAIL', 'Media Mail'],
         ['LIBRARY MAIL', 'Library Mail'],
-      ].map do |code, name|
+      ].map do |code, name, class_ids|
         FriendlyShipping::ShippingMethod.new(
           origin_countries: [Carmen::Country.coded('US')],
           name: name,
           service_code: code,
           domestic: true,
-          international: false
+          international: false,
+          data: { class_ids: class_ids }
         )
       end.freeze
     end
