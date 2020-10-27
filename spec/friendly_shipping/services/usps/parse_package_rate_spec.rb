@@ -66,6 +66,16 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     end
   end
 
+  context "Priority Mail Cubic" do
+    let(:class_id) { "999" }
+    let(:mail_service) { "Priority Mail 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Cubic" }
+
+    it "has the correct shipping method" do
+      expect(subject.shipping_method.name).to eq("Priority Mail Cubic")
+      expect(subject.data[:service_code]).to eq("999")
+    end
+  end
+
   context 'Priority Mail in a Flat Rate Box' do
     let(:class_id) { "22" }
     let(:mail_service) { "Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box" }
@@ -94,6 +104,15 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
 
     it 'will use the commercial rate instead of the normal rate' do
       expect(subject.total_amount.to_f).to eq(4.5)
+    end
+  end
+
+  context "if rate is 0 and commercial rate is missing" do
+    let(:rate) { "0.0" }
+    let(:commercial_plus_rate) { "5.70" }
+
+    it "uses commercial plus rate" do
+      expect(subject.total_amount.to_f).to eq(5.7)
     end
   end
 end

@@ -54,6 +54,7 @@ module FriendlyShipping
         SERVICE_NAME_TAG = 'MailService'
         RATE_TAG = 'Rate'
         COMMERCIAL_RATE_TAG = 'CommercialRate'
+        COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusRate'
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
@@ -82,13 +83,19 @@ module FriendlyShipping
 
             # Some USPS services only offer commercial pricing. Unfortunately, USPS then returns a retail rate of 0.
             # In these cases, return the commercial rate instead of the normal rate.
+            #
             # Some rates are available in both commercial and retail pricing - if we want the commercial pricing here,
             # we need to specify the commercial_pricing property on the `Physical::Package`.
-            rate_value = if (package_options.commercial_pricing || rate_node.at(RATE_TAG).text.to_d.zero?) && rate_node.at(COMMERCIAL_RATE_TAG)
-                           rate_node.at(COMMERCIAL_RATE_TAG).text.to_d
-                         else
-                           rate_node.at(RATE_TAG).text.to_d
-                         end
+            #
+            commercial_rate_requested_or_rate_is_zero = package_options.commercial_pricing || rate_node.at(RATE_TAG).text.to_d.zero?
+            commercial_rate_available = rate_node.at(COMMERCIAL_RATE_TAG) || rate_node.at(COMMERCIAL_PLUS_RATE_TAG)
+
+            rate_value =
+              if commercial_rate_requested_or_rate_is_zero && commercial_rate_available
+                rate_node.at(COMMERCIAL_RATE_TAG)&.text&.to_d || rate_node.at(COMMERCIAL_PLUS_RATE_TAG).text.to_d
+              else
+                rate_node.at(RATE_TAG).text.to_d
+              end
 
             # The rate expressed as a RubyMoney objext
             rate = Money.new(rate_value * CURRENCY.subunit_to_unit, CURRENCY)

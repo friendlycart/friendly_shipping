@@ -34,7 +34,8 @@ module FriendlyShipping
           standard: '3',
           hold_for_pickup: '2',
           sunday_holiday_delivery: '23'
-        }
+        },
+        priority_mail_cubic: '999'
       }.freeze
 
       SHIPPING_METHODS = [
@@ -42,6 +43,7 @@ module FriendlyShipping
         ['PACKAGE SERVICES', 'Package Services'],
         ['PRIORITY', 'Priority Mail'],
         ['PRIORITY MAIL EXPRESS', 'Priority Mail Express', CLASS_IDS[:priority_mail_express].values],
+        ['PRIORITY MAIL CUBIC', 'Priority Mail Cubic', CLASS_IDS[:priority_mail_cubic]],
         ['STANDARD POST', 'Standard Post'],
         ['RETAIL GROUND', 'Retail Ground'],
         ['MEDIA MAIL', 'Media Mail'],
