@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rest-client", "~> 2.0"
   spec.required_ruby_version = '>= 2.5'
 
-  spec.add_development_dependency "bundler", ">= 1.17", "< 3"
+  spec.add_development_dependency "bundler", ">= 2.1.4", "< 3"
   spec.add_development_dependency "dotenv", "~> 2.7"
   spec.add_development_dependency "factory_bot", "~> 5.0"
   spec.add_development_dependency "pry", "~> 0.12"
