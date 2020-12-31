@@ -36,10 +36,7 @@ module FriendlyShipping
               negotiated_rate = ParseMoneyElement.call(
                 rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
               )&.last
-
-              itemized_charges = rated_shipment.xpath('ItemizedCharges').map do |element|
-                ParseMoneyElement.call(element)
-              end.compact.to_h
+              itemized_charges = extract_charges(rated_shipment.xpath('ItemizedCharges'))
 
               rated_shipment_warnings = rated_shipment.css('RatedShipmentWarning').map { |e| e.text.strip }
               if rated_shipment_warnings.any? { |e| e.match?(/to Residential/) }
@@ -69,19 +66,22 @@ module FriendlyShipping
 
           def build_packages(rated_shipment)
             rated_shipment.css('RatedPackage').map do |rated_package|
-              itemized_charges = rated_package.xpath('ItemizedCharges').map do |element|
-                ParseMoneyElement.call(element)
-              end.compact.to_h
               {
                 transportation_charges: ParseMoneyElement.call(rated_package.at('TransportationCharges')).last,
                 base_service_charge: ParseMoneyElement.call(rated_package.at('BaseServiceCharge')).last,
                 service_options_charges: ParseMoneyElement.call(rated_package.at('ServiceOptionsCharges'))&.last,
-                itemized_charges: itemized_charges,
+                itemized_charges: extract_charges(rated_package.xpath('ItemizedCharges')),
                 total_charges: ParseMoneyElement.call(rated_package.at('TotalCharges')).last,
                 weight: BigDecimal(rated_package.at('Weight').text),
                 billing_weight: BigDecimal(rated_package.at('BillingWeight/Weight').text)
               }.compact
             end
+          end
+
+          def extract_charges(node)
+            node.map do |element|
+              ParseMoneyElement.call(element)
+            end.compact.to_h
           end
         end
       end
