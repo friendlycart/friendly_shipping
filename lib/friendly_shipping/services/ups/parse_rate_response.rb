@@ -37,6 +37,10 @@ module FriendlyShipping
                 rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
               )&.last
 
+              itemized_charges = rated_shipment.xpath('ItemizedCharges').map do |element|
+                ParseMoneyElement.call(element)
+              end.compact.to_h
+
               rated_shipment_warnings = rated_shipment.css('RatedShipmentWarning').map { |e| e.text.strip }
               if rated_shipment_warnings.any? { |e| e.match?(/to Residential/) }
                 new_address_type = 'residential'
@@ -54,6 +58,7 @@ module FriendlyShipping
                   negotiated_rate: negotiated_rate,
                   days_to_delivery: days_to_delivery,
                   new_address_type: new_address_type,
+                  itemized_charges: itemized_charges,
                   packages: build_packages(rated_shipment)
                 }.compact
               )

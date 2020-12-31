@@ -30,6 +30,18 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
     )
   end
 
+  it 'returns itemized charges for the shipment' do
+    rates = subject.value!.data
+    expect(rates.map { |r| r.data[:itemized_charges] }).to contain_exactly(
+      { 'RESIDENTIAL ADDRESS' => Money.new(360, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') }
+    )
+  end
+
   describe 'address type changed' do
     context 'when changed to residential' do
       let(:fixture) { 'ups_rates_address_type_residential_api_response.xml' }
