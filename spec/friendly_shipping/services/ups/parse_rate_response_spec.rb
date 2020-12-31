@@ -42,6 +42,26 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
     )
   end
 
+  it 'returns negotiated shipment rate and charges along with the response' do
+    rates = subject.value!.data
+    expect(rates.map { |r| r.data[:negotiated_rate] }).to contain_exactly(
+      Money.new(1102, 'USD'),
+      Money.new(1596, 'USD'),
+      Money.new(1539, 'USD'),
+      Money.new(3038, 'USD'),
+      Money.new(11_513, 'USD'),
+      Money.new(3265, 'USD')
+    )
+    expect(rates.map { |r| r.data[:negotiated_charges] }).to contain_exactly(
+      { 'RESIDENTIAL ADDRESS' => Money.new(360, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') },
+      { 'RESIDENTIAL ADDRESS' => Money.new(415, 'USD') }
+    )
+  end
+
   describe 'address type changed' do
     context 'when changed to residential' do
       let(:fixture) { 'ups_rates_address_type_residential_api_response.xml' }
@@ -87,6 +107,9 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
           total_charges: Money.new(1551, 'USD'),
           itemized_charges: {
             'FUEL SURCHARGE' => Money.new(105, 'USD')
+          },
+          negotiated_charges: {
+            'FUEL SURCHARGE' => Money.new(53, 'USD')
           },
           weight: 4.0,
           billing_weight: 4.0

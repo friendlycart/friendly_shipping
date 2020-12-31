@@ -66,6 +66,19 @@
         <CurrencyCode>USD</CurrencyCode>
         <MonetaryValue>15.51</MonetaryValue>
       </TotalCharges>
+      <NegotiatedCharges>
+        <ItemizedCharges>
+          <Code>376</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.00</MonetaryValue>
+          <SubType>Suburban</SubType>
+        </ItemizedCharges>
+        <ItemizedCharges>
+          <Code>375</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.53</MonetaryValue>
+        </ItemizedCharges>
+      </NegotiatedCharges>
       <Weight>4.0</Weight>
       <BillingWeight>
         <UnitOfMeasurement>
@@ -75,6 +88,11 @@
       </BillingWeight>
     </RatedPackage>
     <NegotiatedRates>
+      <ItemizedCharges>
+        <Code>270</Code>
+        <CurrencyCode>USD</CurrencyCode>
+        <MonetaryValue>3.60</MonetaryValue>
+      </ItemizedCharges>
       <NetSummaryCharges>
         <GrandTotal>
           <CurrencyCode>USD</CurrencyCode>
@@ -145,6 +163,19 @@
         <CurrencyCode>USD</CurrencyCode>
         <MonetaryValue>22.04</MonetaryValue>
       </TotalCharges>
+      <NegotiatedCharges>
+        <ItemizedCharges>
+          <Code>376</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.00</MonetaryValue>
+          <SubType>Suburban</SubType>
+        </ItemizedCharges>
+        <ItemizedCharges>
+          <Code>375</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.82</MonetaryValue>
+        </ItemizedCharges>
+      </NegotiatedCharges>
       <Weight>4.0</Weight>
       <BillingWeight>
         <UnitOfMeasurement>
@@ -154,6 +185,11 @@
       </BillingWeight>
     </RatedPackage>
     <NegotiatedRates>
+      <ItemizedCharges>
+        <Code>270</Code>
+        <CurrencyCode>USD</CurrencyCode>
+        <MonetaryValue>4.15</MonetaryValue>
+      </ItemizedCharges>
       <NetSummaryCharges>
         <GrandTotal>
           <CurrencyCode>USD</CurrencyCode>
@@ -224,6 +260,19 @@
         <CurrencyCode>USD</CurrencyCode>
         <MonetaryValue>28.73</MonetaryValue>
       </TotalCharges>
+      <NegotiatedCharges>
+        <ItemizedCharges>
+          <Code>376</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.00</MonetaryValue>
+          <SubType>Suburban</SubType>
+        </ItemizedCharges>
+        <ItemizedCharges>
+          <Code>375</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>1.07</MonetaryValue>
+        </ItemizedCharges>
+      </NegotiatedCharges>
       <Weight>4.0</Weight>
       <BillingWeight>
         <UnitOfMeasurement>
@@ -233,6 +282,11 @@
       </BillingWeight>
     </RatedPackage>
     <NegotiatedRates>
+      <ItemizedCharges>
+        <Code>270</Code>
+        <CurrencyCode>USD</CurrencyCode>
+        <MonetaryValue>4.15</MonetaryValue>
+      </ItemizedCharges>
       <NetSummaryCharges>
         <GrandTotal>
           <CurrencyCode>USD</CurrencyCode>
@@ -303,6 +357,19 @@
         <CurrencyCode>USD</CurrencyCode>
         <MonetaryValue>76.41</MonetaryValue>
       </TotalCharges>
+      <NegotiatedCharges>
+        <ItemizedCharges>
+          <Code>376</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.00</MonetaryValue>
+          <SubType>Suburban</SubType>
+        </ItemizedCharges>
+        <ItemizedCharges>
+          <Code>375</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>2.83</MonetaryValue>
+        </ItemizedCharges>
+      </NegotiatedCharges>
       <Weight>4.0</Weight>
       <BillingWeight>
         <UnitOfMeasurement>
@@ -312,6 +379,11 @@
       </BillingWeight>
     </RatedPackage>
     <NegotiatedRates>
+      <ItemizedCharges>
+        <Code>270</Code>
+        <CurrencyCode>USD</CurrencyCode>
+        <MonetaryValue>4.15</MonetaryValue>
+      </ItemizedCharges>
       <NetSummaryCharges>
         <GrandTotal>
           <CurrencyCode>USD</CurrencyCode>
@@ -382,6 +454,19 @@
         <CurrencyCode>USD</CurrencyCode>
         <MonetaryValue>115.13</MonetaryValue>
       </TotalCharges>
+      <NegotiatedCharges>
+        <ItemizedCharges>
+          <Code>376</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.00</MonetaryValue>
+          <SubType>Suburban</SubType>
+        </ItemizedCharges>
+        <ItemizedCharges>
+          <Code>375</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>4.27</MonetaryValue>
+        </ItemizedCharges>
+      </NegotiatedCharges>
       <Weight>4.0</Weight>
       <BillingWeight>
         <UnitOfMeasurement>
@@ -391,6 +476,11 @@
       </BillingWeight>
     </RatedPackage>
     <NegotiatedRates>
+      <ItemizedCharges>
+        <Code>270</Code>
+        <CurrencyCode>USD</CurrencyCode>
+        <MonetaryValue>4.15</MonetaryValue>
+      </ItemizedCharges>
       <NetSummaryCharges>
         <GrandTotal>
           <CurrencyCode>USD</CurrencyCode>
@@ -461,6 +551,19 @@
         <CurrencyCode>USD</CurrencyCode>
         <MonetaryValue>82.73</MonetaryValue>
       </TotalCharges>
+      <NegotiatedCharges>
+        <ItemizedCharges>
+          <Code>376</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>0.00</MonetaryValue>
+          <SubType>Suburban</SubType>
+        </ItemizedCharges>
+        <ItemizedCharges>
+          <Code>375</Code>
+          <CurrencyCode>USD</CurrencyCode>
+          <MonetaryValue>3.07</MonetaryValue>
+        </ItemizedCharges>
+      </NegotiatedCharges>
       <Weight>4.0</Weight>
       <BillingWeight>
         <UnitOfMeasurement>
@@ -470,6 +573,11 @@
       </BillingWeight>
     </RatedPackage>
     <NegotiatedRates>
+      <ItemizedCharges>
+        <Code>270</Code>
+        <CurrencyCode>USD</CurrencyCode>
+        <MonetaryValue>4.15</MonetaryValue>
+      </ItemizedCharges>
       <NetSummaryCharges>
         <GrandTotal>
           <CurrencyCode>USD</CurrencyCode>

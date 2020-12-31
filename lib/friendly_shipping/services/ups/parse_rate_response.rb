@@ -36,6 +36,7 @@ module FriendlyShipping
               negotiated_rate = ParseMoneyElement.call(
                 rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
               )&.last
+              negotiated_charges = extract_charges(rated_shipment.xpath('NegotiatedRates/ItemizedCharges'))
               itemized_charges = extract_charges(rated_shipment.xpath('ItemizedCharges'))
 
               rated_shipment_warnings = rated_shipment.css('RatedShipmentWarning').map { |e| e.text.strip }
@@ -53,6 +54,7 @@ module FriendlyShipping
                 data: {
                   insurance_price: insurance_price,
                   negotiated_rate: negotiated_rate,
+                  negotiated_charges: negotiated_charges,
                   days_to_delivery: days_to_delivery,
                   new_address_type: new_address_type,
                   itemized_charges: itemized_charges,
@@ -72,6 +74,7 @@ module FriendlyShipping
                 service_options_charges: ParseMoneyElement.call(rated_package.at('ServiceOptionsCharges'))&.last,
                 itemized_charges: extract_charges(rated_package.xpath('ItemizedCharges')),
                 total_charges: ParseMoneyElement.call(rated_package.at('TotalCharges')).last,
+                negotiated_charges: extract_charges(rated_package.xpath('NegotiatedCharges/ItemizedCharges')),
                 weight: BigDecimal(rated_package.at('Weight').text),
                 billing_weight: BigDecimal(rated_package.at('BillingWeight/Weight').text)
               }.compact
