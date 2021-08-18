@@ -66,6 +66,18 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
         expect { subject }.to raise_exception(ArgumentError)
       end
     end
+
+    context 'with a super heavy package', vcr: { cassette_name: 'shipengine/rate_estimates/overweight' } do
+      let(:package) { FactoryBot.build(:physical_package, items: FactoryBot.build_list(:physical_item, 900 )) }
+      let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], origin: origin, destination: destination) }
+
+      it 'returns a failure with error messages' do
+        aggregate_failures do
+          is_expected.to be_failure
+          expect(subject.failure.to_s).to eq("[\"Error calculating rates for one or more mail classes: There are no rates available for the package information provided. Error encountered (Log ID: 33439)\"]")
+        end
+      end
+    end
   end
 
   describe 'labels' do
