@@ -13,7 +13,6 @@ module FriendlyShipping
             error_messages = []
             parsed_json = JSON.parse(response.body)
             rates = parsed_json.map do |rate|
-
               if rate['validation_status'] == 'invalid'
                 error_messages.concat rate['error_messages']
                 next
