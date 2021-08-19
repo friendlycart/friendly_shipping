@@ -10,8 +10,15 @@ module FriendlyShipping
 
         class << self
           def call(response:, request:, options:)
+            error_messages = []
             parsed_json = JSON.parse(response.body)
             rates = parsed_json.map do |rate|
+
+              if rate['validation_status'] == 'invalid'
+                error_messages.concat rate['error_messages']
+                next
+              end
+
               carrier = options.carriers.detect { |c| c.id == rate['carrier_id'] }
               next unless carrier
 
@@ -31,16 +38,32 @@ module FriendlyShipping
               )
             end.compact
 
-            Success(
-              ApiResult.new(
-                rates,
-                original_request: request,
-                original_response: response
+            if valid_rates(parsed_json)
+              Success(
+                ApiResult.new(
+                  rates,
+                  original_request: request,
+                  original_response: response
+                )
               )
-            )
+            else
+              Failure(
+                ApiFailure.new(
+                  error_messages,
+                  original_request: request,
+                  original_response: response
+                )
+              )
+            end
           end
 
           private
+
+          def valid_rates(parsed_json)
+            parsed_json.map do |rate|
+              ["valid", "has_warnings", "unknown"].include? rate['validation_status']
+            end.any?
+          end
 
           def get_amounts(rate_hash)
             [:shipping, :other, :insurance, :confirmation].map do |name|
