@@ -3,13 +3,13 @@
 module FriendlyShipping
   class Rate
     class NoAmountsGiven < StandardError; end
-    attr_reader :shipping_method,
-                :amounts,
-                :remote_service_id,
-                :delivery_date,
-                :warnings,
-                :errors,
-                :data
+    attr_accessor :shipping_method,
+                  :amounts,
+                  :remote_service_id,
+                  :delivery_date,
+                  :warnings,
+                  :errors,
+                  :data
 
     # @param [FriendlyShipping::ShippingMethod] shipping_method The rate's shipping method
     # @param [Hash] amounts The amounts (as Money objects) that make up the rate
