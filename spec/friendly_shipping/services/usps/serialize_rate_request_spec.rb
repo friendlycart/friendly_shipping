@@ -150,4 +150,17 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
       expect(node.at_xpath('Girth')).to be nil
     end
   end
+
+  context 'with return_fees set to true' do
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        return_fees: true
+      )
+    end
+
+    it 'includes return fees tag' do
+      expect(node.at_xpath('ReturnFees').text).to eq('true')
+    end
+  end
 end
