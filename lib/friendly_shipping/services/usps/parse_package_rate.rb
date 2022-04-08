@@ -55,6 +55,7 @@ module FriendlyShipping
         RATE_TAG = 'Rate'
         COMMERCIAL_RATE_TAG = 'CommercialRate'
         COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusRate'
+        FEES = './/Fees/Fee'
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
@@ -119,6 +120,15 @@ module FriendlyShipping
             box_name_match = service_name.match(/#{BOX_REGEX}/)
             box_name = box_name_match ? box_name_match.named_captures.compact.keys.last.to_sym : :variable
 
+            fees = rate_node.xpath(FEES).map do |fee_node|
+              type = fee_node.at('FeeType').text
+              price = fee_node.at('FeePrice').text.to_d
+              {
+                type: type,
+                price: Money.new(price * CURRENCY.subunit_to_unit, CURRENCY)
+              }
+            end
+
             # Combine all the gathered information in a FriendlyShipping::Rate object.
             # Careful: This rate is only for one package within the shipment, and we get multiple
             # rates per package for the different shipping method/box/hold for pickup combinations.
@@ -132,7 +142,8 @@ module FriendlyShipping
                 days_to_delivery: days_to_delivery,
                 military: military,
                 full_mail_service: service_name,
-                service_code: service_code
+                service_code: service_code,
+                fees: fees
               }
             )
           end

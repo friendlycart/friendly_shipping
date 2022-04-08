@@ -23,6 +23,16 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
         xml.Rate rate
         xml.CommercialRate commercial_rate if commercial_rate
         xml.CommercialPlusRate commercial_plus_rate if commercial_plus_rate
+        xml.Fees do
+          xml.Fee do
+            xml.FeeType "Nonstandard Length fee &gt; 30 in."
+            xml.FeePrice "15.00"
+          end
+          xml.Fee do
+            xml.FeeType "Nonstandard Volume fee &gt; 2 cu. ft."
+            xml.FeePrice "15.00"
+          end
+        end
       end
     end.to_xml
     Nokogiri::XML(serialized).xpath('Postage').first
@@ -34,6 +44,18 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     expect(subject.shipping_method.name).to eq("Priority Mail Express")
     expect(subject.data[:days_to_delivery]).to eq(1)
     expect(subject.data[:service_code]).to eq("3")
+    expect(subject.data[:fees]).to eq(
+      [
+        {
+          type: "Nonstandard Length fee &gt; 30 in.",
+          price: Money.new("1500", "USD")
+        },
+        {
+          type: "Nonstandard Volume fee &gt; 2 cu. ft.",
+          price: Money.new("1500", "USD")
+        }
+      ]
+    )
   end
 
   context 'with a non-express Priority Mail rate' do

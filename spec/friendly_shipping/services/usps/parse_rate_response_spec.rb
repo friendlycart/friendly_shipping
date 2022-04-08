@@ -122,4 +122,47 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
       expect(subject.value!.data.first.data[:full_mail_service]).to eq('Priority Mail 3-Day Large Flat Rate Box')
     end
   end
+
+  context 'with response containing fees' do
+    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response_with_fees.xml')).read }
+    let(:packages) do
+      [
+        FactoryBot.build(:physical_package, id: '0'),
+      ]
+    end
+    let(:options) do
+      FriendlyShipping::Services::Usps::RateEstimateOptions.new(
+        package_options: shipment.packages.map do |package|
+          FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+            package_id: package.id,
+            return_fees: true
+          )
+        end
+      )
+    end
+
+    it 'returns fees' do
+      expect(subject).to be_success
+      expect(subject.value!.data.map(&:data)).to contain_exactly(
+        hash_including(
+          fees: []
+        ),
+        hash_including(
+          fees: [{
+            type: "Nonstandard Length fee > 30 in.",
+            price: Money.new("1500", "USD")
+          }]
+        ),
+        hash_including(
+          fees: [{
+            type: "Nonstandard Length fee > 30 in.",
+            price: Money.new("1500", "USD")
+          }]
+        ),
+        hash_including(
+          fees: []
+        )
+      )
+    end
+  end
 end
