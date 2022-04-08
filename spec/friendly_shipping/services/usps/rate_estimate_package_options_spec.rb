@@ -13,7 +13,8 @@ RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
     :hold_for_pickup,
     :shipping_method,
     :transmit_dimensions,
-    :rectangular
+    :rectangular,
+    :return_fees
   ].each do |message|
     it { is_expected.to respond_to(message) }
   end
