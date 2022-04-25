@@ -4,22 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.5] - 2022-04-25
+
+### Added
+- USPS Service: Add support for returned dimensional weight (#128)
+- USPS Service: Add support for returned fees (#127)
+
+### Changed
+- ShipEngine Service: Prevent exceptions when no rates are returned (#125)
+- Misc dependency updates (#116, #120, #121, #124)
+
 ## [0.6.4] - 2021-01-27
 
 ### Added
-
 - UPS Service: Include negotiated charges for UPS (#119)
 - UPS Service: Include shipment-level itemized charges (#117)
 
 ## [0.6.3] - 2020-10-30
 
 ### Added
-
 - USPS Service: Append HFP (Hold For Pickup) to service code when necessary (#110)
 - USPS Service: Add Priority Cubic shipping method (#113)
 
 ### Changed
-
 - USPS Service: Refactor to use explicit service codes (#111)
 - USPS Service: Match Priority Express by CLASSID instead of service name (#112)
 - UPS Service: Rename peak surcharge keys to match UPS docs (#114)
