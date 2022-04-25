@@ -23,6 +23,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
         xml.Rate rate
         xml.CommercialRate commercial_rate if commercial_rate
         xml.CommercialPlusRate commercial_plus_rate if commercial_plus_rate
+        xml.DimensionalWeightRate 12
         xml.Fees do
           xml.Fee do
             xml.FeeType "Nonstandard Length fee &gt; 30 in."
@@ -44,6 +45,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     expect(subject.shipping_method.name).to eq("Priority Mail Express")
     expect(subject.data[:days_to_delivery]).to eq(1)
     expect(subject.data[:service_code]).to eq("3")
+    expect(subject.data[:dimensional_weight_rate]).to eq(12)
     expect(subject.data[:fees]).to eq(
       [
         {

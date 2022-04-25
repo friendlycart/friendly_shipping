@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RateV4Response>
+  <Package ID="0">
+    <ZipOrigination>90210</ZipOrigination>
+    <ZipDestination>10017</ZipDestination>
+    <Pounds>0</Pounds>
+    <Ounces>8.8</Ounces>
+    <Size>REGULAR</Size>
+    <Machinable>TRUE</Machinable>
+    <Zone>8</Zone>
+    <Postage CLASSID="1">
+      <MailService>Priority Mail 2-Day&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService>
+      <Rate>7.15</Rate>
+      <DimensionalWeightRate>12</DimensionalWeightRate>
+    </Postage>
+  </Package>
+</RateV4Response>
