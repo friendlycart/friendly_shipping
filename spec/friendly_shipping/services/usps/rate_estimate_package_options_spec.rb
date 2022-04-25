@@ -14,6 +14,7 @@ RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
     :shipping_method,
     :transmit_dimensions,
     :rectangular,
+    :return_dimensional_weight,
     :return_fees
   ].each do |message|
     it { is_expected.to respond_to(message) }

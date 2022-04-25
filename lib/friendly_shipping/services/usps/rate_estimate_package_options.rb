@@ -8,6 +8,7 @@ module FriendlyShipping
     #
     # @param [Symbol] box_name The type of box we want to get rates for. Has to be one of the keys
     #  of FriendlyShipping::Services::Usps::CONTAINERS.
+    # @param [Symbol] return_dimensional_weight Boolean indicating whether the response should include dimensional weight.
     # @param [Symbol] return_fees Boolean indicating whether the response should include fees.
     class Usps
       class RateEstimatePackageOptions < FriendlyShipping::PackageOptions
@@ -18,6 +19,7 @@ module FriendlyShipping
                     :shipping_method,
                     :transmit_dimensions,
                     :rectangular,
+                    :return_dimensional_weight,
                     :return_fees
 
         def initialize(
@@ -28,6 +30,7 @@ module FriendlyShipping
           shipping_method: nil,
           transmit_dimensions: true,
           rectangular: true,
+          return_dimensional_weight: true,
           return_fees: false,
           **kwargs
         )
@@ -38,6 +41,7 @@ module FriendlyShipping
           @shipping_method = shipping_method
           @transmit_dimensions = transmit_dimensions
           @rectangular = rectangular
+          @return_dimensional_weight = return_dimensional_weight
           @return_fees = return_fees
           super kwargs
         end
