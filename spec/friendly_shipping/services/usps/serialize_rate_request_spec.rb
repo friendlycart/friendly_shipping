@@ -151,6 +151,19 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
     end
   end
 
+  context 'with return_dimensional_weight set to true' do
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        return_dimensional_weight: true
+      )
+    end
+
+    it 'includes dimensional weight rate tag' do
+      expect(node.at_xpath('ReturnDimensionalWeight').text).to eq('true')
+    end
+  end
+
   context 'with return_fees set to true' do
     let(:package_options) do
       FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(

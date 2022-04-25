@@ -46,6 +46,7 @@ module FriendlyShipping
                       end
                     end
                     xml.Machinable(machinable(package))
+                    xml.ReturnDimensionalWeight(true) if package_options.return_dimensional_weight
                     xml.ReturnFees(true) if package_options.return_fees
                   end
                 end
