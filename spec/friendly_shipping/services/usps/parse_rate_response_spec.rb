@@ -165,4 +165,32 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
       )
     end
   end
+
+  context 'with response containing dimensional weight rate' do
+    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response_with_dimensional_weight_rate.xml')).read }
+    let(:packages) do
+      [
+        FactoryBot.build(:physical_package, id: '0'),
+      ]
+    end
+    let(:options) do
+      FriendlyShipping::Services::Usps::RateEstimateOptions.new(
+        package_options: shipment.packages.map do |package|
+          FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+            package_id: package.id,
+            return_dimensional_weight: true
+          )
+        end
+      )
+    end
+
+    it 'returns dimensional weight' do
+      expect(subject).to be_success
+      expect(subject.value!.data.map(&:data)).to contain_exactly(
+        hash_including(
+          dimensional_weight_rate: 12
+        )
+      )
+    end
+  end
 end

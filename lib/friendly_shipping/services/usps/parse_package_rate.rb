@@ -55,6 +55,7 @@ module FriendlyShipping
         RATE_TAG = 'Rate'
         COMMERCIAL_RATE_TAG = 'CommercialRate'
         COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusRate'
+        DIMENSIONAL_WEIGHT_RATE = 'DimensionalWeightRate'
         FEES = './/Fees/Fee'
         CURRENCY = Money::Currency.new('USD').freeze
 
@@ -120,6 +121,8 @@ module FriendlyShipping
             box_name_match = service_name.match(/#{BOX_REGEX}/)
             box_name = box_name_match ? box_name_match.named_captures.compact.keys.last.to_sym : :variable
 
+            dimensional_weight_rate = rate_node.at(DIMENSIONAL_WEIGHT_RATE)&.text&.to_i
+
             fees = rate_node.xpath(FEES).map do |fee_node|
               type = fee_node.at('FeeType').text
               price = fee_node.at('FeePrice').text.to_d
@@ -143,6 +146,7 @@ module FriendlyShipping
                 military: military,
                 full_mail_service: service_name,
                 service_code: service_code,
+                dimensional_weight_rate: dimensional_weight_rate,
                 fees: fees
               }
             )
