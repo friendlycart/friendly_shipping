@@ -124,6 +124,10 @@ module FriendlyShipping
 
             dimensional_weight_rate = rate_node.at(DIMENSIONAL_WEIGHT_RATE)&.text&.to_i
 
+            attributes = rate_node.xpath('.//Attributes/Attribute').map do |attr_node|
+              # TODO
+            end
+
             fees = rate_node.xpath(FEES).map do |fee_node|
               type = fee_node.at('FeeType').text
               price = fee_node.at('FeePrice').text.to_d
