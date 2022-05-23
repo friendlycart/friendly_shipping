@@ -34,6 +34,7 @@ module FriendlyShipping
       def carriers(debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:carriers],
+          http_method: "GET",
           headers: request_headers,
           debug: debug
         )
@@ -54,6 +55,7 @@ module FriendlyShipping
       def rate_estimates(shipment, options: FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + 'rates/estimate',
+          http_method: "POST",
           body: SerializeRateEstimateRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
           debug: debug
@@ -75,6 +77,7 @@ module FriendlyShipping
       def labels(shipment, options:)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
+          http_method: "POST",
           body: SerializeLabelShipment.call(shipment: shipment, options: options, test: test).to_json,
           headers: request_headers
         )
@@ -86,6 +89,7 @@ module FriendlyShipping
       def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
+          http_method: "PUT",
           body: '',
           headers: request_headers,
           debug: debug

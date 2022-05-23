@@ -87,6 +87,7 @@ module FriendlyShipping
         url = base_url + RESOURCES[action]
         FriendlyShipping::Request.new(
           url: url,
+          http_method: "POST",
           body: payload.to_json,
           headers: {
             Content_Type: 'application/json',
