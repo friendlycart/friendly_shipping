@@ -1,6 +1,6 @@
 # FriendlyShipping - the friendly shipping provider API wrapper
 
-This gem provides wrappers for popular shipping provider APIs. Currently, there are implementations for rate quoting and address validation, as well as shipping label generation via the `ShipStation` API.
+This gem provides wrappers for popular shipping provider APIs. Currently, there are implementations for rate quoting and address validation, as well as shipping label generation via the `ShipEngine` API.
 
 ## Installation
 
