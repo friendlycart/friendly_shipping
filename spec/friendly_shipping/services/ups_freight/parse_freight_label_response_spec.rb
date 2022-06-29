@@ -27,7 +27,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse
 
     expect(shipment_information.number).to eq("022438065")
     expect(shipment_information.pickup_request_number).to eq("348742132")
-    expect(shipment_information.total).to eq(Money.new(17989, "USD"))
+    expect(shipment_information.total).to eq(Money.new(17_989, "USD"))
     expect(shipment_information.bol_id).to eq("45760188")
 
     expect(shipment_information.shipping_method).to be_a(FriendlyShipping::ShippingMethod)
@@ -35,5 +35,20 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse
     expect(shipment_information.shipping_method.service_code).to eq("308")
 
     expect(shipment_information.warnings).to eq("3289315415: Bogus warning for test purposes")
+    expect(shipment_information.data).to eq(
+      {
+        cost_breakdown: {
+          "BillableShipmentWeight" => "500",
+          "TotalShipmentCharge" => "179.89",
+          "Rates" => {
+            "2" => "16.35",
+            "DSCNT" => "490.61",
+            "DSCNT_RATE" => "75.00",
+            "LND_GROSS" => "654.15",
+            "AFTR_DSCNT" => "163.54"
+          }
+        }
+      }
+    )
   end
 end
