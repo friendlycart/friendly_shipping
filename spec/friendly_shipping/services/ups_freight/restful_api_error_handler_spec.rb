@@ -18,4 +18,12 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::RestfulApiErrorHandler do
   it 'contains the correct string' do
     expect(subject.failure.to_s).to eq("9360721: Missing or Invalid Attention name in the request.\n9370701: Invalid processing option.")
   end
+
+  context 'with HTTP error response' do
+    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'http_error.json')).read }
+
+    it 'contains the correct string' do
+      expect(subject.failure.to_s).to eq("400 Bad Request: The body of the request, which was expected to be JSON, was invalid.")
+    end
+  end
 end
