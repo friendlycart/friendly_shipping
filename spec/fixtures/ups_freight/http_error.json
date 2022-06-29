@@ -1,0 +1,5 @@
+{
+  "httpCode": "400",
+  "httpMessage": "Bad Request",
+  "moreInformation": "The body of the request, which was expected to be JSON, was invalid."
+}
