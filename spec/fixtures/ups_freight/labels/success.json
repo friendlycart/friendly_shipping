@@ -1,0 +1,117 @@
+{
+  "FreightShipResponse": {
+    "Response": {
+      "ResponseStatus": {
+        "Code": "1",
+        "Description": "Success"
+      },
+      "Alert": {
+        "Code": "3289315415",
+        "Description": "Bogus warning for test purposes"
+      }
+    },
+    "ShipmentResults": {
+      "OriginServiceCenterCode": "RIC",
+      "ShipmentNumber": "022438065",
+      "PickupRequestConfirmationNumber": "348742132",
+      "BOLID": "45760188",
+      "Rate": [
+        {
+          "Type": {
+            "Code": "DSCNT",
+            "Description": "DSCNT"
+          },
+          "Factor": {
+            "Value": "490.61",
+            "UnitOfMeasurement": {
+              "Code": "USD"
+            }
+          }
+        },
+        {
+          "Type": {
+            "Code": "DSCNT_RATE",
+            "Description": "DSCNT_RATE"
+          },
+          "Factor": {
+            "Value": "75.00",
+            "UnitOfMeasurement": {
+              "Code": "%"
+            }
+          }
+        },
+        {
+          "Type": {
+            "Code": "2",
+            "Description": "2"
+          },
+          "Factor": {
+            "Value": "16.35",
+            "UnitOfMeasurement": {
+              "Code": "USD"
+            }
+          }
+        },
+        {
+          "Type": {
+            "Code": "LND_GROSS",
+            "Description": "LND_GROSS"
+          },
+          "Factor": {
+            "Value": "654.15",
+            "UnitOfMeasurement": {
+              "Code": "USD"
+            }
+          }
+        },
+        {
+          "Type": {
+            "Code": "AFTR_DSCNT",
+            "Description": "AFTR_DSCNT"
+          },
+          "Factor": {
+            "Value": "163.54",
+            "UnitOfMeasurement": {
+              "Code": "USD"
+            }
+          }
+        }
+      ],
+      "TotalShipmentCharge": {
+        "CurrencyCode": "USD",
+        "MonetaryValue": "179.89"
+      },
+      "BillableShipmentWeight": {
+        "UnitOfMeasurement": {
+          "Code": "LBS"
+        },
+        "Value": "500"
+      },
+      "Service": {
+        "Code": "308"
+      },
+      "Documents": {
+        "Image": [
+          {
+            "Type": {
+              "Code": "30"
+            },
+            "GraphicImage": "JVBERi0xLjMKJf",
+            "Format": {
+              "Code": "PDF"
+            }
+          },
+          {
+            "Type": {
+              "Code": "20"
+            },
+            "GraphicImage": "JVBERi0xLjUKJf",
+            "Format": {
+              "Code": "PDF"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
