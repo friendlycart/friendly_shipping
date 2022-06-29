@@ -10,7 +10,8 @@ module FriendlyShipping
                     :total,
                     :bol_id,
                     :shipping_method,
-                    :warnings
+                    :warnings,
+                    :data
 
         def initialize(
           total:,
@@ -19,7 +20,8 @@ module FriendlyShipping
           pickup_request_number: nil,
           documents: [],
           shipping_method: nil,
-          warnings: nil
+          warnings: nil,
+          data: {}
         )
           @total = total
           @bol_id = bol_id
@@ -28,6 +30,7 @@ module FriendlyShipping
           @documents = documents
           @shipping_method = shipping_method
           @warnings = warnings
+          @data = data
         end
       end
     end
