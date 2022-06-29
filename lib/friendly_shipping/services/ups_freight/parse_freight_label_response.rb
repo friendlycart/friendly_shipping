@@ -36,6 +36,8 @@ module FriendlyShipping
 
             documents = images_data.map { |image_data| ParseShipmentDocument.call(image_data: image_data) }
 
+            cost_breakdown = build_cost_breakdown(shipment_results)
+
             FriendlyShipping::ApiResult.new(
               ShipmentInformation.new(
                 total: total_money,
@@ -44,11 +46,26 @@ module FriendlyShipping
                 pickup_request_number: pickup_request_number,
                 shipping_method: shipping_method,
                 warnings: warnings,
-                documents: documents
+                documents: documents,
+                data: {
+                  cost_breakdown: cost_breakdown
+                }
               ),
               original_request: request,
               original_response: response
             )
+          end
+
+          private
+
+          def build_cost_breakdown(shipment_results)
+            {
+              "Rates" => shipment_results["Rate"].each_with_object({}) do |rate, hash|
+                hash[rate.dig("Type", "Code")] = rate.dig("Factor", "Value")
+              end,
+              "TotalShipmentCharge" => shipment_results.dig("TotalShipmentCharge", "MonetaryValue"),
+              "BillableShipmentWeight" => shipment_results.dig("BillableShipmentWeight", "Value")
+            }
           end
         end
       end

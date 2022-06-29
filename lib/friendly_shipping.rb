@@ -18,6 +18,7 @@ require "friendly_shipping/api_failure"
 
 require "friendly_shipping/services/ship_engine"
 require "friendly_shipping/services/ups"
+require "friendly_shipping/services/ups_freight"
 require "friendly_shipping/services/usps"
 
 module FriendlyShipping
