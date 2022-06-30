@@ -3,7 +3,7 @@
 module FriendlyShipping
   module Services
     class UpsFreight
-      class RestfulApiErrorHandler
+      class ApiErrorHandler
         extend Dry::Monads::Result::Mixin
 
         # Handles error responses from the API by parsing the JSON body and returning an

@@ -18,7 +18,7 @@ require 'friendly_shipping/services/ups_freight/parse_freight_label_response'
 require 'friendly_shipping/services/ups_freight/parse_freight_rate_response'
 require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
 require 'friendly_shipping/services/ups_freight/generate_freight_ship_request_hash'
-require 'friendly_shipping/services/ups_freight/restful_api_error_handler'
+require 'friendly_shipping/services/ups_freight/api_error_handler'
 
 module FriendlyShipping
   module Services
@@ -42,7 +42,7 @@ module FriendlyShipping
         labels: '/ship/v1607/freight/shipments/Ground'
       }.freeze
 
-      def initialize(key:, login:, password:, test: true, client: HttpClient.new(error_handler: RestfulApiErrorHandler))
+      def initialize(key:, login:, password:, test: true, client: HttpClient.new(error_handler: ApiErrorHandler))
         @key = key
         @login = login
         @password = password

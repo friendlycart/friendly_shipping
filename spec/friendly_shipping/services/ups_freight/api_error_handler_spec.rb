@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/restful_api_error_handler'
+require 'friendly_shipping/services/ups_freight/api_error_handler'
 
-RSpec.describe FriendlyShipping::Services::UpsFreight::RestfulApiErrorHandler do
+RSpec.describe FriendlyShipping::Services::UpsFreight::ApiErrorHandler do
   subject { described_class.call(error) }
 
   let(:error) { RestClient::BadRequest.new }
