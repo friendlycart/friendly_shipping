@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'dry/monads/result'
-require 'friendly_shipping/api_failure'
 require 'rest-client'
+
+require 'friendly_shipping/api_failure'
+require 'friendly_shipping/api_error_handler'
 
 module FriendlyShipping
   class HttpClient
@@ -11,7 +13,7 @@ module FriendlyShipping
     attr_reader :error_handler
 
     # @param [Proc] error_handler Called to handle an error if one occurs
-    def initialize(error_handler: method(:wrap_in_failure))
+    def initialize(error_handler: FriendlyShipping::ApiErrorHandler)
       @error_handler = error_handler
     end
 
@@ -50,16 +52,6 @@ module FriendlyShipping
     end
 
     private
-
-    def wrap_in_failure(error, original_request: nil, original_response: nil)
-      Failure(
-        ApiFailure.new(
-          error,
-          original_request: original_request,
-          original_response: original_response
-        )
-      )
-    end
 
     def convert_to_friendly_response(http_response)
       FriendlyShipping::Response.new(
