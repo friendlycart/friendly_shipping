@@ -10,7 +10,7 @@ RSpec.describe FriendlyShipping::HttpClient do
 
   describe '#error_handler' do
     subject { described_class.new.error_handler }
-    it { is_expected.to eq(FriendlyShipping::ApiErrorHandler) }
+    it { is_expected.to be_a(FriendlyShipping::ApiErrorHandler) }
   end
 
   describe '#get' do
