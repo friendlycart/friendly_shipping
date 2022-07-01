@@ -7,9 +7,13 @@ RSpec.describe FriendlyShipping::HttpClient do
   let(:response) { double }
 
   subject { described_class.new }
-  it { is_expected.to respond_to(:error_handler) }
 
-  describe '.get' do
+  describe '#error_handler' do
+    subject { described_class.new.error_handler }
+    it { is_expected.to be_a(FriendlyShipping::ApiErrorHandler) }
+  end
+
+  describe '#get' do
     let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', headers: { "X-Token" => "s3cr3t" }) }
     let(:response) { double(code: 200, body: 'so much text', headers: {}) }
 
@@ -27,7 +31,7 @@ RSpec.describe FriendlyShipping::HttpClient do
     end
   end
 
-  describe '.post' do
+  describe '#post' do
     let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', body: 'body', headers: { "X-Token" => "s3cr3t" }) }
     let(:response) { double(code: 200, body: 'ok', headers: {}) }
 
@@ -45,7 +49,7 @@ RSpec.describe FriendlyShipping::HttpClient do
     end
   end
 
-  describe '.put' do
+  describe '#put' do
     let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', body: 'body', headers: { "X-Token" => "s3cr3t" }) }
     let(:response) { double(code: 200, body: 'ok', headers: {}) }
 
