@@ -6,16 +6,14 @@ module FriendlyShipping
       class GenerateLocationHash
         class << self
           def call(location:)
-            # We ship freight here, which will mostly be used for businesses.
-            # If a personal name is given, treat is as the contact person ("AttentionName")
             {
-              Name: location.company_name,
+              Name: location.company_name.presence || location.name,
               Address: {
                 AddressLine: address_line(location),
                 City: location.city,
-                StateProvinceCode: location.region.code,
+                StateProvinceCode: location.region&.code,
                 PostalCode: location.zip,
-                CountryCode: location.country.code
+                CountryCode: location.country&.code
               },
               AttentionName: location.name,
               Phone: {
