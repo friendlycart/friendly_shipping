@@ -7,6 +7,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
   let(:location) do
     Physical::Location.new(
       company_name: 'Developer Test 1',
+      name: 'John Smith',
       address1: '01 Developer Way',
       address2: 'North',
       address3: 'In the Attic',
@@ -22,6 +23,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
   it 'has all the right things' do
     is_expected.to eq(
       Name: 'Developer Test 1',
+      AttentionName: 'John Smith',
       Address: {
         AddressLine: '01 Developer Way, North, In the Attic',
         City: 'Richmond',
@@ -36,6 +38,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
     let(:location) do
       Physical::Location.new(
         company_name: 'Developer Test 1',
+        name: 'John Smith',
         address1: '01 Developer Way',
         address2: 'North',
         address3: 'In the Attic',
@@ -50,6 +53,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
     it 'has all the right things' do
       is_expected.to eq(
         Name: 'Developer Test 1',
+        AttentionName: 'John Smith',
         Address: {
           AddressLine: '01 Developer Way, North, In the Attic',
           City: 'Richmond',
@@ -60,6 +64,22 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
         Phone: {
           Number: '999999999'
         }
+      )
+    end
+  end
+
+  context 'with a blank company name' do
+    let(:location) do
+      Physical::Location.new(
+        company_name: '',
+        name: 'John Smith'
+      )
+    end
+
+    it 'uses person name instead' do
+      is_expected.to include(
+        Name: 'John Smith',
+        AttentionName: 'John Smith'
       )
     end
   end
