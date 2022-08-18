@@ -7,10 +7,11 @@ module FriendlyShipping
         def self.call(pickup_options:)
           {
             PickupOptions: {
-              LiftGateRequiredIndicator: pickup_options.lift_gate_required ? "" : nil,
-              WeekendPickupIndicator: pickup_options.weekend_pickup ? "" : nil,
-              InsidePickupIndicator: pickup_options.inside_pickup ? "" : nil,
               HolidayPickupIndicator: pickup_options.holiday_pickup ? "" : nil,
+              InsidePickupIndicator: pickup_options.inside_pickup ? "" : nil,
+              ResidentialPickupIndicator: pickup_options.residential_pickup ? "" : nil,
+              WeekendPickupIndicator: pickup_options.weekend_pickup ? "" : nil,
+              LiftGateRequiredIndicator: pickup_options.lift_gate_required ? "" : nil,
               LimitedAccessPickupIndicator: pickup_options.limited_access_pickup ? "" : nil
             }.compact.presence
           }.compact.presence
