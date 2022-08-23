@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/services/ups_freight/generate_location_hash'
+require 'friendly_shipping/services/ups_freight/generate_reference_hash'
 require 'friendly_shipping/services/ups_freight/generate_document_options_hash'
 require 'friendly_shipping/services/ups_freight/generate_email_options_hash'
 require 'friendly_shipping/services/ups_freight/generate_pickup_options_hash'
@@ -30,8 +31,10 @@ module FriendlyShipping
                   HandlingInstructions: options.handling_instructions,
                   PickupInstructions: options.pickup_instructions,
                   DeliveryInstructions: options.delivery_instructions,
-                  PickupRequest: GeneratePickupRequestHash.call(pickup_request_options: options.pickup_request_options)
-                }.compact.merge(handling_units(shipment, options).reduce(&:merge).to_h)
+                  PickupRequest: GeneratePickupRequestHash.call(pickup_request_options: options.pickup_request_options),
+                }.compact.
+                  merge(handling_units(shipment, options).reduce(&:merge).to_h).
+                  merge(GenerateReferenceHash.call(reference_numbers: options.reference_numbers))
               }
             }
           end

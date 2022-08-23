@@ -375,5 +375,33 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightShipReques
         end
       end
     end
+
+    describe "Reference information" do
+      let(:options) do
+        FriendlyShipping::Services::UpsFreight::LabelOptions.new(
+          shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
+          shipper_number: 'xxx1234',
+          billing_address: billing_location,
+          reference_numbers: [
+            { code: :purchase_order_number, value: "H123456" },
+            { code: :consignee_reference, value: "55473" }
+          ]
+        )
+      end
+
+      subject(:references) { freight_ship_request["Reference"] }
+
+      it { is_expected.to be_a(Array) }
+
+      context "first reference" do
+        subject(:first_reference) { references.first }
+        it { is_expected.to eq("Number" => { "Code" => "28", "Value" => "H123456" }) }
+      end
+
+      context "second reference" do
+        subject(:second_reference) { references.last }
+        it { is_expected.to eq("Number" => { "Code" => "CO", "Value" => "55473" }) }
+      end
+    end
   end
 end
