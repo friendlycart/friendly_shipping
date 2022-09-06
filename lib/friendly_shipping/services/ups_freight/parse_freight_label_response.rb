@@ -24,9 +24,11 @@ module FriendlyShipping
             shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == service_code }
 
             total_shipment_charge = shipment_results.dig("TotalShipmentCharge")
-            currency = Money::Currency.new(total_shipment_charge['CurrencyCode'])
-            amount = total_shipment_charge['MonetaryValue'].to_f
-            total_money = Money.new(amount * currency.subunit_to_unit, currency)
+            if total_shipment_charge
+              currency = Money::Currency.new(total_shipment_charge['CurrencyCode'])
+              amount = total_shipment_charge['MonetaryValue'].to_f
+              total_money = Money.new(amount * currency.subunit_to_unit, currency)
+            end
 
             images_data = Array.wrap(shipment_results.dig("Documents", "Image"))
 
@@ -60,12 +62,12 @@ module FriendlyShipping
 
           def build_cost_breakdown(shipment_results)
             {
-              "Rates" => shipment_results["Rate"].each_with_object({}) do |rate, hash|
+              "Rates" => shipment_results.fetch("Rate", []).each_with_object({}) do |rate, hash|
                 hash[rate.dig("Type", "Code")] = rate.dig("Factor", "Value")
               end,
               "TotalShipmentCharge" => shipment_results.dig("TotalShipmentCharge", "MonetaryValue"),
               "BillableShipmentWeight" => shipment_results.dig("BillableShipmentWeight", "Value")
-            }
+            }.compact
           end
         end
       end
