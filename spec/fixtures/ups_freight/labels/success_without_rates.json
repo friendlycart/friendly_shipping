@@ -1,0 +1,51 @@
+{
+  "FreightShipResponse": {
+    "Response": {
+      "Alert": {
+        "Code": "9369056",
+        "Description": "No rates available."
+      },
+      "ResponseStatus": {
+        "Code": "1",
+        "Description": "Success"
+      }
+    },
+    "ShipmentResults": {
+      "OriginServiceCenterCode": "RIC",
+      "ShipmentNumber": "022438065",
+      "PickupRequestConfirmationNumber": "348742132",
+      "BOLID": "45760188",
+      "BillableShipmentWeight": {
+        "UnitOfMeasurement": {
+          "Code": "LBS"
+        },
+        "Value": "500"
+      },
+      "Service": {
+        "Code": "308"
+      },
+      "Documents": {
+        "Image": [
+          {
+            "Type": {
+              "Code": "30"
+            },
+            "GraphicImage": "JVBERi0xLjMKJf",
+            "Format": {
+              "Code": "PDF"
+            }
+          },
+          {
+            "Type": {
+              "Code": "20"
+            },
+            "GraphicImage": "JVBERi0xLjUKJf",
+            "Format": {
+              "Code": "PDF"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
