@@ -13,6 +13,28 @@ RSpec.describe FriendlyShipping::Response do
   it { is_expected.to respond_to(:body) }
   it { is_expected.to respond_to(:headers) }
 
+  describe ".new_from_rest_client_response" do
+    subject(:new_from_rest_client_response) do
+      described_class.new_from_rest_client_response(rest_client_response)
+    end
+
+    let(:rest_client_response) do
+      instance_double(
+        RestClient::Response,
+        code: status,
+        body: body,
+        headers: headers
+      )
+    end
+
+    it { is_expected.to eq(described_class.new(status: status, body: body, headers: headers)) }
+
+    context "with nil response" do
+      let(:rest_client_response) { nil }
+      it { is_expected.to eq(described_class.new(status: nil, body: nil, headers: {})) }
+    end
+  end
+
   describe "#==" do
     subject(:equality) { response == other }
 

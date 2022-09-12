@@ -10,7 +10,13 @@ module FriendlyShipping
     def initialize(status:, body:, headers:)
       @status = status
       @body = body
-      @headers = headers
+      @headers = headers || {}
+    end
+
+    # @param [RestClient::Response] response
+    # @return [FriendlyShipping::Response]
+    def self.new_from_rest_client_response(response)
+      new(status: response&.code, body: response&.body, headers: response&.headers)
     end
 
     # @param [Object] other
