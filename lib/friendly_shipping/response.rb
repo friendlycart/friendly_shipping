@@ -10,7 +10,33 @@ module FriendlyShipping
     def initialize(status:, body:, headers:)
       @status = status
       @body = body
-      @headers = headers
+      @headers = headers || {}
+    end
+
+    alias_method :code, :status
+
+    # @param [RestClient::Response] response
+    # @return [FriendlyShipping::Response]
+    def self.new_from_rest_client_response(response)
+      new(status: response&.code, body: response&.body, headers: response&.headers)
+    end
+
+    # @param [Object] other
+    def ==(other)
+      other.class == self.class &&
+        other.attributes == attributes
+    end
+
+    alias_method :eql?, :==
+
+    def hash
+      attributes.hash
+    end
+
+    protected
+
+    def attributes
+      [status, body, headers]
     end
   end
 end
