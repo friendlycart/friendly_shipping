@@ -13,6 +13,8 @@ module FriendlyShipping
       @headers = headers || {}
     end
 
+    alias_method :code, :status
+
     # @param [RestClient::Response] response
     # @return [FriendlyShipping::Response]
     def self.new_from_rest_client_response(response)

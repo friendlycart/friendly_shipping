@@ -12,6 +12,7 @@ RSpec.describe FriendlyShipping::Response do
   it { is_expected.to respond_to(:status) }
   it { is_expected.to respond_to(:body) }
   it { is_expected.to respond_to(:headers) }
+  it { is_expected.to respond_to(:code) }
 
   describe ".new_from_rest_client_response" do
     subject(:new_from_rest_client_response) do
