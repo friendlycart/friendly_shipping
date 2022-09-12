@@ -12,5 +12,23 @@ module FriendlyShipping
       @body = body
       @headers = headers
     end
+
+    # @param [Object] other
+    def ==(other)
+      other.class == self.class &&
+        other.attributes == attributes
+    end
+
+    alias_method :eql?, :==
+
+    def hash
+      attributes.hash
+    end
+
+    protected
+
+    def attributes
+      [status, body, headers]
+    end
   end
 end
