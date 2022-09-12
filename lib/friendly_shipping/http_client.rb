@@ -22,7 +22,7 @@ module FriendlyShipping
         request.url, request.headers
       )
 
-      Success(convert_to_friendly_response(http_response))
+      Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
       error_handler.call(e, original_request: request, original_response: e.response)
     end
@@ -34,7 +34,7 @@ module FriendlyShipping
         request.headers
       )
 
-      Success(convert_to_friendly_response(http_response))
+      Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
       error_handler.call(e, original_request: request, original_response: e.response)
     end
@@ -46,19 +46,9 @@ module FriendlyShipping
         request.headers
       )
 
-      Success(convert_to_friendly_response(http_response))
+      Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
       error_handler.call(e, original_request: request, original_response: e.response)
-    end
-
-    private
-
-    def convert_to_friendly_response(http_response)
-      FriendlyShipping::Response.new(
-        status: http_response.code,
-        body: http_response.body,
-        headers: http_response.headers
-      )
     end
   end
 end

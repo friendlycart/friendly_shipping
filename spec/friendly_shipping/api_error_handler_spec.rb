@@ -4,7 +4,14 @@ require 'spec_helper'
 
 RSpec.describe FriendlyShipping::ApiErrorHandler do
   describe ".call" do
-    let(:response) { double(body: { httpCode: "500" }.to_json) }
+    let(:response) do
+      instance_double(
+        RestClient::Response,
+        code: 500,
+        headers: {},
+        body: { httpCode: "500" }.to_json
+      )
+    end
     let(:error) { RestClient::Exception.new(response) }
 
     subject { described_class.new.call(error) }
@@ -33,19 +40,25 @@ RSpec.describe FriendlyShipping::ApiErrorHandler do
     end
 
     context "with original request and response" do
-      let(:request) { double(debug: true) }
+      let(:request) { instance_double(FriendlyShipping::Request, debug: true) }
 
       subject do
         described_class.new.call(
           error,
           original_request: request,
-          original_response: "response"
+          original_response: response
         )
       end
 
       it "sets original request and response" do
         expect(subject.failure.original_request).to eq(request)
-        expect(subject.failure.original_response).to eq("response")
+        expect(subject.failure.original_response).to eq(
+          FriendlyShipping::Response.new(
+            status: response.code,
+            body: response.body,
+            headers: response.headers
+          )
+        )
       end
     end
   end

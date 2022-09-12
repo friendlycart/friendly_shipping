@@ -14,15 +14,15 @@ module FriendlyShipping
     end
 
     # @param [StandardError] error
-    # @param [Object] original_request
-    # @param [Object] original_response
+    # @param [FriendlyShipping::Request] original_request
+    # @param [RestClient::Response] original_response
     # @return [Dry::Monads::Failure<FriendlyShipping::ApiFailure>]
     def call(error, original_request: nil, original_response: nil)
       Failure(
         ApiFailure.new(
           api_error_class.new(error),
           original_request: original_request,
-          original_response: original_response
+          original_response: Response.new_from_rest_client_response(original_response)
         )
       )
     end
