@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "nokogiri", "~> 1.6"
   spec.add_runtime_dependency "physical", "~> 0.4", ">= 0.4.4"
   spec.add_runtime_dependency "rest-client", "~> 2.0"
+  spec.add_runtime_dependency "uri", "< 0.11.0"
   spec.required_ruby_version = '>= 2.5'
 
   spec.add_development_dependency "bundler", ">= 2.1.4", "< 3"
