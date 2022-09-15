@@ -111,6 +111,7 @@ module FriendlyShipping
       def build_request(api:, xml:, debug:)
         FriendlyShipping::Request.new(
           url: base_url,
+          http_method: "POST",
           body: "API=#{RESOURCES[api]}&XML=#{CGI.escape xml}",
           readable_body: xml,
           debug: debug

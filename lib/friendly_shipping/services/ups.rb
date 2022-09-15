@@ -73,6 +73,7 @@ module FriendlyShipping
         url = base_url + RESOURCES[:rates]
         request = FriendlyShipping::Request.new(
           url: url,
+          http_method: "POST",
           body: access_request_xml + rate_request_xml,
           readable_body: rate_request_xml,
           debug: debug
@@ -95,6 +96,7 @@ module FriendlyShipping
 
         request = FriendlyShipping::Request.new(
           url: time_in_transit_url,
+          http_method: "POST",
           body: access_request_xml + time_in_transit_request_xml,
           readable_body: time_in_transit_request_xml,
           debug: debug
@@ -115,6 +117,7 @@ module FriendlyShipping
 
         ship_confirm_request = FriendlyShipping::Request.new(
           url: ship_confirm_url,
+          http_method: "POST",
           body: access_request_xml + ship_confirm_request_xml,
           readable_body: ship_confirm_request_xml,
           debug: debug
@@ -134,6 +137,7 @@ module FriendlyShipping
 
           ship_accept_request = FriendlyShipping::Request.new(
             url: ship_accept_url,
+            http_method: "POST",
             body: access_request_xml + ship_accept_request_xml,
             readable_body: ship_accept_request_xml,
             debug: debug
@@ -156,6 +160,7 @@ module FriendlyShipping
         url = base_url + RESOURCES[:address_validation]
         request = FriendlyShipping::Request.new(
           url: url,
+          http_method: "POST",
           body: access_request_xml + address_validation_request_xml,
           readable_body: address_validation_request_xml,
           debug: debug
@@ -174,6 +179,7 @@ module FriendlyShipping
         url = base_url + RESOURCES[:address_validation]
         request = FriendlyShipping::Request.new(
           url: url,
+          http_method: "POST",
           body: access_request_xml + address_validation_request_xml,
           readable_body: address_validation_request_xml,
           debug: debug
@@ -193,6 +199,7 @@ module FriendlyShipping
         url = base_url + RESOURCES[:city_state_lookup]
         request = FriendlyShipping::Request.new(
           url: url,
+          http_method: "POST",
           body: access_request_xml + city_state_lookup_request_xml,
           readable_body: city_state_lookup_request_xml,
           debug: debug
@@ -208,6 +215,7 @@ module FriendlyShipping
         void_request_xml = SerializeVoidShipmentRequest.call(label: label)
         request = FriendlyShipping::Request.new(
           url: url,
+          http_method: "POST",
           body: access_request_xml + void_request_xml,
           readable_body: void_request_xml,
           debug: debug
