@@ -46,6 +46,29 @@ RSpec.describe FriendlyShipping::Services::Ups do
       end
     end
 
+    context "estimating a SurePost rate" do
+      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '93') }
+      let(:options) do
+        FriendlyShipping::Services::Ups::RateEstimateOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          negotiated_rates: true
+        )
+      end
+      let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
+      # SurePost only allows single packages
+      let(:packages) { FactoryBot.build_list(:physical_package, 1) }
+      let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
+
+      it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups/rate_estimates/sure_post_success' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+        end
+      end
+    end
+
     context 'if the origin has a wrong zipcode', vcr: { cassette_name: 'ups/rate_estimates/failure' } do
       let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
 
