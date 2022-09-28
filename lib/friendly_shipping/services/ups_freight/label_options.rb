@@ -47,7 +47,7 @@ module FriendlyShipping
           @delivery_instructions = delivery_instructions
           @handling_instructions = handling_instructions
           @reference_numbers = fill_codes(reference_numbers)
-          super kwargs
+          super(**kwargs)
         end
 
         private

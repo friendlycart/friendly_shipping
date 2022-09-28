@@ -22,28 +22,18 @@ module FriendlyShipping
                     :return_dimensional_weight,
                     :return_fees
 
-        def initialize(
-          box_name: :variable,
-          commercial_pricing: false,
-          first_class_mail_type: nil,
-          hold_for_pickup: false,
-          shipping_method: nil,
-          transmit_dimensions: true,
-          rectangular: true,
-          return_dimensional_weight: true,
-          return_fees: false,
-          **kwargs
-        )
+        def initialize(**kwargs)
+          box_name = value_or_default(:box_name, :variable, kwargs)
           @box_name = CONTAINERS.key?(box_name) ? box_name : :variable
-          @commercial_pricing = commercial_pricing
-          @first_class_mail_type = first_class_mail_type
-          @hold_for_pickup = hold_for_pickup
-          @shipping_method = shipping_method
-          @transmit_dimensions = transmit_dimensions
-          @rectangular = rectangular
-          @return_dimensional_weight = return_dimensional_weight
-          @return_fees = return_fees
-          super kwargs
+          @commercial_pricing = value_or_default(:commercial_pricing, false, kwargs)
+          @first_class_mail_type = kwargs.delete(:first_class_mail_type)
+          @hold_for_pickup = value_or_default(:hold_for_pickup, false, kwargs)
+          @shipping_method = kwargs.delete(:shipping_method)
+          @transmit_dimensions = value_or_default(:transmit_dimensions, true, kwargs)
+          @rectangular = value_or_default(:rectangular, true, kwargs)
+          @return_dimensional_weight = value_or_default(:return_dimensional_weight, true, kwargs)
+          @return_fees = value_or_default(:return_fees, false, kwargs)
+          super(**kwargs)
         end
 
         def container_code
@@ -64,6 +54,12 @@ module FriendlyShipping
           service_code << 'HFP' if hold_for_pickup
           service_code << 'COMMERCIAL' if commercial_pricing
           service_code.join(' ')
+        end
+
+        private
+
+        def value_or_default(key, default, kwargs)
+          kwargs.key?(key) ? kwargs.delete(key) : default
         end
       end
     end

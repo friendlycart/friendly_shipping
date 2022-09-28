@@ -84,7 +84,7 @@ module FriendlyShipping
           @shipper = shipper
           @shipping_method = shipping_method
           @with_time_in_transit = with_time_in_transit
-          super kwargs.merge(package_options_class: package_options_class)
+          super(**kwargs.merge(package_options_class: package_options_class))
         end
 
         def pickup_type_code
