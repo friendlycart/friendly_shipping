@@ -9,7 +9,11 @@ require "bundler/setup"
 require "friendly_shipping"
 require "vcr"
 require "dotenv"
-require "physical/spec_support/factories"
+
+require "factory_bot"
+require "physical/test_support"
+FactoryBot.definition_file_paths.concat(Physical::TestSupport.factory_paths)
+FactoryBot.reload
 
 Dotenv.load
 
