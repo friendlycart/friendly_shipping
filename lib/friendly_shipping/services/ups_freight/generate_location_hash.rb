@@ -25,13 +25,12 @@ module FriendlyShipping
           private
 
           def address_line(location)
-            [
+            address_lines = [
               location.address1,
               location.address2,
               location.address3
-            ].compact.
-              reject(&:empty?).
-              join(", ")
+            ].compact.reject(&:empty?)
+            address_lines.size > 1 ? address_lines : address_lines.first
           end
         end
       end

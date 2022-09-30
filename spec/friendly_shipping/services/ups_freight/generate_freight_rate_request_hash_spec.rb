@@ -65,7 +65,8 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     ::Physical::Location.new(
       name: "Donald Duck",
       company_name: "Duck Science",
-      address1: "Duck Street, Duck Window 2",
+      address1: "Duck Street",
+      address2: "Duck Window 2",
       city: "Ducktown",
       zip: "54321",
       region: "NC",
@@ -174,7 +175,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
             "ShipperNumber" => "xxx1234",
             "AttentionName" => "Donald Duck",
             "Address" => hash_including(
-              "AddressLine" => "Duck Street, Duck Window 2",
+              "AddressLine" => ["Duck Street", "Duck Window 2"],
               "City" => "Ducktown",
               "StateProvinceCode" => "NC",
               "PostalCode" => "54321",
