@@ -9,8 +9,6 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
       company_name: 'Developer Test 1',
       name: 'John Smith',
       address1: '01 Developer Way',
-      address2: 'North',
-      address3: 'In the Attic',
       city: 'Richmond',
       zip: '23224',
       region: 'VA',
@@ -25,7 +23,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
       Name: 'Developer Test 1',
       AttentionName: 'John Smith',
       Address: {
-        AddressLine: '01 Developer Way, North, In the Attic',
+        AddressLine: '01 Developer Way',
         City: 'Richmond',
         StateProvinceCode: 'VA',
         PostalCode: '23224',
@@ -40,8 +38,6 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
         company_name: 'Developer Test 1',
         name: 'John Smith',
         address1: '01 Developer Way',
-        address2: 'North',
-        address3: 'In the Attic',
         phone: '999999999',
         city: 'Richmond',
         zip: '23224',
@@ -55,7 +51,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
         Name: 'Developer Test 1',
         AttentionName: 'John Smith',
         Address: {
-          AddressLine: '01 Developer Way, North, In the Attic',
+          AddressLine: '01 Developer Way',
           City: 'Richmond',
           StateProvinceCode: 'VA',
           PostalCode: '23224',
@@ -80,6 +76,32 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
       is_expected.to include(
         Name: 'John Smith',
         AttentionName: 'John Smith'
+      )
+    end
+  end
+
+  context 'with multiple address lines' do
+    let(:location) do
+      Physical::Location.new(
+        address1: '01 Developer Way',
+        address2: 'North',
+        address3: 'In the Attic',
+        city: 'Richmond',
+        zip: '23224',
+        region: 'VA',
+        country: 'US'
+      )
+    end
+
+    it 'has all the right things' do
+      is_expected.to eq(
+        Address: {
+          AddressLine: ['01 Developer Way', 'North', 'In the Attic'],
+          City: 'Richmond',
+          StateProvinceCode: 'VA',
+          PostalCode: '23224',
+          CountryCode: 'US'
+        }
       )
     end
   end
