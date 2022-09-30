@@ -16,7 +16,7 @@ module FriendlyShipping
           **kwargs
         )
           @transmit_dimensions = transmit_dimensions
-          super kwargs
+          super(**kwargs)
         end
       end
     end
