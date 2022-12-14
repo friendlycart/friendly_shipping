@@ -16,7 +16,7 @@ require 'friendly_shipping/services/usps/rate_estimate_options'
 module FriendlyShipping
   module Services
     class Usps
-      include Dry::Monads::Result::Mixin
+      include Dry::Monads[:result]
 
       attr_reader :test, :login, :client
 

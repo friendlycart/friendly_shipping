@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups/parse_shipment_confirm_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentConfirmResponse do
-  include Dry::Monads::Result::Mixin
+  include Dry::Monads[:result]
   let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_confirm_response.xml')).read }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }

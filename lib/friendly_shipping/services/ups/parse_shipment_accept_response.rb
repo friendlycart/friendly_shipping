@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads/result'
+require 'dry/monads'
 require 'friendly_shipping/services/ups/parse_money_element'
 
 module FriendlyShipping

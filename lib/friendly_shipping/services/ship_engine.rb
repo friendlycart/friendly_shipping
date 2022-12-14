@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads/result'
+require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ship_engine/bad_request_handler'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
