@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'data_uri'
 
 module FriendlyShipping
   module Services
@@ -14,7 +13,14 @@ module FriendlyShipping
           label_data = nil
           label_url = nil
           if label_uri_string.starts_with?('data')
-            label_data = URI::Data.new(label_uri_string).data
+            # This URI has the following form:
+            # data:application/zpl;base64,XlhBDQpeTEwxMjE4....
+            # We don't know the content type here, but we can assume Base64
+            # encoding.
+            # This next line splits the URI at the first occurrence of ";base64,",
+            # giving us the desired base64 encoded string.
+            _, base64_encoded = label_uri_string.split(";base64,", 2)
+            label_data = Base64.decode64(base64_encoded)
           else
             label_url = label_uri_string
           end
