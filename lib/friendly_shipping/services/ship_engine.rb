@@ -54,7 +54,7 @@ module FriendlyShipping
       #   can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options: FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + 'rates/estimate',
+          url: "#{API_BASE}rates/estimate",
           http_method: "POST",
           body: SerializeRateEstimateRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,

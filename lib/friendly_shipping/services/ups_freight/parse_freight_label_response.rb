@@ -23,7 +23,7 @@ module FriendlyShipping
             service_code = shipment_results.dig("Service", "Code")
             shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == service_code }
 
-            total_shipment_charge = shipment_results.dig("TotalShipmentCharge")
+            total_shipment_charge = shipment_results["TotalShipmentCharge"]
             if total_shipment_charge
               currency = Money::Currency.new(total_shipment_charge['CurrencyCode'])
               amount = total_shipment_charge['MonetaryValue'].to_f
@@ -32,9 +32,9 @@ module FriendlyShipping
 
             images_data = Array.wrap(shipment_results.dig("Documents", "Image"))
 
-            bol_id = shipment_results.dig("BOLID")
-            shipment_number = shipment_results.dig("ShipmentNumber")
-            pickup_request_number = shipment_results.dig("PickupRequestConfirmationNumber")
+            bol_id = shipment_results["BOLID"]
+            shipment_number = shipment_results["ShipmentNumber"]
+            pickup_request_number = shipment_results["PickupRequestConfirmationNumber"]
 
             documents = images_data.map { |image_data| ParseShipmentDocument.call(image_data: image_data) }
 

@@ -10,7 +10,7 @@ module FriendlyShipping
 
         def self.call(image_data:)
           format_code = image_data.dig("Type", "Code")
-          graphic_image_b64 = image_data.dig("GraphicImage")
+          graphic_image_b64 = image_data["GraphicImage"]
 
           ShipmentDocument.new(
             format: image_data.dig("Format", "Code").downcase.to_sym,
