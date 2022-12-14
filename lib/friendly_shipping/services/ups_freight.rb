@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads/result'
+require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups_freight/shipping_methods'
 require 'friendly_shipping/services/ups_freight/rates_options'
@@ -23,7 +23,7 @@ require 'friendly_shipping/services/ups_freight/api_error'
 module FriendlyShipping
   module Services
     class UpsFreight
-      include Dry::Monads::Result::Mixin
+      include Dry::Monads[:result]
 
       attr_reader :test, :key, :login, :password, :client
 

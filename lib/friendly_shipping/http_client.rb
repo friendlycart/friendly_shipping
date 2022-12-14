@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads/result'
+require 'dry/monads'
 require 'rest-client'
 
 require 'friendly_shipping/api_failure'
@@ -8,7 +8,7 @@ require 'friendly_shipping/api_error_handler'
 
 module FriendlyShipping
   class HttpClient
-    include Dry::Monads::Result::Mixin
+    include Dry::Monads[:result]
 
     attr_reader :error_handler
 

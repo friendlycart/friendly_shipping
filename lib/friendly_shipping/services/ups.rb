@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads/result'
+require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups/serialize_access_request'
 require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
@@ -26,7 +26,7 @@ require 'friendly_shipping/services/ups/timing_options'
 module FriendlyShipping
   module Services
     class Ups
-      include Dry::Monads::Result::Mixin
+      include Dry::Monads[:result]
 
       attr_reader :test, :key, :login, :password, :client
 
