@@ -79,6 +79,29 @@ RSpec.describe FriendlyShipping::Services::Ups do
         end
       end
     end
+
+    context "with SurePost given as the shipping method" do
+      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '93') }
+      let(:options) do
+        FriendlyShipping::Services::Ups::RateEstimateOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: shipper_number,
+          negotiated_rates: true
+        )
+      end
+      let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
+      # SurePost only allows single packages
+      let(:packages) { FactoryBot.build_list(:physical_package, 1) }
+      let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
+
+      it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups/rate_estimates/sure_post_rate' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+        end
+      end
+    end
   end
 
   describe '#city_state_lookup' do
@@ -369,6 +392,26 @@ RSpec.describe FriendlyShipping::Services::Ups do
       expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
       expect(first_label.data[:negotiated_rate]).to eq(Money.new(2479, 'USD'))
       expect(first_label.data[:customer_context]).to eq('request-id-12345')
+    end
+
+    context 'with SurePost' do
+      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '93') }
+      # SurePost only allows single packages
+      let(:packages) { FactoryBot.build_list(:physical_package, 1) }
+      let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
+
+      it 'returns labels along with the response', vcr: { cassette_name: "ups/labels/surepost_success" } do
+        expect(subject).to be_a(Dry::Monads::Result)
+        first_label = subject.value!.data.first
+        expect(subject.value!.data.length).to eq(1)
+        expect(first_label.tracking_number).to be_present
+        expect(first_label.label_data.first(5)).to eq("GIF89")
+        expect(first_label.label_format).to eq("GIF")
+        expect(first_label.cost).to eq(Money.new(1646, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(1646, 'USD'))
+        expect(first_label.data[:negotiated_rate]).to eq(Money.new(1625, 'USD'))
+        expect(first_label.data[:customer_context]).to eq('request-id-12345')
+      end
     end
 
     context 'return shipments' do

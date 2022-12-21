@@ -101,10 +101,6 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Max-Age:
-      - '600'
       X-Frame-Options:
       - DENY
       X-Xss-Protection:
@@ -116,27 +112,27 @@ http_interactions:
       Apihttpstatus:
       - '200'
       Bkndtransid:
-      - 000ciest2dp5ln2Rn7FkP6
+      - 0000ciestdp5l7jCL2plCk
       Content-Type:
       - application/xml;charset=UTF-8
       Content-Length:
       - '1958'
       Expires:
-      - Wed, 21 Dec 2022 15:52:23 GMT
+      - Wed, 21 Dec 2022 15:51:49 GMT
       Cache-Control:
       - max-age=0, no-cache, no-store
       Pragma:
       - no-cache
       Date:
-      - Wed, 21 Dec 2022 15:52:23 GMT
+      - Wed, 21 Dec 2022 15:51:49 GMT
       Connection:
       - keep-alive
       Server-Timing:
       - cdn-cache; desc=MISS
-      - edge; dur=130
-      - origin; dur=188
+      - edge; dur=115
+      - origin; dur=167
       Ak-Grn-1:
-      - 0.956656b8.1671637943.4dad0ec
+      - 0.856656b8.1671637908.278e622b
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
     body:
@@ -144,5 +140,5 @@ http_interactions:
       string: |-
         <?xml version="1.0"?>
         <RatingServiceSelectionResponse><Response><ResponseStatusCode>1</ResponseStatusCode><ResponseStatusDescription>Success</ResponseStatusDescription></Response><RatedShipment><Service><Code>93</Code></Service><RatedShipmentWarning>Your invoice may vary from the displayed reference rates</RatedShipmentWarning><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>5.0</Weight></BillingWeight><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>16.41</MonetaryValue></TransportationCharges><BaseServiceCharge><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.00</MonetaryValue></BaseServiceCharge><ItemizedCharges><Code>441</Code><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.05</MonetaryValue></ItemizedCharges><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.05</MonetaryValue></ServiceOptionsCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>16.46</MonetaryValue></TotalCharges><GuaranteedDaysToDelivery/><ScheduledDeliveryTime/><RatedPackage><TransportationCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>16.41</MonetaryValue></TransportationCharges><BaseServiceCharge><CurrencyCode>USD</CurrencyCode><MonetaryValue>14.15</MonetaryValue></BaseServiceCharge><ServiceOptionsCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>0.05</MonetaryValue></ServiceOptionsCharges><ItemizedCharges><Code>375</Code><CurrencyCode>USD</CurrencyCode><MonetaryValue>2.26</MonetaryValue></ItemizedCharges><TotalCharges><CurrencyCode>USD</CurrencyCode><MonetaryValue>16.46</MonetaryValue></TotalCharges><Weight>1.0</Weight><BillingWeight><UnitOfMeasurement><Code>LBS</Code></UnitOfMeasurement><Weight>5.0</Weight></BillingWeight></RatedPackage><NegotiatedRates><NetSummaryCharges><GrandTotal><CurrencyCode>USD</CurrencyCode><MonetaryValue>16.25</MonetaryValue></GrandTotal></NetSummaryCharges></NegotiatedRates></RatedShipment></RatingServiceSelectionResponse>
-  recorded_at: Wed, 21 Dec 2022 15:52:23 GMT
+  recorded_at: Wed, 21 Dec 2022 15:51:49 GMT
 recorded_with: VCR 6.1.0
