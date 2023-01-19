@@ -53,16 +53,13 @@ module FriendlyShipping
                 ["reference#{index + 1}".to_sym, message]
               end.to_h
 
-              if package_options.package_code
-                package_hash[:package_code] = package_options.package_code
-              else
-                package_hash[:dimensions] = {
-                  unit: 'inch',
-                  width: package.container.width.convert_to(:inches).value.to_f.round(2),
-                  length: package.container.length.convert_to(:inches).value.to_f.round(2),
-                  height: package.container.height.convert_to(:inches).value.to_f.round(2)
-                }
-              end
+              package_hash[:package_code] = package_options.package_code
+              package_hash[:dimensions] = {
+                unit: 'inch',
+                width: package.container.width.convert_to(:inches).value.to_f.round(2),
+                length: package.container.length.convert_to(:inches).value.to_f.round(2),
+                height: package.container.height.convert_to(:inches).value.to_f.round(2)
+              }
               package_hash
             end
           end

@@ -80,12 +80,12 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
       ]
     end
 
-    it 'does not include the dimensions array' do
+    it 'still includes the dimensions array' do
       is_expected.to match(
         hash_including(
           shipment: hash_including(
             packages: array_including(
-              hash_not_including(:dimensions)
+              hash_including(:dimensions)
             )
           )
         )
