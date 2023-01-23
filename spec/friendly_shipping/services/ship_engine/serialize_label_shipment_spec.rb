@@ -70,6 +70,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
     )
   end
 
+  it 'does not include label_image_id by default' do
+    is_expected.not_to match(hash_including(:label_image_id))
+  end
+
   context 'if the container is a special USPS thing' do
     let(:package_options) do
       [
@@ -199,6 +203,21 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
           )
         )
       )
+    end
+  end
+
+  context 'if passing a label image id' do
+    let(:options) do
+      FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+        shipping_method: shipping_method,
+        label_image_id: "img_DtBXupDBxREpHnwEXhTfgK",
+        label_format: :zpl,
+        package_options: package_options
+      )
+    end
+
+    it do
+      is_expected.to match(hash_including(label_image_id: "img_DtBXupDBxREpHnwEXhTfgK"))
     end
   end
 end
