@@ -25,6 +25,10 @@ module FriendlyShipping
               shipment_hash[:test_label] = true
             end
 
+            if options.label_image_id
+              shipment_hash[:label_image_id] = options.label_image_id
+            end
+
             shipment_hash
           end
 
