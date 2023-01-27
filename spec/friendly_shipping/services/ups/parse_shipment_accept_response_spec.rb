@@ -23,6 +23,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
       expect(subject).to be_a(Array)
       expect(subject.length).to eq(1)
       expect(subject.map(&:tracking_number)).to be_present
+      expect(subject.map(&:usps_tracking_number).compact).to be_empty
       expect(subject.map(&:label_data).first.first(5)).to eq("GIF87")
       expect(subject.map(&:label_format).first.to_s).to eq("GIF")
       expect(subject.map(&:shipment_cost).first.to_d).to eq(11.98)
