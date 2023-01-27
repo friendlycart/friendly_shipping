@@ -53,4 +53,15 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
       expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
     end
   end
+
+  context "SurePost" do
+    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'surepost_shipment_accept_response.xml')).read }
+    subject { parser.value!.data }
+
+    it 'returns labels including value for usps_tracking_number' do
+      expect(subject).to be_a(Array)
+      expect(subject.map(&:tracking_number)).to be_present
+      expect(subject.map(&:usps_tracking_number)).to be_present
+    end
+  end
 end
