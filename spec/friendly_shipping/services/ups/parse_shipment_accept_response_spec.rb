@@ -23,6 +23,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
       expect(subject).to be_a(Array)
       expect(subject.length).to eq(1)
       expect(subject.map(&:tracking_number)).to be_present
+      expect(subject.map(&:usps_tracking_number).compact).to be_empty
       expect(subject.map(&:label_data).first.first(5)).to eq("GIF87")
       expect(subject.map(&:label_format).first.to_s).to eq("GIF")
       expect(subject.map(&:shipment_cost).first.to_d).to eq(11.98)
@@ -50,6 +51,17 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
     it 'contains document data' do
       expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
       expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+    end
+  end
+
+  context "SurePost" do
+    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'surepost_shipment_accept_response.xml')).read }
+    subject { parser.value!.data }
+
+    it 'returns labels including value for usps_tracking_number' do
+      expect(subject).to be_a(Array)
+      expect(subject.map(&:tracking_number)).to be_present
+      expect(subject.map(&:usps_tracking_number)).to be_present
     end
   end
 end

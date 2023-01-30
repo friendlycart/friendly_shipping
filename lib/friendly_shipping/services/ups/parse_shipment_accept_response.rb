@@ -36,8 +36,9 @@ module FriendlyShipping
               cost_breakdown = build_cost_breakdown(package)
               package_cost = cost_breakdown.values.any? ? cost_breakdown.values.sum : nil
               encoded_label_data = package.at('LabelImage/GraphicImage')&.text
-              FriendlyShipping::Label.new(
+              FriendlyShipping::Services::Ups::Label.new(
                 tracking_number: package.at('TrackingNumber').text,
+                usps_tracking_number: package.at('USPSPICNumber')&.text,
                 label_data: encoded_label_data ? Base64.decode64(encoded_label_data) : nil,
                 label_format: package.at('LabelImage/LabelImageFormat/Code')&.text,
                 cost: package_cost,
