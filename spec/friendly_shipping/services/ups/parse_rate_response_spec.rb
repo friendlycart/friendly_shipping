@@ -116,5 +116,21 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
         ]
       )
     end
+
+    context 'when packages have zero rates' do
+      let(:fixture) { 'ups_rates_canadian_api_response.xml' }
+
+      it 'returns data for each package' do
+        rates = subject.value!.data
+        expect(rates.first.data[:packages]).to eq(
+          [
+            itemized_charges: {},
+            negotiated_charges: {},
+            weight: 1.0,
+            billing_weight: 1.0
+          ]
+        )
+      end
+    end
   end
 end
