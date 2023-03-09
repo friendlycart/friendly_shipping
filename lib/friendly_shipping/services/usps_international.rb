@@ -11,6 +11,8 @@ module FriendlyShipping
     class UspsInternational
       include Dry::Monads[:result]
 
+      attr_reader :test, :login, :client
+
       CONTAINERS = {
         rectanglular: 'RECTANGULAR',
         roll: 'ROLL',
