@@ -5,6 +5,7 @@ SimpleCov.start do
   add_filter '/spec/'
 end
 
+require 'pry'
 require "bundler/setup"
 require "friendly_shipping"
 require "vcr"
