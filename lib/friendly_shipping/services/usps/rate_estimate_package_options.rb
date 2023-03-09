@@ -55,12 +55,6 @@ module FriendlyShipping
           service_code << 'COMMERCIAL' if commercial_pricing
           service_code.join(' ')
         end
-
-        private
-
-        def value_or_default(key, default, kwargs)
-          kwargs.key?(key) ? kwargs.delete(key) : default
-        end
       end
     end
   end
