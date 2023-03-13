@@ -5,14 +5,14 @@ http_interactions:
     uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
     body:
       encoding: UTF-8
-      string: API=IntlRateV2&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CIntlRateV2Request+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CRevision%3E2%3C%2FRevision%3E%0A++%3CPackage+ID%3D%220%22%3E%0A++++%3CPounds%3E3%3C%2FPounds%3E%0A++++%3COunces%3E10%3C%2FOunces%3E%0A++++%3CMachinable%3Etrue%3C%2FMachinable%3E%0A++++%3CMailType%3EAll%3C%2FMailType%3E%0A++++%3CValueOfContents%3E200%3C%2FValueOfContents%3E%0A++++%3CCountry%3ECanada%3C%2FCountry%3E%0A++++%3CContainer%3EVARIABLE%3C%2FContainer%3E%0A++++%3CWidth%3E10.00%3C%2FWidth%3E%0A++++%3CLength%3E15.00%3C%2FLength%3E%0A++++%3CHeight%3E10.00%3C%2FHeight%3E%0A++++%3COriginZip%3E27704%3C%2FOriginZip%3E%0A++++%3CCommercialFlag%3EN%3C%2FCommercialFlag%3E%0A++++%3CAcceptanceDateTime%3E2023-03-22T14%3A30%3A51-06%3A00%3C%2FAcceptanceDateTime%3E%0A++++%3CDestinationPostalCode%3ET0A3J0%3C%2FDestinationPostalCode%3E%0A++%3C%2FPackage%3E%0A%3C%2FIntlRateV2Request%3E%0A
+      string: API=IntlRateV2&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CIntlRateV2Request+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CRevision%3E2%3C%2FRevision%3E%0A++%3CPackage+ID%3D%220%22%3E%0A++++%3CPounds%3E1%3C%2FPounds%3E%0A++++%3COunces%3E13%3C%2FOunces%3E%0A++++%3CMachinable%3Etrue%3C%2FMachinable%3E%0A++++%3CMailType%3EAll%3C%2FMailType%3E%0A++++%3CValueOfContents%3E10%3C%2FValueOfContents%3E%0A++++%3CCountry%3ECanada%3C%2FCountry%3E%0A++++%3CContainer%3EVARIABLE%3C%2FContainer%3E%0A++++%3CWidth%3E12.50%3C%2FWidth%3E%0A++++%3CLength%3E9.50%3C%2FLength%3E%0A++++%3CHeight%3E1.00%3C%2FHeight%3E%0A++++%3COriginZip%3E27704%3C%2FOriginZip%3E%0A++++%3CCommercialFlag%3EN%3C%2FCommercialFlag%3E%0A++++%3CCommercialPlusFlag%3EN%3C%2FCommercialPlusFlag%3E%0A++++%3CAcceptanceDateTime%3E2023-03-30T14%3A30%3A51-06%3A00%3C%2FAcceptanceDateTime%3E%0A++++%3CDestinationPostalCode%3ET0A3J0%3C%2FDestinationPostalCode%3E%0A++%3C%2FPackage%3E%0A%3C%2FIntlRateV2Request%3E%0A
     headers:
       Accept:
       - "*/*"
       User-Agent:
       - rest-client/2.1.0 (darwin21 arm64) ruby/3.1.3p185
       Content-Length:
-      - '902'
+      - '958'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -29,7 +29,7 @@ http_interactions:
       Content-Type:
       - text/xml
       Date:
-      - Sun, 12 Mar 2023 19:39:29 GMT
+      - Wed, 15 Mar 2023 10:28:09 GMT
       Server:
       - Microsoft-IIS/10.0
       Strict-Transport-Security:
@@ -41,13 +41,13 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Global-Transaction-Id:
-      - 74ae8d09640e2a7502fbe883
+      - ec50ae4264119dbcc2a4266f
       X-Powered-By:
       - ASP.NET
       X-Ruleset-Version:
       - '1.0'
       Content-Length:
-      - '16537'
+      - '19090'
     body:
       encoding: UTF-8
       string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IntlRateV2Response><Package
@@ -189,39 +189,55 @@ http_interactions:
         telephone number for the addressee should be provided if possible for shipments
         to a street address. \n\nAreas Served: All</ExpressMail><AreasServed>Please
         reference Express Mail for Areas Served.</AreasServed><AdditionalRestrictions>No
-        Additional Restrictions Data found.</AdditionalRestrictions><Service ID=\"12\"><Pounds>3</Pounds><Ounces>10</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>10.00</Width><Length>15.00</Length><Height>10.00</Height><Country>Canada</Country><Postage>106.00</Postage><ExtraServices><ExtraService><ServiceID>106</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>2.45</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService></ExtraServices><ValueOfContents>200.00</ValueOfContents><SvcCommitments>1
+        Additional Restrictions Data found.</AdditionalRestrictions><Service ID=\"12\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>90.90</Postage><ExtraServices><ExtraService><ServiceID>106</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><SvcCommitments>1
         - 3 business days to many major markets</SvcCommitments><SvcDescription>USPS
         GXG&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt; Envelopes</SvcDescription><MaxDimensions>USPS-Produced
         regular size cardboard envelope (12-1/2\" x 9-1/2\"), the legal-sized cardboard
         envelope (15\" x 9-1/2\") and the GXG Tyvek envelope (15-1/2\" x 12-1/2\")</MaxDimensions><MaxWeight>70</MaxWeight></Service><Service
-        ID=\"1\"><Pounds>3</Pounds><Ounces>10</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>10.00</Width><Length>15.00</Length><Height>10.00</Height><Country>Canada</Country><Postage>73.30</Postage><ExtraServices><ExtraService><ServiceID>107</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService><ExtraService><ServiceID>181</ServiceID><ServiceName>Scan
+        ID=\"1\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>63.40</Postage><ExtraServices><ExtraService><ServiceID>107</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService><ExtraService><ServiceID>181</ServiceID><ServiceName>Scan
         Retention</ServiceName><Available>True</Available><Price>0.99</Price></ExtraService><ExtraService><ServiceID>182</ServiceID><ServiceName>Scan
-        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>200.00</ValueOfContents><SvcCommitments>3
+        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><SvcCommitments>3
         - 5 business days to many major markets</SvcCommitments><SvcDescription>Priority
         Mail Express International&amp;lt;sup&amp;gt;&amp;#174;&amp;lt;/sup&amp;gt;</SvcDescription><MaxDimensions>Max.
         length 59\", max. length plus girth 108\"</MaxDimensions><MaxWeight>66</MaxWeight><GuaranteeAvailability>3
         - 5 business days to many major markets</GuaranteeAvailability></Service><Service
-        ID=\"2\"><Pounds>3</Pounds><Ounces>10</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>10.00</Width><Length>15.00</Length><Height>10.00</Height><Country>Canada</Country><Postage>52.20</Postage><ExtraServices><ExtraService><ServiceID>108</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService><ExtraService><ServiceID>105</ServiceID><ServiceName>Return
+        ID=\"2\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>45.50</Postage><ExtraServices><ExtraService><ServiceID>108</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService><ExtraService><ServiceID>105</ServiceID><ServiceName>Return
         Receipt</ServiceName><Available>True</Available><Price>5.30</Price></ExtraService><ExtraService><ServiceID>181</ServiceID><ServiceName>Scan
         Retention</ServiceName><Available>True</Available><Price>0.99</Price></ExtraService><ExtraService><ServiceID>182</ServiceID><ServiceName>Scan
-        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>200.00</ValueOfContents><SvcCommitments>6
+        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><SvcCommitments>6
         - 10 business days to many major markets</SvcCommitments><SvcDescription>Priority
         Mail International&amp;lt;sup&amp;gt;&amp;#174;&amp;lt;/sup&amp;gt;</SvcDescription><MaxDimensions>Max.
         length 79\", max. length plus girth 108\"</MaxDimensions><MaxWeight>66</MaxWeight></Service><Service
-        ID=\"15\"><Pounds>3</Pounds><Ounces>10</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>10.00</Width><Length>15.00</Length><Height>10.00</Height><Country>Canada</Country><Postage>45.40</Postage><ExtraServices><ExtraService><ServiceID>109</ServiceID><ServiceName>Electronic
+        ID=\"11\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>74.00</Postage><ExtraServices><ExtraService><ServiceID>108</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService><ExtraService><ServiceID>105</ServiceID><ServiceName>Return
+        Receipt</ServiceName><Available>True</Available><Price>5.30</Price></ExtraService><ExtraService><ServiceID>181</ServiceID><ServiceName>Scan
+        Retention</ServiceName><Available>True</Available><Price>0.99</Price></ExtraService><ExtraService><ServiceID>182</ServiceID><ServiceName>Scan
+        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><SvcCommitments>6
+        - 10 business days to many major markets</SvcCommitments><SvcDescription>Priority
+        Mail International&amp;lt;sup&amp;gt;&amp;#174;&amp;lt;/sup&amp;gt; Large
+        Flat Rate Box</SvcDescription><MaxDimensions>USPS-Produced Box: 23-11/16\"
+        x 11-3/4\" x 3\" or 12\" x 12\" x 5-1/2\"&lt;br>Maximum weight 20 pounds.</MaxDimensions><MaxWeight>20</MaxWeight></Service><Service
+        ID=\"9\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>60.55</Postage><ExtraServices><ExtraService><ServiceID>108</ServiceID><ServiceName>Insurance</ServiceName><Available>True</Available><Price>0.00</Price><DeclaredValueRequired>True</DeclaredValueRequired></ExtraService><ExtraService><ServiceID>105</ServiceID><ServiceName>Return
+        Receipt</ServiceName><Available>True</Available><Price>5.30</Price></ExtraService><ExtraService><ServiceID>181</ServiceID><ServiceName>Scan
+        Retention</ServiceName><Available>True</Available><Price>0.99</Price></ExtraService><ExtraService><ServiceID>182</ServiceID><ServiceName>Scan
+        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><SvcCommitments>6
+        - 10 business days to many major markets</SvcCommitments><SvcDescription>Priority
+        Mail International&amp;lt;sup&amp;gt;&amp;#174;&amp;lt;/sup&amp;gt; Medium
+        Flat Rate Box</SvcDescription><MaxDimensions>USPS-Produced Box: 13-5/8\" x
+        11-7/8\" x 3-3/8\" or 11\" x 8-1/2\" x 5-1/2\"&lt;br>Maximum weight 20 pounds.</MaxDimensions><MaxWeight>20</MaxWeight></Service><Service
+        ID=\"15\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>23.40</Postage><ExtraServices><ExtraService><ServiceID>109</ServiceID><ServiceName>Electronic
         USPS Delivery Confirmation&#8482; International (E-USPS DELCON INTL&#8482;)</ServiceName><Available>True</Available><Price>0.00</Price></ExtraService><ExtraService><ServiceID>100</ServiceID><ServiceName>Certificate
         of Mailing</ServiceName><Available>True</Available><Price>1.85</Price></ExtraService><ExtraService><ServiceID>103</ServiceID><ServiceName>Registered
         Mail</ServiceName><Available>True</Available><Price>19.05</Price></ExtraService><ExtraService><ServiceID>105</ServiceID><ServiceName>Return
         Receipt</ServiceName><Available>True</Available><Price>5.30</Price></ExtraService><ExtraService><ServiceID>181</ServiceID><ServiceName>Scan
         Retention</ServiceName><Available>True</Available><Price>0.99</Price></ExtraService><ExtraService><ServiceID>182</ServiceID><ServiceName>Scan
-        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>200.00</ValueOfContents><InsComment>SERVICE</InsComment><SvcCommitments>Varies
+        + Signature Retention</ServiceName><Available>True</Available><Price>3.75</Price></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><InsComment>SERVICE</InsComment><SvcCommitments>Varies
         by destination</SvcCommitments><SvcDescription>First-Class Package International
         Service&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</SvcDescription><MaxDimensions>Other
         than rolls: Min. length 6\", Min. height 4\", Max. length 24\", max length,
         height and depth (thickness) combined 36\"&lt;br>Rolls: Min. Length 4\", \"Max.
         length 36\". Max length and twice the diameter combined 42\"</MaxDimensions><MaxWeight>4</MaxWeight></Service><Service
-        ID=\"28\"><Pounds>3</Pounds><Ounces>10</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>10.00</Width><Length>15.00</Length><Height>10.00</Height><Country>Canada</Country><Postage>56.10</Postage><ExtraServices><ExtraService><ServiceID>100</ServiceID><ServiceName>Certificate
-        of Mailing</ServiceName><Available>True</Available><Price>1.85</Price></ExtraService></ExtraServices><ValueOfContents>200.00</ValueOfContents><InsComment>SERVICE</InsComment><SvcCommitments>Varies
+        ID=\"28\"><Pounds>1</Pounds><Ounces>13</Ounces><Machinable>true</Machinable><MailType>All</MailType><Width>12.50</Width><Length>9.50</Length><Height>1.00</Height><Country>Canada</Country><Postage>56.10</Postage><ExtraServices><ExtraService><ServiceID>100</ServiceID><ServiceName>Certificate
+        of Mailing</ServiceName><Available>True</Available><Price>1.85</Price></ExtraService></ExtraServices><ValueOfContents>10.00</ValueOfContents><InsComment>SERVICE</InsComment><SvcCommitments>Varies
         by destination</SvcCommitments><SvcDescription>Airmail M-Bag</SvcDescription><MaxDimensions/><MaxWeight>66</MaxWeight></Service></Package></IntlRateV2Response>"
-  recorded_at: Sun, 12 Mar 2023 19:39:33 GMT
+  recorded_at: Wed, 15 Mar 2023 10:28:13 GMT
 recorded_with: VCR 6.1.0

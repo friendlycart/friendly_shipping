@@ -20,13 +20,12 @@ RSpec.describe FriendlyShipping::Services::UspsInternational do
     let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
 
     subject { service.rate_estimates(shipment, debug: true) }
-# zero out item weights
 
     it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'usps_international/rate_estimates/success' } do
       aggregate_failures do
         is_expected.to be_success
-        # expect(subject.value!.data).to be_a(Array)
-        # expect(subject.value!.data).to all(be_a(FriendlyShipping::Rate))
+        expect(subject.value!.data).to be_a(Array)
+        expect(subject.value!.data).to all(be_a(FriendlyShipping::Rate))
       end
     end
   end
