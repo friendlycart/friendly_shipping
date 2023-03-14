@@ -20,13 +20,10 @@ module FriendlyShipping
         # Unfortunately, the keys don't correspond directly to the codes we use when serializing the
         # request.
         BOX_REGEX = {
-          flat_rate_boxes: 'Flat Rate Boxes',
+          flat_rate_boxes: 'Flat Rate Box',
           large_flat_rate_box: 'Large Flat Rate Box',
           medium_flat_rate_box: 'Medium Flat Rate Box',
           small_flat_rate_box: 'Small Flat Rate Box',
-          regional_rate_box_a: 'Regional Rate Box A',
-          regional_rate_box_b: 'Regional Rate Box B',
-          regional_rate_box_c: 'Regional Rate Box C',
           flat_rate_envelope: 'Flat Rate Envelope',
           legal_flat_rate_envelope: 'Legal Flat Rate Envelope',
           padded_flat_rate_envelope: 'Padded Flat Rate Envelope',
@@ -38,30 +35,16 @@ module FriendlyShipping
           postcards: 'Postcards'
         }.map { |k, v| "(?<#{k}>#{v})" }.join("|").freeze
 
-        # We use this for identifying rates that use the Hold for Pickup service.
-        HOLD_FOR_PICKUP = /Hold for Pickup/i.freeze
-
-        # For most rate options, USPS will return how many business days it takes to deliver this
-        # package in the format "{1,2,3}-Day". We can filter this out using the below Regex.
-        DAYS_TO_DELIVERY = /(?<days>\d)-Day/.freeze
-
-        # When delivering to military ZIP codes, we don't actually get a timing estimate, but instead the string
-        # "Military". We use this to indicate that this rate is for a military zip code in the rates' data Hash.
-        MILITARY = /MILITARY/i.freeze
-
         # The tags used in the rate node that we get information from.
         SERVICE_CODE_TAG = 'ID'
         SERVICE_NAME_TAG = 'SvcDescription'
         RATE_TAG = 'Postage'
         COMMERCIAL_RATE_TAG = 'CommercialPostage'
-        COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusRate'
-        DIMENSIONAL_WEIGHT_RATE = 'DimensionalWeightRate'
-        FEES = './/Fees/Fee'
+        COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusPostage'
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
           def call(rate_node, package, package_options)
-binding.pry
             # "A mail class identifier for the postage returned. Not necessarily unique within a <Package/>."
             # (from the USPS docs). We save this on the data Hash, but do not use it for identifying shipping methods.
             service_code = rate_node.attributes[SERVICE_CODE_TAG].value
@@ -69,17 +52,7 @@ binding.pry
             # The long string discussed above.
             service_name = rate_node.at(SERVICE_NAME_TAG).text
 
-            # Does this rate assume Hold for Pickup service?
-            hold_for_pickup = service_name.match?(HOLD_FOR_PICKUP)
-
-            # Is the destination a military ZIP code?
-            military = service_name.match?(MILITARY)
-
-            # If we get a days-to-delivery indication, save it in the `days_to_delivery` variable.
-            days_to_delivery_match = service_name.match(DAYS_TO_DELIVERY)
-            days_to_delivery = if days_to_delivery_match
-                                 days_to_delivery_match.named_captures.values.first.to_i
-                               end
+            days_to_delivery = rate_node.at('GuaranteeAvailability')&.text
 
             # Clean up the long string
             service_name.gsub!(SERVICE_NAME_SUBSTITUTIONS, '')
@@ -113,25 +86,12 @@ binding.pry
             # MailService element. We match to see if the name starts with the given value. For example:
             #   `Priority Mail Express 2-day™`
             #
-            shipping_method =
-              SHIPPING_METHODS.detect { |sm| sm.data[:class_ids]&.include?(service_code) } ||
-              SHIPPING_METHODS.detect { |sm| service_name.tr('-', ' ').upcase.starts_with?(sm.service_code) }
+            shipping_method = SHIPPING_METHODS.find { |sm| sm.service_code == service_code }
 
             # We find out the box name using a bit of Regex magic using named captures. See the `BOX_REGEX`
             # constant above.
             box_name_match = service_name.match(/#{BOX_REGEX}/)
             box_name = box_name_match ? box_name_match.named_captures.compact.keys.last.to_sym : :variable
-
-            dimensional_weight_rate = rate_node.at(DIMENSIONAL_WEIGHT_RATE)&.text&.to_i
-
-            fees = rate_node.xpath(FEES).map do |fee_node|
-              type = fee_node.at('FeeType').text
-              price = fee_node.at('FeePrice').text.to_d
-              {
-                type: type,
-                price: Money.new(price * CURRENCY.subunit_to_unit, CURRENCY)
-              }
-            end
 
             # Combine all the gathered information in a FriendlyShipping::Rate object.
             # Careful: This rate is only for one package within the shipment, and we get multiple
@@ -142,13 +102,9 @@ binding.pry
               data: {
                 package: package,
                 box_name: box_name,
-                hold_for_pickup: hold_for_pickup,
                 days_to_delivery: days_to_delivery,
-                military: military,
                 full_mail_service: service_name,
                 service_code: service_code,
-                dimensional_weight_rate: dimensional_weight_rate,
-                fees: fees
               }
             )
           end
