@@ -32,7 +32,8 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       id: 'package_1',
       items: [
         Physical::Item.new(
-          weight: Measured::Weight.new(5, :pounds)
+          weight: Measured::Weight.new(5, :pounds),
+          description: 'Wooden block'
         )
       ],
       container: Physical::Box.new(
@@ -204,6 +205,45 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
 
     it 'contains the relevant XML element' do
       expect(subject.at('//ShipmentConfirmRequest/Shipment/Package/PackageServiceOptions/ShipperReleaseIndicator')).to be_present
+    end
+  end
+
+  context 'with international destination and third party duties and fees billing' do
+    let(:destination) do
+      FactoryBot.build(
+        :physical_location,
+        address1: '1000 Airport Rd',
+        city: 'Edmonton',
+        region: 'AB',
+        zip: 'T9E 0V3',
+        country: 'CA'
+      )
+    end
+
+    let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '12', international: true) }
+
+    let(:options) do
+      FriendlyShipping::Services::Ups::LabelOptions.new(
+        shipping_method: shipping_method,
+        shipper_number: 'X234X',
+        billing_options: billing_options,
+        terms_of_shipment: :delivery_duty_paid,
+      )
+    end
+
+    let(:billing_options) do
+      FriendlyShipping::Services::Ups::LabelBillingOptions.new(
+        billing_account: '12345',
+        billing_zip: '22222',
+        billing_country: 'US'
+      )
+    end
+
+    it 'contains the relevant xml elements' do
+      expect(subject.at('Shipper/ShipperNumber').text).to eq('X234X')
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ItemizedPaymentInformation/ShipmentCharge/BillShipper/AccountNumber').text).to eq('X234X')
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ItemizedPaymentInformation/ShipmentCharge/BillThirdParty/BillThirdPartyConsignee/AccountNumber').text).to eq('12345')
+      expect(subject.at('Shipment/Description').text).to eq('Wooden block')
     end
   end
 end

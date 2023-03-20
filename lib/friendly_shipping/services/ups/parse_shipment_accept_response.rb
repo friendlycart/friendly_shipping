@@ -66,7 +66,7 @@ module FriendlyShipping
 
           def get_shipment_cost(shipment_xml)
             total_charges_element = shipment_xml.at('ShipmentResults/ShipmentCharges/TotalCharges')
-            ParseMoneyElement.call(total_charges_element).last
+            ParseMoneyElement.call(total_charges_element)&.last
           end
 
           def get_negotiated_rate(shipment_xml)
