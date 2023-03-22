@@ -123,7 +123,7 @@ module FriendlyShipping
 
                     contents_description = shipment.packages.flat_map do |package|
                       package.items.map(&:description)
-                    end.compact.join(', ')
+                    end.compact.join(', ').slice(0, 50)
 
                     unless contents_description.empty?
                       xml.Description(contents_description)
@@ -207,7 +207,7 @@ module FriendlyShipping
 
           def build_billing_info_node(xml, options, bill_to_consignee: false)
             billing_options = options.billing_options
-            if billing_options.bill_third_party
+            if billing_options.bill_third_party || bill_to_consignee
               xml.BillThirdParty do
                 node_type = bill_to_consignee ? :BillThirdPartyConsignee : :BillThirdPartyShipper
                 xml.public_send(node_type) do
