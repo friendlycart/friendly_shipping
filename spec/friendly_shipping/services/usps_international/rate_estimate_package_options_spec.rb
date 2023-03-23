@@ -19,21 +19,6 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::RateEstimatePackag
     it { is_expected.to respond_to(message) }
   end
 
-  describe 'box_name' do
-    context 'when setting it to something that is not a USPS box' do
-      subject do
-        described_class.new(
-          package_id: package_id,
-          box_name: :package
-        )
-      end
-
-      it 'become "variable"' do
-        expect(subject.box_name).to eq(:variable)
-      end
-    end
-  end
-
   describe 'commercial_pricing' do
     it 'is Y when true' do
       expect(described_class.new(

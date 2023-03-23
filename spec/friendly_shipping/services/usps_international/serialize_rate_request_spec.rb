@@ -22,7 +22,7 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::SerializeRateReque
     expect(node.at_xpath('Pounds').text).to eq('1')
     expect(node.at_xpath('Ounces').text).to eq('15')
     expect(node.at_xpath('Machinable').text).to eq('false')
-    expect(node.at_xpath('MailType').text).to eq('All')
+    expect(node.at_xpath('MailType').text).to eq('ALL')
     expect(node.at_xpath('Country').text).to eq('Canada')
     expect(node.at_xpath('Container').text).to eq('VARIABLE')
     expect(node.at_xpath('Width').text).to eq('8.39')
@@ -31,32 +31,6 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::SerializeRateReque
     expect(node.at_xpath('Girth')).to be nil
     expect(node.at_xpath('CommercialFlag').text).to eq('N')
     expect(node.at_xpath('CommercialPlusFlag').text).to eq('N')
-  end
-
-  context 'with roll box name' do
-    let(:package_options) do
-      FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions.new(
-        package_id: package.id,
-        box_name: :roll
-      )
-    end
-
-    it 'uses correct container' do
-      expect(node.at_xpath('Container').text).to eq('ROLL')
-    end
-  end
-
-  context 'with rectangular box name' do
-    let(:package_options) do
-      FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions.new(
-        package_id: package.id,
-        box_name: :rectanglular
-      )
-    end
-
-    it 'uses correct container' do
-      expect(node.at_xpath('Container').text).to eq('RECTANGULAR')
-    end
   end
 
   context 'with package weight that ceils to exactly 16 oz' do

@@ -23,7 +23,8 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::ParsePackageRate d
         xml.Postage postage
         xml.CommercialPostage commercial_postage if commercial_postage
         xml.CommercialPlusPostage commercial_plus_postage if commercial_plus_postage
-        xml.GuaranteeAvailability('3 - 5 business days to many major markets')
+        xml.GuaranteeAvailability('01/29/2014')
+        xml.SvcCommitments('3 - 5 business days to many major markets')
       end
     end.to_xml
     Nokogiri::XML(serialized).xpath('Service').first
@@ -34,7 +35,8 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::ParsePackageRate d
     expect(subject.amounts.keys).to eq([package.id])
     expect(subject.shipping_method.name).to eq("USPS GXG; Envelopes")
     expect(subject.data[:service_code]).to eq("12")
-    expect(subject.data[:days_to_delivery]).to eq('3 - 5 business days to many major markets')
+    expect(subject.data[:delivery_guarantee]).to eq('01/29/2014')
+    expect(subject.data[:delivery_commitment]).to eq('3 - 5 business days to many major markets')
   end
 
   context 'If Postage is 0' do
