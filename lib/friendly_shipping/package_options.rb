@@ -24,5 +24,9 @@ module FriendlyShipping
 
     attr_reader :item_options,
                 :item_options_class
+
+    def value_or_default(key, default, kwargs)
+      kwargs.key?(key) ? kwargs.delete(key) : default
+    end
   end
 end
