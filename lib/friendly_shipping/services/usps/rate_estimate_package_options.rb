@@ -8,8 +8,10 @@ module FriendlyShipping
     #
     # @param [Symbol] box_name The type of box we want to get rates for. Has to be one of the keys
     #  of FriendlyShipping::Services::Usps::CONTAINERS.
-    # @param [Symbol] return_dimensional_weight Boolean indicating whether the response should include dimensional weight.
-    # @param [Symbol] return_fees Boolean indicating whether the response should include fees.
+    # @param [Boolean] transmit_dimensions Indicate whether the reuqest should include the package dimensionals.
+    # @param [Boolean] rectangular Indicate whether the package is rectangular.
+    # @param [Boolean] return_dimensional_weight Indicate whether the response should include dimensional weight.
+    # @param [Boolean] return_fees Indicate whether the response should include fees.
     class Usps
       class RateEstimatePackageOptions < FriendlyShipping::PackageOptions
         attr_reader :box_name,
