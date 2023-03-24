@@ -5,8 +5,11 @@ module FriendlyShipping
     class Ups
       class SerializeAddressSnippet
         class << self
-          def call(xml:, location:)
-            if location.company_name # Is this a business address?
+          def call(xml:, location:, international: false)
+            if international
+              name = (location.company_name || location.name)[0..34]
+              attention_name = location.name
+            elsif location.company_name # Is this a business address?
               name = location.company_name[0..34]
               attention_name = location.name
             else
