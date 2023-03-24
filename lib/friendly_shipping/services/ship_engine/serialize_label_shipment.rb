@@ -21,6 +21,10 @@ module FriendlyShipping
               shipment_hash[:shipment][:carrier_id] = options.shipping_method.carrier.id
             end
 
+            if international?(shipment)
+              shipment_hash[:shipment][:customs] = serialize_customs(shipment.packages, options)
+            end
+
             if test
               shipment_hash[:test_label] = true
             end
@@ -68,6 +72,35 @@ module FriendlyShipping
             end
           end
 
+          def serialize_customs(packages, options)
+            {
+              contents: options.customs_options.contents,
+              non_delivery: options.customs_options.non_delivery,
+              customs_items: serialize_customs_items(packages, options)
+            }
+          end
+
+          def serialize_customs_items(packages, options)
+            packages.map do |package|
+              package.items.group_by(&:sku).map do |sku, items|
+                reference_item = items.first
+                package_options = options.options_for_package(package)
+                item_options = package_options.options_for_item(reference_item)
+                {
+                  sku: sku,
+                  description: reference_item.description,
+                  quantity: items.count,
+                  value: {
+                    amount: reference_item.cost.to_d,
+                    currency: reference_item.cost.currency
+                  },
+                  harmonized_tariff_code: item_options.commodity_code,
+                  country_of_origin: item_options.country_of_origin
+                }
+              end
+            end.flatten
+          end
+
           def serialize_weight(weight)
             ounces = weight.convert_to(:ounce).value.to_f
             {
@@ -77,6 +110,10 @@ module FriendlyShipping
                 unit: "ounce"
               }
             }
+          end
+
+          def international?(shipment)
+            shipment.origin.country != shipment.destination.country
           end
         end
       end

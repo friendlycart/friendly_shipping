@@ -21,31 +21,39 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::RateEstimatePackag
 
   describe 'commercial_pricing' do
     it 'is Y when true' do
-      expect(described_class.new(
+      expect(
+        described_class.new(
           package_id: package_id,
           commercial_pricing: true,
-        ).commercial_pricing).to eq("Y")
+        ).commercial_pricing
+      ).to eq("Y")
     end
 
     it 'is N when false' do
-      expect(described_class.new(
+      expect(
+        described_class.new(
           package_id: package_id,
-        ).commercial_pricing).to eq("N")
+        ).commercial_pricing
+      ).to eq("N")
     end
   end
 
   describe 'commercial_plus_pricing' do
     it 'is Y when true' do
-      expect(described_class.new(
+      expect(
+        described_class.new(
           package_id: package_id,
           commercial_plus_pricing: true,
-        ).commercial_plus_pricing).to eq("Y")
+        ).commercial_plus_pricing
+      ).to eq("Y")
     end
 
     it 'is N when false' do
-      expect(described_class.new(
+      expect(
+        described_class.new(
           package_id: package_id,
-        ).commercial_plus_pricing).to eq("N")
+        ).commercial_plus_pricing
+      ).to eq("N")
     end
   end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/package_options'
+require 'friendly_shipping/services/ship_engine/label_item_options'
 
 module FriendlyShipping
   module Services
@@ -20,7 +21,7 @@ module FriendlyShipping
         def initialize(package_code: nil, messages: [], **kwargs)
           @package_code = package_code
           @messages = messages
-          super(**kwargs)
+          super(**kwargs.merge(item_options_class: LabelItemOptions))
         end
       end
     end
