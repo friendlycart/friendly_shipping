@@ -9,6 +9,7 @@ module FriendlyShipping
       class SerializeShipmentConfirmRequest
         class << self
           # Item options (only necessary for international shipping)
+          # ShipTo CompanyName & AttentionName required for international shipping
           #
           # @option description [String] A description of the item for the intl. invoice
           # @option commodity_code [String] Commodity code for the item. See https://www.tariffnumber.com/
@@ -41,7 +42,7 @@ module FriendlyShipping
                   end
 
                   xml.ShipTo do
-                    SerializeShipmentAddressSnippet.call(xml: xml, location: shipment.destination)
+                    SerializeShipmentAddressSnippet.call(xml: xml, location: shipment.destination, international: international?(shipment))
                   end
 
                   # Required element. The company whose account is responsible for the label(s).

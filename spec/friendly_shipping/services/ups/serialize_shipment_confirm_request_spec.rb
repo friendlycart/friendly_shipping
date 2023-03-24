@@ -141,9 +141,8 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
     end
 
     it "contains the name of the recipient instead of the company" do
-      expect(
-        subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/CompanyName').text
-      ).to eq("Jane Doe")
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/CompanyName').text).to eq("Jane Doe")
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/AttentionName')).not_to be_present
     end
   end
 
@@ -244,6 +243,27 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ItemizedPaymentInformation/ShipmentCharge/BillShipper/AccountNumber').text).to eq('X234X')
       expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ItemizedPaymentInformation/ShipmentCharge/BillThirdParty/BillThirdPartyConsignee/AccountNumber').text).to eq('12345')
       expect(subject.at('Shipment/Description').text).to eq('Wooden block')
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/CompanyName').text).to eq("Company")
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/AttentionName').text).to eq("Jane Doe")
+    end
+
+    context 'with a private address (without company)' do
+      let(:destination) do
+        FactoryBot.build(
+          :physical_location,
+          company_name: nil,
+          address1: '1000 Airport Rd',
+          city: 'Edmonton',
+          region: 'AB',
+          zip: 'T9E 0V3',
+          country: 'CA'
+        )
+      end
+
+      it 'contains the relevant xml elements' do
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/CompanyName').text).to eq("Jane Doe")
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/AttentionName').text).to eq("Jane Doe")
+      end
     end
   end
 end
