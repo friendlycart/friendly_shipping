@@ -220,4 +220,56 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
       is_expected.to match(hash_including(label_image_id: "img_DtBXupDBxREpHnwEXhTfgK"))
     end
   end
+
+  context "with international shipment" do
+    let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], origin: origin, destination: destination) }
+    let(:item) { FactoryBot.build(:physical_item, sku: "20010", description: "Wicks", cost: Money.new(120, "CAD")) }
+
+    let(:origin) { FactoryBot.build(:physical_location, region_code: "NC", country_code: "US") }
+    let(:destination) { FactoryBot.build(:physical_location, region_code: "ON", country_code: "CA") }
+
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::LabelPackageOptions.new(
+          package_id: package.id,
+          package_code: :large_flat_rate_box,
+          item_options: item_options
+        )
+      ]
+    end
+
+    let(:item_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::LabelItemOptions.new(
+          item_id: item.id,
+          commodity_code: "6116.10.0000",
+          country_of_origin: "US"
+        )
+      ]
+    end
+
+    it do
+      is_expected.to match(
+        hash_including(
+          shipment: hash_including(
+            customs: {
+              contents: "merchandise",
+              non_delivery: "return_to_sender",
+              customs_items: [{
+                sku: "20010",
+                description: "Wicks",
+                quantity: 1,
+                value: {
+                  amount: 1.20,
+                  currency: "CAD"
+                },
+                harmonized_tariff_code: "6116.10.0000",
+                country_of_origin: "US"
+              }]
+            }
+          )
+        )
+      )
+    end
+  end
 end
