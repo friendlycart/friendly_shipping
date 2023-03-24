@@ -30,7 +30,7 @@ module FriendlyShipping
 
               rates = SHIPPING_METHODS.map do |shipping_method|
                 # For every package ...
-                matching_rates = rates_by_package.map do |package, package_rates|
+                matching_rates = rates_by_package.map do |_package, package_rates|
                   # ... choose the rate that matches the shipping method for this package
                   package_rates.select { |r| r.shipping_method == shipping_method }.first
                 end.compact # Some shipping rates are not available for every shipping method.

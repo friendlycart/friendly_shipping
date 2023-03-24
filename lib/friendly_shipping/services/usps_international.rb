@@ -17,7 +17,7 @@ module FriendlyShipping
         rectanglular: 'RECTANGULAR',
         roll: 'ROLL',
         variable: 'VARIABLE'
-      }
+      }.freeze
 
       MAIL_TYPES = {
         all: 'ALL',
@@ -28,7 +28,7 @@ module FriendlyShipping
         large_envelope: 'LARGEENVELOPE',
         package: 'PACKAGE',
         post_cards: 'POSTCARDS'
-      }
+      }.freeze
 
       TEST_URL = 'https://stg-secure.shippingapis.com/ShippingAPI.dll'
       LIVE_URL = 'https://secure.shippingapis.com/ShippingAPI.dll'
