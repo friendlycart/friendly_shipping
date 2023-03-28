@@ -92,7 +92,7 @@ module FriendlyShipping
                   quantity: items.count,
                   value: {
                     amount: reference_item.cost.to_d,
-                    currency: reference_item.cost.currency
+                    currency: reference_item.cost.currency.to_s
                   },
                   harmonized_tariff_code: item_options.commodity_code,
                   country_of_origin: item_options.country_of_origin
