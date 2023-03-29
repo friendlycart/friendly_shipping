@@ -49,14 +49,17 @@ module FriendlyShipping
           other: 'OTH'
         }.freeze
 
-        attr_reader :commodity_code
+        attr_reader :commodity_code,
+                    :country_of_origin
 
         def initialize(
           commodity_code: nil,
+          country_of_origin: nil,
           product_unit_of_measure: :number,
           **kwargs
         )
           @commodity_code = commodity_code
+          @country_of_origin = country_of_origin
           @product_unit_of_measure = product_unit_of_measure
           super(**kwargs)
         end

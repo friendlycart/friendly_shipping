@@ -33,7 +33,8 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       items: [
         Physical::Item.new(
           weight: Measured::Weight.new(5, :pounds),
-          description: 'Wooden block'
+          description: 'Wooden block',
+          cost: Money.new(495, 'USD')
         )
       ],
       container: Physical::Box.new(
@@ -264,6 +265,69 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
         expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/CompanyName').text).to eq("Jane Doe")
         expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/AttentionName').text).to eq("Jane Doe")
       end
+    end
+  end
+
+  context 'with international destination and paperless invoicing enabled' do
+    let(:destination) do
+      FactoryBot.build(
+        :physical_location,
+        address1: '1000 Airport Rd',
+        city: 'Edmonton',
+        region: 'AB',
+        zip: 'T9E 0V3',
+        country: 'CA'
+      )
+    end
+
+    let(:shipping_method) do
+      FriendlyShipping::ShippingMethod.new(
+        service_code: '12',
+        international: true
+      )
+    end
+
+    let(:options) do
+      FriendlyShipping::Services::Ups::LabelOptions.new(
+        shipping_method: shipping_method,
+        shipper_number: '12345',
+        paperless_invoice: true,
+        terms_of_shipment: :cost_and_freight,
+        package_options: package_options
+      )
+    end
+
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::Ups::LabelPackageOptions.new(
+          package_id: package.id,
+          item_options: item_options
+        )
+      ]
+    end
+
+    let(:item_options) do
+      [
+        FriendlyShipping::Services::Ups::LabelItemOptions.new(
+          item_id: package.items.first.id,
+          commodity_code: "6116.10.0000",
+          country_of_origin: "CA"
+        )
+      ]
+    end
+
+    it 'contains the right data' do
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/FormType').text).to eq('01')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/InvoiceDate').text).to eq(Date.current.strftime('%Y%m%d'))
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/ReasonForExport').text).to eq('SALE')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/CurrencyCode').text).to eq('USD')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/TermsOfShipment').text).to eq('CFR')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Description').text).to eq('Wooden block')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/CommodityCode').text).to eq('6116.10.0000')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/OriginCountryCode').text).to eq('CA')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/Value').text).to eq('4.95')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/Number').text).to eq('1')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/UnitOfMeasurement/Code').text).to eq('NMB')
     end
   end
 end
