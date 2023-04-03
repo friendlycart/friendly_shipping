@@ -18,5 +18,10 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ApiError do
       let(:fixture) { "failure_with_http_error.json" }
       it { is_expected.to eq("400 Bad Request: The body of the request, which was expected to be JSON, was invalid.") }
     end
+
+    context "with timeout error response" do
+      let(:error) { RestClient::Exceptions::ReadTimeout.new("Timed out reading data from server") }
+      it { is_expected.to eq("Timed out reading data from server") }
+    end
   end
 end

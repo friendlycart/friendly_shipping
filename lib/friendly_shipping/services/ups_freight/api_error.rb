@@ -15,6 +15,8 @@ module FriendlyShipping
 
         # @param [RestClient::Exception] cause
         def parse_message(cause)
+          return cause.message unless cause.response
+
           parsed_json = JSON.parse(cause.response.body)
 
           if parsed_json['httpCode'].present?
