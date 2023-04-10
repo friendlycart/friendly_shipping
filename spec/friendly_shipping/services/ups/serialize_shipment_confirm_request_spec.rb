@@ -329,5 +329,31 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/Number').text).to eq('1')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/UnitOfMeasurement/Code').text).to eq('NMB')
     end
+
+    context 'with a product containing a long description' do
+      let(:package) do
+        Physical::Package.new(
+          id: 'package_1',
+          items: [
+            Physical::Item.new(
+              weight: Measured::Weight.new(5, :pounds),
+              description: 'Wooden block with a terribly long description',
+              cost: Money.new(495, 'USD')
+            )
+          ],
+          container: Physical::Box.new(
+            dimensions: [
+              Measured::Length.new(10, :centimeters),
+              Measured::Length.new(10, :centimeters),
+              Measured::Length.new(10, :centimeters),
+            ]
+          )
+        )
+      end
+
+      it 'limits the product description length to the UPS limit of 35 characters' do
+        expect(subject.at('InternationalForms/Product/Description').text).to eq('Wooden block with a terribly long d')
+      end
+    end
   end
 end

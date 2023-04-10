@@ -259,7 +259,7 @@ module FriendlyShipping
 
                 xml.Product do
                   cost = reference_item.cost || Money.new(0, 'USD')
-                  xml.Description(description)
+                  xml.Description(description&.slice(0, 35))
                   xml.CommodityCode(item_options.commodity_code)
                   xml.OriginCountryCode(item_options.country_of_origin || shipment.origin.country.code)
                   xml.Unit do
