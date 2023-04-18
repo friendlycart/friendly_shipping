@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2023-04-18
+- Rails 7 support: Fix deprecation warning about ActiveSupport#sum (#164)
+- UPS Service: Truncate product descriptions (#163)
+- TForce Service: Handle Timeouts gracefully (#162)
+- UPS Service: Support per-item origin countries for paperless invoices (#161)
+- USPS Service: Fix for currency formatting when shipping internationally (#160)
+- ShipEngine Service: Add support for customs information (#159)
+- UPS Service: Require both name and attention name for international shipping (#158)
+- UPS Service: Allow third-party billing for taxes and fees (#156)
+- USPS: New service for international shipping (#155)
+- UPS Service: Parse missing package charges (#154)
+
 ## [0.7.3] - 2023-01-24
 - UPS Service: Record USPS tracking code (#153)
 
