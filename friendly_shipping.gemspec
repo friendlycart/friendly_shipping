@@ -7,7 +7,7 @@ require "friendly_shipping/version"
 Gem::Specification.new do |spec|
   spec.name          = "friendly_shipping"
   spec.version       = FriendlyShipping::VERSION
-  spec.authors       = ["Martin Meyerhoff"]
+  spec.authors       = ["Martin Meyerhoff", "Matthew Bass"]
   spec.email         = ["mamhoff@gmail.com"]
 
   spec.summary       = "An integration layer for shipping services"
