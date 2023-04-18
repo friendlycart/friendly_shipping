@@ -39,7 +39,7 @@ module FriendlyShipping
     def total_amount
       raise NoAmountsGiven if amounts.empty?
 
-      amounts.map { |_name, amount| amount }.sum
+      amounts.map { |_name, amount| amount }.sum(Money.new(0, 'USD'))
     end
   end
 end
