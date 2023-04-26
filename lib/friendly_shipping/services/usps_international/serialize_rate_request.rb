@@ -56,12 +56,12 @@ module FriendlyShipping
           end
 
           def ounces_for(package)
-            ounces = package.weight.convert_to(:ounces).value.to_f.round(2).ceil
+            ounces = (package.weight.convert_to(:ounces).value.to_f % 16).round(2).ceil
             ounces == 16 ? 15.999 : [ounces, 1].max
           end
 
           def pounds_for(package)
-            package.weight.convert_to(:pounds).value.to_f.round(2).ceil
+            package.weight.convert_to(:pounds).value.to_f.floor
           end
 
           def girth(package)

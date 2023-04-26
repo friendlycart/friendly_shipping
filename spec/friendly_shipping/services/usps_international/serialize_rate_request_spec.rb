@@ -19,7 +19,7 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::SerializeRateReque
   let(:node) { Nokogiri::XML(subject).xpath('//IntlRateV2Request/Package') }
 
   it 'serializes the request' do
-    expect(node.at_xpath('Pounds').text).to eq('1')
+    expect(node.at_xpath('Pounds').text).to eq('0')
     expect(node.at_xpath('Ounces').text).to eq('15')
     expect(node.at_xpath('Machinable').text).to eq('false')
     expect(node.at_xpath('MailType').text).to eq('ALL')
@@ -38,6 +38,15 @@ RSpec.describe FriendlyShipping::Services::UspsInternational::SerializeRateReque
 
     it 'returns 15.999 oz' do
       expect(node.at_xpath('Ounces').text).to eq('15.999')
+    end
+  end
+
+  context 'ounces of package weight does not include pounds' do
+    let(:weight) { Measured::Weight(40.5, :pounds) }
+
+    it 'returns 40 pounds and 8 ounces' do
+      expect(node.at_xpath('Pounds').text).to eq('40')
+      expect(node.at_xpath('Ounces').text).to eq('8')
     end
   end
 
