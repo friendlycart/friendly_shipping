@@ -124,7 +124,7 @@ module FriendlyShipping
 
                     contents_description = shipment.packages.flat_map do |package|
                       package.items.map(&:description)
-                    end.compact.join(', ').slice(0, 50)
+                    end.compact.uniq.join(', ').slice(0, 50)
 
                     unless contents_description.empty?
                       xml.Description(contents_description)
@@ -263,7 +263,7 @@ module FriendlyShipping
                   xml.CommodityCode(item_options.commodity_code)
                   xml.OriginCountryCode(item_options.country_of_origin || shipment.origin.country.code)
                   xml.Unit do
-                    xml.Value(cost * items.length)
+                    xml.Value(cost)
                     xml.Number(items.length)
                     xml.UnitOfMeasurement do
                       xml.Code(item_options.product_unit_of_measure_code)
