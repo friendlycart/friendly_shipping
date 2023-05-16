@@ -30,13 +30,13 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
   let(:package) do
     Physical::Package.new(
       id: 'package_1',
-      items: [
+      items: Array.new(2) {
         Physical::Item.new(
           weight: Measured::Weight.new(5, :pounds),
           description: 'Wooden block',
           cost: Money.new(495, 'USD')
         )
-      ],
+      },
       container: Physical::Box.new(
         dimensions: [
           Measured::Length.new(10, :centimeters),
@@ -93,7 +93,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(
         subject.at_xpath('//ShipmentConfirmRequest/Shipment/Package/PackageWeight/UnitOfMeasurement/Code').text
       ).to eq('LBS')
-      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/Package/PackageWeight/Weight').text).to eq('5')
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/Package/PackageWeight/Weight').text).to eq('10')
     end
   end
 
@@ -326,7 +326,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/CommodityCode').text).to eq('6116.10.0000')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/OriginCountryCode').text).to eq('CA')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/Value').text).to eq('4.95')
-      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/Number').text).to eq('1')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/Number').text).to eq('2')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Unit/UnitOfMeasurement/Code').text).to eq('NMB')
     end
 
@@ -334,13 +334,13 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       let(:package) do
         Physical::Package.new(
           id: 'package_1',
-          items: [
+          items: Array.new(2) {
             Physical::Item.new(
               weight: Measured::Weight.new(5, :pounds),
               description: 'Wooden block with a terribly long description',
               cost: Money.new(495, 'USD')
             )
-          ],
+          },
           container: Physical::Box.new(
             dimensions: [
               Measured::Length.new(10, :centimeters),
