@@ -13,7 +13,10 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
     Physical::Package.new(
       container: Physical::Box.new(
         weight: Measured::Weight.new(5.025, :pounds)
-      )
+      ),
+      items: Array.new(2) {
+        Physical::Item.new(cost: Money.new(495, 'USD'))
+      }
     )
   end
 
@@ -108,6 +111,20 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializePackageNode do
     it 'adds the delivery confirmation to the package service options' do
       expect(subject.at_xpath('//Package//PackageServiceOptions/DeliveryConfirmation')).to be_present
       expect(subject.at_xpath('//Package//PackageServiceOptions/DeliveryConfirmation/DCISType').text).to eq('5678')
+    end
+  end
+
+  context 'if package has declared_value set to true' do
+    subject(:context) do
+      Nokogiri::XML::Builder.new do |xml|
+        described_class.call(xml: xml, package: package, declared_value: true)
+      end.doc
+    end
+
+    it 'adds declared value to the package service options' do
+      expect(subject.at_xpath('//Package//PackageServiceOptions/DeclaredValue')).to be_present
+      expect(subject.at_xpath('//Package//PackageServiceOptions/DeclaredValue/CurrencyCode').text).to eq('USD')
+      expect(subject.at_xpath('//Package//PackageServiceOptions/DeclaredValue/MonetaryValue').text).to eq('9.90')
     end
   end
 end

@@ -10,7 +10,8 @@ module FriendlyShipping
           reference_numbers: {},
           delivery_confirmation_code: nil,
           shipper_release: false,
-          transmit_dimensions: true
+          transmit_dimensions: true,
+          declared_value: false
         )
           xml.Package do
             xml.PackagingType do
@@ -47,6 +48,15 @@ module FriendlyShipping
               if delivery_confirmation_code
                 xml.DeliveryConfirmation do
                   xml.DCISType(delivery_confirmation_code)
+                end
+              end
+              if declared_value
+                xml.DeclaredValue do
+                  xml.CurrencyCode('USD')
+                  monetary_value = package.items.inject(Money.new(0, 'USD')) do |package_sum, item|
+                    package_sum + (item.cost || Money.new(0, 'USD'))
+                  end
+                  xml.MonetaryValue(monetary_value)
                 end
               end
             end
