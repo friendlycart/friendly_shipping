@@ -160,7 +160,8 @@ module FriendlyShipping
                       package: package,
                       reference_numbers: reference_numbers,
                       delivery_confirmation_code: delivery_confirmation_code,
-                      shipper_release: package_options.shipper_release
+                      shipper_release: package_options.shipper_release,
+                      declared_value: package_options.declared_value
                     )
                   end
                 end

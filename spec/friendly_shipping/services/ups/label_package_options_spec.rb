@@ -9,7 +9,8 @@ RSpec.describe FriendlyShipping::Services::Ups::LabelPackageOptions do
   [
     :delivery_confirmation_code,
     :reference_numbers,
-    :shipper_release
+    :shipper_release,
+    :declared_value
   ].each do |message|
     it { is_expected.to respond_to(message) }
   end
