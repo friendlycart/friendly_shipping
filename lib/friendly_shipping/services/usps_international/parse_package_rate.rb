@@ -47,7 +47,8 @@ module FriendlyShipping
 
             rate_value =
               if commercial_rate_requested_or_rate_is_zero && commercial_rate_available
-                rate_node.at(COMMERCIAL_RATE_TAG)&.text&.to_d || rate_node.at(COMMERCIAL_PLUS_RATE_TAG).text.to_d
+                commercial_rate = rate_node.at(COMMERCIAL_RATE_TAG)&.text.to_d
+                commercial_rate.zero? ? rate_node.at(COMMERCIAL_PLUS_RATE_TAG).text.to_d : commercial_rate
               else
                 rate_node.at(RATE_TAG).text.to_d
               end
