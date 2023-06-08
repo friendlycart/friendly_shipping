@@ -105,4 +105,38 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
       )
     end
   end
+
+  context 'with values exceeding max length' do
+    let(:location) do
+      Physical::Location.new(
+        company_name: 'Ankunding, Bogisich, Morissette and Yost',
+        name: 'John Edward Jones Blithe Conley Smith',
+        address1: '5839 Mayfield Barton Albans Field Drive',
+        address2: '',
+        address3: '',
+        city: 'Northeast Flunkertown Nottingham Village',
+        zip: '23224',
+        region: 'VA',
+        country: 'US',
+        phone: '123-123-1234 x1234',
+      )
+    end
+
+    it 'truncates long values' do
+      is_expected.to eq(
+        Name: 'Ankunding, Bogisich, Morissette and',
+        AttentionName: 'John Edward Jones Blithe Conley Smi',
+        Address: {
+          AddressLine: '5839 Mayfield Barton Albans Field D',
+          City: 'Northeast Flunkertown Notting',
+          StateProvinceCode: 'VA',
+          PostalCode: '23224',
+          CountryCode: 'US'
+        },
+        Phone: {
+          Number: '123-123-1234 x'
+        }
+      )
+    end
+  end
 end

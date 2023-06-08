@@ -7,17 +7,17 @@ module FriendlyShipping
         class << self
           def call(location:)
             {
-              Name: location.company_name.presence || location.name,
+              Name: truncate(location.company_name.presence || location.name),
               Address: {
                 AddressLine: address_line(location),
-                City: location.city,
+                City: truncate(location.city, length: 29),
                 StateProvinceCode: location.region&.code,
                 PostalCode: location.zip,
                 CountryCode: location.country&.code
               },
-              AttentionName: location.name,
+              AttentionName: truncate(location.name),
               Phone: {
-                Number: location.phone
+                Number: truncate(location.phone, length: 14)
               }.compact.presence
             }.compact
           end
@@ -29,8 +29,12 @@ module FriendlyShipping
               location.address1,
               location.address2,
               location.address3
-            ].compact.reject(&:empty?)
-            address_lines.size > 1 ? address_lines : address_lines.first
+            ].compact.reject(&:empty?).map { |e| truncate(e) }
+            address_lines.size > 1 ? address_lines : truncate(address_lines.first)
+          end
+
+          def truncate(value, length: 35)
+            value && value[0..(length - 1)]
           end
         end
       end
