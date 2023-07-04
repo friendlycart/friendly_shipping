@@ -122,6 +122,17 @@ RSpec.describe FriendlyShipping::Services::Usps::ParsePackageRate do
     end
   end
 
+  context 'Ground Advantage' do
+    let(:class_id) { "1058" }
+    let(:mail_service) { "USPS Ground Advantage&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;" }
+
+    it "has the correct shipping method" do
+      expect(subject.shipping_method.name).to eq('Ground Advantage')
+      expect(subject.data[:box_name]).to eq(:variable)
+      expect(subject.data[:service_code]).to eq("1058")
+    end
+  end
+
   context 'If Rate is 0' do
     let(:rate) { '0.0' }
     let(:commercial_rate) { '4.50' }

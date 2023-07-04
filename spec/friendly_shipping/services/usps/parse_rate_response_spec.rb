@@ -26,12 +26,13 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   it { is_expected.to be_success }
 
   it 'returns rates along with the response' do
-    expect(subject.value!.data.length).to eq(4)
+    expect(subject.value!.data.length).to eq(5)
     expect(subject.value!.data.map(&:total_amount)).to contain_exactly(*[
-      276, 673, 715, 3660
+      276, 640, 673, 715, 3660
     ].map { |cents| Money.new(cents, 'USD') })
     expect(subject.value!.data.map(&:shipping_method).map(&:name)).to contain_exactly(
       "First-Class",
+      "Ground Advantage",
       "Priority Mail",
       "Priority Mail Express",
       "Standard Post"

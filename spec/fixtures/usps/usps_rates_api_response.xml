@@ -242,6 +242,10 @@
             <CommercialRate>2.76</CommercialRate>
             <CommercialPlusRate>4.05</CommercialPlusRate>
         </Postage>
+        <Postage CLASSID="1058">
+            <MailService>USPS Ground Advantage&amp;lt;sup&amp;gt;&amp;#8482;&amp;lt;/sup&amp;gt;</MailService>
+            <Rate>6.40</Rate>
+        </Postage>
         <Postage CLASSID="4">
             <MailService>Standard Post&amp;lt;sup&amp;gt;&amp;#174;&amp;lt;/sup&amp;gt;</MailService>
             <Rate>6.73</Rate>
