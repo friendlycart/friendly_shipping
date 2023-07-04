@@ -106,10 +106,12 @@ module FriendlyShipping
           # “0” = All Mail Classes
           # “1” = Priority Mail Express
           # “2” = Priority Mail
-          # “3” = First Class Mail
+          # “3” = First-Class - replaced by Ground Advantage (up to 15.999 oz)
           # “4” = Marketing Mail
           # “5” = Periodicals
           # “6” = Package Services
+          # “7” = Parcel Select Ground - replaced by Ground Advantage (1-70 lbs)
+          # “9” = Ground Advantage (1-70 lbs)
           #
           # However, no shipping methods really map to "Marketing Mail" or "Periodicals".
           # This will likely be somewhat more work in the future.
@@ -117,7 +119,9 @@ module FriendlyShipping
             '1' => 'Priority Mail Express',
             '2' => 'Priority Mail',
             '3' => 'First-Class',
-            '6' => 'Package Services'
+            '6' => 'Package Services',
+            '7' => 'Parcel Select Ground',
+            '9' => 'Ground Advantage'
           }.freeze
 
           # This code carries a few details about the shipment:

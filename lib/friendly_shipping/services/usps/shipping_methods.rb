@@ -35,11 +35,13 @@ module FriendlyShipping
           hold_for_pickup: '2',
           sunday_holiday_delivery: '23'
         },
-        priority_mail_cubic: '999'
+        priority_mail_cubic: '999',
+        ground_advantage: '1058'
       }.freeze
 
       SHIPPING_METHODS = [
         ['FIRST CLASS', 'First-Class'],
+        ['GROUND ADVANTAGE', 'Ground Advantage', CLASS_IDS[:ground_advantage]],
         ['PACKAGE SERVICES', 'Package Services'],
         ['PRIORITY', 'Priority Mail'],
         ['PRIORITY MAIL EXPRESS', 'Priority Mail Express', CLASS_IDS[:priority_mail_express].values],
@@ -55,7 +57,7 @@ module FriendlyShipping
           service_code: code,
           domestic: true,
           international: false,
-          data: { class_ids: class_ids }
+          data: { class_ids: Array(class_ids) }
         )
       end.freeze
     end
