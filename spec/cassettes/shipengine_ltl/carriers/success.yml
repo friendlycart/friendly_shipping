@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.shipengine.com/v-beta/ltl/carriers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21 x86_64) ruby/2.7.4p191
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 03 Jun 2022 19:04:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '4601'
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '19'
+      Ratelimit-Limit:
+      - '20'
+      Ratelimit-Reset:
+      - '59'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 43f9566f530a013e04b186f41d8c478b
+      X-Shipengine-Requestid:
+      - 50376549-5f29-48e5-a00f-8618b2b2b2e2
+      Deploy-Target:
+      - bWFpbg
+      Vary:
+      - Origin
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+    body:
+      encoding: UTF-8
+      string: '{"carriers":[{"carrier_id":"1fd96e9e-9a25-436a-8e11-c6e4500cb7de","countries":["CA","MX","US"],"credential_requirements":{"account_number":{"title":"Carrier
+        account number","type":"string"},"key":{"title":"Access Key (Production)","type":"string"},"password":{"title":"Your
+        ups.com Password","type":"string"},"username":{"title":"Your ups.com Username","type":"string"}},"document_types":["delivery_receipt"],"features":["auto_pro","connect","documents","quote","scheduled_pickup","spot_quote","tracking"],"name":"UPS
+        Freight","options":[{"attributes":null,"code":"aptd","features":["quote","spot_quote"],"name":"Appointment
+        required at delivery"},{"attributes":null,"code":"cnstd","features":["quote","spot_quote"],"name":"Construction
+        site delivery"},{"attributes":null,"code":"cnstp","features":["spot_quote"],"name":"Construction
+        site pickup"},{"attributes":{"amount":{"title":"Amount","type":"string"}},"code":"cod","features":["quote"],"name":"Collect
+        on delivery"},{"attributes":{"name":{"title":"Emergency Contact Name","type":"string"},"phone":{"pattern":"([0-9]{10})","title":"Emergency
+        Contact Phone Number","type":"string"}},"code":"haz","features":["quote","spot_quote","scheduled_pickup"],"name":"Hazardous
+        material"},{"attributes":null,"code":"idl","features":["quote","spot_quote"],"name":"Inside
+        delivery"},{"attributes":{"additional_insurance_amount":{"title":"Additional
+        Insurance Amount","type":"string"},"monetary_value":{"title":"Monetary Value","type":"string"}},"code":"ins","features":["quote"],"name":"Additional
+        insurance/excess value"},{"attributes":null,"code":"ipu","features":["quote","spot_quote"],"name":"Inside
+        pickup"},{"attributes":null,"code":"lftd","features":["quote","spot_quote"],"name":"Lift
+        gate required at delivery"},{"attributes":null,"code":"lftp","features":["quote","spot_quote"],"name":"Lift
+        gate required at pickup"},{"attributes":null,"code":"ltdad","features":["quote","spot_quote"],"name":"Limited
+        access delivery"},{"attributes":null,"code":"ltdap","features":["quote","spot_quote"],"name":"Limited
+        access pickup"},{"attributes":null,"code":"mnc","features":["quote","spot_quote"],"name":"Must
+        notify consignee"},{"attributes":null,"code":"ovr","features":["quote"],"name":"Over
+        dimension/excessive length"},{"attributes":null,"code":"psc","features":["spot_quote"],"name":"Protective
+        from cold"},{"attributes":null,"code":"psn","features":["quote"],"name":"Poisonous
+        material"},{"attributes":null,"code":"rep","features":["quote","spot_quote"],"name":"Residential
+        pickup"},{"attributes":null,"code":"res","features":["quote","spot_quote"],"name":"Residential
+        delivery"},{"attributes":{"pieces":{"title":"Pieces","type":"string"}},"code":"srt","features":["quote"],"name":"SRT
+        - Sort and segregate"}],"packages":[{"code":"bag","features":["quote","spot_quote","scheduled_pickup"],"name":"Bag"},{"code":"bal","features":["quote","spot_quote","scheduled_pickup"],"name":"Bale"},{"code":"bbl","features":["quote","spot_quote","scheduled_pickup"],"name":"Barrel"},{"code":"bch","features":["quote","spot_quote"],"name":"Bunch"},{"code":"bdl","features":["quote","spot_quote","scheduled_pickup"],"name":"Bundle"},{"code":"box","features":["quote","spot_quote","scheduled_pickup"],"name":"Box"},{"code":"cas","features":["quote","spot_quote","scheduled_pickup"],"name":"Case"},{"code":"crt","features":["quote","spot_quote","scheduled_pickup"],"name":"Crate"},{"code":"ctn","features":["quote","spot_quote","scheduled_pickup"],"name":"Carton"},{"code":"cyl","features":["quote","spot_quote","scheduled_pickup"],"name":"Cylinder"},{"code":"drm","features":["quote","spot_quote","scheduled_pickup"],"name":"Drum"},{"code":"pal","features":["quote","spot_quote","scheduled_pickup"],"name":"Pail"},{"code":"pat","features":["quote","spot_quote","scheduled_pickup"],"name":"Pallet"},{"code":"pcs","features":["quote","spot_quote","scheduled_pickup"],"name":"Piece"},{"code":"pkg","features":["quote","spot_quote","scheduled_pickup"],"name":"Package"},{"code":"rck","features":["quote","spot_quote","scheduled_pickup"],"name":"Rack"},{"code":"rel","features":["quote","spot_quote","scheduled_pickup"],"name":"Reel"},{"code":"rol","features":["quote","spot_quote","scheduled_pickup"],"name":"Roll"},{"code":"skd","features":["quote","spot_quote","scheduled_pickup"],"name":"Skid"}],"scac":"%SHIPENGINE_LTL_CARRIER_SCAC%","services":[{"code":"gtd_noon","features":["quote","scheduled_pickup"],"name":"Guaranteed
+        Noon"},{"code":"gtd_pm","features":["quote","scheduled_pickup"],"name":"Guaranteed
+        End of Day"},{"code":"stnd","features":["quote","scheduled_pickup"],"name":"Standard"}]}]}'
+  recorded_at: Fri, 03 Jun 2022 19:04:01 GMT
+recorded_with: VCR 6.1.0

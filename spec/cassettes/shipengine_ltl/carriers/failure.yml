@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.shipengine.com/v-beta/ltl/carriers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21 x86_64) ruby/2.7.4p191
+      Content-Type:
+      - application/json
+      Api-Key:
+      - invalid_token
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Fri, 03 Jun 2022 19:04:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '42'
+      Connection:
+      - keep-alive
+      X-Shipengine-Requestid:
+      - d076162c-5eb6-48b1-bde7-e5c55dda2f86
+      Deploy-Target:
+      - bWFpbg
+      Vary:
+      - Origin
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+    body:
+      encoding: UTF-8
+      string: '{"errors":[{"message":"Not authorized."}]}'
+  recorded_at: Fri, 03 Jun 2022 19:04:01 GMT
+recorded_with: VCR 6.1.0

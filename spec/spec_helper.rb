@@ -16,7 +16,7 @@ require "physical/test_support"
 FactoryBot.definition_file_paths.concat(Physical::TestSupport.factory_paths)
 FactoryBot.reload
 
-Dotenv.load
+Dotenv.load(".env", ".env.test")
 
 Money.locale_backend = nil
 
@@ -26,6 +26,8 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
   c.filter_sensitive_data('%SHIPENGINE_API_KEY%') { ENV['SHIPENGINE_API_KEY'] }
   c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV['SHIPENGINE_CARRIER_ID'] }
+  c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_ID%') { ENV['SHIPENGINE_LTL_CARRIER_ID'] }
+  c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_SCAC%') { ENV['SHIPENGINE_LTL_CARRIER_SCAC'] }
   c.filter_sensitive_data('%UPS_LOGIN%') { ENV['UPS_LOGIN'] }
   c.filter_sensitive_data('%UPS_KEY%') { ENV['UPS_KEY'] }
   c.filter_sensitive_data('%UPS_PASSWORD%') { ENV['UPS_PASSWORD'] }

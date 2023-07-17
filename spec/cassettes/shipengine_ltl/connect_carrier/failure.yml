@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v-beta/ltl/connections/bogus
+    body:
+      encoding: UTF-8
+      string: '{"credentials":{"username":"%UPS_LOGIN%","password":"%UPS_PASSWORD%","key":"%UPS_KEY%","account_number":"%UPS_SHIPPER_NUMBER%"}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21 x86_64) ruby/2.7.4p191
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '131'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Mon, 06 Jun 2022 18:54:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '150'
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '18'
+      Ratelimit-Reset:
+      - '40'
+      Ratelimit-Limit:
+      - '20'
+      Etag:
+      - W/"96-oYV33IPGaL8OroIG7GklKTi5nDs"
+      X-Shipengine-Requestid:
+      - 467119ea-c79d-4dd7-a42e-14ba32b28961
+      Deploy-Target:
+      - bWFpbg
+      Vary:
+      - Origin
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+    body:
+      encoding: UTF-8
+      string: '{"request_id":"467119ea-c79d-4dd7-a42e-14ba32b28961","errors":[{"error_source":"carrier","error_type":"validation","message":"Invalid
+        carrier SCAC"}]}'
+  recorded_at: Mon, 06 Jun 2022 18:54:20 GMT
+recorded_with: VCR 6.1.0

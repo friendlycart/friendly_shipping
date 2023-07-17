@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v-beta/ltl/connections/%SHIPENGINE_LTL_CARRIER_SCAC%
+    body:
+      encoding: UTF-8
+      string: '{"credentials":{"username":"%UPS_LOGIN%","password":"%UPS_PASSWORD%","key":"%UPS_KEY%","account_number":"%UPS_SHIPPER_NUMBER%"}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin21 x86_64) ruby/2.7.4p191
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '131'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 06 Jun 2022 18:54:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '53'
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '19'
+      Ratelimit-Reset:
+      - '41'
+      Ratelimit-Limit:
+      - '20'
+      Etag:
+      - W/"35-T6ZTf3prcu5smLm11B5jQD+s4uE"
+      X-Shipengine-Requestid:
+      - 7604a608-ab22-49b4-84fc-15694893210a
+      Deploy-Target:
+      - bWFpbg
+      Vary:
+      - Origin
+      Access-Control-Allow-Origin:
+      - https://www.shipengine.com
+    body:
+      encoding: UTF-8
+      string: '{"carrier_id":"%SHIPENGINE_LTL_CARRIER_ID%"}'
+  recorded_at: Mon, 06 Jun 2022 18:54:20 GMT
+recorded_with: VCR 6.1.0
