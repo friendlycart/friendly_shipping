@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "error_code": "invalid_field_value",
+      "error_source": "shipengine",
+      "error_type": "validation",
+      "message": "Invalid carrier_id. bogus is not a valid carrier_id."
+    }
+  ],
+  "request_id": "0d874169-3e69-4777-8892-5c8d93047d60"
+}
