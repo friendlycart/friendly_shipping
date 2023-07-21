@@ -248,6 +248,53 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/ShipTo/AttentionName').text).to eq("Jane Doe")
     end
 
+    context 'with NRI importer options' do
+      let(:options) do
+        FriendlyShipping::Services::Ups::LabelOptions.new(
+          shipping_method: shipping_method,
+          shipper_number: 'X234X',
+          billing_options: billing_options,
+          terms_of_shipment: :delivery_duty_paid,
+          sold_to: non_resident_importer,
+          )
+      end
+
+      let(:billing_options) do
+        FriendlyShipping::Services::Ups::LabelBillingOptions.new(
+          billing_account: '12345',
+          billing_zip: '22222',
+          billing_country: 'CA',
+          sold_to_account_number: '123321',
+          sold_to_tax_id_number: '123456789000',
+        )
+      end
+
+      let(:non_resident_importer) do
+        FactoryBot.build(
+          :physical_location,
+          company_name: 'Non Resident Importer LLC',
+          address1: 'Suite 200 C/O The Agent',
+          address2: '123 Main St, New York, NY 10101 US',
+          city: 'Moncton',
+          region: 'NB',
+          zip: 'E1A7Z5',
+          country: 'CA'
+        )
+      end
+
+      it 'includes all of the SoldTo fields' do
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/CompanyName').text).to eq('Non Resident Importer LLC')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/Address/AddressLine1').text).to eq('Suite 200 C/O The Agent')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/Address/AddressLine2').text).to eq('123 Main St, New York, NY 10101 US')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/Address/City').text).to eq('Moncton')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/Address/StateProvinceCode').text).to eq('NB')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/Address/PostalCode').text).to eq('E1A7Z5')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/Address/CountryCode').text).to eq('CA')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/TaxIdentificationNumber').text).to eq('123456789000')
+        expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/SoldTo/AccountNumber').text).to eq('123321')
+      end
+    end
+
     context 'with a private address (without company)' do
       let(:destination) do
         FactoryBot.build(

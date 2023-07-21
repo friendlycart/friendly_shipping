@@ -106,6 +106,8 @@ module FriendlyShipping
                       xml.SoldTo do
                         sold_to_location = options.sold_to || shipment.destination
                         SerializeShipmentAddressSnippet.call(xml: xml, location: sold_to_location)
+                        xml.AccountNumber(options.billing_options.sold_to_account_number) if options.billing_options.sold_to_account_number.present?
+                        xml.TaxIdentificationNumber(options.billing_options.sold_to_tax_id_number) if options.billing_options.sold_to_tax_id_number.present?
                       end
                     end
 
