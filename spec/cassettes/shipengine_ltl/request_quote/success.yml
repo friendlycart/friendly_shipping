@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v-beta/ltl/quotes/%SHIPENGINE_LTL_CARRIER_ID%
+    body:
+      encoding: UTF-8
+      string: '{"shipment":{"service_code":"stnd","pickup_date":"2023-08-01","packages":[{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false}],"options":[{"code":"LFTP"},{"code":"IPU"}],"ship_from":{"account":"%UPS_SHIPPER_NUMBER%","address":{"company_name":"Company","address_line1":"11
+        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10001","country_code":"US"},"contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"ship_to":{"address":{"company_name":"Company","address_line1":"11
+        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10002","country_code":"US"},"contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"bill_to":{"type":"shipper","payment_terms":"prepaid","account":"%UPS_SHIPPER_NUMBER%","address":{"company_name":"Company","address_line1":"11
+        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10001","country_code":"US"},"contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"requested_by":{"company_name":"Company","contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}}},"shipment_measurements":{"total_linear_length":{"value":16,"unit":"inches"},"total_width":{"value":6,"unit":"inches"},"total_height":{"value":12,"unit":"inches"},"total_weight":{"value":2,"unit":"pounds"}}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '2320'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 01 Aug 2023 14:24:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '3100'
+      Connection:
+      - keep-alive
+      Ratelimit-Limit:
+      - '20'
+      Ratelimit-Remaining:
+      - '19'
+      Ratelimit-Reset:
+      - '34'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - cc3903003e605021fef754b4dcabb5f7
+      X-Shipengine-Requestid:
+      - 25400ba5-52f7-4cf0-ab58-876ecde79130
+      Request-Id:
+      - 25400ba5-52f7-4cf0-ab58-876ecde79130
+      Branch-Name:
+      - bWFpbg
+    body:
+      encoding: UTF-8
+      string: '{"carrier_message":null,"carrier_quote_id":"5a233ac0-5246-4ea8-9cfe-de11d387de3b","charges":[{"amount":{"currency":"USD","value":"45.00"},"description":"Hazardous
+        material","type":"accessorial"},{"amount":{"currency":"USD","value":"35.00"},"description":"Freight
+        Class: 77.5 [Weight: 7000 lbs]","type":"container"},{"amount":{"currency":"USD","value":"2016.67"},"description":"Discount
+        amount","type":"discount"},{"amount":{"currency":"USD","value":"306.71"},"description":"The
+        freight charge including accessorials and/or discounts","type":"total"}],"effective_date":null,"estimated_delivery_days":1,"expiration_date":null,"pickup_date":"2023-08-01","quote_id":"5c94e54f-73ef-44a5-85e7-461e0547008c","quote_type":null,"service":{"carrier_description":"Standard","code":"stnd"},"shipment":{"bill_to":{"account":"%UPS_SHIPPER_NUMBER%","address":{"address_line1":"11
+        Lovely Street","address_line2":null,"address_line3":null,"city_locality":"Herndon","company_name":"Company","country_code":"US","postal_code":"10001","state_province":"IL"},"contact":{"email":"jane@company.com","name":"Jane
+        Doe","phone_number":"555-555-0199"},"payment_terms":"prepaid","type":"shipper"},"options":[{"attributes":null,"code":"LFTP"},{"attributes":null,"code":"IPU"}],"packages":[{"code":"pkg","description":"Commodities","dimensions":{"height":"2","length":"1","unit":"inches","width":"1"},"freight_class":92.5,"hazardous_materials":false,"nmfc_code":"16030
+        sub 1","quantity":"1","stackable":true,"weight":{"unit":"pounds","value":"1"}},{"code":"pkg","description":"Commodities","dimensions":{"height":"2","length":"1","unit":"inches","width":"1"},"freight_class":92.5,"hazardous_materials":false,"nmfc_code":"16030
+        sub 1","quantity":"1","stackable":true,"weight":{"unit":"pounds","value":"1"}},{"code":"pkg","description":"Commodities","dimensions":{"height":"2","length":"1","unit":"inches","width":"1"},"freight_class":92.5,"hazardous_materials":false,"nmfc_code":"16030
+        sub 1","quantity":"1","stackable":true,"weight":{"unit":"pounds","value":"1"}},{"code":"pkg","description":"Commodities","dimensions":{"height":"2","length":"1","unit":"inches","width":"1"},"freight_class":92.5,"hazardous_materials":false,"nmfc_code":"16030
+        sub 1","quantity":"1","stackable":true,"weight":{"unit":"pounds","value":"1"}}],"pickup_date":"2023-08-01","requested_by":{"company_name":"Company","contact":{"email":"jane@company.com","name":"Jane
+        Doe","phone_number":"555-555-0199"}},"service_code":"stnd","ship_from":{"account":"%UPS_SHIPPER_NUMBER%","address":{"address_line1":"11
+        Lovely Street","address_line2":null,"address_line3":null,"city_locality":"Herndon","company_name":"Company","country_code":"US","postal_code":"10001","state_province":"IL"},"contact":{"email":"jane@company.com","name":"Jane
+        Doe","phone_number":"555-555-0199"}},"ship_to":{"account":null,"address":{"address_line1":"11
+        Lovely Street","address_line2":null,"address_line3":null,"city_locality":"Herndon","company_name":"Company","country_code":"US","postal_code":"10002","state_province":"IL"},"contact":{"email":"jane@company.com","name":"Jane
+        Doe","phone_number":"555-555-0199"}}}}'
+  recorded_at: Tue, 01 Aug 2023 14:24:26 GMT
+recorded_with: VCR 6.1.0

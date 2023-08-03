@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v-beta/ltl/quotes/bogus
+    body:
+      encoding: UTF-8
+      string: '{"shipment":{"service_code":"stnd","pickup_date":"2023-08-01","packages":[{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
+        sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false}],"options":[{"code":"LFTP"},{"code":"IPU"}],"ship_from":{"account":"%UPS_SHIPPER_NUMBER%","address":{"company_name":"Company","address_line1":"11
+        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10005","country_code":"US"},"contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"ship_to":{"address":{"company_name":"Company","address_line1":"11
+        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10006","country_code":"US"},"contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"bill_to":{"type":"shipper","payment_terms":"prepaid","account":"%UPS_SHIPPER_NUMBER%","address":{"company_name":"Company","address_line1":"11
+        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10005","country_code":"US"},"contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"requested_by":{"company_name":"Company","contact":{"name":"Jane
+        Doe","phone_number":"555-555-0199","email":"jane@company.com"}}},"shipment_measurements":{"total_linear_length":{"value":16,"unit":"inches"},"total_width":{"value":6,"unit":"inches"},"total_height":{"value":12,"unit":"inches"},"total_weight":{"value":2,"unit":"pounds"}}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '2320'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Tue, 01 Aug 2023 14:24:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '376'
+      Connection:
+      - keep-alive
+      Ratelimit-Reset:
+      - '34'
+      Ratelimit-Remaining:
+      - '18'
+      Ratelimit-Limit:
+      - '20'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 3321fc685ff70e251779f03670829efb
+      X-Shipengine-Requestid:
+      - 0d874169-3e69-4777-8892-5c8d93047d60
+      Request-Id:
+      - 0d874169-3e69-4777-8892-5c8d93047d60
+      Branch-Name:
+      - bWFpbg
+    body:
+      encoding: UTF-8
+      string: '{"errors":[{"error_code":"invalid_field_value","error_source":"shipengine","error_type":"validation","message":"Invalid
+        carrier_id. bogus is not a valid carrier_id."},{"error_code":"invalid_field_value","error_source":"shipengine","error_type":"validation","message":"Invalid
+        carrier_id. bogus is not a valid carrier_id."}],"request_id":"0d874169-3e69-4777-8892-5c8d93047d60"}'
+  recorded_at: Tue, 01 Aug 2023 14:24:26 GMT
+recorded_with: VCR 6.1.0

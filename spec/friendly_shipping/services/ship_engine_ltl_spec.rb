@@ -54,7 +54,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
       let(:scac) { 'bogus' }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngine::BadRequest }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::BadRequest }
       it { expect(subject.failure.data.message).to eq('Invalid carrier SCAC') }
     end
   end
@@ -81,6 +81,65 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
 
       it { is_expected.to be_a Dry::Monads::Failure }
       it { expect(subject.failure.data).to be_a RestClient::Unauthorized }
+    end
+  end
+
+  describe '#request_quote' do
+    subject { service.request_quote(carrier_id, shipment, options) }
+
+    let(:shipment) do
+      FactoryBot.build(
+        :physical_shipment,
+        origin: FactoryBot.build(
+          :physical_location,
+          properties: {
+            account_number: ENV['UPS_SHIPPER_NUMBER']
+          }
+        )
+      )
+    end
+
+    let(:options) do
+      FriendlyShipping::Services::ShipEngineLTL::QuoteOptions.new(
+        service_code: 'stnd',
+        pickup_date: Time.now,
+        accessorial_service_codes: %w[LFTP IPU],
+        package_options: shipment.packages.map do |package|
+          FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
+            package_id: package.id,
+            item_options: package.items.map do |item|
+              FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
+                item_id: item.id,
+                packaging_code: 'pkg',
+                freight_class: '92.5',
+                nmfc_code: '16030 sub 1'
+              )
+            end
+          )
+        end
+      )
+    end
+
+    context 'with a successful request', vcr: { cassette_name: 'shipengine_ltl/request_quote/success' } do
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      it 'has all the right data' do
+        rates = subject.value!.data
+        expect(rates.length).to eq(1)
+        rate = rates.first
+        expect(rate).to be_a(FriendlyShipping::Rate)
+        expect(rate.total_amount).to eq(Money.new(307, 'USD'))
+        expect(rate.shipping_method.name).to eq('Standard')
+        expect(rate.shipping_method.service_code).to eq('stnd')
+      end
+    end
+
+    context 'with an unsuccessful request', vcr: { cassette_name: 'shipengine_ltl/request_quote/failure' } do
+      let(:carrier_id) { 'bogus' }
+
+      it { is_expected.to be_a Dry::Monads::Failure }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::BadRequest }
+      it { expect(subject.failure.data.message).to include('Invalid carrier_id. bogus is not a valid carrier_id.') }
     end
   end
 end
