@@ -1,0 +1,12 @@
+{
+  "RateQuote": null,
+  "Code": 400,
+  "Errors": [
+    {
+      "Property": "request.RateQuote.Items",
+      "ErrorMessage": "At least one Item is required",
+      "ExceptionMessage": ""
+    }
+  ],
+  "Messages": []
+}

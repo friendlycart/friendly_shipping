@@ -1,0 +1,155 @@
+{
+  "RateQuote": {
+    "Origin": {
+      "City": "NEW YORK",
+      "StateOrProvince": "NY",
+      "ZipOrPostalCode": "10001",
+      "CountryCode": "USA"
+    },
+    "Destination": {
+      "City": "BOULDER",
+      "StateOrProvince": "CO",
+      "ZipOrPostalCode": "80301",
+      "CountryCode": "USA"
+    },
+    "OriginServiceCenter": {
+      "ZipCode": "11378",
+      "Address1": "",
+      "Address2": "",
+      "City": "MASPETH",
+      "State": "NY",
+      "Code": "LIS",
+      "Location": "Long Island, NY",
+      "Phone": "1-888-575-2632"
+    },
+    "DestinationServiceCenter": {
+      "ZipCode": "80011",
+      "Address1": "16500 E. Smith Road",
+      "Address2": "",
+      "City": "AURORA",
+      "State": "CO",
+      "Code": "DVR",
+      "Location": "Denver, CO",
+      "Phone": "1-800-318-7992"
+    },
+    "CustomerDiscounts": "$1,487.83",
+    "Charges": [
+      {
+        "Type": "",
+        "Title": "Class: 92.5",
+        "Weight": "1",
+        "Rate": "$1,124.72",
+        "Amount": "$11.25"
+      },
+      {
+        "Type": "",
+        "Title": "Class: 92.5",
+        "Weight": "1",
+        "Rate": "$1,124.72",
+        "Amount": "$11.25"
+      },
+      {
+        "Type": "",
+        "Title": "Class: 92.5",
+        "Weight": "1",
+        "Rate": "$1,124.72",
+        "Amount": "$11.25"
+      },
+      {
+        "Type": "",
+        "Title": "Class: 92.5",
+        "Weight": "1",
+        "Rate": "$1,124.72",
+        "Amount": "$11.25"
+      },
+      {
+        "Type": "MINIMUM",
+        "Title": "Minimum Charge",
+        "Weight": "",
+        "Rate": "",
+        "Amount": "$1,690.72"
+      },
+      {
+        "Type": "DISCNT",
+        "Title": "R+L Discount Saves This Much",
+        "Weight": "",
+        "Rate": "88%",
+        "Amount": "$1,487.83"
+      },
+      {
+        "Type": "DISCNF",
+        "Title": "Discounted Freight Charge",
+        "Weight": "",
+        "Rate": "",
+        "Amount": "$202.89"
+      },
+      {
+        "Type": "FUEL",
+        "Title": "Fuel Surcharge",
+        "Weight": "",
+        "Rate": "35.3%",
+        "Amount": "$71.62"
+      },
+      {
+        "Type": "ARBMH",
+        "Title": "Manhattan Arbitrary Charge",
+        "Weight": "",
+        "Rate": "",
+        "Amount": "$110.90"
+      },
+      {
+        "Type": "HAZM",
+        "Title": "Hazmat Fee",
+        "Weight": "",
+        "Rate": "$51.30",
+        "Amount": "$51.30"
+      },
+      {
+        "Type": "NET",
+        "Title": "Net Charge",
+        "Weight": "",
+        "Rate": "",
+        "Amount": "$436.71"
+      }
+    ],
+    "Ocean": null,
+    "CategorizedMessages": {
+      "GeneralMessages": [
+        "* Not to exceed 20,000lbs or 20''. Shipments over 10,000lbs or over 10'' may be delayed for pickup or experience service delays due to current capacity limitations.   Please contact your Service Center for more information by calling 800.543.5589.",
+        "Note: Some residential deliveries may require additional days of service.",
+        "* This quote is based on information you provide. The actual charges shall be determined by actual shipment characteristics, and any accessorial charges that are applicable to the shipment at time of shipment.",
+        "For classes higher than 300, contact the Rate department at 800-535-1983.",
+        "Please note that a sufferance and in-bond storage charges accumulated in the customs process are the responsibility of the debtor of the freight charges.",
+        "This rate is not applicable to tradeshows. Please contact our Rate Specialist at 800-535-1983 for more information."
+      ],
+      "TransitMessages": [
+        "Special Message For Origin Zip: * MNHN ARB CHARGE APPLICABLE TO THIS AREA *"
+      ],
+      "RatesMessages": []
+    },
+    "ServiceLevels": [
+      {
+        "QuoteNumber": "6898769",
+        "ServiceDays": 6,
+        "Charge": "$1,852.92",
+        "NetCharge": "$436.71",
+        "HourlyWindow": null,
+        "Name": "Standard Service",
+        "Code": "STD"
+      },
+      {
+        "QuoteNumber": "29098816",
+        "ServiceDays": 6,
+        "Charge": "$51.30",
+        "NetCharge": "$488.01",
+        "HourlyWindow": null,
+        "Name": "Guaranteed Service",
+        "Code": "GSDS"
+      }
+    ],
+    "PickupDate": "8/2/2023"
+  },
+  "Code": 200,
+  "Errors": [],
+  "Messages": []
+}

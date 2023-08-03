@@ -12,7 +12,7 @@ module FriendlyShipping
 
     attr_reader :error_handler
 
-    # @param [Proc] error_handler Called to handle an error if one occurs
+    # @param [Proc, #call] error_handler Called to handle an error if one occurs
     def initialize(error_handler: FriendlyShipping::ApiErrorHandler.new)
       @error_handler = error_handler
     end
