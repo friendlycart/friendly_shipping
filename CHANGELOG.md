@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.1] - 2023-08-03
+- USPS Service: Fix international ounces remainder (#166)
+- UPS Service: Fix bug causing inflated international product costs (#167)
+- UPS Service: Add declared value to UPS package serializer (#168)
+- UPS Service: Add declared value to UPS label package options (#169)
+- TForce Service: Truncate long values in UPS Freight label request (#170)
+- USPS Service: Add new USPS Ground Advantage shipping method (#171)
+- ShipEngine Service: Basic ShipEngine LTL service class (#172)
+- UPS Service: Add new billing options for Non-Resident Importer (#174)
+- ShipEngine Service: Request quotes from ShipEngine LTL API (#175)
+
 ## [0.8.0] - 2023-04-18
 - Rails 7 support: Fix deprecation warning about ActiveSupport#sum (#164)
 - UPS Service: Truncate product descriptions (#163)
