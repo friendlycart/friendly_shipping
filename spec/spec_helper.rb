@@ -24,6 +24,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.filter_sensitive_data('%RL_API_KEY%') { ENV['RL_API_KEY'] }
   c.filter_sensitive_data('%SHIPENGINE_API_KEY%') { ENV['SHIPENGINE_API_KEY'] }
   c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV['SHIPENGINE_CARRIER_ID'] }
   c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_ID%') { ENV['SHIPENGINE_LTL_CARRIER_ID'] }

@@ -1,0 +1,47 @@
+{
+  "PickupDate":"8/4/2023",
+  "Origin":{
+    "ServicePoint":{
+      "City":"NEW YORK",
+      "StateOrProvince":"NY",
+      "ZipOrPostalCode":"10001",
+      "CountryCode":"USA"
+    },
+    "ServiceCenter":{
+      "Code":"LIS",
+      "Location":"LONG ISLAND, NY",
+      "Phone":"1-888-575-2632"
+    }
+  },
+  "Destinations":[
+    {
+      "ServiceLevels":[
+        {
+          "Name":"GUARANTEED DELIVERY SERVICE",
+          "Code":"GSDS"
+        }
+      ],
+      "ServiceDays":6,
+      "DeliveryDate":"8/14/2023",
+      "DestinationNotes":"",
+      "ServicePoint":{
+        "City":"BOULDER",
+        "StateOrProvince":"CO",
+        "ZipOrPostalCode":"80301",
+        "CountryCode":"USA"
+      },
+      "ServiceCenter":{
+        "Code":"DVR",
+        "Location":"DENVER, CO",
+        "Phone":"1-800-318-7992"
+      }
+    }
+  ],
+  "Code":200,
+  "Errors":[
+
+  ],
+  "Messages":[
+
+  ]
+}

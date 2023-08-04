@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.rlc.com/RateQuote
+    body:
+      encoding: UTF-8
+      string: '{"RateQuote":{"PickupDate":"08/02/2023","Origin":{"City":"Herndon","StateOrProvince":"IL","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destination":{"City":"Herndon","StateOrProvince":"IL","ZipOrPostalCode":"10002","CountryCode":"USA"},"Items":[],"AdditionalServices":["Hazmat"],"Pallets":[{"Code":"0001","Weight":49,"Quantity":1}]}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Apikey:
+      - "%RL_API_KEY%"
+      Content-Length:
+      - '336'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.rlc.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Date:
+      - Wed, 02 Aug 2023 15:59:54 GMT
+      Content-Length:
+      - '162'
+      Set-Cookie:
+      - TS01b9bbe9=012f70223caf8b00dc0a30d3f4c9f03ddcd99e65d7aa8e15e75febb11485fdbe5b4309f019605c1c95c0907de6cf49755587f6f228;
+        Path=/; Domain=.api.rlc.com
+    body:
+      encoding: UTF-8
+      string: '{"RateQuote":null,"Code":400,"Errors":[{"Property":"request.RateQuote.Items","ErrorMessage":"At
+        least one Item is required","ExceptionMessage":""}],"Messages":[]}'
+  recorded_at: Wed, 02 Aug 2023 15:59:54 GMT
+recorded_with: VCR 6.1.0
