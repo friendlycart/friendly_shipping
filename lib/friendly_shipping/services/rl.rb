@@ -4,7 +4,9 @@ require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/rl/bad_request_handler'
 require 'friendly_shipping/services/rl/parse_rate_quote_response'
+require 'friendly_shipping/services/rl/parse_transit_times_response'
 require 'friendly_shipping/services/rl/serialize_rate_quote_request'
+require 'friendly_shipping/services/rl/serialize_transit_times_request'
 require 'friendly_shipping/services/rl/rate_quote_options'
 require 'friendly_shipping/services/rl/package_options'
 require 'friendly_shipping/services/rl/item_options'
@@ -18,7 +20,8 @@ module FriendlyShipping
 
       API_BASE = "https://api.rlc.com/"
       API_PATHS = {
-        rate_quote: "RateQuote"
+        rate_quote: "RateQuote",
+        transit_times: "TransitTimes"
       }.freeze
 
       # @param [String] api_key
@@ -52,6 +55,25 @@ module FriendlyShipping
         )
         client.post(request).bind do |response|
           ParseRateQuoteResponse.call(request: request, response: response)
+        end
+      end
+
+      # Request an LTL transit timing from R&L
+      #
+      # @param [Physical::Shipment] shipment The shipment we're timing
+      # @param [FriendlyShipping::Services::RL::QuoteOptions] options The options for the timing
+      #
+      # @return [Result<ApiResult<Hash>>] The transit timing from R&L
+      def transit_times(shipment, options:, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: API_BASE + API_PATHS[:transit_times],
+          http_method: "POST",
+          body: SerializeTransitTimesRequest.call(shipment: shipment, options: options).to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        client.post(request).bind do |response|
+          ParseTransitTimesResponse.call(request: request, response: response)
         end
       end
 

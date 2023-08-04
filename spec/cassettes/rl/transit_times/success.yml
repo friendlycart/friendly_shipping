@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.rlc.com/TransitTimes
+    body:
+      encoding: UTF-8
+      string: '{"PickupDate":"08/04/2023","Origin":{"City":"New York","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destinations":[{"City":"Boulder","StateOrProvince":"CO","ZipOrPostalCode":"80301","CountryCode":"USA"}]}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Apikey:
+      - "%RL_API_KEY%"
+      Content-Length:
+      - '230'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.rlc.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Date:
+      - Fri, 04 Aug 2023 15:15:34 GMT
+      Content-Length:
+      - '600'
+      Set-Cookie:
+      - TS01b9bbe9=012f70223c4b4fc1a88ef34ff3dca6e45044fa7295a70370db64a115f0a28f920acf09ab941f0b3416b1d19a9e9f73b7ea5b459fc8;
+        Path=/; Domain=.api.rlc.com
+    body:
+      encoding: UTF-8
+      string: '{"PickupDate":"8/4/2023","Origin":{"ServicePoint":{"City":"NEW YORK","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA"},"ServiceCenter":{"Code":"LIS","Location":"LONG
+        ISLAND, NY","Phone":"1-888-575-2632"}},"Destinations":[{"ServiceLevels":[{"Name":"GUARANTEED
+        DELIVERY SERVICE","Code":"GSDS"}],"ServiceDays":6,"DeliveryDate":"8/14/2023","DestinationNotes":"","ServicePoint":{"City":"BOULDER","StateOrProvince":"CO","ZipOrPostalCode":"80301","CountryCode":"USA"},"ServiceCenter":{"Code":"DVR","Location":"DENVER,
+        CO","Phone":"1-800-318-7992"}}],"Code":200,"Errors":[],"Messages":[]}'
+  recorded_at: Fri, 04 Aug 2023 15:15:35 GMT
+recorded_with: VCR 6.1.0

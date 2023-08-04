@@ -1,0 +1,16 @@
+{
+  "PickupDate":null,
+  "Origin":null,
+  "Destinations":null,
+  "Code":400,
+  "Errors":[
+    {
+      "Property":"request.Destinations[0]",
+      "ErrorMessage":"ServicePoint Zip code is required and cannot be null or empty",
+      "ExceptionMessage":""
+    }
+  ],
+  "Messages":[
+
+  ]
+}

@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.rlc.com/TransitTimes
+    body:
+      encoding: UTF-8
+      string: '{"PickupDate":"08/04/2023","Origin":{"City":"New York","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destinations":[{"StateOrProvince":"IL","CountryCode":"USA"}]}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Apikey:
+      - "%RL_API_KEY%"
+      Content-Length:
+      - '187'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.rlc.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Date:
+      - Fri, 04 Aug 2023 15:14:00 GMT
+      Content-Length:
+      - '229'
+      Set-Cookie:
+      - TS01b9bbe9=012f70223c6d57ab10681bf33798adfa0ae922aad99fa76a87f4456dc86653338235d7f6940bfc282fcbb175817eb25cdc0c6e3f37;
+        Path=/; Domain=.api.rlc.com
+    body:
+      encoding: UTF-8
+      string: '{"PickupDate":null,"Origin":null,"Destinations":null,"Code":400,"Errors":[{"Property":"request.Destinations[0]","ErrorMessage":"ServicePoint
+        Zip code is required and cannot be null or empty","ExceptionMessage":""}],"Messages":[]}'
+  recorded_at: Fri, 04 Aug 2023 15:14:01 GMT
+recorded_with: VCR 6.1.0
