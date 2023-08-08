@@ -125,6 +125,22 @@ RSpec.describe FriendlyShipping::Services::RL do
     end
   end
 
+  describe "#print_shipping_labels" do
+    subject { service.print_shipping_labels(pro_number) }
+    let(:pro_number) { "WP7630587" }
+
+    context "with a successful request", vcr: { cassette_name: "rl/print_shipping_labels/success" } do
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      it "has all the right data" do
+        result = subject.value!.data
+        expect(result).to be_a(FriendlyShipping::Services::RL::ShippingDocument)
+        expect(result.format).to eq(:pdf)
+        expect(result.decoded_binary).to start_with("%PDF-")
+      end
+    end
+  end
+
   describe "#rate_quote" do
     subject { service.rate_quote(shipment, options: options) }
 
