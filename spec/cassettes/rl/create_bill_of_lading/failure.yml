@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.rlc.com/BillOfLading
+    body:
+      encoding: UTF-8
+      string: '{"BillOfLading":{"BOLDate":"08/07/2023","Shipper":{"CompanyName":"ACME Inc","AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"New York","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA","PhoneNumber":"123-123-1234","EmailAddress":"acme@example.com"},"Consignee":{"CompanyName":"Widgets LLC","AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 200","City":"Boulder","StateOrProvince":"CO","ZipOrPostalCode":"80301","CountryCode":"USA","PhoneNumber":"321-321-3210","EmailAddress":"wdgets@example.com"},"BillTo":{"CompanyName":"ACME Inc","AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"New York","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA","PhoneNumber":"123-123-1234","EmailAddress":"acme@example.com"},"Items":[],"AdditionalServices":["OriginLiftgate"]},"PickupRequest":{"PickupInformation":{"PickupDate":"08/07/2023","ReadyTime":"09:13
+        AM","CloseTime":"11:13 AM"}}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Apikey:
+      - "%RL_API_KEY%"
+      Content-Length:
+      - '931'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.rlc.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Date:
+      - Mon, 07 Aug 2023 14:13:28 GMT
+      Content-Length:
+      - '206'
+      Set-Cookie:
+      - TS01b9bbe9=012f70223cebdb29a341bf0e385839b251fd52b3c2224f111b54a29b1da36178b02795090397d97a2175faf5f3cb198216fc36640b;
+        Path=/; Domain=.api.rlc.com
+    body:
+      encoding: UTF-8
+      string: '{"ProNumber":null,"PickupRequestNumber":null,"Code":400,"Errors":[{"Property":"request.BillOfLading.Items","ErrorMessage":"There
+        must be at least one item in the list","ExceptionMessage":""}],"Messages":[]}'
+  recorded_at: Mon, 07 Aug 2023 14:13:29 GMT
+recorded_with: VCR 6.1.0

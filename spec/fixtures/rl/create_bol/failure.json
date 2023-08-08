@@ -1,0 +1,13 @@
+{
+  "ProNumber": null,
+  "PickupRequestNumber": null,
+  "Code": 400,
+  "Errors": [
+    {
+      "Property": "request.BillOfLading.Items",
+      "ErrorMessage": "There must be at least one item in the list",
+      "ExceptionMessage": ""
+    }
+  ],
+  "Messages": []
+}

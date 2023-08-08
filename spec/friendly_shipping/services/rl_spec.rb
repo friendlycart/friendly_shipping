@@ -11,45 +11,75 @@ RSpec.describe FriendlyShipping::Services::RL do
     it { is_expected.to respond_to :client }
   end
 
-  describe "#rate_quote" do
-    subject { service.rate_quote(shipment, options: options) }
+  let(:shipment) do
+    FactoryBot.build(
+      :physical_shipment,
+      origin: origin,
+      destination: destination
+    )
+  end
 
-    let(:shipment) do
-      FactoryBot.build(
-        :physical_shipment,
-        origin: origin,
-        destination: destination
-      )
-    end
+  let(:origin) do
+    FactoryBot.build(
+      :physical_location,
+      company_name: "ACME Inc",
+      address1: "123 Maple St",
+      address2: "Suite 100",
+      city: "New York",
+      region: "NY",
+      zip: "10001",
+      phone: "123-123-1234",
+      email: "acme@example.com"
+    )
+  end
 
-    let(:origin) do
-      FactoryBot.build(
-        :physical_location,
-        city: "New York",
-        region: "NY",
-        zip: "10001"
-      )
-    end
+  let(:destination) do
+    FactoryBot.build(
+      :physical_location,
+      company_name: "Widgets LLC",
+      address1: "456 Oak St",
+      address2: "Suite 200",
+      city: "Boulder",
+      region: "CO",
+      zip: "80301",
+      phone: "321-321-3210",
+      email: "widgets@example.com"
+    )
+  end
 
-    let(:destination) do
-      FactoryBot.build(
-        :physical_location,
-        city: "Boulder",
-        region: "CO",
-        zip: "80301"
-      )
-    end
+  let(:options) do
+    FriendlyShipping::Services::RL::RateQuoteOptions.new(
+      pickup_date: Time.now,
+      additional_service_codes: %w[Hazmat],
+      package_options: shipment.packages.map do |package|
+        FriendlyShipping::Services::RL::PackageOptions.new(
+          package_id: package.id,
+          item_options: package.items.map do |item|
+            FriendlyShipping::Services::RL::ItemOptions.new(
+              item_id: item.id,
+              freight_class: "92.5"
+            )
+          end
+        )
+      end
+    )
+  end
+
+  describe "#create_bill_of_lading" do
+    subject { service.create_bill_of_lading(shipment, options: options) }
 
     let(:options) do
-      FriendlyShipping::Services::RL::RateQuoteOptions.new(
-        pickup_date: Time.now,
-        additional_service_codes: %w[Hazmat],
+      FriendlyShipping::Services::RL::BillOfLadingOptions.new(
+        pickup_time_window: 1.hour.ago..1.hour.from_now,
+        additional_service_codes: %w[OriginLiftgate],
         package_options: shipment.packages.map do |package|
           FriendlyShipping::Services::RL::PackageOptions.new(
             package_id: package.id,
             item_options: package.items.map do |item|
               FriendlyShipping::Services::RL::ItemOptions.new(
                 item_id: item.id,
+                nmfc_primary_code: "87700",
+                nmfc_sub_code: "07",
                 freight_class: "92.5"
               )
             end
@@ -57,6 +87,30 @@ RSpec.describe FriendlyShipping::Services::RL do
         end
       )
     end
+
+    context "with a successful request", vcr: { cassette_name: "rl/create_bill_of_lading/success" } do
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      it "has all the right data" do
+        result = subject.value!.data
+        expect(result).to be_a(FriendlyShipping::Services::RL::PickupRequest)
+        expect(result.pro_number).to eq("WP7506414")
+        expect(result.pickup_request_number).to eq("74201384")
+      end
+    end
+
+    context "with an unsuccessful request", vcr: { cassette_name: "rl/create_bill_of_lading/failure" } do
+      # Request will fail with no packages provided
+      let(:shipment) { FactoryBot.build(:physical_shipment, packages: []) }
+
+      it { is_expected.to be_a Dry::Monads::Failure }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::BadRequest }
+      it { expect(subject.failure.data.message).to include("There must be at least one item in the list") }
+    end
+  end
+
+  describe "#rate_quote" do
+    subject { service.rate_quote(shipment, options: options) }
 
     context "with a successful request", vcr: { cassette_name: "rl/rate_quote/success" } do
       it { is_expected.to be_a Dry::Monads::Success }
@@ -91,40 +145,6 @@ RSpec.describe FriendlyShipping::Services::RL do
 
   describe "#transit_times" do
     subject { service.transit_times(shipment, options: options) }
-
-    let(:shipment) do
-      FactoryBot.build(
-        :physical_shipment,
-        origin: origin,
-        destination: destination
-      )
-    end
-
-    let(:origin) do
-      FactoryBot.build(
-        :physical_location,
-        address1: "123 Maple St",
-        city: "New York",
-        region: "NY",
-        zip: "10001"
-      )
-    end
-
-    let(:destination) do
-      FactoryBot.build(
-        :physical_location,
-        address1: "456 Oak St",
-        city: "Boulder",
-        region: "CO",
-        zip: "80301"
-      )
-    end
-
-    let(:options) do
-      FriendlyShipping::Services::RL::RateQuoteOptions.new(
-        pickup_date: Time.now
-      )
-    end
 
     context "with a successful request", vcr: { cassette_name: "rl/transit_times/success" } do
       it { is_expected.to be_a Dry::Monads::Success }
