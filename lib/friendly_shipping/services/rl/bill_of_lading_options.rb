@@ -5,22 +5,21 @@ require 'friendly_shipping/shipment_options'
 module FriendlyShipping
   module Services
     class RL
-      class RateQuoteOptions < ShipmentOptions
-        attr_reader :pickup_date,
+      class BillOfLadingOptions < ShipmentOptions
+        attr_reader :pickup_time_window,
                     :declared_value,
                     :additional_service_codes
 
-        # @param [Time] pickup_date
-        # @param [Numeric] declared_value
+        # @param [Range] pickup_time_window
         # @param [Array<String>] additional_service_codes
         # @param [Array<Object>] **kwargs
         def initialize(
-          pickup_date:,
+          pickup_time_window:,
           declared_value: nil,
           additional_service_codes: [],
           **kwargs
         )
-          @pickup_date = pickup_date
+          @pickup_time_window = pickup_time_window
           @declared_value = declared_value
           @additional_service_codes = additional_service_codes
           validate_additional_service_codes!
@@ -28,17 +27,14 @@ module FriendlyShipping
         end
 
         ADDITIONAL_SERVICE_CODES = %w[
+          OriginLiftgate
+          DestinationLiftgate
+          InsidePickup
           InsideDelivery
           LimitedAccessPickup
           LimitedAccessDelivery
-          OriginLiftgate
-          DestinationLiftgate
-          DeliveryAppointment
-          Hazmat
-          InsidePickup
           Freezable
-          SortAndSegregate
-          OverDimension
+          DeliveryAppointment
         ].freeze
 
         private
