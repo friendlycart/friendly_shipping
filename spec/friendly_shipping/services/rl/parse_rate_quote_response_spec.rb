@@ -9,7 +9,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseRateQuoteResponse do
   let(:request) { double(debug: false) }
 
   context "with successful response" do
-    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "rate_quotes.json")).read }
+    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "rate_quote", "success.json")).read }
     let(:api_result) { subject.value! }
     let(:rate) { api_result.data.first }
 
@@ -30,7 +30,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseRateQuoteResponse do
   end
 
   context "with unsuccessful response" do
-    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "item_required.json")).read }
+    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "rate_quote", "failure.json")).read }
     let(:api_result) { subject.failure }
 
     it "returns error message" do
