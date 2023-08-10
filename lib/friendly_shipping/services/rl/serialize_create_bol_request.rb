@@ -6,7 +6,7 @@ module FriendlyShipping
       class SerializeCreateBOLRequest
         class << self
           # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::Services::RL::BillOfLadingOptions] options
+          # @param [FriendlyShipping::Services::RL::BOLOptions] options
           # @return [Hash]
           def call(shipment:, options:)
             {

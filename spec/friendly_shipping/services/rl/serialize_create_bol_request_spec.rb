@@ -19,7 +19,7 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
   end
 
   let(:options) do
-    FriendlyShipping::Services::RL::BillOfLadingOptions.new(
+    FriendlyShipping::Services::RL::BOLOptions.new(
       pickup_time_window: pickup_time_window,
       additional_service_codes: %w[OriginLiftgate],
       generate_universal_pro: true,

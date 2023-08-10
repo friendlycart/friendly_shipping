@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::RL::BillOfLadingOptions do
+RSpec.describe FriendlyShipping::Services::RL::BOLOptions do
   subject(:options) do
     described_class.new(
       pickup_time_window: 1.hour.ago..1.hour.from_now,

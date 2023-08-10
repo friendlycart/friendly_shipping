@@ -69,7 +69,7 @@ RSpec.describe FriendlyShipping::Services::RL do
     subject { service.create_bill_of_lading(shipment, options: options) }
 
     let(:options) do
-      FriendlyShipping::Services::RL::BillOfLadingOptions.new(
+      FriendlyShipping::Services::RL::BOLOptions.new(
         pickup_time_window: 1.hour.ago..1.hour.from_now,
         additional_service_codes: %w[OriginLiftgate],
         package_options: shipment.packages.map do |package|

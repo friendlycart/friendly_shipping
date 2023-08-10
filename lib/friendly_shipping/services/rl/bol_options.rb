@@ -5,7 +5,7 @@ require 'friendly_shipping/shipment_options'
 module FriendlyShipping
   module Services
     class RL
-      class BillOfLadingOptions < ShipmentOptions
+      class BOLOptions < ShipmentOptions
         attr_reader :pickup_time_window,
                     :declared_value,
                     :additional_service_codes,
