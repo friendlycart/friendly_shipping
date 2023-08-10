@@ -22,6 +22,7 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
     FriendlyShipping::Services::RL::BillOfLadingOptions.new(
       pickup_time_window: pickup_time_window,
       additional_service_codes: %w[OriginLiftgate],
+      generate_universal_pro: true,
       package_options: [
         FriendlyShipping::Services::RL::PackageOptions.new(
           package_id: "package 1",
@@ -192,7 +193,8 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
             ReadyTime: "09:00 AM",
             CloseTime: "05:00 PM"
           }
-        }
+        },
+        GenerateUniversalPro: true
       }
     )
   end

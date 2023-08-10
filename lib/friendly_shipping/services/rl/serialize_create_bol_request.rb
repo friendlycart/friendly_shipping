@@ -6,7 +6,7 @@ module FriendlyShipping
       class SerializeCreateBOLRequest
         class << self
           # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
+          # @param [FriendlyShipping::Services::RL::BillOfLadingOptions] options
           # @return [Hash]
           def call(shipment:, options:)
             {
@@ -16,10 +16,11 @@ module FriendlyShipping
                 Consignee: serialize_location(shipment.destination),
                 BillTo: serialize_location(shipment.origin),
                 Items: serialize_items(shipment.packages, options),
-                DeclaredValue: options.declared_value,
+                DeclaredValue: serialize_declared_value(options),
                 AdditionalServices: options.additional_service_codes
               }.compact,
-              PickupRequest: serialize_pickup_request(options)
+              PickupRequest: serialize_pickup_request(options),
+              GenerateUniversalPro: !!options.generate_universal_pro
             }.compact
           end
 
@@ -64,7 +65,18 @@ module FriendlyShipping
           end
 
           # @param [FriendlyShipping::Services::RL::QuoteOptions] options
-          # @return [Hash]
+          # @return [Hash, nil]
+          def serialize_declared_value(options)
+            return if options.declared_value.blank?
+
+            {
+              Amount: options.declared_value,
+              Per: "1"
+            }
+          end
+
+          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
+          # @return [Hash, nil]
           def serialize_pickup_request(options)
             return if options.pickup_time_window.nil?
 
