@@ -15,7 +15,7 @@ module FriendlyShipping
                 Shipper: serialize_location(shipment.origin),
                 Consignee: serialize_location(shipment.destination),
                 BillTo: serialize_location(shipment.origin),
-                Items: serialize_items(shipment.packages, options),
+                Items: options.packages_serializer.call(packages: shipment.packages, options: options),
                 DeclaredValue: serialize_declared_value(options),
                 AdditionalServices: options.additional_service_codes
               }.compact,
@@ -40,28 +40,6 @@ module FriendlyShipping
               PhoneNumber: location.phone,
               EmailAddress: location.email
             }.compact
-          end
-
-          # @param [Array<Physical::Package>] packages
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
-          # @return [Array<Hash>]
-          def serialize_items(packages, options)
-            packages.flat_map do |package|
-              package_options = options.options_for_package(package)
-              package.items.map do |item|
-                item_options = package_options.options_for_item(item)
-                {
-                  IsHazmat: false,
-                  Pieces: 1,
-                  PackageType: "BOX",
-                  NMFCItemNumber: item_options.nmfc_primary_code,
-                  NMFCSubNumber: item_options.nmfc_sub_code,
-                  Class: item_options.freight_class,
-                  Weight: item.weight.convert_to(:pounds).value.ceil,
-                  Description: item.description.presence || "Commodities"
-                }.compact
-              end
-            end
           end
 
           # @param [FriendlyShipping::Services::RL::QuoteOptions] options

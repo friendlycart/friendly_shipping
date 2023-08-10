@@ -14,7 +14,7 @@ module FriendlyShipping
                 PickupDate: options.pickup_date.strftime('%m/%d/%Y'),
                 Origin: serialize_location(shipment.origin),
                 Destination: serialize_location(shipment.destination),
-                Items: serialize_items(shipment.packages, options),
+                Items: options.packages_serializer.call(packages: shipment.packages, options: options),
                 DeclaredValue: options.declared_value,
                 AdditionalServices: options.additional_service_codes,
                 Pallets: serialize_pallets(shipment.pallets)
@@ -50,23 +50,6 @@ module FriendlyShipping
               end
             end
             group_items(item_hashes)
-          end
-
-          # Group items by freight class. The R&L API has a limit on the number of items
-          # we can submit to the API, so this helps reduce the number of items.
-          #
-          # @param [Array<Hash>] item_hashes
-          # @return [Array<Hash>]
-          def group_items(item_hashes)
-            item_hashes.group_by do |item_hash|
-              item_hash[:Class]
-            end.map do |freight_class, grouped_item_hashes|
-              {
-                Class: freight_class,
-                Weight: grouped_item_hashes.sum { |e| e[:Weight] }.value.ceil,
-                Quantity: grouped_item_hashes.size
-              }
-            end
           end
 
           # @param [Array<Physical::Pallet>] pallets

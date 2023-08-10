@@ -128,6 +128,10 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
     )
   end
 
+  let(:serialized_packages) do
+    options.packages_serializer.call(packages: shipment.packages, options: options)
+  end
+
   it do
     is_expected.to eq(
       {
@@ -166,25 +170,7 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
             PhoneNumber: "123-123-1234",
             EmailAddress: "acme@example.com"
           },
-          Items: [{
-            IsHazmat: false,
-            PackageType: "BOX",
-            Pieces: 1,
-            NMFCItemNumber: "87700",
-            NMFCSubNumber: "07",
-            Class: "92.5",
-            Weight: 11,
-            Description: "Tumblers"
-          }, {
-            IsHazmat: false,
-            PackageType: "BOX",
-            Pieces: 1,
-            NMFCItemNumber: "87700",
-            NMFCSubNumber: "07",
-            Class: "92.5",
-            Weight: 2,
-            Description: "Wicks"
-          }],
+          Items: serialized_packages,
           AdditionalServices: %w[OriginLiftgate]
         },
         PickupRequest: {

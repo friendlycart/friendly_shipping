@@ -15,6 +15,13 @@ RSpec.describe FriendlyShipping::Services::RL::RateQuoteOptions do
   it { is_expected.to respond_to(:pickup_date) }
   it { is_expected.to respond_to(:declared_value) }
   it { is_expected.to respond_to(:additional_service_codes) }
+  it { is_expected.to respond_to(:packages_serializer) }
+
+  describe "#packages_serializer" do
+    subject { options.packages_serializer }
+
+    it { is_expected.to eq(FriendlyShipping::Services::RL::RateQuotePackagesSerializer) }
+  end
 
   describe "validate additional service codes" do
     context "with invalid additional service code" do
