@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'friendly_shipping/shipment_options'
+require 'friendly_shipping/services/rl/rate_quote_packages_serializer'
 
 module FriendlyShipping
   module Services
@@ -8,21 +9,26 @@ module FriendlyShipping
       class RateQuoteOptions < ShipmentOptions
         attr_reader :pickup_date,
                     :declared_value,
-                    :additional_service_codes
+                    :additional_service_codes,
+                    :packages_serializer
 
         # @param [Time] pickup_date
         # @param [Numeric] declared_value
         # @param [Array<String>] additional_service_codes
+        # @param [Callable] packages_serializer A callable that takes packages
+        #   and an options object to create an Array of item hashes per the R&L docs
         # @param [Array<Object>] **kwargs
         def initialize(
           pickup_date:,
           declared_value: nil,
           additional_service_codes: [],
+          packages_serializer: RateQuotePackagesSerializer,
           **kwargs
         )
           @pickup_date = pickup_date
           @declared_value = declared_value
           @additional_service_codes = additional_service_codes
+          @packages_serializer = packages_serializer
           validate_additional_service_codes!
           super(**kwargs.merge(package_options_class: PackageOptions))
         end
