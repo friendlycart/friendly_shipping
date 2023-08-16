@@ -15,12 +15,13 @@ RSpec.describe FriendlyShipping::Services::RL::ParsePrintBOLResponse do
 
     it "returns a Hash of results" do
       expect(subject).to be_success
-      expect(result).to be_a FriendlyShipping::Services::RL::ShippingDocument
+      expect(result).to be_a FriendlyShipping::Services::RL::ShipmentDocument
     end
 
     it "contains correct data" do
       expect(result.format).to eq(:pdf)
-      expect(result.decoded_binary).to start_with("%PDF-")
+      expect(result.document_type).to eq(:rl_bol)
+      expect(result.binary).to start_with("%PDF-")
     end
   end
 end

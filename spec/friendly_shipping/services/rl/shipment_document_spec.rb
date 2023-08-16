@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/rl/shipping_document'
+require 'friendly_shipping/services/rl/shipment_document'
 
-RSpec.describe FriendlyShipping::Services::RL::ShippingDocument do
-  subject(:bol_document) do
+RSpec.describe FriendlyShipping::Services::RL::ShipmentDocument do
+  subject(:shipment_document) do
     described_class.new(
+      format: :pdf,
+      document_type: :bol,
       binary: "aGVsbG8gd29ybGQ="
     )
   end
 
   it { is_expected.to respond_to(:format) }
+  it { is_expected.to respond_to(:document_type) }
   it { is_expected.to respond_to(:binary) }
 
   describe "#valid?" do
@@ -20,17 +23,12 @@ RSpec.describe FriendlyShipping::Services::RL::ShippingDocument do
       subject do
         described_class.new(
           format: nil,
+          document_type: nil,
           binary: nil
         )
       end
 
       it { is_expected.not_to be_valid }
     end
-  end
-
-  describe "#decoded_binary" do
-    subject { bol_document.decoded_binary }
-
-    it { is_expected.to eq("hello world") }
   end
 end

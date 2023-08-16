@@ -123,7 +123,7 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
       city: "Boulder",
       region: "CO",
       zip: "80301",
-      phone: "321-321-3210",
+      phone: "1-321-321-3210",
       email: "widgets@example.com"
     )
   end

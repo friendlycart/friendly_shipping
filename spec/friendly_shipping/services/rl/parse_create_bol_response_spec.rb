@@ -15,7 +15,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseCreateBOLResponse do
 
     it "returns a Hash of results" do
       expect(subject).to be_success
-      expect(result).to be_a FriendlyShipping::Services::RL::PickupRequest
+      expect(result).to be_a FriendlyShipping::Services::RL::ShipmentInformation
     end
 
     it "contains correct data" do

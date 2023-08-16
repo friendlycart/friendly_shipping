@@ -18,7 +18,7 @@ module FriendlyShipping
         # @param [Array<String>] additional_service_codes
         # @param [Boolean] generate_universal_pro
         # @param [Callable] packages_serializer A callable that takes packages
-        #   and an options object to create an Array of item hashes per the R&L docs
+        #   and an options object to create an Array of item hashes per the R+L Carriers docs
         # @param [Array<Object>] **kwargs
         def initialize(
           pickup_time_window:,
