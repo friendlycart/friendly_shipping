@@ -24,7 +24,7 @@ module FriendlyShipping
 
           private
 
-          # Group items by freight class. The R&L API has a limit on the number of items
+          # Group items by freight class. The R+L Carriers API has a limit on the number of items
           # we can submit to the API, so this helps reduce the number of items.
           #
           # @param [Array<Hash>] item_hashes
