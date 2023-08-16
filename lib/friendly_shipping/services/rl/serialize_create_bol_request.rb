@@ -37,7 +37,7 @@ module FriendlyShipping
               StateOrProvince: location.region.code,
               ZipOrPostalCode: location.zip,
               CountryCode: location.country.alpha_3_code,
-              PhoneNumber: location.phone,
+              PhoneNumber: clean_phone(location.phone),
               EmailAddress: location.email
             }.compact
           end
@@ -65,6 +65,14 @@ module FriendlyShipping
                 CloseTime: options.pickup_time_window.end.strftime('%I:%M %p')
               }
             }
+          end
+
+          # RL does not support leading country codes in phone numbers.
+          #
+          # @param [String] phone
+          # @return [String]
+          def clean_phone(phone)
+            phone.gsub(/^1-/, "")
           end
         end
       end
