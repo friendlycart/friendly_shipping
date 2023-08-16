@@ -55,7 +55,7 @@ module FriendlyShipping
             delivery_date = destination['DeliveryDate']
             delivery = Time.strptime(delivery_date, '%m/%d/%Y')
 
-            business_transit_days = destination['ServiceDays']
+            days_in_transit = destination['ServiceDays']
 
             [
               FriendlyShipping::Timing.new(
@@ -64,7 +64,7 @@ module FriendlyShipping
                 delivery: delivery,
                 guaranteed: false,
                 properties: {
-                  business_transit_days: business_transit_days
+                  days_in_transit: days_in_transit
                 }
               )
             ]

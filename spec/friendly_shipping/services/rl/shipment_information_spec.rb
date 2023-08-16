@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/rl/pickup_request'
+require 'friendly_shipping/services/rl/shipment_information'
 
-RSpec.describe FriendlyShipping::Services::RL::PickupRequest do
+RSpec.describe FriendlyShipping::Services::RL::ShipmentInformation do
   subject do
     described_class.new(
       pro_number: "123",
@@ -11,6 +11,7 @@ RSpec.describe FriendlyShipping::Services::RL::PickupRequest do
     )
   end
 
+  it { is_expected.to respond_to(:documents) }
   it { is_expected.to respond_to(:pro_number) }
   it { is_expected.to respond_to(:pickup_request_number) }
 

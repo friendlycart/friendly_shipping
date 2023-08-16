@@ -93,7 +93,7 @@ RSpec.describe FriendlyShipping::Services::RL do
 
       it "has all the right data" do
         result = subject.value!.data
-        expect(result).to be_a(FriendlyShipping::Services::RL::PickupRequest)
+        expect(result).to be_a(FriendlyShipping::Services::RL::ShipmentInformation)
         expect(result.pro_number).to eq("WP7506414")
         expect(result.pickup_request_number).to eq("74201384")
       end
@@ -110,33 +110,47 @@ RSpec.describe FriendlyShipping::Services::RL do
   end
 
   describe "#print_bill_of_lading" do
-    subject { service.print_bill_of_lading(pro_number) }
-    let(:pro_number) { "WP7630587" }
+    subject { service.print_bill_of_lading(shipment_info) }
+
+    let(:shipment_info) do
+      FriendlyShipping::Services::RL::ShipmentInformation.new(
+        pro_number: "WP7630587"
+      )
+    end
 
     context "with a successful request", vcr: { cassette_name: "rl/print_bill_of_lading/success" } do
       it { is_expected.to be_a Dry::Monads::Success }
 
       it "has all the right data" do
         result = subject.value!.data
-        expect(result).to be_a(FriendlyShipping::Services::RL::ShippingDocument)
+        expect(result).to be_a(FriendlyShipping::Services::RL::ShipmentDocument)
         expect(result.format).to eq(:pdf)
-        expect(result.decoded_binary).to start_with("%PDF-")
+        expect(result.document_type).to eq(:rl_bol)
+        expect(result.binary).to start_with("%PDF-")
+        expect(shipment_info.documents).to include(result)
       end
     end
   end
 
   describe "#print_shipping_labels" do
-    subject { service.print_shipping_labels(pro_number) }
-    let(:pro_number) { "WP7630587" }
+    subject { service.print_shipping_labels(shipment_info) }
+
+    let(:shipment_info) do
+      FriendlyShipping::Services::RL::ShipmentInformation.new(
+        pro_number: "WP7630587"
+      )
+    end
 
     context "with a successful request", vcr: { cassette_name: "rl/print_shipping_labels/success" } do
       it { is_expected.to be_a Dry::Monads::Success }
 
       it "has all the right data" do
         result = subject.value!.data
-        expect(result).to be_a(FriendlyShipping::Services::RL::ShippingDocument)
+        expect(result).to be_a(FriendlyShipping::Services::RL::ShipmentDocument)
         expect(result.format).to eq(:pdf)
-        expect(result.decoded_binary).to start_with("%PDF-")
+        expect(result.document_type).to eq(:label)
+        expect(result.binary).to start_with("%PDF-")
+        expect(shipment_info.documents).to include(result)
       end
     end
   end
@@ -190,7 +204,7 @@ RSpec.describe FriendlyShipping::Services::RL do
         expect(rate.pickup).to eq(Time.parse("2023-08-04"))
         expect(rate.delivery).to eq(Time.parse("2023-08-14"))
         expect(rate.guaranteed).to be(false)
-        expect(rate.properties).to eq(business_transit_days: 6)
+        expect(rate.properties).to eq(days_in_transit: 6)
         expect(rate.shipping_method.name).to eq("Standard Service")
         expect(rate.shipping_method.service_code).to eq("STD")
       end

@@ -23,7 +23,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseTransitTimesResponse do
       expect(rate.pickup).to eq(Time.parse("2023-08-04"))
       expect(rate.delivery).to eq(Time.parse("2023-08-14"))
       expect(rate.guaranteed).to be(false)
-      expect(rate.properties).to eq(business_transit_days: 6)
+      expect(rate.properties).to eq(days_in_transit: 6)
       expect(rate.shipping_method.name).to eq("Standard Service")
       expect(rate.shipping_method.service_code).to eq("STD")
     end
