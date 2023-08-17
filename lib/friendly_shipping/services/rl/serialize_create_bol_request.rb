@@ -16,11 +16,11 @@ module FriendlyShipping
                 Consignee: serialize_location(shipment.destination),
                 BillTo: serialize_location(shipment.origin),
                 Items: options.packages_serializer.call(packages: shipment.packages, options: options),
-                DeclaredValue: serialize_declared_value(options),
+                DeclaredValue: serialize_declared_value(options.declared_value),
                 ReferenceNumbers: serialize_reference_numbers(options.reference_numbers),
                 AdditionalServices: options.additional_service_codes
               }.compact,
-              PickupRequest: serialize_pickup_request(options),
+              PickupRequest: serialize_pickup_request(options.pickup_time_window),
               GenerateUniversalPro: !!options.generate_universal_pro
             }.compact
           end
@@ -43,13 +43,13 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
+          # @param [Numeric] declared_value
           # @return [Hash, nil]
-          def serialize_declared_value(options)
-            return if options.declared_value.blank?
+          def serialize_declared_value(declared_value)
+            return if declared_value.blank?
 
             {
-              Amount: options.declared_value,
+              Amount: declared_value,
               Per: "1"
             }
           end
@@ -66,16 +66,16 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
+          # @param [Range] pickup_time_window
           # @return [Hash, nil]
-          def serialize_pickup_request(options)
-            return if options.pickup_time_window.nil?
+          def serialize_pickup_request(pickup_time_window)
+            return if pickup_time_window.nil?
 
             {
               PickupInformation: {
-                PickupDate: options.pickup_time_window.begin.strftime('%m/%d/%Y'),
-                ReadyTime: options.pickup_time_window.begin.strftime('%I:%M %p'),
-                CloseTime: options.pickup_time_window.end.strftime('%I:%M %p')
+                PickupDate: pickup_time_window.begin.strftime('%m/%d/%Y'),
+                ReadyTime: pickup_time_window.begin.strftime('%I:%M %p'),
+                CloseTime: pickup_time_window.end.strftime('%I:%M %p')
               }
             }
           end
