@@ -17,6 +17,7 @@ module FriendlyShipping
                 BillTo: serialize_location(shipment.origin),
                 Items: options.packages_serializer.call(packages: shipment.packages, options: options),
                 DeclaredValue: serialize_declared_value(options),
+                ReferenceNumbers: serialize_reference_numbers(options.reference_numbers),
                 AdditionalServices: options.additional_service_codes
               }.compact,
               PickupRequest: serialize_pickup_request(options),
@@ -51,6 +52,18 @@ module FriendlyShipping
               Amount: options.declared_value,
               Per: "1"
             }
+          end
+
+          # @param [Hash] reference_numbers
+          # @return [Hash, nil]
+          def serialize_reference_numbers(reference_numbers)
+            return if reference_numbers.blank?
+
+            {
+              ShipperNumber: reference_numbers[:shipper_number],
+              RateQuoteNumber: reference_numbers[:rate_quote_number],
+              PONumber: reference_numbers[:po_number]
+            }.compact
           end
 
           # @param [FriendlyShipping::Services::RL::QuoteOptions] options

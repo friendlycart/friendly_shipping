@@ -21,6 +21,10 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
   let(:options) do
     FriendlyShipping::Services::RL::BOLOptions.new(
       pickup_time_window: pickup_time_window,
+      reference_numbers: {
+        shipper_number: "A4234592",
+        po_number: "123456"
+      },
       additional_service_codes: %w[OriginLiftgate],
       generate_universal_pro: true,
       package_options: [
@@ -171,6 +175,10 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
             EmailAddress: "acme@example.com"
           },
           Items: serialized_packages,
+          ReferenceNumbers: {
+            ShipperNumber: "A4234592",
+            PONumber: "123456"
+          },
           AdditionalServices: %w[OriginLiftgate]
         },
         PickupRequest: {
