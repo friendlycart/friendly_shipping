@@ -8,6 +8,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentAcceptRequest d
     FriendlyShipping::Services::Ups::LabelOptions.new(
       shipping_method: double,
       shipper_number: '12345',
+      sub_version: '2205',
       customer_context: 'my_request_id'
     )
   end
@@ -19,7 +20,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentAcceptRequest d
     it 'has the right data in the right places' do
       expect(subject.at_xpath('//ShipmentAcceptRequest')).to be_present
       expect(subject.at_xpath('//ShipmentAcceptRequest/Request/RequestAction').text).to eq('ShipAccept')
-      expect(subject.at_xpath('//ShipmentAcceptRequest/Request/SubVersion').text).to eq('1707')
+      expect(subject.at_xpath('//ShipmentAcceptRequest/Request/SubVersion').text).to eq('2205')
       expect(subject.at_xpath('//ShipmentAcceptRequest/Request/TransactionReference/CustomerContext').text).to eq('my_request_id')
       expect(subject.at_xpath('//ShipmentAcceptRequest/ShipmentDigest').text).to eq('supers3cret')
     end

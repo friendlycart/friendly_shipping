@@ -18,7 +18,7 @@ module FriendlyShipping
                 # If no shipping method is given, request all of them
                 # I one is given, omit the request option. It then becomes "Rate", the default.
                 xml.RequestOption('Shop') unless options.shipping_method
-                xml.SubVersion('1707')
+                xml.SubVersion(options.sub_version)
                 # Optional element to identify transactions between client and server.
                 if options.customer_context
                   xml.TransactionReference do

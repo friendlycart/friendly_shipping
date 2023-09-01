@@ -16,6 +16,7 @@ module FriendlyShipping
     # Optional:
     #
     # @param shipper [Physical::Location] The company sending the shipment. Defaults to the shipment's origin.
+    # @param sub_version [String] The UPS API sub-version to use for requests. Default: 1707
     # @param customer_context [String ] Optional element to identify transactions between client and server
     # @param validate_address [Boolean] Validate the city field with ZIP code and state. If false, only ZIP code
     #   and state are validated. Default: true
@@ -83,9 +84,12 @@ module FriendlyShipping
           ups_pack_collect_3_attemt_box_5: 20 # UPS Pack & Collect Service 1-Attempt Box 5
         }.freeze
 
+        SUB_VERSIONS = %w[1601 1607 1701 1707 1801 1807 2108 2205].freeze
+
         attr_reader :shipping_method,
                     :shipper_number,
                     :shipper,
+                    :sub_version,
                     :customer_context,
                     :validate_address,
                     :negotiated_rates,
@@ -103,6 +107,7 @@ module FriendlyShipping
           shipping_method:,
           shipper_number:,
           shipper: nil,
+          sub_version: '1707',
           customer_context: nil,
           validate_address: true,
           negotiated_rates: false,
@@ -121,9 +126,12 @@ module FriendlyShipping
           package_options_class: LabelPackageOptions,
           **kwargs
         )
+          raise ArgumentError, "Invalid sub-version: #{sub_version}" unless sub_version.in?(SUB_VERSIONS)
+
           @shipping_method = shipping_method
           @shipper_number = shipper_number
           @shipper = shipper
+          @sub_version = sub_version
           @customer_context = customer_context
           @validate_address = validate_address
           @negotiated_rates = negotiated_rates

@@ -21,6 +21,7 @@ module FriendlyShipping
     # @option saturday_pickup [Boolean] should we request Saturday pickup?. Default: false
     # @option shipping_method [FriendlyShipping::ShippingMethod] Request rates for a particular shipping method only?
     #   Default is `nil`, which translates to 'All shipping methods' (The "Shop" option in UPS parlance)
+    # @option sub_version [String] The UPS API sub-version to use for requests. Default: 1707
     # @option with_time_in_transit [Boolean] Whether to request timing information alongside the rates
     # @option package_options_class [Class] See FriendlyShipping::ShipmentOptions
     #
@@ -45,6 +46,8 @@ module FriendlyShipping
           standard_rates: "53"
         }.freeze
 
+        SUB_VERSIONS = %w[1601 1607 1701 1707 1801 2108 2201 2205].freeze
+
         attr_reader :carbon_neutral,
                     :customer_context,
                     :destination_account,
@@ -54,6 +57,7 @@ module FriendlyShipping
                     :shipper,
                     :shipper_number,
                     :shipping_method,
+                    :sub_version,
                     :with_time_in_transit
 
         def initialize(
@@ -68,10 +72,13 @@ module FriendlyShipping
           saturday_pickup: false,
           shipper: nil,
           shipping_method: nil,
+          sub_version: "1707",
           with_time_in_transit: false,
           package_options_class: FriendlyShipping::Services::Ups::RateEstimatePackageOptions,
           **kwargs
         )
+          raise ArgumentError, "Invalid sub-version: #{sub_version}" unless sub_version.in?(SUB_VERSIONS)
+
           @carbon_neutral = carbon_neutral
           @customer_context = customer_context
           @customer_classification = customer_classification
@@ -83,6 +90,7 @@ module FriendlyShipping
           @saturday_pickup = saturday_pickup
           @shipper = shipper
           @shipping_method = shipping_method
+          @sub_version = sub_version
           @with_time_in_transit = with_time_in_transit
           super(**kwargs.merge(package_options_class: package_options_class))
         end

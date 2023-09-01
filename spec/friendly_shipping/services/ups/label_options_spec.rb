@@ -9,6 +9,7 @@ RSpec.describe FriendlyShipping::Services::Ups::LabelOptions do
     :shipping_method,
     :shipper_number,
     :shipper,
+    :sub_version,
     :customer_context,
     :validate_address,
     :negotiated_rates,
@@ -23,6 +24,24 @@ RSpec.describe FriendlyShipping::Services::Ups::LabelOptions do
     :invoice_date
   ].each do |message|
     it { is_expected.to respond_to(message) }
+  end
+
+  describe 'sub-version validation' do
+    subject(:options) { described_class.new(sub_version: 'bogus', shipping_method: double, shipper_number: double) }
+
+    it { expect { options }.to raise_error(ArgumentError, 'Invalid sub-version: bogus') }
+  end
+
+  describe 'default options' do
+    it { expect(options.sub_version).to eq('1707') }
+    it { expect(options.validate_address).to be(true) }
+    it { expect(options.negotiated_rates).to be(false) }
+    it { expect(options.saturday_delivery).to be(false) }
+    it { expect(options.label_format).to eq('GIF') }
+    it { expect(options.label_size).to eq([4, 6]) }
+    it { expect(options.carbon_neutral).to be(true) }
+    it { expect(options.paperless_invoice).to be(false) }
+    it { expect(options.reason_for_export).to eq('SALE') }
   end
 
   describe 'delivery_confirmation_code' do

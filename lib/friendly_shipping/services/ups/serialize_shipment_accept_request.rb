@@ -9,7 +9,7 @@ module FriendlyShipping
             xml.ShipmentAcceptRequest do
               xml.Request do
                 xml.RequestAction('ShipAccept')
-                xml.SubVersion('1707')
+                xml.SubVersion(options.sub_version)
                 if options.customer_context
                   xml.TransactionReference do
                     xml.CustomerContext(options.customer_context)
