@@ -15,9 +15,25 @@ RSpec.describe FriendlyShipping::Services::Ups::RateEstimateOptions do
     :shipper,
     :shipper_number,
     :shipping_method,
+    :sub_version,
     :with_time_in_transit
   ].each do |message|
     it { is_expected.to respond_to(message) }
+  end
+
+  describe 'sub-version validation' do
+    subject(:options) { described_class.new(sub_version: 'bogus', shipper_number: 'SECRET') }
+
+    it { expect { options }.to raise_error(ArgumentError, 'Invalid sub-version: bogus') }
+  end
+
+  describe 'default options' do
+    it { expect(options.carbon_neutral).to be(true) }
+    it { expect(options.negotiated_rates).to be(false) }
+    it { expect(options.saturday_delivery).to be(false) }
+    it { expect(options.saturday_pickup).to be(false) }
+    it { expect(options.sub_version).to eq('1707') }
+    it { expect(options.with_time_in_transit).to be(false) }
   end
 
   describe '#options_for_package' do
