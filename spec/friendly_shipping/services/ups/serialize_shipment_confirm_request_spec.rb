@@ -61,7 +61,8 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
   let(:options) do
     FriendlyShipping::Services::Ups::LabelOptions.new(
       shipping_method: shipping_method,
-      shipper_number: '12345'
+      shipper_number: '12345',
+      sub_version: '2205'
     )
   end
 
@@ -77,7 +78,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at_xpath('//ShipmentConfirmRequest/Request')).to be_present
       expect(subject.at_xpath('//ShipmentConfirmRequest/Request/RequestAction').text).to eq('ShipConfirm')
       expect(subject.at_xpath('//ShipmentConfirmRequest/Request/RequestOption').text).to eq('validate')
-      expect(subject.at_xpath('//ShipmentConfirmRequest/Request/SubVersion').text).to eq('1707')
+      expect(subject.at_xpath('//ShipmentConfirmRequest/Request/SubVersion').text).to eq('2205')
       expect(subject.at_xpath('//ShipmentConfirmRequest/Shipment/Service/Code').text).to eq('03')
       expect(
         subject.at_xpath('//ShipmentConfirmRequest/Shipment/Shipper/Address/AddressLine1').text

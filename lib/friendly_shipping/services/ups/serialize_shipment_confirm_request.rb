@@ -27,7 +27,7 @@ module FriendlyShipping
                   xml.RequestAction('ShipConfirm')
                   # Required element controls level of address validation.
                   xml.RequestOption(options.validate_address ? 'validate' : 'nonvalidate')
-                  xml.SubVersion('1707')
+                  xml.SubVersion(options.sub_version)
                   # Optional element to identify transactions between client and server.
                   if options.customer_context
                     xml.TransactionReference do
