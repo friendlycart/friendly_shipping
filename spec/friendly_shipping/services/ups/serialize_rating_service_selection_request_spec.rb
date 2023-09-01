@@ -34,7 +34,10 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
   end
 
   let(:options) do
-    FriendlyShipping::Services::Ups::RateEstimateOptions.new(shipper_number: "12345")
+    FriendlyShipping::Services::Ups::RateEstimateOptions.new(
+      sub_version: "2205",
+      shipper_number: "12345"
+    )
   end
 
   subject do
@@ -49,7 +52,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Request')).to be_present
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/RequestAction').text).to eq('Rate')
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/RequestOption').text).to eq('Shop')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/SubVersion').text).to eq('1707')
+      expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/SubVersion').text).to eq('2205')
       expect(subject.at_xpath('//RatingServiceSelectionRequest/PickupType/Code').text).to eq('01')
       expect(subject.at_xpath('//RatingServiceSelectionRequest/CustomerClassification/Code').text).to eq('01')
       expect(
