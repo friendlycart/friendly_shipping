@@ -2,6 +2,7 @@
 
 require 'friendly_shipping/services/ups/parse_xml_response'
 require 'friendly_shipping/services/ups/parse_money_element'
+require 'friendly_shipping/services/ups/parse_modifier_element'
 
 module FriendlyShipping
   module Services
@@ -68,6 +69,7 @@ module FriendlyShipping
 
           def build_packages(rated_shipment)
             rated_shipment.css('RatedPackage').map do |rated_package|
+              currency_code = rated_package.at('TotalCharges/CurrencyCode').text
               {
                 transportation_charges: ParseMoneyElement.call(rated_package.at('TransportationCharges'))&.last,
                 base_service_charge: ParseMoneyElement.call(rated_package.at('BaseServiceCharge'))&.last,
@@ -75,6 +77,7 @@ module FriendlyShipping
                 itemized_charges: extract_charges(rated_package.xpath('ItemizedCharges')),
                 total_charges: ParseMoneyElement.call(rated_package.at('TotalCharges'))&.last,
                 negotiated_charges: extract_charges(rated_package.xpath('NegotiatedCharges/ItemizedCharges')),
+                rate_modifiers: extract_modifiers(rated_package.xpath('RateModifier'), currency_code: currency_code),
                 weight: BigDecimal(rated_package.at('Weight').text),
                 billing_weight: BigDecimal(rated_package.at('BillingWeight/Weight').text)
               }.compact
@@ -84,6 +87,15 @@ module FriendlyShipping
           def extract_charges(node)
             node.map do |element|
               ParseMoneyElement.call(element)
+            end.compact.to_h
+          end
+
+          # @param [Nokogiri::XML::NodeSet] node The RateModifier node set from the source XML
+          # @param [String] currency_code The currency code for the modifier amounts (i.e. 'USD')
+          # @param [Array<Hash>]
+          def extract_modifiers(node, currency_code:)
+            node.map do |element|
+              ParseModifierElement.call(element, currency_code: currency_code)
             end.compact.to_h
           end
         end
