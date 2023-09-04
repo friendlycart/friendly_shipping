@@ -111,6 +111,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
           negotiated_charges: {
             'FUEL SURCHARGE' => Money.new(53, 'USD')
           },
+          rate_modifiers: {},
           weight: 4.0,
           billing_weight: 4.0
         ]
@@ -126,8 +127,50 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseRateResponse do
           [
             itemized_charges: {},
             negotiated_charges: {},
+            rate_modifiers: {},
             weight: 1.0,
             billing_weight: 1.0
+          ]
+        )
+      end
+    end
+
+    context 'when packages have rate modifiers' do
+      let(:fixture) { 'ups_rates_with_modifiers_api_response.xml' }
+
+      it 'returns modifiers in the data for each package' do
+        ground_rate = subject.value!.data.detect { |rate| rate.shipping_method.service_code == '03' }
+        expect(ground_rate.data[:packages]).to eq(
+          [
+            {
+              transportation_charges: Money.new(5418, 'USD'),
+              base_service_charge: Money.new(4303, 'USD'),
+              itemized_charges: {
+                'DELIVERY AREA' => Money.new(450, 'USD'),
+                'FUEL SURCHARGE' => Money.new(725, 'USD'),
+              },
+              total_charges: Money.new(5418, 'USD'),
+              negotiated_charges: {},
+              rate_modifiers: {
+                'DTM (Destination Modifier)' => Money.new(-60, 'USD'),
+              },
+              weight: 47,
+              billing_weight: 47
+            }, {
+              transportation_charges: Money.new(2405, 'USD'),
+              base_service_charge: Money.new(1689, 'USD'),
+              itemized_charges: {
+                'DELIVERY AREA' => Money.new(450, 'USD'),
+                'FUEL SURCHARGE' => Money.new(326, 'USD'),
+              },
+              total_charges: Money.new(2405, 'USD'),
+              negotiated_charges: {},
+              rate_modifiers: {
+                'DTM (Destination Modifier)' => Money.new(-60, 'USD'),
+              },
+              weight: 4,
+              billing_weight: 8
+            }
           ]
         )
       end
