@@ -1,5 +1,5 @@
 # Relaxed.Ruby.Style
-## Version 2.2
+## Version 2.5
 
 Style/Alias:
   Enabled: false
@@ -64,6 +64,10 @@ Style/NegatedIf:
 Style/NegatedWhile:
   Enabled: false
   StyleGuide: https://relaxed.ruby.style/#stylenegatedwhile
+
+Style/NumericPredicate:
+  Enabled: false
+  StyleGuide: https://relaxed.ruby.style/#stylenumericpredicate
 
 Style/ParallelAssignment:
   Enabled: false
@@ -133,9 +137,6 @@ Style/WordArray:
   Enabled: false
   StyleGuide: https://relaxed.ruby.style/#stylewordarray
 
-Layout/LineLength:
-  Enabled: false
-
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
   StyleGuide: https://relaxed.ruby.style/#lintambiguousregexpliteral
@@ -144,26 +145,9 @@ Lint/AssignmentInCondition:
   Enabled: false
   StyleGuide: https://relaxed.ruby.style/#lintassignmentincondition
 
-Metrics/AbcSize:
+Layout/LineLength:
   Enabled: false
 
-Metrics/BlockNesting:
+Metrics:
   Enabled: false
 
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/ModuleLength:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/ParameterLists:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
