@@ -285,8 +285,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     context 'with a voidable label' do
       let(:response_body) do
         {
-          "approved": true,
-          "message": "Request for refund submitted.  This label has been voided."
+          approved: true,
+          message: "Request for refund submitted.  This label has been voided."
         }
       end
 
@@ -298,8 +298,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     context 'with an unvoidable label' do
       let(:response_body) do
         {
-          "approved": false,
-          "message": "Could not void this label for some reason"
+          approved: false,
+          message: "Could not void this label for some reason"
         }
       end
 
