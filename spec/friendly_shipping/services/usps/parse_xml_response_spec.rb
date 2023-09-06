@@ -34,7 +34,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
   end
 
   context 'with a successful response' do
-    let(:body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')).read }
+    let(:body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')) }
 
     it { is_expected.to be_success }
 

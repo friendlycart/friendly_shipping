@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseAddressValidationResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'address_validation_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'address_validation_response.xml')) }
   let(:request) { double(debug: false) }
   let(:response) { double(body: response_body) }
 
@@ -26,7 +26,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseAddressValidationResponse 
   end
 
   context 'with a no-candidates request' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'address_validation_no_candidates_response.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'address_validation_no_candidates_response.xml')) }
 
     it { is_expected.to be_failure }
 

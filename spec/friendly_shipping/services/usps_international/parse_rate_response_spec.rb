@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::UspsInternational::ParseRateResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps_international', 'rates_api_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps_international', 'rates_api_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
   let(:packages) do

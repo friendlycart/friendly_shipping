@@ -9,7 +9,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseCreateBOLResponse do
   let(:request) { double(debug: false) }
 
   context "with successful response" do
-    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "create_bol", "success.json")).read }
+    let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "rl", "create_bol", "success.json")) }
     let(:api_result) { subject.value! }
     let(:result) { api_result.data }
 
@@ -25,7 +25,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseCreateBOLResponse do
   end
 
   context "with unsuccessful response" do
-    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "create_bol", "failure.json")).read }
+    let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "rl", "create_bol", "failure.json")) }
     let(:api_result) { subject.failure }
 
     it "returns error message" do

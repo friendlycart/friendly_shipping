@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::ApiError do
   describe "#message" do
-    let(:body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', fixture)).read }
+    let(:body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', fixture)) }
     let(:error) { RestClient::Exception.new(double(body: body)) }
 
     subject { described_class.new(error).message }

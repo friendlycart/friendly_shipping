@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
   let(:packages) do
@@ -39,7 +39,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   end
 
   context 'with response for one regional rate box' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_single.xml')) }
     let(:packages) do
       [
         FactoryBot.build(:physical_package, id: '0'),
@@ -65,7 +65,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   end
 
   context 'with response for multiple regional rate boxes' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_multiple.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_regional_multiple.xml')) }
     let(:packages) do
       [
         FactoryBot.build(:physical_package, id: '0', container: regional_rate_box_a),
@@ -97,7 +97,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   end
 
   context 'with response containing large flat rates' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_large_box.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'rates_api_response_large_box.xml')) }
     let(:packages) do
       [
         FactoryBot.build(:physical_package, id: '0'),
@@ -124,7 +124,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   end
 
   context 'with response containing fees' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response_with_fees.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response_with_fees.xml')) }
     let(:packages) do
       [
         FactoryBot.build(:physical_package, id: '0'),
@@ -167,7 +167,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseRateResponse do
   end
 
   context 'with response containing dimensional weight rate' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response_with_dimensional_weight_rate.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response_with_dimensional_weight_rate.xml')) }
     let(:packages) do
       [
         FactoryBot.build(:physical_package, id: '0'),

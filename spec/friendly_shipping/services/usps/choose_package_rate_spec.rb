@@ -11,7 +11,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ChoosePackageRate do
   let(:package_id) { '0' }
   let(:package) { FactoryBot.build(:physical_package, id: package_id) }
   let(:properties) { {} }
-  let(:xml) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response.xml')).read }
+  let(:xml) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'usps_rates_api_response.xml')) }
   let(:rate_nodes) { Nokogiri::XML(xml).xpath('//Postage') }
   let(:rates) { rate_nodes.map { |node| FriendlyShipping::Services::Usps::ParsePackageRate.call(node, package, package_options) } }
   let(:package_options) { FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(**properties.merge(package_id: package_id)) }

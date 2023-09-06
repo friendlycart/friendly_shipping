@@ -5,7 +5,7 @@ require 'friendly_shipping/services/ups/parse_shipment_confirm_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentConfirmResponse do
   include Dry::Monads[:result]
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_confirm_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_confirm_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
   let(:shipment) { FactoryBot.build(:physical_shipment) }
@@ -23,7 +23,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentConfirmResponse do
   end
 
   context "if the request fails" do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_confirm_failure.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_confirm_failure.xml')) }
 
     it { is_expected.to be_a(Dry::Monads::Result) }
 

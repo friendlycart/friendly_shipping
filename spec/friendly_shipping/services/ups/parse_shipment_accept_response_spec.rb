@@ -5,7 +5,7 @@ require 'friendly_shipping/services/ups/parse_shipment_accept_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
   include Dry::Monads[:result]
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
   let(:shipment) { FactoryBot.build(:physical_shipment) }
@@ -35,7 +35,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
   end
 
   context "with a failed response" do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_failure.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_failure.xml')) }
 
     it 'returns a well-formed failure' do
       is_expected.to be_a(Dry::Monads::Result::Failure)
@@ -44,7 +44,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
   end
 
   context "with a response with paperless invoice" do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_international.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'shipment_accept_international.xml')) }
 
     it { is_expected.to be_success }
 
@@ -55,7 +55,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseShipmentAcceptResponse do
   end
 
   context "SurePost" do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'surepost_shipment_accept_response.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'surepost_shipment_accept_response.xml')) }
     subject { parser.value!.data }
 
     it 'returns labels including value for usps_tracking_number' do

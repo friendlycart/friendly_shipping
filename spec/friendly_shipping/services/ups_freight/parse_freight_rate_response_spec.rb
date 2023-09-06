@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups_freight/parse_freight_rate_response'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightRateResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'rate_estimates', 'success.json')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'rate_estimates', 'success.json')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
 
