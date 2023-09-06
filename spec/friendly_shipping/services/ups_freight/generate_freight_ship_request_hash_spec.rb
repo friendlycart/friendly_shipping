@@ -61,7 +61,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightShipReques
   let(:customer_context) { 'order-12345' }
 
   let(:billing_location) do
-    ::Physical::Location.new(
+    Physical::Location.new(
       name: "Donald Duck",
       company_name: "Duck Science",
       address1: "Duck Street, Duck Window 2",
