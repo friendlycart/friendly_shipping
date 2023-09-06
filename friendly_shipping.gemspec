@@ -27,19 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "nokogiri", "~> 1.6"
   spec.add_runtime_dependency "physical", "~> 0.4", ">= 0.4.5"
   spec.add_runtime_dependency "rest-client", "~> 2.0"
+
   spec.required_ruby_version = '>= 2.7'
-
-  spec.add_development_dependency "bundler", ">= 2.1.4", "< 3"
-  spec.add_development_dependency "dotenv", "~> 2.7"
-  spec.add_development_dependency "factory_bot", "~> 6.2"
-  spec.add_development_dependency "pry", "~> 0.12"
-  spec.add_development_dependency "rake", ">= 12.3.3"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rspec_junit_formatter", "~> 0.4"
-  spec.add_development_dependency "rubocop"
-  spec.add_development_dependency "simplecov", "~> 0.17"
-  spec.add_development_dependency "vcr", "~> 6.0"
-  spec.add_development_dependency "webmock", "~> 3.6"
-
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
