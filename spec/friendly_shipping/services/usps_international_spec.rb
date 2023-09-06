@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/usps/timing_options'
 
 RSpec.describe FriendlyShipping::Services::UspsInternational do
-  subject(:service) { described_class.new(login: ENV['USPS_LOGIN']) }
+  subject(:service) { described_class.new(login: ENV.fetch('USPS_LOGIN', nil)) }
 
   describe 'rate_estimates' do
     let(:country) { Carmen::Country.named("Canada") }

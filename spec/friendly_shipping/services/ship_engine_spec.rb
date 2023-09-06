@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine do
-  subject(:service) { described_class.new(token: ENV['SHIPENGINE_API_KEY']) }
+  subject(:service) { described_class.new(token: ENV.fetch('SHIPENGINE_API_KEY', nil)) }
 
   it { is_expected.to respond_to(:carriers) }
 
@@ -83,7 +83,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
   describe 'labels' do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
-    let(:carrier) { FriendlyShipping::Carrier.new(id: ENV['SHIPENGINE_CARRIER_ID']) }
+    let(:carrier) { FriendlyShipping::Carrier.new(id: ENV.fetch('SHIPENGINE_CARRIER_ID', nil)) }
     let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "usps_priority_mail", carrier: carrier) }
     let(:options) do
       FriendlyShipping::Services::ShipEngine::LabelOptions.new(

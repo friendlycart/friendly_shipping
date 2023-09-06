@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Ups do
-  subject(:service) { described_class.new(key: ENV['UPS_KEY'], login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD']) }
+  subject(:service) { described_class.new(key: ENV.fetch('UPS_KEY', nil), login: ENV.fetch('UPS_LOGIN', nil), password: ENV.fetch('UPS_PASSWORD', nil)) }
 
   describe '#carriers' do
     subject { service.carriers }
@@ -55,7 +55,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
           negotiated_rates: true
         )
       end
-      let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
+      let(:shipper_number) { ENV.fetch('UPS_SHIPPER_NUMBER', nil) }
       # SurePost only allows single packages
       let(:packages) { FactoryBot.build_list(:physical_package, 1) }
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
@@ -89,7 +89,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
           negotiated_rates: true
         )
       end
-      let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
+      let(:shipper_number) { ENV.fetch('UPS_SHIPPER_NUMBER', nil) }
       # SurePost only allows single packages
       let(:packages) { FactoryBot.build_list(:physical_package, 1) }
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
@@ -367,7 +367,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
 
     # UPS Ground is 03
     let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '03') }
-    let(:shipper_number) { ENV['UPS_SHIPPER_NUMBER'] }
+    let(:shipper_number) { ENV.fetch('UPS_SHIPPER_NUMBER', nil) }
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
 
     subject(:labels) { service.labels(shipment, options: options, debug: true) }
@@ -463,7 +463,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       let(:billing_options) do
         FriendlyShipping::Services::Ups::LabelBillingOptions.new(
           prepay: true,
-          billing_account: ENV['UPS_SHIPPER_NUMBER'],
+          billing_account: ENV.fetch('UPS_SHIPPER_NUMBER', nil),
           billing_zip: '27703',
           billing_country: 'US'
         )

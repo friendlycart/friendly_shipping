@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
-  subject(:service) { described_class.new(token: ENV['SHIPENGINE_API_KEY']) }
+  subject(:service) { described_class.new(token: ENV.fetch('SHIPENGINE_API_KEY', nil)) }
 
-  let(:carrier_id) { ENV['SHIPENGINE_LTL_CARRIER_ID'] }
-  let(:scac) { ENV['SHIPENGINE_LTL_CARRIER_SCAC'] }
+  let(:carrier_id) { ENV.fetch('SHIPENGINE_LTL_CARRIER_ID', nil) }
+  let(:scac) { ENV.fetch('SHIPENGINE_LTL_CARRIER_SCAC', nil) }
 
   it { is_expected.to respond_to(:carriers) }
 
@@ -36,10 +36,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
   describe '#connect_carrier' do
     let(:credentials) do
       {
-        username: ENV['UPS_LOGIN'],
-        password: ENV['UPS_PASSWORD'],
-        key: ENV['UPS_KEY'],
-        account_number: ENV['UPS_SHIPPER_NUMBER']
+        username: ENV.fetch('UPS_LOGIN', nil),
+        password: ENV.fetch('UPS_PASSWORD', nil),
+        key: ENV.fetch('UPS_KEY', nil),
+        account_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil)
       }
     end
 
@@ -62,10 +62,10 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
   describe '#update_carrier' do
     let(:credentials) do
       {
-        username: ENV['UPS_LOGIN'],
-        password: ENV['UPS_PASSWORD'],
-        key: ENV['UPS_KEY'],
-        account_number: ENV['UPS_SHIPPER_NUMBER']
+        username: ENV.fetch('UPS_LOGIN', nil),
+        password: ENV.fetch('UPS_PASSWORD', nil),
+        key: ENV.fetch('UPS_KEY', nil),
+        account_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil)
       }
     end
 
@@ -93,7 +93,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
         origin: FactoryBot.build(
           :physical_location,
           properties: {
-            account_number: ENV['UPS_SHIPPER_NUMBER']
+            account_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil)
           }
         )
       )
