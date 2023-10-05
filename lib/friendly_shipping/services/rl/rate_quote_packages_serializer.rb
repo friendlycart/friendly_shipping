@@ -15,7 +15,10 @@ module FriendlyShipping
                 item_options = package_options.options_for_item(item)
                 {
                   Class: item_options.freight_class,
-                  Weight: item.weight.convert_to(:pounds)
+                  Height: item.height.convert_to(:inches),
+                  Length: item.length.convert_to(:inches),
+                  Weight: item.weight.convert_to(:pounds),
+                  Width: item.width.convert_to(:inches)
                 }
               end
             end
@@ -35,7 +38,10 @@ module FriendlyShipping
             end.map do |freight_class, grouped_item_hashes|
               {
                 Class: freight_class,
-                Weight: grouped_item_hashes.sum { |e| e[:Weight] }.value.ceil,
+                Height: grouped_item_hashes.map { _1[:Height].value.ceil }.max,
+                Length: grouped_item_hashes.map { _1[:Length].value.ceil }.max,
+                Weight: grouped_item_hashes.sum { _1[:Weight] }.value.ceil,
+                Width: grouped_item_hashes.map { _1[:Width].value.ceil }.max,
                 Quantity: grouped_item_hashes.size
               }
             end

@@ -90,7 +90,10 @@ RSpec.describe FriendlyShipping::Services::RL::RateQuotePackagesSerializer do
     is_expected.to eq(
       [{
         Class: "92.5",
+        Height: 12,
+        Length: 8,
         Weight: 12,
+        Width: 6,
         Quantity: 2
       }]
     )
