@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.rlc.com/BillOfLading/PrintBOL?ProNumber=WP7630587
+    uri: https://apisandbox.rlc.com/BillOfLading/PrintBOL?ProNumber=WP7630587
     body:
       encoding: US-ASCII
       string: ''

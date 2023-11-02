@@ -23,7 +23,8 @@ module FriendlyShipping
 
       attr_reader :api_key, :test, :client
 
-      API_BASE = "https://api.rlc.com/"
+      LIVE_API_BASE = "https://api.rlc.com/"
+      TEST_API_BASE = "https://apisandbox.rlc.com/"
       API_PATHS = {
         bill_of_lading: "BillOfLading",
         print_bol: "BillOfLading/PrintBOL",
@@ -55,7 +56,7 @@ module FriendlyShipping
       # @return [Dry::Monads::Result<ApiResult<ShipmentInformation>>] The BOL from R+L Carriers
       def create_bill_of_lading(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + API_PATHS[:bill_of_lading],
+          url: api_base + API_PATHS[:bill_of_lading],
           http_method: "POST",
           body: SerializeCreateBOLRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
@@ -73,7 +74,7 @@ module FriendlyShipping
       # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary BOL document from R+L Carriers
       def print_bill_of_lading(shipment_info, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + API_PATHS[:print_bol] + "?ProNumber=#{shipment_info.pro_number}",
+          url: api_base + API_PATHS[:print_bol] + "?ProNumber=#{shipment_info.pro_number}",
           http_method: "GET",
           headers: request_headers,
           debug: debug
@@ -97,7 +98,7 @@ module FriendlyShipping
       # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary shipping labels from R+L Carriers
       def print_shipping_labels(shipment_info, style: 1, start_position: 1, num_labels: 4, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + API_PATHS[:print_shipping_labels] + "?" \
+          url: api_base + API_PATHS[:print_shipping_labels] + "?" \
             "ProNumber=#{shipment_info.pro_number}&" \
             "Style=#{style}&" \
             "StartPosition=#{start_position}&" \
@@ -122,7 +123,7 @@ module FriendlyShipping
       # @return [Dry::Monads::Result<ApiResult<Array<Rate>>>] The rate quote from R+L Carriers
       def rate_quote(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + API_PATHS[:rate_quote],
+          url: LIVE_API_BASE + API_PATHS[:rate_quote],
           http_method: "POST",
           body: SerializeRateQuoteRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
@@ -141,7 +142,7 @@ module FriendlyShipping
       # @return [Dry::Monads::Result<ApiResult<Array<Timing>>>] The transit timing from R+L Carriers
       def transit_times(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + API_PATHS[:transit_times],
+          url: LIVE_API_BASE + API_PATHS[:transit_times],
           http_method: "POST",
           body: SerializeTransitTimesRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
@@ -160,6 +161,10 @@ module FriendlyShipping
           content_type: :json,
           apiKey: api_key
         }
+      end
+
+      def api_base
+        test ? TEST_API_BASE : LIVE_API_BASE
       end
     end
   end
