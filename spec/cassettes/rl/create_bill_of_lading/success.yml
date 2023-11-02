@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.rlc.com/BillOfLading
+    uri: https://apisandbox.rlc.com/BillOfLading
     body:
       encoding: UTF-8
       string: '{"BillOfLading":{"BOLDate":"08/07/2023","Shipper":{"CompanyName":"ACME Inc","AddressLine1":"11
