@@ -24,7 +24,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
-      - api.rlc.com
+      - apisandbox.rlc.com
   response:
     status:
       code: 400
@@ -44,7 +44,7 @@ http_interactions:
       - '206'
       Set-Cookie:
       - TS01b9bbe9=012f70223cebdb29a341bf0e385839b251fd52b3c2224f111b54a29b1da36178b02795090397d97a2175faf5f3cb198216fc36640b;
-        Path=/; Domain=.api.rlc.com
+        Path=/; Domain=.apisandbox.rlc.com
     body:
       encoding: UTF-8
       string: '{"ProNumber":null,"PickupRequestNumber":null,"Code":400,"Errors":[{"Property":"request.BillOfLading.Items","ErrorMessage":"There
