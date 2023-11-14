@@ -40,7 +40,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
     )
   end
 
-  subject do
+  subject(:xml) do
     Nokogiri::XML(
       described_class.call(shipment: shipment, options: options)
     )
@@ -231,6 +231,22 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'does not transmit dimensions' do
       expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).not_to be_present
+    end
+  end
+
+  context 'with a pickup date' do
+    let(:options) do
+      FriendlyShipping::Services::Ups::RateEstimateOptions.new(
+        sub_version: '2205',
+        shipper_number: '12345',
+        pickup_date: Time.parse('2023-11-13 16:00:00 UTC')
+      )
+    end
+
+    it 'contains the right data' do
+      pickup = xml.xpath('//RatingServiceSelectionRequest/Shipment/DeliveryTimeInformation/Pickup')
+      expect(pickup.at_xpath('Date').text).to eq('20231113')
+      expect(pickup.at_xpath('Time').text).to eq('1600')
     end
   end
 end
