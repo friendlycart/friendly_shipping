@@ -106,7 +106,7 @@ module FriendlyShipping
       def request_headers
         {
           content_type: :json,
-          "api-key": token
+          'api-key': token
         }
       end
     end

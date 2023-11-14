@@ -5,7 +5,7 @@ require 'friendly_shipping/services/ups/parse_time_in_transit_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseTimeInTransitResponse do
   include Dry::Monads[:result]
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'ups_timing_api_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'ups_timing_api_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
 
@@ -42,7 +42,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseTimeInTransitResponse do
   end
 
   context 'if pickup time is not given in the response' do
-    let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "ups", "ups_timing_without_pickup_time.xml")).read }
+    let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "ups", "ups_timing_without_pickup_time.xml")) }
 
     it { is_expected.to be_success }
   end

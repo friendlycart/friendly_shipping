@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups_freight'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight do
-  let(:service) { described_class.new(login: ENV['UPS_LOGIN'], password: ENV['UPS_PASSWORD'], key: ENV['UPS_KEY']) }
+  let(:service) { described_class.new(login: ENV.fetch('UPS_LOGIN', nil), password: ENV.fetch('UPS_PASSWORD', nil), key: ENV.fetch('UPS_KEY', nil)) }
 
   describe 'carriers' do
     subject { service.carriers.value! }
@@ -81,7 +81,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
     let(:options) do
       FriendlyShipping::Services::UpsFreight::RatesOptions.new(
         shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
-        shipper_number: ENV['UPS_SHIPPER_NUMBER'],
+        shipper_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil),
         billing_address: billing_location,
         customer_context: customer_context,
         package_options: package_options,
@@ -94,7 +94,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
     let(:customer_context) { 'order-12345' }
 
     let(:billing_location) do
-      ::Physical::Location.new(
+      Physical::Location.new(
         name: "Test Testman",
         company_name: "Acme Co.",
         address1: "Far away on the outer rim",
@@ -217,7 +217,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
     let(:options) do
       FriendlyShipping::Services::UpsFreight::LabelOptions.new(
         shipping_method: FriendlyShipping::ShippingMethod.new(service_code: '308'),
-        shipper_number: ENV['UPS_SHIPPER_NUMBER'],
+        shipper_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil),
         billing_address: billing_location,
         customer_context: customer_context,
         package_options: package_options,
@@ -247,7 +247,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
     let(:customer_context) { 'order-12345' }
 
     let(:billing_location) do
-      ::Physical::Location.new(
+      Physical::Location.new(
         company_name: "Candle Science",
         phone: "919-459-4280",
         address1: "1717 E Lawson St",
@@ -365,7 +365,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight do
       end
 
       let(:requester) do
-        ::Physical::Location.new(
+        Physical::Location.new(
           company_name: "Candle Science",
           name: "Mike Stripe",
           phone: "919-459-4280",

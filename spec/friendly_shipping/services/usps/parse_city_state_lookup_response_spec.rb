@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseCityStateLookupResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'city_state_lookup_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'city_state_lookup_response.xml')) }
   let(:request) { double(debug: false) }
   let(:response) { double(body: response_body) }
 

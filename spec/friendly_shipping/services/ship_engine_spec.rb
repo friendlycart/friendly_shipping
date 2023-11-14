@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine do
-  subject(:service) { described_class.new(token: ENV['SHIPENGINE_API_KEY']) }
+  subject(:service) { described_class.new(token: ENV.fetch('SHIPENGINE_API_KEY', nil)) }
 
   it { is_expected.to respond_to(:carriers) }
 
@@ -83,7 +83,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
   describe 'labels' do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
-    let(:carrier) { FriendlyShipping::Carrier.new(id: ENV['SHIPENGINE_CARRIER_ID']) }
+    let(:carrier) { FriendlyShipping::Carrier.new(id: ENV.fetch('SHIPENGINE_CARRIER_ID', nil)) }
     let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "usps_priority_mail", carrier: carrier) }
     let(:options) do
       FriendlyShipping::Services::ShipEngine::LabelOptions.new(
@@ -277,7 +277,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     let(:response) { instance_double('RestClient::Response', code: 200, body: response_body.to_json, headers: {}) }
 
     before do
-      expect(::RestClient).to receive(:put).
+      expect(RestClient).to receive(:put).
         with("https://api.shipengine.com/v1/labels/se-123456/void", "", service.send(:request_headers)).
         and_return(response)
     end
@@ -285,8 +285,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     context 'with a voidable label' do
       let(:response_body) do
         {
-          "approved": true,
-          "message": "Request for refund submitted.  This label has been voided."
+          approved: true,
+          message: "Request for refund submitted.  This label has been voided."
         }
       end
 
@@ -298,8 +298,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     context 'with an unvoidable label' do
       let(:response_body) do
         {
-          "approved": false,
-          "message": "Could not void this label for some reason"
+          approved: false,
+          message: "Could not void this label for some reason"
         }
       end
 

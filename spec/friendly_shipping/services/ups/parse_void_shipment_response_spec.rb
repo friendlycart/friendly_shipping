@@ -5,7 +5,7 @@ require 'friendly_shipping/services/ups/parse_void_shipment_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseVoidShipmentResponse do
   include Dry::Monads[:result]
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'void_shipment_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'void_shipment_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
   let(:shipment) { FactoryBot.build(:physical_shipment) }

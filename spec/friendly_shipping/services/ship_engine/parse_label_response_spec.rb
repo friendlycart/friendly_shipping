@@ -6,7 +6,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: 
   subject { described_class.call(request: request, response: response) }
   let(:request) { double(debug: true) }
   let(:response) { double(body: response_body) }
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'labels_success.json')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'labels_success.json')) }
 
   let(:label) { subject.data.first }
 

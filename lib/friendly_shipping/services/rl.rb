@@ -98,8 +98,8 @@ module FriendlyShipping
       # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary shipping labels from R+L Carriers
       def print_shipping_labels(shipment_info, style: 1, start_position: 1, num_labels: 4, debug: false)
         request = FriendlyShipping::Request.new(
-          url: api_base + API_PATHS[:print_shipping_labels] + "?" \
-            "ProNumber=#{shipment_info.pro_number}&" \
+          url: api_base + API_PATHS[:print_shipping_labels] +
+            "?ProNumber=#{shipment_info.pro_number}&" \
             "Style=#{style}&" \
             "StartPosition=#{start_position}&" \
             "NumberOfLabels=#{num_labels}",

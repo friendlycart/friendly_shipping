@@ -1,4 +1,6 @@
 AllCops:
+  NewCops: enable
+  SuggestExtensions: false
   TargetRubyVersion: 2.7
 
 inherit_from:
@@ -9,6 +11,9 @@ Metrics/BlockLength:
 
 Style/HashEachMethods:
   Enabled: true
+
+Style/HashSyntax:
+  Enabled: false
 
 Style/HashTransformKeys:
   Enabled: true

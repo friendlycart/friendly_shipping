@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngineLTL::BadRequest do
   let(:original_exception) { double(to_s: '400 Bad Request', response: double(body: response_body)) }
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine_ltl', 'invalid_carrier_id.json')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine_ltl', 'invalid_carrier_id.json')) }
 
   describe 'to_s' do
     subject { described_class.new(original_exception).to_s }

@@ -6,7 +6,7 @@ module FriendlyShipping
   module Services
     class UpsFreight
       class ParseShipmentDocument
-        REVERSE_DOCUMENT_TYPES = LabelDocumentOptions::DOCUMENT_TYPES.map(&:reverse_each).map(&:to_a).to_h
+        REVERSE_DOCUMENT_TYPES = LabelDocumentOptions::DOCUMENT_TYPES.map(&:reverse_each).to_h(&:to_a)
 
         def self.call(image_data:)
           format_code = image_data.dig("Type", "Code")

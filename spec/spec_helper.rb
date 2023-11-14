@@ -24,16 +24,16 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
-  c.filter_sensitive_data('%RL_API_KEY%') { ENV['RL_API_KEY'] }
-  c.filter_sensitive_data('%SHIPENGINE_API_KEY%') { ENV['SHIPENGINE_API_KEY'] }
-  c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV['SHIPENGINE_CARRIER_ID'] }
-  c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_ID%') { ENV['SHIPENGINE_LTL_CARRIER_ID'] }
-  c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_SCAC%') { ENV['SHIPENGINE_LTL_CARRIER_SCAC'] }
-  c.filter_sensitive_data('%UPS_LOGIN%') { ENV['UPS_LOGIN'] }
-  c.filter_sensitive_data('%UPS_KEY%') { ENV['UPS_KEY'] }
-  c.filter_sensitive_data('%UPS_PASSWORD%') { ENV['UPS_PASSWORD'] }
-  c.filter_sensitive_data('%UPS_SHIPPER_NUMBER%') { ENV['UPS_SHIPPER_NUMBER'] }
-  c.filter_sensitive_data('%USPS_LOGIN%') { ENV['USPS_LOGIN'] }
+  c.filter_sensitive_data('%RL_API_KEY%') { ENV.fetch('RL_API_KEY', nil) }
+  c.filter_sensitive_data('%SHIPENGINE_API_KEY%') { ENV.fetch('SHIPENGINE_API_KEY', nil) }
+  c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV.fetch('SHIPENGINE_CARRIER_ID', nil) }
+  c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_ID%') { ENV.fetch('SHIPENGINE_LTL_CARRIER_ID', nil) }
+  c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_SCAC%') { ENV.fetch('SHIPENGINE_LTL_CARRIER_SCAC', nil) }
+  c.filter_sensitive_data('%UPS_LOGIN%') { ENV.fetch('UPS_LOGIN', nil) }
+  c.filter_sensitive_data('%UPS_KEY%') { ENV.fetch('UPS_KEY', nil) }
+  c.filter_sensitive_data('%UPS_PASSWORD%') { ENV.fetch('UPS_PASSWORD', nil) }
+  c.filter_sensitive_data('%UPS_SHIPPER_NUMBER%') { ENV.fetch('UPS_SHIPPER_NUMBER', nil) }
+  c.filter_sensitive_data('%USPS_LOGIN%') { ENV.fetch('USPS_LOGIN', nil) }
 
   # Matches the Content-Type request header
   c.register_request_matcher :content_type do |r1, r2|

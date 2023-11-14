@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups_freight/parse_freight_label_response'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'labels', 'success.json')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'labels', 'success.json')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
 
@@ -53,7 +53,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse
   end
 
   context 'when rates are missing from response' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'labels', 'success_without_rates.json')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'labels', 'success_without_rates.json')) }
 
     it 'has the right shipment information' do
       shipment_information = subject.data

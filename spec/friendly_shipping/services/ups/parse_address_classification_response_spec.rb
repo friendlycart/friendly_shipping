@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseAddressClassificationResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'address_validation_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'address_validation_response.xml')) }
   let(:request) { double(debug: false) }
   let(:response) { double(body: response_body) }
 
@@ -19,7 +19,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseAddressClassificationRespon
   end
 
   context 'with a no-candidates request' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'address_validation_no_candidates_response.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'address_validation_no_candidates_response.xml')) }
 
     it { is_expected.to be_success }
 
@@ -30,7 +30,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseAddressClassificationRespon
   end
 
   context 'with an ambiguous address request' do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ups', 'address_validation_ambiguous_address_response.xml')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups', 'address_validation_ambiguous_address_response.xml')) }
 
     it { is_expected.to be_success }
 

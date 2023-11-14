@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/usps/parse_time_in_transit_response'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response.xml')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response.xml')) }
   let(:response) { double(body: response_body) }
   let(:request) { FriendlyShipping::Request.new(url: 'http://www.example.com') }
 
@@ -38,7 +38,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
     end
 
     context 'if there are no expedited nodes' do
-      let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response_without_expedited.xml')).read }
+      let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response_without_expedited.xml')) }
 
       it "does not break" do
         last_rate = subject.last
@@ -53,7 +53,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
     end
 
     context 'if there is an invalid commitment sequence' do
-      let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response_with_invalid_commitment_seq.xml')).read }
+      let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response_with_invalid_commitment_seq.xml')) }
 
       it "does not break" do
         first_rate = subject.first

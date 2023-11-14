@@ -8,8 +8,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseVoidResponse do
   let(:request) { double(debug: false) }
   let(:response_body) do
     {
-      "approved": true,
-      "message": "Request for refund submitted. This label has been voided."
+      approved: true,
+      message: "Request for refund submitted. This label has been voided."
     }.to_json
   end
 

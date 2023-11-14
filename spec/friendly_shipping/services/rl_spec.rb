@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::RL do
-  subject(:service) { described_class.new(api_key: ENV['RL_API_KEY']) }
+  subject(:service) { described_class.new(api_key: ENV.fetch('RL_API_KEY', nil)) }
 
   describe "initialization" do
     it { is_expected.to respond_to :api_key }
