@@ -56,6 +56,15 @@ module FriendlyShipping
                   end
                 end
 
+                if options.pickup_date && options.sub_version.to_i >= 2205
+                  xml.DeliveryTimeInformation do
+                    xml.Pickup do
+                      xml.Date options.pickup_date.strftime('%Y%m%d')
+                      xml.Time options.pickup_date.strftime('%H%M')
+                    end
+                  end
+                end
+
                 shipment.packages.each do |package|
                   package_options = options.options_for_package(package)
                   SerializePackageNode.call(

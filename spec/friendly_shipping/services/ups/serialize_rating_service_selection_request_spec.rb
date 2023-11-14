@@ -40,7 +40,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
     )
   end
 
-  subject do
+  subject(:xml) do
     Nokogiri::XML(
       described_class.call(shipment: shipment, options: options)
     )
@@ -48,29 +48,29 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
   it 'contains the right data' do
     aggregate_failures do
-      expect(subject.at_xpath('//RatingServiceSelectionRequest')).to be_present
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Request')).to be_present
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/RequestAction').text).to eq('Rate')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/RequestOption').text).to eq('Shop')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Request/SubVersion').text).to eq('2205')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/PickupType/Code').text).to eq('01')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/CustomerClassification/Code').text).to eq('01')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest')).to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Request')).to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Request/RequestAction').text).to eq('Rate')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Request/RequestOption').text).to eq('Shop')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Request/SubVersion').text).to eq('2205')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/PickupType/Code').text).to eq('01')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/CustomerClassification/Code').text).to eq('01')
       expect(
-        subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Shipper/Address/AddressLine1').text
+        xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Shipper/Address/AddressLine1').text
       ).to eq('11 Lovely Street')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Shipper/ShipperNumber').text).to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Shipper/ShipperNumber').text).to be_present
       expect(
-        subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipTo/ShipperAssignedIdentificationNumber')
+        xml.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipTo/ShipperAssignedIdentificationNumber')
       ).not_to be_present
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom')).not_to be_present
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package')).to be_present
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom')).not_to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Package')).to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).to be_present
 
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackagingType/Code').text).to eq('02')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackagingType/Code').text).to eq('02')
       expect(
-        subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackageWeight/UnitOfMeasurement/Code').text
+        xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackageWeight/UnitOfMeasurement/Code').text
       ).to eq('LBS')
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackageWeight/Weight').text).to eq('5')
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/PackageWeight/Weight').text).to eq('5')
     end
   end
 
@@ -84,12 +84,12 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains an extra ShipFrom element' do
       aggregate_failures do
-        expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom')).to be_present
+        expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom')).to be_present
         expect(
-          subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Shipper/Address/AddressLine1').text
+          xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Shipper/Address/AddressLine1').text
         ).to eq('Another Street')
         expect(
-          subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom/Address/AddressLine1').text
+          xml.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipFrom/Address/AddressLine1').text
         ).to eq('11 Lovely Street')
       end
     end
@@ -105,7 +105,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains a ShipperAssignedIdentificationNumber element' do
       expect(
-        subject.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipTo/ShipperAssignedIdentificationNumber').text
+        xml.at_xpath('//RatingServiceSelectionRequest/Shipment/ShipTo/ShipperAssignedIdentificationNumber').text
       ).to eq('98765')
     end
   end
@@ -120,7 +120,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains a UPScarbonneutralIndicator element' do
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/Shipment/ShipmentServiceOptions/UPScarbonneutralIndicator')
+        xml.at_xpath('/RatingServiceSelectionRequest/Shipment/ShipmentServiceOptions/UPScarbonneutralIndicator')
       ).to be_present
     end
   end
@@ -135,7 +135,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains a CustomerContext element' do
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/Request/TransactionReference/CustomerContext').text
+        xml.at_xpath('/RatingServiceSelectionRequest/Request/TransactionReference/CustomerContext').text
       ).to eq('MYORDER!!')
     end
   end
@@ -150,7 +150,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains the right option' do
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/CustomerClassification/Code').text
+        xml.at_xpath('/RatingServiceSelectionRequest/CustomerClassification/Code').text
       ).to eq('05')
     end
   end
@@ -165,7 +165,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains the right option' do
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/Shipment/RateInformation/NegotiatedRatesIndicator')
+        xml.at_xpath('/RatingServiceSelectionRequest/Shipment/RateInformation/NegotiatedRatesIndicator')
       ).to be_present
     end
   end
@@ -180,7 +180,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains the right option' do
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/Shipment/ShipmentServiceOptions/SaturdayDelivery')
+        xml.at_xpath('/RatingServiceSelectionRequest/Shipment/ShipmentServiceOptions/SaturdayDelivery')
       ).to be_present
     end
   end
@@ -195,7 +195,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
 
     it 'contains the right option' do
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/Shipment/ShipmentServiceOptions/SaturdayPickup')
+        xml.at_xpath('/RatingServiceSelectionRequest/Shipment/ShipmentServiceOptions/SaturdayPickup')
       ).to be_present
     end
   end
@@ -209,9 +209,9 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
     end
 
     it 'contains the right option' do
-      expect(subject.at_xpath('/RatingServiceSelectionRequest/Request/RequestOption')).not_to be_present
+      expect(xml.at_xpath('/RatingServiceSelectionRequest/Request/RequestOption')).not_to be_present
       expect(
-        subject.at_xpath('/RatingServiceSelectionRequest/Shipment/Service/Code').text
+        xml.at_xpath('/RatingServiceSelectionRequest/Shipment/Service/Code').text
       ).to eq('44')
     end
   end
@@ -230,7 +230,23 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionR
     end
 
     it 'does not transmit dimensions' do
-      expect(subject.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).not_to be_present
+      expect(xml.at_xpath('//RatingServiceSelectionRequest/Shipment/Package/Dimensions')).not_to be_present
+    end
+  end
+
+  context 'with a pickup date' do
+    let(:options) do
+      FriendlyShipping::Services::Ups::RateEstimateOptions.new(
+        sub_version: '2205',
+        shipper_number: '12345',
+        pickup_date: Time.parse('2023-11-13 16:00:00 UTC')
+      )
+    end
+
+    it 'contains the right data' do
+      pickup = xml.xpath('//RatingServiceSelectionRequest/Shipment/DeliveryTimeInformation/Pickup')
+      expect(pickup.at_xpath('Date').text).to eq('20231113')
+      expect(pickup.at_xpath('Time').text).to eq('1600')
     end
   end
 end

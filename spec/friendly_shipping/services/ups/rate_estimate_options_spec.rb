@@ -10,6 +10,7 @@ RSpec.describe FriendlyShipping::Services::Ups::RateEstimateOptions do
     :customer_context,
     :destination_account,
     :negotiated_rates,
+    :pickup_date,
     :saturday_delivery,
     :saturday_pickup,
     :shipper,
@@ -30,6 +31,7 @@ RSpec.describe FriendlyShipping::Services::Ups::RateEstimateOptions do
   describe 'default options' do
     it { expect(options.carbon_neutral).to be(true) }
     it { expect(options.negotiated_rates).to be(false) }
+    it { expect(options.pickup_date).to be_nil }
     it { expect(options.saturday_delivery).to be(false) }
     it { expect(options.saturday_pickup).to be(false) }
     it { expect(options.sub_version).to eq('1707') }

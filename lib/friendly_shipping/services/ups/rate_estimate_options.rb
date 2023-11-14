@@ -17,6 +17,8 @@ module FriendlyShipping
     # @option customer_classification [Symbol] Which kind of rates to request. See UPS docs for more details. Default: `shipper_number`
     # @option negotiated_rates [Boolean] if truthy negotiated rates will be requested from ups. Only valid if
     #   shipper account has negotiated rates. Default: false
+    # @option pickup_type [String] UPS pickup type. See UPS docs for more details. Default: `daily_pickup`
+    # @option pickup_date [Time] UPS pickup date/time. Default: nil
     # @option saturday_delivery [Boolean] should we request Saturday delivery?. Default: false
     # @option saturday_pickup [Boolean] should we request Saturday pickup?. Default: false
     # @option shipping_method [FriendlyShipping::ShippingMethod] Request rates for a particular shipping method only?
@@ -52,6 +54,7 @@ module FriendlyShipping
                     :customer_context,
                     :destination_account,
                     :negotiated_rates,
+                    :pickup_date,
                     :saturday_delivery,
                     :saturday_pickup,
                     :shipper,
@@ -68,6 +71,7 @@ module FriendlyShipping
           destination_account: nil,
           negotiated_rates: false,
           pickup_type: :daily_pickup,
+          pickup_date: nil,
           saturday_delivery: false,
           saturday_pickup: false,
           shipper: nil,
@@ -86,6 +90,7 @@ module FriendlyShipping
           @negotiated_rates = negotiated_rates
           @shipper_number = shipper_number
           @pickup_type = pickup_type
+          @pickup_date = pickup_date
           @saturday_delivery = saturday_delivery
           @saturday_pickup = saturday_pickup
           @shipper = shipper
