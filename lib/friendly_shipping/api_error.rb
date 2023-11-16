@@ -5,10 +5,10 @@ module FriendlyShipping
     attr_reader :cause
 
     # @param [RestClient::Exception] cause
-    # @param [String] msg
-    def initialize(cause, msg = nil)
+    # @param [String] message
+    def initialize(cause, message = nil)
       @cause = cause
-      super msg || cause.message
+      super message || cause.message
     end
   end
 end

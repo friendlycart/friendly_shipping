@@ -5,8 +5,8 @@ module FriendlyShipping
     attr_reader :data, :original_request, :original_response
 
     # @param [Object] data The API result
-    # @param [FriendlyShipping::Request] original_request The HTTP request (when debugging is enabled)
-    # @param [FriendlyShipping::Response] original_response The HTTP response (when debugging is enabled)
+    # @param [FriendlyShipping::Request] original_request The HTTP request
+    # @param [FriendlyShipping::Response] original_response The HTTP response
     def initialize(data, original_request: nil, original_response: nil)
       @data = data
 
