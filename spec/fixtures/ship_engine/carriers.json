@@ -1,7 +1,7 @@
 {
   "carriers": [
     {
-      "carrier_id": "se-76432",
+      "carrier_id": "se-444333",
       "carrier_code": "stamps_com",
       "account_number": null,
       "requires_funded_amount": true,
@@ -13,7 +13,7 @@
       "supports_label_messages": true,
       "services": [
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_first_class_mail",
           "name": "USPS First Class Mail",
@@ -22,7 +22,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_media_mail",
           "name": "USPS Media Mail",
@@ -31,7 +31,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_parcel_select",
           "name": "USPS Parcel Select Ground",
@@ -40,7 +40,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_priority_mail",
           "name": "USPS Priority Mail",
@@ -49,7 +49,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_priority_mail_express",
           "name": "USPS Priority Mail Express",
@@ -58,7 +58,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_first_class_mail_international",
           "name": "USPS First Class Mail Intl",
@@ -67,7 +67,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_priority_mail_international",
           "name": "USPS Priority Mail Intl",
@@ -76,7 +76,7 @@
           "is_multi_package_supported": false
         },
         {
-          "carrier_id": "se-76432",
+          "carrier_id": "se-444333",
           "carrier_code": "stamps_com",
           "service_code": "usps_priority_mail_express_international",
           "name": "USPS Priority Mail Express Intl",

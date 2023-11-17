@@ -15,14 +15,14 @@ module FriendlyShipping
                 :shipment_cost,
                 :label_data
 
-    # @param [Integer] id The label's ID
-    # @param [Integer] shipment_id The label's shipment ID
+    # @param [String] id The label's ID
+    # @param [String] shipment_id The label's shipment ID
     # @param [String] tracking_number The label's tracking number
     # @param [String] service_code The label's service code
     # @param [String] label_href The URL for the label
     # @param [String] label_format The label's format
     # @param [String] label_data The raw label data
-    # @param [Float] shipment_cost The cost of the shipment
+    # @param [Money] shipment_cost The cost of the shipment
     # @param [Hash] data Additional data related to the label
     def initialize(
       id: nil,

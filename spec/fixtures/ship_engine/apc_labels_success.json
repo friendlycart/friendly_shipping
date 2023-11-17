@@ -1,0 +1,75 @@
+{
+  "label_id": "se-368523902",
+  "status": "completed",
+  "shipment_id": "se-911476892",
+  "ship_date": "2023-11-07T08:00:00Z",
+  "created_at": "2023-11-07T21:57:50.9967617Z",
+  "shipment_cost": {
+    "currency": "usd",
+    "amount": 47.77
+  },
+  "insurance_cost": {
+    "currency": "usd",
+    "amount": 0.0
+  },
+  "requested_comparison_amount": null,
+  "rate_details": [],
+  "tracking_number": "1913101260000007",
+  "is_return_label": false,
+  "rma_number": null,
+  "is_international": true,
+  "batch_id": "",
+  "carrier_id": "%SHIPENGINE_CARRIER_ID%",
+  "service_code": "apc_priority_ddp_delcon",
+  "package_code": "package",
+  "voided": false,
+  "voided_at": null,
+  "label_format": "pdf",
+  "display_scheme": "label",
+  "label_layout": "4x6",
+  "trackable": false,
+  "label_image_id": null,
+  "carrier_code": "apc",
+  "tracking_status": "unknown",
+  "label_download": {
+    "pdf": "https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-111111111.pdf",
+    "png": "https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-111111111.png",
+    "zpl": "https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-111111111.zpl",
+    "href": "https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-111111111.pdf"
+  },
+  "form_download": null,
+  "qr_code_download": null,
+  "insurance_claim": null,
+  "packages": [
+    {
+      "package_id": 385838181,
+      "package_code": "package",
+      "weight": {
+        "value": 342.24,
+        "unit": "ounce"
+      },
+      "dimensions": {
+        "unit": "inch",
+        "length": 7.87,
+        "width": 5.91,
+        "height": 11.81
+      },
+      "insured_value": {
+        "currency": "usd",
+        "amount": 0.00
+      },
+      "tracking_number": "1913101260000007",
+      "qr_code_download": null,
+      "label_messages": {
+        "reference1": null,
+        "reference2": null,
+        "reference3": null
+      },
+      "external_package_id": null,
+      "content_description": null,
+      "sequence": 1
+    }
+  ],
+  "charge_event": "carrier_default",
+  "alternative_identifiers": []
+}

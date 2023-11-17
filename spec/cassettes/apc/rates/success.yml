@@ -1,0 +1,173 @@
+---
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/rates
+    body:
+      encoding: UTF-8
+      string: '{"shipment":{"carrier_id":"%SHIPENGINE_CARRIER_ID%","service_code":"apc_priority_ddp_delcon","ship_to":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"15 7
+        Ave","address_line2":"South","city_locality":"Herndon","state_province":"AB","postal_code":"T0A3J0","country_code":"CA","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"78756","country_code":"US","address_residential_indicator":"No"},"items":[{"name":"Broom"},{"name":"Broom"},{"name":"Broom"}],"packages":[{"weight":{"value":0.7208234124396757,"unit":"pound"},"dimensions":{"unit":"inch","length":7.874015748031496,"width":5.905511811023622,"height":11.811023622047244},"products":[{"description":"Broom","quantity":1,"value":{"amount":25.0,"currency":"USD"}},{"description":"Broom","quantity":1,"value":{"amount":25.0,"currency":"USD"}},{"description":"Broom","quantity":1,"value":{"amount":25.0,"currency":"USD"}}]}],"customs":{"contents":"merchandise","non_delivery":"return_to_sender"},"confirmation":"none","address_residential_indicator":"no"},"rate_options":{"carrier_ids":["%SHIPENGINE_CARRIER_ID%"],"service_codes":["apc_priority_ddp_delcon"]}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '1310'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 03 Nov 2023 19:44:34 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '7685'
+      Connection:
+      - keep-alive
+      Ratelimit-Reset:
+      - '27'
+      Ratelimit-Limit:
+      - '200'
+      Ratelimit-Remaining:
+      - '199'
+      X-Shipengine-Requestid:
+      - 2bb7d954-20d0-4678-8707-4b48eca1d62f
+      Request-Id:
+      - 2bb7d954-20d0-4678-8707-4b48eca1d62f
+      Branch-Name:
+      - bWFpbg
+      Permissions-Policy:
+      - accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),
+        microphone=(), payment=(), usb=(), interest-cohort=()
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Robots-Tag:
+      - noindex
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"rate_response\": {\r\n    \"rates\": [\r\n      {\r\n        \"rate_id\":
+        \"se-4427748986\",\r\n        \"rate_type\": \"shipment\",\r\n        \"carrier_id\":
+        \"%SHIPENGINE_CARRIER_ID%\",\r\n        \"shipping_amount\": {\r\n          \"currency\":
+        \"usd\",\r\n          \"amount\": 12.97\r\n        },\r\n        \"insurance_amount\":
+        {\r\n          \"currency\": \"usd\",\r\n          \"amount\": 0.0\r\n        },\r\n
+        \       \"confirmation_amount\": {\r\n          \"currency\": \"usd\",\r\n
+        \         \"amount\": 0.0\r\n        },\r\n        \"other_amount\": {\r\n
+        \         \"currency\": \"usd\",\r\n          \"amount\": 0.0\r\n        },\r\n
+        \       \"requested_comparison_amount\": {\r\n          \"currency\": \"usd\",\r\n
+        \         \"amount\": 0.0\r\n        },\r\n        \"rate_details\": [],\r\n
+        \       \"zone\": null,\r\n        \"package_type\": null,\r\n        \"delivery_days\":
+        null,\r\n        \"guaranteed_service\": false,\r\n        \"estimated_delivery_date\":
+        null,\r\n        \"carrier_delivery_days\": null,\r\n        \"ship_date\":
+        \"2023-11-03T00:00:00Z\",\r\n        \"negotiated_rate\": false,\r\n        \"service_type\":
+        \"APC Priority DDP w/ Delcon\",\r\n        \"service_code\": \"apc_priority_ddp_delcon\",\r\n
+        \       \"trackable\": false,\r\n        \"carrier_code\": \"apc\",\r\n        \"carrier_nickname\":
+        \"APC East\",\r\n        \"carrier_friendly_name\": \"APC\",\r\n        \"validation_status\":
+        \"valid\",\r\n        \"warning_messages\": [],\r\n        \"error_messages\":
+        []\r\n      }\r\n    ],\r\n    \"invalid_rates\": [],\r\n    \"rate_request_id\":
+        \"se-573760943\",\r\n    \"shipment_id\": \"se-898517762\",\r\n    \"created_at\":
+        \"2023-11-03T19:44:34.7461666Z\",\r\n    \"status\": \"completed\",\r\n    \"errors\":
+        []\r\n  },\r\n  \"shipment_id\": \"se-898517762\",\r\n  \"carrier_id\": \"%SHIPENGINE_CARRIER_ID%\",\r\n
+        \ \"service_code\": \"apc_priority_ddp_delcon\",\r\n  \"external_shipment_id\":
+        null,\r\n  \"shipment_number\": null,\r\n  \"ship_date\": \"2023-11-03T00:00:00Z\",\r\n
+        \ \"created_at\": \"2023-11-03T19:44:34.333Z\",\r\n  \"modified_at\": \"2023-11-03T19:44:34.273Z\",\r\n
+        \ \"shipment_status\": \"pending\",\r\n  \"ship_to\": {\r\n    \"instructions\":
+        null,\r\n    \"name\": \"Jane Doe\",\r\n    \"phone\": \"555-555-0199\",\r\n
+        \   \"email\": null,\r\n    \"company_name\": \"Company\",\r\n    \"address_line1\":
+        \"15 7 Ave\",\r\n    \"address_line2\": \"South\",\r\n    \"address_line3\":
+        null,\r\n    \"city_locality\": \"Herndon\",\r\n    \"state_province\": \"AB\",\r\n
+        \   \"postal_code\": \"T0A3J0\",\r\n    \"country_code\": \"CA\",\r\n    \"address_residential_indicator\":
+        \"no\"\r\n  },\r\n  \"ship_from\": {\r\n    \"instructions\": null,\r\n    \"name\":
+        \"Jane Doe\",\r\n    \"phone\": \"555-555-0199\",\r\n    \"email\": null,\r\n
+        \   \"company_name\": \"Company\",\r\n    \"address_line1\": \"11 Lovely Street\",\r\n
+        \   \"address_line2\": \"South\",\r\n    \"address_line3\": null,\r\n    \"city_locality\":
+        \"Herndon\",\r\n    \"state_province\": \"IL\",\r\n    \"postal_code\": \"78756\",\r\n
+        \   \"country_code\": \"US\",\r\n    \"address_residential_indicator\": \"no\"\r\n
+        \ },\r\n  \"warehouse_id\": null,\r\n  \"return_to\": {\r\n    \"instructions\":
+        null,\r\n    \"name\": \"Jane Doe\",\r\n    \"phone\": \"555-555-0199\",\r\n
+        \   \"email\": null,\r\n    \"company_name\": \"Company\",\r\n    \"address_line1\":
+        \"11 Lovely Street\",\r\n    \"address_line2\": \"South\",\r\n    \"address_line3\":
+        null,\r\n    \"city_locality\": \"Herndon\",\r\n    \"state_province\": \"IL\",\r\n
+        \   \"postal_code\": \"78756\",\r\n    \"country_code\": \"US\",\r\n    \"address_residential_indicator\":
+        \"no\"\r\n  },\r\n  \"is_return\": false,\r\n  \"confirmation\": \"none\",\r\n
+        \ \"customs\": {\r\n    \"contents\": \"merchandise\",\r\n    \"contents_explanation\":
+        null,\r\n    \"customs_items\": [],\r\n    \"non_delivery\": \"return_to_sender\",\r\n
+        \   \"buyer_shipping_amount_paid\": null,\r\n    \"duties_paid\": null,\r\n
+        \   \"terms_of_trade_code\": null,\r\n    \"declaration\": null,\r\n    \"invoice_additional_details\":
+        {\r\n      \"freight_charge\": null,\r\n      \"insurance_charge\": null,\r\n
+        \     \"other_charge\": null,\r\n      \"other_charge_description\": null,\r\n
+        \     \"discount\": null\r\n    },\r\n    \"importer_of_record\": null\r\n
+        \ },\r\n  \"external_order_id\": null,\r\n  \"order_source_code\": null,\r\n
+        \ \"advanced_options\": {\r\n    \"bill_to_account\": null,\r\n    \"bill_to_country_code\":
+        null,\r\n    \"bill_to_party\": null,\r\n    \"bill_to_postal_code\": null,\r\n
+        \   \"contains_alcohol\": false,\r\n    \"delivered_duty_paid\": false,\r\n
+        \   \"non_machinable\": false,\r\n    \"saturday_delivery\": false,\r\n    \"dry_ice\":
+        false,\r\n    \"dry_ice_weight\": null,\r\n    \"fedex_freight\": null,\r\n
+        \   \"third_party_consignee\": false,\r\n    \"ancillary_endorsements_option\":
+        null,\r\n    \"freight_class\": null,\r\n    \"custom_field1\": null,\r\n
+        \   \"custom_field2\": null,\r\n    \"custom_field3\": null,\r\n    \"collect_on_delivery\":
+        null,\r\n    \"return_pickup_attempts\": null,\r\n    \"additional_handling\":
+        false,\r\n    \"own_document_upload\": false,\r\n    \"limited_quantity\":
+        false\r\n  },\r\n  \"comparison_rate_type\": null,\r\n  \"insurance_provider\":
+        \"none\",\r\n  \"tags\": [],\r\n  \"packages\": [\r\n    {\r\n      \"shipment_package_id\":
+        \"se-1055318223\",\r\n      \"package_id\": \"se-3\",\r\n      \"package_code\":
+        \"package\",\r\n      \"package_name\": \"Package\",\r\n      \"weight\":
+        {\r\n        \"value\": 0.72,\r\n        \"unit\": \"pound\"\r\n      },\r\n
+        \     \"dimensions\": {\r\n        \"unit\": \"inch\",\r\n        \"length\":
+        7.87,\r\n        \"width\": 5.90,\r\n        \"height\": 11.81\r\n      },\r\n
+        \     \"insured_value\": {\r\n        \"currency\": \"usd\",\r\n        \"amount\":
+        0.00\r\n      },\r\n      \"label_messages\": {\r\n        \"reference1\":
+        null,\r\n        \"reference2\": null,\r\n        \"reference3\": null\r\n
+        \     },\r\n      \"external_package_id\": null,\r\n      \"content_description\":
+        null,\r\n      \"products\": [\r\n        {\r\n          \"product_id\": \"se-203368488\",\r\n
+        \         \"description\": \"Broom\",\r\n          \"quantity\": 1,\r\n          \"value\":
+        {\r\n            \"currency\": \"usd\",\r\n            \"amount\": 25.00\r\n
+        \         },\r\n          \"harmonized_tariff_code\": null,\r\n          \"country_of_origin\":
+        null,\r\n          \"unit_of_measure\": null,\r\n          \"weight\": null,\r\n
+        \         \"product_url\": null,\r\n          \"vat_rate\": null,\r\n          \"mid_code\":
+        null,\r\n          \"dangerous_goods\": []\r\n        },\r\n        {\r\n
+        \         \"product_id\": \"se-203368489\",\r\n          \"description\":
+        \"Broom\",\r\n          \"quantity\": 1,\r\n          \"value\": {\r\n            \"currency\":
+        \"usd\",\r\n            \"amount\": 25.00\r\n          },\r\n          \"harmonized_tariff_code\":
+        null,\r\n          \"country_of_origin\": null,\r\n          \"unit_of_measure\":
+        null,\r\n          \"weight\": null,\r\n          \"product_url\": null,\r\n
+        \         \"vat_rate\": null,\r\n          \"mid_code\": null,\r\n          \"dangerous_goods\":
+        []\r\n        },\r\n        {\r\n          \"product_id\": \"se-203368490\",\r\n
+        \         \"description\": \"Broom\",\r\n          \"quantity\": 1,\r\n          \"value\":
+        {\r\n            \"currency\": \"usd\",\r\n            \"amount\": 25.00\r\n
+        \         },\r\n          \"harmonized_tariff_code\": null,\r\n          \"country_of_origin\":
+        null,\r\n          \"unit_of_measure\": null,\r\n          \"weight\": null,\r\n
+        \         \"product_url\": null,\r\n          \"vat_rate\": null,\r\n          \"mid_code\":
+        null,\r\n          \"dangerous_goods\": []\r\n        }\r\n      ]\r\n    }\r\n
+        \ ],\r\n  \"total_weight\": {\r\n    \"value\": 0.72,\r\n    \"unit\": \"pound\"\r\n
+        \ },\r\n  \"items\": [\r\n    {\r\n      \"sales_order_id\": null,\r\n      \"sales_order_item_id\":
+        null,\r\n      \"quantity\": 0,\r\n      \"name\": \"Broom\",\r\n      \"sku\":
+        null,\r\n      \"external_order_id\": null,\r\n      \"external_order_item_id\":
+        null,\r\n      \"asin\": null,\r\n      \"order_source_code\": null\r\n    },\r\n
+        \   {\r\n      \"sales_order_id\": null,\r\n      \"sales_order_item_id\":
+        null,\r\n      \"quantity\": 0,\r\n      \"name\": \"Broom\",\r\n      \"sku\":
+        null,\r\n      \"external_order_id\": null,\r\n      \"external_order_item_id\":
+        null,\r\n      \"asin\": null,\r\n      \"order_source_code\": null\r\n    },\r\n
+        \   {\r\n      \"sales_order_id\": null,\r\n      \"sales_order_item_id\":
+        null,\r\n      \"quantity\": 0,\r\n      \"name\": \"Broom\",\r\n      \"sku\":
+        null,\r\n      \"external_order_id\": null,\r\n      \"external_order_item_id\":
+        null,\r\n      \"asin\": null,\r\n      \"order_source_code\": null\r\n    }\r\n
+        \ ]\r\n}"
+  recorded_at: Fri, 03 Nov 2023 19:44:34 GMT
+recorded_with: VCR 6.1.0

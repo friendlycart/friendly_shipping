@@ -1,0 +1,94 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://api.shipengine.com/v1/rates/estimate
+      body:
+        encoding: UTF-8
+        string: '{"carrier_ids":["%SHIPENGINE_CARRIER_ID%"],"service_code":"apc_priority_ddp_delcon","from_country_code":"US","from_postal_code":"78756","to_country_code":"CA","to_postal_code":"T0A3J0","to_city_locality":"Herndon","to_state_province":"AB","weight":{"value":21.39013001916236,"unit":"pound"},"dimensions":{"unit":"inch","length":7.874015748031496,"width":5.905511811023622,"height":11.811023622047244},"confirmation":"none","address_residential_indicator":"no","ship_date":"2023-11-06"}'
+      headers:
+        Accept:
+          - "*/*"
+        User-Agent:
+          - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+        Content-Type:
+          - application/json
+        Api-Key:
+          - "%SHIPENGINE_API_KEY%"
+        Content-Length:
+          - '472'
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Host:
+          - api.shipengine.com
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Mon, 06 Nov 2023 18:32:37 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - '2168'
+        Connection:
+          - keep-alive
+        Ratelimit-Reset:
+          - '24'
+        Ratelimit-Limit:
+          - '200'
+        Ratelimit-Remaining:
+          - '199'
+        X-Shipengine-Requestid:
+          - c392a646-0d11-4865-9225-ba746b89354a
+        Request-Id:
+          - c392a646-0d11-4865-9225-ba746b89354a
+        Branch-Name:
+          - bWFpbg
+        Permissions-Policy:
+          - accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),
+            microphone=(), payment=(), usb=(), interest-cohort=()
+        Strict-Transport-Security:
+          - max-age=31536000; includeSubDomains; preload
+        X-Content-Type-Options:
+          - nosniff
+        X-Robots-Tag:
+          - noindex
+        Content-Security-Policy:
+          - default-src 'none'; frame-ancestors 'none'
+      body:
+        encoding: UTF-8
+        string: "[\r\n  {\r\n    \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-555666\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        82.49\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"requested_comparison_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"rate_details\":
+        [],\r\n    \"zone\": null,\r\n    \"package_type\": null,\r\n    \"delivery_days\":
+        null,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        null,\r\n    \"carrier_delivery_days\": null,\r\n    \"ship_date\": \"2023-11-06T00:00:00Z\",\r\n
+        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"APC Expedited DDP\",\r\n
+        \   \"service_code\": \"apc_expedited_ddp\",\r\n    \"trackable\": false,\r\n
+        \   \"carrier_code\": \"apc\",\r\n    \"carrier_nickname\": \"APC East\",\r\n
+        \   \"carrier_friendly_name\": \"APC\",\r\n    \"validation_status\": \"unknown\",\r\n
+        \   \"warning_messages\": [],\r\n    \"error_messages\": []\r\n  },\r\n  {\r\n
+        \   \"rate_type\": \"check\",\r\n    \"carrier_id\": \"se-666777\",\r\n
+        \   \"shipping_amount\": {\r\n      \"currency\": \"usd\",\r\n      \"amount\":
+        47.77\r\n    },\r\n    \"insurance_amount\": {\r\n      \"currency\": \"usd\",\r\n
+        \     \"amount\": 0.0\r\n    },\r\n    \"confirmation_amount\": {\r\n      \"currency\":
+        \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"other_amount\": {\r\n
+        \     \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"requested_comparison_amount\":
+        {\r\n      \"currency\": \"usd\",\r\n      \"amount\": 0.0\r\n    },\r\n    \"rate_details\":
+        [],\r\n    \"zone\": null,\r\n    \"package_type\": null,\r\n    \"delivery_days\":
+        null,\r\n    \"guaranteed_service\": false,\r\n    \"estimated_delivery_date\":
+        null,\r\n    \"carrier_delivery_days\": null,\r\n    \"ship_date\": \"2023-11-06T00:00:00Z\",\r\n
+        \   \"negotiated_rate\": false,\r\n    \"service_type\": \"APC Priority DDP
+        w/ Delcon\",\r\n    \"service_code\": \"apc_priority_ddp_delcon\",\r\n    \"trackable\":
+        false,\r\n    \"carrier_code\": \"apc\",\r\n    \"carrier_nickname\": \"APC
+        East\",\r\n    \"carrier_friendly_name\": \"APC\",\r\n    \"validation_status\":
+        \"unknown\",\r\n    \"warning_messages\": [],\r\n    \"error_messages\": []\r\n
+        \ }\r\n]"
+    recorded_at: Mon, 06 Nov 2023 18:32:36 GMT
+recorded_with: VCR 6.1.0

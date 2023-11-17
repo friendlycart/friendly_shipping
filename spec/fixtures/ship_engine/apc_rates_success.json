@@ -1,0 +1,280 @@
+{
+  "rate_response": {
+    "rates": [
+      {
+        "rate_id": "se-4427748986",
+        "rate_type": "shipment",
+        "carrier_id": "se-555666",
+        "shipping_amount": {
+          "currency": "usd",
+          "amount": 12.97
+        },
+        "insurance_amount": {
+          "currency": "usd",
+          "amount": 0.0
+        },
+        "confirmation_amount": {
+          "currency": "usd",
+          "amount": 0.0
+        },
+        "other_amount": {
+          "currency": "usd",
+          "amount": 0.0
+        },
+        "requested_comparison_amount": {
+          "currency": "usd",
+          "amount": 0.0
+        },
+        "rate_details": [],
+        "zone": null,
+        "package_type": null,
+        "delivery_days": null,
+        "guaranteed_service": false,
+        "estimated_delivery_date": null,
+        "carrier_delivery_days": null,
+        "ship_date": "2023-11-03T00:00:00Z",
+        "negotiated_rate": false,
+        "service_type": "APC Priority DDP w/ Delcon",
+        "service_code": "apc_priority_ddp_delcon",
+        "trackable": false,
+        "carrier_code": "apc",
+        "carrier_nickname": "APC East",
+        "carrier_friendly_name": "APC",
+        "validation_status": "valid",
+        "warning_messages": [],
+        "error_messages": []
+      }
+    ],
+    "invalid_rates": [],
+    "rate_request_id": "se-573760943",
+    "shipment_id": "se-898517762",
+    "created_at": "2023-11-03T19:44:34.7461666Z",
+    "status": "completed",
+    "errors": []
+  },
+  "shipment_id": "se-898517762",
+  "carrier_id": "se-555666",
+  "service_code": "apc_priority_ddp_delcon",
+  "external_shipment_id": null,
+  "shipment_number": null,
+  "ship_date": "2023-11-03T00:00:00Z",
+  "created_at": "2023-11-03T19:44:34.333Z",
+  "modified_at": "2023-11-03T19:44:34.273Z",
+  "shipment_status": "pending",
+  "ship_to": {
+    "instructions": null,
+    "name": "Jane Doe",
+    "phone": "555-555-0199",
+    "email": null,
+    "company_name": "Company",
+    "address_line1": "15 7 Ave",
+    "address_line2": "South",
+    "address_line3": null,
+    "city_locality": "Herndon",
+    "state_province": "AB",
+    "postal_code": "T0A3J0",
+    "country_code": "CA",
+    "address_residential_indicator": "no"
+  },
+  "ship_from": {
+    "instructions": null,
+    "name": "Jane Doe",
+    "phone": "555-555-0199",
+    "email": null,
+    "company_name": "Company",
+    "address_line1": "11 Lovely Street",
+    "address_line2": "South",
+    "address_line3": null,
+    "city_locality": "Herndon",
+    "state_province": "IL",
+    "postal_code": "78756",
+    "country_code": "US",
+    "address_residential_indicator": "no"
+  },
+  "warehouse_id": null,
+  "return_to": {
+    "instructions": null,
+    "name": "Jane Doe",
+    "phone": "555-555-0199",
+    "email": null,
+    "company_name": "Company",
+    "address_line1": "11 Lovely Street",
+    "address_line2": "South",
+    "address_line3": null,
+    "city_locality": "Herndon",
+    "state_province": "IL",
+    "postal_code": "78756",
+    "country_code": "US",
+    "address_residential_indicator": "no"
+  },
+  "is_return": false,
+  "confirmation": "none",
+  "customs": {
+    "contents": "merchandise",
+    "contents_explanation": null,
+    "customs_items": [],
+    "non_delivery": "return_to_sender",
+    "buyer_shipping_amount_paid": null,
+    "duties_paid": null,
+    "terms_of_trade_code": null,
+    "declaration": null,
+    "invoice_additional_details": {
+      "freight_charge": null,
+      "insurance_charge": null,
+      "other_charge": null,
+      "other_charge_description": null,
+      "discount": null
+    },
+    "importer_of_record": null
+  },
+  "external_order_id": null,
+  "order_source_code": null,
+  "advanced_options": {
+    "bill_to_account": null,
+    "bill_to_country_code": null,
+    "bill_to_party": null,
+    "bill_to_postal_code": null,
+    "contains_alcohol": false,
+    "delivered_duty_paid": false,
+    "non_machinable": false,
+    "saturday_delivery": false,
+    "dry_ice": false,
+    "dry_ice_weight": null,
+    "fedex_freight": null,
+    "third_party_consignee": false,
+    "ancillary_endorsements_option": null,
+    "freight_class": null,
+    "custom_field1": null,
+    "custom_field2": null,
+    "custom_field3": null,
+    "collect_on_delivery": null,
+    "return_pickup_attempts": null,
+    "additional_handling": false,
+    "own_document_upload": false,
+    "limited_quantity": false
+  },
+  "comparison_rate_type": null,
+  "insurance_provider": "none",
+  "tags": [],
+  "packages": [
+    {
+      "shipment_package_id": "se-1055318223",
+      "package_id": "se-3",
+      "package_code": "package",
+      "package_name": "Package",
+      "weight": {
+        "value": 0.72,
+        "unit": "pound"
+      },
+      "dimensions": {
+        "unit": "inch",
+        "length": 7.87,
+        "width": 5.90,
+        "height": 11.81
+      },
+      "insured_value": {
+        "currency": "usd",
+        "amount": 0.00
+      },
+      "label_messages": {
+        "reference1": null,
+        "reference2": null,
+        "reference3": null
+      },
+      "external_package_id": null,
+      "content_description": null,
+      "products": [
+        {
+          "product_id": "se-203368488",
+          "description": "Broom",
+          "quantity": 1,
+          "value": {
+            "currency": "usd",
+            "amount": 25.00
+          },
+          "harmonized_tariff_code": null,
+          "country_of_origin": null,
+          "unit_of_measure": null,
+          "weight": null,
+          "product_url": null,
+          "vat_rate": null,
+          "mid_code": null,
+          "dangerous_goods": []
+        },
+        {
+          "product_id": "se-203368489",
+          "description": "Broom",
+          "quantity": 1,
+          "value": {
+            "currency": "usd",
+            "amount": 25.00
+          },
+          "harmonized_tariff_code": null,
+          "country_of_origin": null,
+          "unit_of_measure": null,
+          "weight": null,
+          "product_url": null,
+          "vat_rate": null,
+          "mid_code": null,
+          "dangerous_goods": []
+        },
+        {
+          "product_id": "se-203368490",
+          "description": "Broom",
+          "quantity": 1,
+          "value": {
+            "currency": "usd",
+            "amount": 25.00
+          },
+          "harmonized_tariff_code": null,
+          "country_of_origin": null,
+          "unit_of_measure": null,
+          "weight": null,
+          "product_url": null,
+          "vat_rate": null,
+          "mid_code": null,
+          "dangerous_goods": []
+        }
+      ]
+    }
+  ],
+  "total_weight": {
+    "value": 0.72,
+    "unit": "pound"
+  },
+  "items": [
+    {
+      "sales_order_id": null,
+      "sales_order_item_id": null,
+      "quantity": 0,
+      "name": "Broom",
+      "sku": null,
+      "external_order_id": null,
+      "external_order_item_id": null,
+      "asin": null,
+      "order_source_code": null
+    },
+    {
+      "sales_order_id": null,
+      "sales_order_item_id": null,
+      "quantity": 0,
+      "name": "Broom",
+      "sku": null,
+      "external_order_id": null,
+      "external_order_item_id": null,
+      "asin": null,
+      "order_source_code": null
+    },
+    {
+      "sales_order_id": null,
+      "sales_order_item_id": null,
+      "quantity": 0,
+      "name": "Broom",
+      "sku": null,
+      "external_order_id": null,
+      "external_order_item_id": null,
+      "asin": null,
+      "order_source_code": null
+    }
+  ]
+}

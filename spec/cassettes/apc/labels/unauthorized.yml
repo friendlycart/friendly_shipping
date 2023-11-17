@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/labels
+    body:
+      encoding: UTF-8
+      string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"apc_priority_ddp_delcon","ship_to":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"15 7
+        Ave","address_line2":"South","city_locality":"Herndon","state_province":"AB","postal_code":"T0A3J0","country_code":"CA","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"78756","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":342.24208030659776,"unit":"ounce"},"label_messages":{},"package_code":null,"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"apc","customs":{"contents":"merchandise","non_delivery":"return_to_sender","customs_items":[{"sku":null,"description":"Broom","quantity":3,"value":{"amount":"25.0","currency":"USD"},"harmonized_tariff_code":null,"country_of_origin":null}]}},"test_label":true}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Api-Key:
+      - ''
+      Content-Length:
+      - '1078'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Tue, 07 Nov 2023 21:49:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '209'
+      Connection:
+      - keep-alive
+      Response-Condition:
+      - condition-6622
+      X-Shipengine-Requestid:
+      - 1831ef62-14bd-4e81-85ef-10000c649f21
+      Request-Id:
+      - 1831ef62-14bd-4e81-85ef-10000c649f21
+      Branch-Name:
+      - bWFpbg
+      Permissions-Policy:
+      - accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),
+        microphone=(), payment=(), usb=(), interest-cohort=()
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Robots-Tag:
+      - noindex
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+    body:
+      encoding: UTF-8
+      string: '{"request_id":"fee342d0-97c1-4379-a1ac-71d5269c877b","errors":[{"error_source":"carrier","error_type":"business_rules", "error_code": "unspecified",  "message": "A shipping carrier error occurred: APC does not support test labels at this time.", "carrier_id": "%SHIPENGINE_CARRIER_ID%", "carrier_code":"apc","carrier_name":"APC"}]}'
+  recorded_at: Tue, 07 Nov 2023 21:49:05 GMT
+recorded_with: VCR 6.1.0

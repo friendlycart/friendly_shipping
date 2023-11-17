@@ -1,0 +1,13 @@
+{
+  "request_id": "36524513-b4a4-48c0-9a3d-113e97ee35af",
+  "errors": [
+    {
+      "method": "POST",
+      "error_type": "security",
+      "path": "/v1/labels",
+      "message": "Access denied.",
+      "error_code": "unauthorized",
+      "error_source": "shipengine"
+    }
+  ]
+}

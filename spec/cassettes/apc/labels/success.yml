@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/labels
+    body:
+      encoding: UTF-8
+      string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"apc_priority_ddp_delcon","ship_to":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"15 7
+        Ave","address_line2":"South","city_locality":"Herndon","state_province":"AB","postal_code":"T0A3J0","country_code":"CA","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
+        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"78756","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":342.24208030659776,"unit":"ounce"},"label_messages":{},"package_code":null,"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"%SHIPENGINE_CARRIER_ID%","customs":{"contents":"merchandise","non_delivery":"return_to_sender","customs_items":[{"sku":null,"description":"Broom","quantity":3,"value":{"amount":"25.0","currency":"USD"},"harmonized_tariff_code":null,"country_of_origin":null}]}}}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '1067'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 07 Nov 2023 21:57:52 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2159'
+      Connection:
+      - keep-alive
+      Ratelimit-Reset:
+      - '10'
+      Ratelimit-Limit:
+      - '200'
+      Ratelimit-Remaining:
+      - '198'
+      X-Shipengine-Requestid:
+      - '08846c30-73ef-458a-b3a9-bb099596f5a8'
+      Request-Id:
+      - '08846c30-73ef-458a-b3a9-bb099596f5a8'
+      Branch-Name:
+      - bWFpbg
+      Permissions-Policy:
+      - accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),
+        microphone=(), payment=(), usb=(), interest-cohort=()
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Robots-Tag:
+      - noindex
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"label_id\": \"se-368523903\",\r\n  \"status\": \"completed\",\r\n
+        \ \"shipment_id\": \"se-911476892\",\r\n  \"ship_date\": \"2023-11-07T08:00:00Z\",\r\n
+        \ \"created_at\": \"2023-11-07T21:57:50.9967617Z\",\r\n  \"shipment_cost\":
+        {\r\n    \"currency\": \"usd\",\r\n    \"amount\": 47.77\r\n  },\r\n  \"insurance_cost\":
+        {\r\n    \"currency\": \"usd\",\r\n    \"amount\": 0.0\r\n  },\r\n  \"requested_comparison_amount\":
+        null,\r\n  \"rate_details\": [],\r\n  \"tracking_number\": \"1913101260000007\",\r\n
+        \ \"is_return_label\": false,\r\n  \"rma_number\": null,\r\n  \"is_international\":
+        true,\r\n  \"batch_id\": \"\",\r\n  \"carrier_id\": \"%SHIPENGINE_CARRIER_ID%\",\r\n
+        \ \"service_code\": \"apc_priority_ddp_delcon\",\r\n  \"package_code\": \"package\",\r\n
+        \ \"voided\": false,\r\n  \"voided_at\": null,\r\n  \"label_format\": \"pdf\",\r\n
+        \ \"display_scheme\": \"label\",\r\n  \"label_layout\": \"4x6\",\r\n  \"trackable\":
+        false,\r\n  \"label_image_id\": null,\r\n  \"carrier_code\": \"apc\",\r\n
+        \ \"tracking_status\": \"unknown\",\r\n  \"label_download\": {\r\n    \"pdf\":
+        \"https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-368523903.pdf\",\r\n
+        \   \"png\": \"https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-368523903.png\",\r\n
+        \   \"zpl\": \"https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-368523903.zpl\",\r\n
+        \   \"href\": \"https://api.shipengine.com/v1/downloads/10/HL0TXjjxE0edwIc5WlOsvg/label-368523903.pdf\"\r\n
+        \ },\r\n  \"form_download\": null,\r\n  \"qr_code_download\": null,\r\n  \"insurance_claim\":
+        null,\r\n  \"packages\": [\r\n    {\r\n      \"package_id\": 385838181,\r\n
+        \     \"package_code\": \"package\",\r\n      \"weight\": {\r\n        \"value\":
+        342.24,\r\n        \"unit\": \"ounce\"\r\n      },\r\n      \"dimensions\":
+        {\r\n        \"unit\": \"inch\",\r\n        \"length\": 7.87,\r\n        \"width\":
+        5.91,\r\n        \"height\": 11.81\r\n      },\r\n      \"insured_value\":
+        {\r\n        \"currency\": \"usd\",\r\n        \"amount\": 0.00\r\n      },\r\n
+        \     \"tracking_number\": \"1913101260000007\",\r\n      \"qr_code_download\":
+        null,\r\n      \"label_messages\": {\r\n        \"reference1\": null,\r\n
+        \       \"reference2\": null,\r\n        \"reference3\": null\r\n      },\r\n
+        \     \"external_package_id\": null,\r\n      \"content_description\": null,\r\n
+        \     \"sequence\": 1\r\n    }\r\n  ],\r\n  \"charge_event\": \"carrier_default\",\r\n
+        \ \"alternative_identifiers\": []\r\n}"
+  recorded_at: Tue, 07 Nov 2023 21:57:52 GMT
+recorded_with: VCR 6.1.0

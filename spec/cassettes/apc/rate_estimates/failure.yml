@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/rates/estimate
+    body:
+      encoding: UTF-8
+      string: '{"carrier_ids":["%SHIPENGINE_CARRIER_ID%"],"service_code":"apc_priority_ddp_delcon","from_country_code":"US","from_postal_code":"78756","to_country_code":"CA","to_postal_code":"T0A3J0","to_city_locality":"Herndon","to_state_province":"AB","weight":{"value":99.47949521284937,"unit":"pound"},"dimensions":{"unit":"inch","length":7.874015748031496,"width":5.905511811023622,"height":11.811023622047244},"confirmation":"none","address_residential_indicator":"no","ship_date":"2023-11-06"}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '472'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 06 Nov 2023 18:46:12 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Ratelimit-Reset:
+      - '49'
+      Ratelimit-Limit:
+      - '200'
+      Ratelimit-Remaining:
+      - '199'
+      X-Shipengine-Requestid:
+      - 8b7aa41b-4ae3-4556-902b-e338f3cf8b99
+      Request-Id:
+      - 8b7aa41b-4ae3-4556-902b-e338f3cf8b99
+      Branch-Name:
+      - bWFpbg
+      Permissions-Policy:
+      - accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),
+        microphone=(), payment=(), usb=(), interest-cohort=()
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Robots-Tag:
+      - noindex
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+    body:
+      encoding: UTF-8
+      string: "[]"
+  recorded_at: Mon, 06 Nov 2023 18:46:11 GMT
+recorded_with: VCR 6.1.0

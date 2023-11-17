@@ -6,10 +6,15 @@ require 'friendly_shipping/services/ship_engine/bad_request_handler'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
+require 'friendly_shipping/services/ship_engine/serialize_rates_request'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
 require 'friendly_shipping/services/ship_engine/parse_void_response'
-require 'friendly_shipping/services/ship_engine/parse_rate_estimate_response'
+require 'friendly_shipping/services/ship_engine/parse_rate_estimates_response'
+require 'friendly_shipping/services/ship_engine/parse_rates_response'
 require 'friendly_shipping/services/ship_engine/rate_estimates_options'
+require 'friendly_shipping/services/ship_engine/rates_item_options'
+require 'friendly_shipping/services/ship_engine/rates_package_options'
+require 'friendly_shipping/services/ship_engine/rates_options'
 require 'friendly_shipping/services/ship_engine/label_options'
 require 'friendly_shipping/services/ship_engine/label_package_options'
 
@@ -43,6 +48,27 @@ module FriendlyShipping
         end
       end
 
+      # Get rates from ShipEngine
+      #
+      # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
+      # @options [FriendlyShipping::Services::ShipEngine::RatesOptions] The options relevant to rates. See object description.
+      #
+      # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
+      #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
+      #   can be serialized into an error message using `to_s`.
+      def rates(shipment, options:, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: "#{FriendlyShipping::Services::ShipEngine::API_BASE}rates",
+          http_method: "POST",
+          body: SerializeRatesRequest.call(shipment: shipment, options: options).to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        client.post(request).bind do |response|
+          ParseRatesResponse.call(response: response, request: request, options: options)
+        end
+      end
+
       # Get rate estimates from ShipEngine
       #
       # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
@@ -61,7 +87,7 @@ module FriendlyShipping
           debug: debug
         )
         client.post(request).bind do |response|
-          ParseRateEstimateResponse.call(response: response, request: request, options: options)
+          ParseRateEstimatesResponse.call(response: response, request: request, options: options)
         end
       end
 

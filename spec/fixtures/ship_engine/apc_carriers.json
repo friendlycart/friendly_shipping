@@ -1,0 +1,395 @@
+{
+  "carriers": [
+    {
+      "carrier_id": "se-555666",
+      "carrier_code": "apc",
+      "account_number": "SHIPENGINE_APC_ACCOUNT",
+      "requires_funded_amount": false,
+      "balance": 0.0,
+      "nickname": "APC East",
+      "friendly_name": "APC",
+      "primary": true,
+      "has_multi_package_supporting_services": false,
+      "supports_label_messages": true,
+      "disabled_by_billing_plan": false,
+      "services": [
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_expedited_ddu",
+          "name": "APC Expedited DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_expedited_ddp",
+          "name": "APC Expedited DDP",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddu",
+          "name": "APC Priority DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddp",
+          "name": "APC Priority DDP",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddu_delcon",
+          "name": "APC Priority DDU w/ Delcon",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddp_delcon",
+          "name": "APC Priority DDP w/ Delcon",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_usps_pqw",
+          "name": "APC Priority USPS PQW DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_usps_epacket",
+          "name": "APC USPS ePacket DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_standard_ddu",
+          "name": "APC Standard DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_standard_pqw",
+          "name": "APC Standard USPS PQW DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_book_service",
+          "name": "APC Book Service DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "acp_pmi",
+          "name": "APC PMI",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "acp_pmei",
+          "name": "APC PMEI",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_ecom_packet_duty_paid",
+          "name": "APC eCom Packet Duty Paid",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_pmei_duty_paid",
+          "name": "APC PMEI Duty Paid",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-555666",
+          "carrier_code": "apc",
+          "service_code": "apc_pmi_duty_paid",
+          "name": "APC PMI Duty Paid",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        }
+      ],
+      "packages": [
+        {
+          "package_id": null,
+          "package_code": "package",
+          "name": "Package",
+          "description": "Package. Longest side plus the distance around the thickest part is less than or equal to 84\""
+        }
+      ],
+      "options": [
+        {
+          "name": "non_machinable",
+          "default_value": "false",
+          "description": ""
+        },
+        {
+          "name": "bill_to_party",
+          "default_value": null,
+          "description": "Third Party"
+        },
+        {
+          "name": "bill_to_account",
+          "default_value": null,
+          "description": "Bill To Account"
+        },
+        {
+          "name": "bill_to_postal_code",
+          "default_value": null,
+          "description": "Bill To Postal Code"
+        },
+        {
+          "name": "bill_to_country_code",
+          "default_value": null,
+          "description": "Bill To Country Code"
+        }
+      ],
+      "funding_source_id": null
+    },
+    {
+      "carrier_id": "se-666777",
+      "carrier_code": "apc",
+      "account_number": "SHIPENGINE_APC_ACCOUNT_2",
+      "requires_funded_amount": false,
+      "balance": 0.0,
+      "nickname": "APC West",
+      "friendly_name": "APC",
+      "primary": false,
+      "has_multi_package_supporting_services": false,
+      "supports_label_messages": true,
+      "disabled_by_billing_plan": false,
+      "services": [
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_expedited_ddu",
+          "name": "APC Expedited DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_expedited_ddp",
+          "name": "APC Expedited DDP",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddu",
+          "name": "APC Priority DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddp",
+          "name": "APC Priority DDP",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddu_delcon",
+          "name": "APC Priority DDU w/ Delcon",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_priority_ddp_delcon",
+          "name": "APC Priority DDP w/ Delcon",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_usps_pqw",
+          "name": "APC Priority USPS PQW DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_usps_epacket",
+          "name": "APC USPS ePacket DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_standard_ddu",
+          "name": "APC Standard DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_standard_pqw",
+          "name": "APC Standard USPS PQW DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_book_service",
+          "name": "APC Book Service DDU",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "acp_pmi",
+          "name": "APC PMI",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "acp_pmei",
+          "name": "APC PMEI",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_ecom_packet_duty_paid",
+          "name": "APC eCom Packet Duty Paid",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_pmei_duty_paid",
+          "name": "APC PMEI Duty Paid",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        },
+        {
+          "carrier_id": "se-666777",
+          "carrier_code": "apc",
+          "service_code": "apc_pmi_duty_paid",
+          "name": "APC PMI Duty Paid",
+          "domestic": false,
+          "international": true,
+          "is_multi_package_supported": false
+        }
+      ],
+      "packages": [
+        {
+          "package_id": null,
+          "package_code": "package",
+          "name": "Package",
+          "description": "Package. Longest side plus the distance around the thickest part is less than or equal to 84\""
+        }
+      ],
+      "options": [
+        {
+          "name": "non_machinable",
+          "default_value": "false",
+          "description": ""
+        },
+        {
+          "name": "bill_to_party",
+          "default_value": null,
+          "description": "Third Party"
+        },
+        {
+          "name": "bill_to_account",
+          "default_value": null,
+          "description": "Bill To Account"
+        },
+        {
+          "name": "bill_to_postal_code",
+          "default_value": null,
+          "description": "Bill To Postal Code"
+        },
+        {
+          "name": "bill_to_country_code",
+          "default_value": null,
+          "description": "Bill To Country Code"
+        }
+      ],
+      "funding_source_id": null
+    }
+  ],
+  "request_id": "f0199fd3-8138-4dc7-9643-284d27672112"
+}
