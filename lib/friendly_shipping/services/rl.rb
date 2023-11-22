@@ -2,7 +2,7 @@
 
 require 'dry/monads'
 require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/rl/bad_request_handler'
+require 'friendly_shipping/services/rl/api_error'
 require 'friendly_shipping/services/rl/parse_create_bol_response'
 require 'friendly_shipping/services/rl/parse_print_bol_response'
 require 'friendly_shipping/services/rl/parse_print_shipping_labels_response'
@@ -36,16 +36,12 @@ module FriendlyShipping
       # @param [String] api_key
       # @param [Boolean] test
       # @param [FriendlyShipping::HttpClient] client
-      def initialize(
-        api_key:,
-        test: true,
-        client: FriendlyShipping::HttpClient.new(
-          error_handler: FriendlyShipping::Services::RL::BadRequestHandler
-        )
-      )
+      def initialize(api_key:, test: true, client: nil)
         @api_key = api_key
         @test = test
-        @client = client
+
+        error_handler = ApiErrorHandler.new(api_error_class: RL::ApiError)
+        @client = client || HttpClient.new(error_handler: error_handler)
       end
 
       # Create an LTL BOL and schedule a pickup with R+L Carriers

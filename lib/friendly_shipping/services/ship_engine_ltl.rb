@@ -2,7 +2,7 @@
 
 require 'dry/monads'
 require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/ship_engine_ltl/bad_request_handler'
+require 'friendly_shipping/services/ship_engine_ltl/api_error'
 require 'friendly_shipping/services/ship_engine_ltl/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine_ltl/parse_quote_response'
 require 'friendly_shipping/services/ship_engine_ltl/serialize_packages'
@@ -23,16 +23,12 @@ module FriendlyShipping
         quotes: "quotes"
       }.freeze
 
-      def initialize(
-        token:,
-        test: true,
-        client: FriendlyShipping::HttpClient.new(
-          error_handler: FriendlyShipping::Services::ShipEngineLTL::BadRequestHandler
-        )
-      )
+      def initialize(token:, test: true, client: nil)
         @token = token
         @test = test
-        @client = client
+
+        error_handler = ApiErrorHandler.new(api_error_class: ShipEngineLTL::ApiError)
+        @client = client || HttpClient.new(error_handler: error_handler)
       end
 
       # Get configured LTL carriers from ShipEngine

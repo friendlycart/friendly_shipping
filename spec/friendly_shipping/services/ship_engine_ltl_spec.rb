@@ -14,6 +14,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
     it { is_expected.not_to respond_to :token }
   end
 
+  describe 'client' do
+    subject(:client) { service.send :client }
+
+    it { is_expected.to be_a(FriendlyShipping::HttpClient) }
+    it { expect(client.error_handler).to be_a(FriendlyShipping::ApiErrorHandler) }
+    it { expect(client.error_handler.api_error_class).to eq(FriendlyShipping::Services::ShipEngineLTL::ApiError) }
+  end
+
   describe '#carriers' do
     subject { service.carriers }
 
@@ -29,7 +37,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
       let(:service) { described_class.new(token: 'invalid_token') }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a RestClient::Unauthorized }
+      it { expect(subject.failure.data.cause).to be_a RestClient::Unauthorized }
     end
   end
 
@@ -54,7 +62,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
       let(:scac) { 'bogus' }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::BadRequest }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::ApiError }
       it { expect(subject.failure.data.message).to eq('Invalid carrier SCAC') }
     end
   end
@@ -80,7 +88,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
       let(:carrier_id) { 'bogus' }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a RestClient::Unauthorized }
+      it { expect(subject.failure.data.cause).to be_a RestClient::Unauthorized }
     end
   end
 
@@ -138,7 +146,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
       let(:carrier_id) { 'bogus' }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::BadRequest }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::ApiError }
       it { expect(subject.failure.data.message).to include('Invalid carrier_id. bogus is not a valid carrier_id.') }
     end
   end

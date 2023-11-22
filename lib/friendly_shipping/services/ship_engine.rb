@@ -2,7 +2,7 @@
 
 require 'dry/monads'
 require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/ship_engine/bad_request_handler'
+require 'friendly_shipping/services/ship_engine/api_error'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
@@ -22,10 +22,12 @@ module FriendlyShipping
         labels: "labels"
       }.freeze
 
-      def initialize(token:, test: true, client: FriendlyShipping::HttpClient.new(error_handler: BadRequestHandler))
+      def initialize(token:, test: true, client: nil)
         @token = token
         @test = test
-        @client = client
+
+        error_handler = ApiErrorHandler.new(api_error_class: ShipEngine::ApiError)
+        @client = client || HttpClient.new(error_handler: error_handler)
       end
 
       # Get configured carriers from ShipEngine

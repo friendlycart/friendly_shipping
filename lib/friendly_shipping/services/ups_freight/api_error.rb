@@ -13,11 +13,12 @@ module FriendlyShipping
 
         private
 
-        # @param [RestClient::Exception] cause
-        def parse_message(cause)
-          return cause.message unless cause.response
+        # @param [RestClient::Exception] error
+        # @return [String]
+        def parse_message(error)
+          return error.message unless error.response
 
-          parsed_json = JSON.parse(cause.response.body)
+          parsed_json = JSON.parse(error.response.body)
 
           if parsed_json['httpCode'].present?
             status = [parsed_json['httpCode'], parsed_json['httpMessage']].compact.join(" ")
@@ -31,6 +32,8 @@ module FriendlyShipping
               [status, desc].compact.join(": ").presence || "UPS Freight could not process the request."
             end.join("\n")
           end
+        rescue JSON::ParserError, KeyError => _e
+          nil
         end
       end
     end

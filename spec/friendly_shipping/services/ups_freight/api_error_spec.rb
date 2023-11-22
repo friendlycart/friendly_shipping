@@ -9,12 +9,12 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ApiError do
 
     subject { described_class.new(error).message }
 
-    context "with HTTP error response" do
+    context "with API error response" do
       let(:fixture) { "failure_with_multiple_errors.json" }
       it { is_expected.to eq("9360721: Missing or Invalid Attention name in the request.\n9370701: Invalid processing option.") }
     end
 
-    context "with API error response" do
+    context "with HTTP error response" do
       let(:fixture) { "failure_with_http_error.json" }
       it { is_expected.to eq("400 Bad Request: The body of the request, which was expected to be JSON, was invalid.") }
     end

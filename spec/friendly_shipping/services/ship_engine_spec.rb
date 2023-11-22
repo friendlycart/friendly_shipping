@@ -11,6 +11,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     it { is_expected.not_to respond_to :token }
   end
 
+  describe 'client' do
+    subject(:client) { service.send :client }
+
+    it { is_expected.to be_a(FriendlyShipping::HttpClient) }
+    it { expect(client.error_handler).to be_a(FriendlyShipping::ApiErrorHandler) }
+    it { expect(client.error_handler.api_error_class).to eq(FriendlyShipping::Services::ShipEngine::ApiError) }
+  end
+
   describe 'carriers' do
     subject { service.carriers }
 

@@ -11,6 +11,14 @@ RSpec.describe FriendlyShipping::Services::RL do
     it { is_expected.to respond_to :client }
   end
 
+  describe 'client' do
+    subject(:client) { service.client }
+
+    it { is_expected.to be_a(FriendlyShipping::HttpClient) }
+    it { expect(client.error_handler).to be_a(FriendlyShipping::ApiErrorHandler) }
+    it { expect(client.error_handler.api_error_class).to eq(FriendlyShipping::Services::RL::ApiError) }
+  end
+
   let(:shipment) do
     FactoryBot.build(
       :physical_shipment,
@@ -104,7 +112,7 @@ RSpec.describe FriendlyShipping::Services::RL do
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: []) }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::BadRequest }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::ApiError }
       it { expect(subject.failure.data.message).to include("There must be at least one item in the list") }
     end
   end
@@ -184,7 +192,7 @@ RSpec.describe FriendlyShipping::Services::RL do
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: []) }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::BadRequest }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::ApiError }
       it { expect(subject.failure.data.message).to include("At least one Item is required") }
     end
   end
@@ -215,7 +223,7 @@ RSpec.describe FriendlyShipping::Services::RL do
       let(:destination) { FactoryBot.build(:physical_location, zip: nil) }
 
       it { is_expected.to be_a Dry::Monads::Failure }
-      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::BadRequest }
+      it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::ApiError }
       it { expect(subject.failure.data.message).to include("ServicePoint Zip code is required and cannot be null or empty") }
     end
   end
