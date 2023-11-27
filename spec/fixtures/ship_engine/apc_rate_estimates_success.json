@@ -1,0 +1,86 @@
+[
+  {
+    "rate_type": "check",
+    "carrier_id": "se-555666",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 82.49
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "requested_comparison_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "rate_details": [],
+    "zone": null,
+    "package_type": null,
+    "delivery_days": null,
+    "guaranteed_service": false,
+    "estimated_delivery_date": null,
+    "carrier_delivery_days": null,
+    "ship_date": "2023-11-06T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "APC Expedited DDP",
+    "service_code": "apc_expedited_ddp",
+    "trackable": false,
+    "carrier_code": "apc",
+    "carrier_nickname": "APC East",
+    "carrier_friendly_name": "APC",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  },
+  {
+    "rate_type": "check",
+    "carrier_id": "se-666777",
+    "shipping_amount": {
+      "currency": "usd",
+      "amount": 47.77
+    },
+    "insurance_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "confirmation_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "other_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "requested_comparison_amount": {
+      "currency": "usd",
+      "amount": 0.0
+    },
+    "rate_details": [],
+    "zone": null,
+    "package_type": null,
+    "delivery_days": null,
+    "guaranteed_service": false,
+    "estimated_delivery_date": null,
+    "carrier_delivery_days": null,
+    "ship_date": "2023-11-06T00:00:00Z",
+    "negotiated_rate": false,
+    "service_type": "APC Priority DDP w/ Delcon",
+    "service_code": "apc_priority_ddp_delcon",
+    "trackable": false,
+    "carrier_code": "apc",
+    "carrier_nickname": "APC East",
+    "carrier_friendly_name": "APC",
+    "validation_status": "unknown",
+    "warning_messages": [],
+    "error_messages": []
+  }
+]

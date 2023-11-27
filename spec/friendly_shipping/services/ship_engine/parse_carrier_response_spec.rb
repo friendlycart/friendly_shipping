@@ -16,7 +16,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseCarrierResponse, vcr
   end
 
   it "contains correct data in the carrier" do
-    expect(carrier.id).to eq('se-76432')
+    expect(carrier.id).to eq('se-444333')
     expect(carrier.name).to eq('Stamps.com')
     expect(carrier.code).to eq('stamps_com')
     expect(carrier.shipping_methods).to be_a(Array)

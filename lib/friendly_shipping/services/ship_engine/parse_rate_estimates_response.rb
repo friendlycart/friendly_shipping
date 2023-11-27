@@ -5,7 +5,7 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngine
-      class ParseRateEstimateResponse
+      class ParseRateEstimatesResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
@@ -31,7 +31,7 @@ module FriendlyShipping
                 shipping_method: shipping_method,
                 amounts: amounts,
                 remote_service_id: rate['rate_id'],
-                delivery_date: Time.parse(rate['estimated_delivery_date']),
+                delivery_date: rate['estimated_delivery_date'] && Time.parse(rate['estimated_delivery_date']),
                 warnings: rate['warning_messages'],
                 errors: rate['error_messages']
               )

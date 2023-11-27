@@ -88,6 +88,79 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
   end
 
+  describe 'rates' do
+    let(:package) { FactoryBot.build(:physical_package, items: FactoryBot.build_list(:physical_item, 3, description: "Broom", cost: Money.new(2500, 'USD'), weight: Measured::Weight.new(7, "pounds"))) }
+    let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
+    let(:country) { Carmen::Country.named("Canada") }
+    let(:destination) { FactoryBot.build(:physical_location, country: country, region: country.subregions.coded("AB"), address1: '123 4 Ave', zip: 'T0A3J0') }
+    let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], origin: origin, destination: destination, service_code: 'apc_priority_ddp_delcon' ) }
+    let(:service_code) { "apc_priority_ddp_delcon" }
+    let(:carriers) { [service.carriers.value!.data.last] }
+    let(:rates_options) { FriendlyShipping::Services::ShipEngine::RatesOptions.new(carriers: carriers, service_code: service_code, package_options: [rates_package_options]) }
+    let(:rates_package_options) { FriendlyShipping::Services::ShipEngine::RatesPackageOptions.new(package_id: package.id, item_options: rates_item_options) }
+    let(:rates_item_options) do
+      [
+        FriendlyShipping::Services::ShipEngine::RatesItemOptions.new(
+          item_id: package.items.first.id,
+          country_of_origin: "US",
+          commodity_code: "9603-10-0000",
+        )
+      ]
+    end
+
+    subject { service.rates(shipment, options: rates_options) }
+
+    it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'shipengine/rates/success' } do
+      aggregate_failures do
+        is_expected.to be_success
+        expect(subject.value!.data).to be_a(Array)
+        expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+        expect(subject.value!.original_request).to be nil
+        expect(subject.value!.original_response).to be nil
+      end
+    end
+
+    context 'with debug set to true' do
+      subject { service.rates(shipment, options: rates_options, debug: true) }
+
+      it 'returns original request and response along with the data', vcr: { cassette_name: 'shipengine/rates/success' } do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first).to be_a(FriendlyShipping::Rate)
+          expect(subject.value!.original_request).to be_present
+          expect(subject.value!.original_response).to be_present
+        end
+      end
+    end
+
+    context 'when not specifying carriers' do
+      let(:rates_options) { FriendlyShipping::Services::ShipEngine::RatesOptions.new }
+
+      it 'fails' do
+        expect { subject }.to raise_exception(ArgumentError)
+      end
+    end
+
+    context 'with a super heavy package', vcr: { cassette_name: 'shipengine/rates/overweight' } do
+      let(:package) { FactoryBot.build(:physical_package, items: FactoryBot.build_list(:physical_item, 30, description: "Broom", cost: Money.new(2500, 'USD'), weight: Measured::Weight.new(7, "pounds"))) }
+      let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
+      let(:country) { Carmen::Country.named("Canada") }
+      let(:destination) { FactoryBot.build(:physical_location, country: country, region: country.subregions.coded("AB"), address1: '123 4 Ave', zip: 'T0A3J0') }
+      let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package], origin: origin, destination: destination, service_code: 'apc_priority_ddp_delcon' ) }
+      let(:service_code) { "apc_priority_ddp_delcon" }
+      let(:carriers) { [service.carriers.value!.data.last] }
+      let(:options) { FriendlyShipping::Services::ShipEngine::RatesOptions.new(carriers: carriers, service_code: service_code) }
+
+      it 'returns a failure with error messages' do
+        aggregate_failures do
+          is_expected.to be_failure
+          expect(subject.failure.to_s).to eq("A shipping carrier error occurred: Unable to determine base rate from rate chart. (Weight: 210.3798, zone: CA, country: CA)")
+        end
+      end
+    end
+  end
+
   describe 'labels' do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }

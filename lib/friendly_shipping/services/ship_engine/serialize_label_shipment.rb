@@ -25,6 +25,7 @@ module FriendlyShipping
               shipment_hash[:shipment][:customs] = serialize_customs(shipment.packages, options)
             end
 
+            # Not all carriers support test labels
             if test
               shipment_hash[:test_label] = true
             end
