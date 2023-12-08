@@ -77,14 +77,14 @@ module FriendlyShipping
           end
 
           def get_amounts(rate_hash)
-            [:shipping, :other, :insurance, :confirmation].map do |name|
+            [:shipping, :other, :insurance, :confirmation].to_h do |name|
               currency = Money::Currency.new(rate_hash["#{name}_amount"]["currency"])
               amount = rate_hash["#{name}_amount"]["amount"] * currency.subunit_to_unit
               [
                 name,
                 Money.new(amount, currency)
               ]
-            end.to_h
+            end
           end
         end
       end

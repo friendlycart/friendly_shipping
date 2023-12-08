@@ -8,7 +8,7 @@ module FriendlyShipping
     # @param [String] message
     def initialize(cause, message = nil)
       @cause = cause
-      super message || cause.message
+      super(message || cause.message)
     end
   end
 end

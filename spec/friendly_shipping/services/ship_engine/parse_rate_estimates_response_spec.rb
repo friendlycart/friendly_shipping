@@ -34,8 +34,8 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimatesRespons
   end
 
   context "apc rate estimates" do
-    let(:carrier_json) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_carriers.json')).read }
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_rate_estimates_success.json')).read }
+    let(:carrier_json) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_carriers.json')) }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_rate_estimates_success.json')) }
 
     it "contains correct data" do
       expect(rate_estimate.shipping_method).to be_a(FriendlyShipping::ShippingMethod)

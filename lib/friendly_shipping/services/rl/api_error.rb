@@ -8,7 +8,7 @@ module FriendlyShipping
       class ApiError < FriendlyShipping::ApiError
         # @param [RestClient::Exception] cause
         def initialize(cause)
-          super cause, parse_message(cause)
+          super(cause, parse_message(cause))
         end
 
         private

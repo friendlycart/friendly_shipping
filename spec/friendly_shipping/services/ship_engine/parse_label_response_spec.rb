@@ -29,7 +29,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseLabelResponse, vcr: 
   end
 
   context "apc label" do
-    let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_labels_success.json')).read }
+    let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_labels_success.json')) }
 
     it "contains the correct data" do
       expect(label.id).to be_present
