@@ -24,7 +24,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
-      - api.rlc.com
+      - apisandbox.rlc.com
   response:
     status:
       code: 200
@@ -44,7 +44,7 @@ http_interactions:
       - '93'
       Set-Cookie:
       - TS01b9bbe9=012f70223ce3a8c3073520f4e0fea57c32ab30bf6423aca1a9b2ec8c6ec2e1a1a225001030a97446395dc89ff6b586da329d0a13ff;
-        Path=/; Domain=.api.rlc.com
+        Path=/; Domain=.apisandbox.rlc.com
     body:
       encoding: UTF-8
       string: '{"ProNumber":"WP7506414","PickupRequestNumber":"74201384","Code":0,"Errors":[],"Messages":[]}'
