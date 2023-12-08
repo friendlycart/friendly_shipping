@@ -5,5 +5,6 @@ if Object.const_defined?('ActiveSupport::Inflector')
   ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.acronym 'BOL'
     inflect.acronym 'RL'
+    inflect.acronym 'TForce'
   end
 end
