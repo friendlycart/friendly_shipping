@@ -59,7 +59,7 @@ module FriendlyShipping
               package_options = options.options_for_package(package)
               package_hash = serialize_weight(package.weight)
               package_hash[:label_messages] = package_options.messages.map.with_index do |message, index|
-                ["reference#{index + 1}".to_sym, message]
+                [:"reference#{index + 1}", message]
               end.to_h
 
               package_hash[:package_code] = package_options.package_code

@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRatesResponse do
-  let(:carrier_json) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_carriers.json')).read }
+  let(:carrier_json) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_carriers.json')) }
   let(:request) { double(debug: true) }
   let(:response) { double(body: response_body) }
-  let(:response_body) { File.open(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_rates_success.json')).read }
+  let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ship_engine', 'apc_rates_success.json')) }
   let(:carriers) { FriendlyShipping::Services::ShipEngine::ParseCarrierResponse.call(request: request, response: double(body: carrier_json)).data }
   let(:options) { FriendlyShipping::Services::ShipEngine::RatesOptions.new(carriers: carriers, service_code: "se-666777") }
   let(:rate_estimate) { subject.value!.data.first }
