@@ -25,7 +25,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse
     expect(shipment_information.documents.last.document_type).to eq(:ups_bol)
     expect(shipment_information.documents.last.binary).to be_present
 
-    expect(shipment_information.number).to eq("022438065")
+    expect(shipment_information.pro_number).to eq("022438065")
     expect(shipment_information.pickup_request_number).to eq("348742132")
     expect(shipment_information.total).to eq(Money.new(17_989, "USD"))
     expect(shipment_information.bol_id).to eq("45760188")
@@ -70,7 +70,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse
       expect(shipment_information.documents.last.document_type).to eq(:ups_bol)
       expect(shipment_information.documents.last.binary).to be_present
 
-      expect(shipment_information.number).to eq("022438065")
+      expect(shipment_information.pro_number).to eq("022438065")
       expect(shipment_information.pickup_request_number).to eq("348742132")
       expect(shipment_information.total).to be_nil
       expect(shipment_information.bol_id).to eq("45760188")

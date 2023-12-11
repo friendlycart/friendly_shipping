@@ -5,7 +5,7 @@ module FriendlyShipping
     class UpsFreight
       class ShipmentInformation
         attr_reader :documents,
-                    :number,
+                    :pro_number,
                     :pickup_request_number,
                     :total,
                     :bol_id,
@@ -13,10 +13,13 @@ module FriendlyShipping
                     :warnings,
                     :data
 
+        # Backwards compatibility after renaming this attribute
+        alias_method :number, :pro_number
+
         def initialize(
           total:,
           bol_id:,
-          number:,
+          pro_number:,
           pickup_request_number: nil,
           documents: [],
           shipping_method: nil,
@@ -25,7 +28,7 @@ module FriendlyShipping
         )
           @total = total
           @bol_id = bol_id
-          @number = number
+          @pro_number = pro_number
           @pickup_request_number = pickup_request_number
           @documents = documents
           @shipping_method = shipping_method

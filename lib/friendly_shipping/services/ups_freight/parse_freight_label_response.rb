@@ -33,7 +33,7 @@ module FriendlyShipping
             images_data = Array.wrap(shipment_results.dig("Documents", "Image"))
 
             bol_id = shipment_results["BOLID"]
-            shipment_number = shipment_results["ShipmentNumber"]
+            pro_number = shipment_results["ShipmentNumber"]
             pickup_request_number = shipment_results["PickupRequestConfirmationNumber"]
 
             documents = images_data.map { |image_data| ParseShipmentDocument.call(image_data: image_data) }
@@ -44,7 +44,7 @@ module FriendlyShipping
               ShipmentInformation.new(
                 total: total_money,
                 bol_id: bol_id,
-                number: shipment_number,
+                pro_number: pro_number,
                 pickup_request_number: pickup_request_number,
                 shipping_method: shipping_method,
                 warnings: warnings,
