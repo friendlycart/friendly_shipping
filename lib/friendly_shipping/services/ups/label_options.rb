@@ -41,6 +41,7 @@ module FriendlyShipping
     # @option reason_for_export [String] A reason to export the current shipment. Possible values: 'SALE', 'GIFT', 'SAMPLE',
     #   'RETURN', 'REPAIR', 'INTERCOMPANYDATA', Any other reason. Default: 'SALE'.
     # @option invoice_date [Date] The invoice date for the shipment
+    # @param declaration_statement [String ] Optional element to add customs declaration text
     #
     class Ups
       class LabelOptions < FriendlyShipping::ShipmentOptions
@@ -101,7 +102,8 @@ module FriendlyShipping
                     :carbon_neutral,
                     :paperless_invoice,
                     :reason_for_export,
-                    :invoice_date
+                    :invoice_date,
+                    :declaration_statement
 
         def initialize(
           shipping_method:,
@@ -124,6 +126,7 @@ module FriendlyShipping
           reason_for_export: 'SALE',
           invoice_date: nil,
           package_options_class: LabelPackageOptions,
+          declaration_statement: nil,
           **kwargs
         )
           raise ArgumentError, "Invalid sub-version: #{sub_version}" unless sub_version.in?(SUB_VERSIONS)
@@ -147,6 +150,7 @@ module FriendlyShipping
           @terms_of_shipment = terms_of_shipment
           @reason_for_export = reason_for_export
           @invoice_date = invoice_date
+          @declaration_statement = declaration_statement
           super(**kwargs.merge(package_options_class: package_options_class))
         end
 
