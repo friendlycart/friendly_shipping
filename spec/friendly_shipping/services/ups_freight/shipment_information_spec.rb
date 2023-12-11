@@ -20,8 +20,6 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ShipmentInformation do
     )
   end
 
-  it { is_expected.to respond_to(:number) }
-
   it 'stores passed information' do
     expect(subject.total).to eq(Money.new(1, "USD"))
     expect(subject.documents).to eq(docs)
@@ -30,5 +28,17 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::ShipmentInformation do
     expect(subject.pickup_request_number).to eq('4321')
     expect(subject.documents).to eq(docs)
     expect(subject.data).to eq({ cost_breakdown: { "Rate" => "520.75" } })
+  end
+
+  describe "backwards compatibility for #number" do
+    subject do
+      described_class.new(
+        number: "1234",
+        total: nil,
+        bol_id: nil
+      ).number
+    end
+
+    it { is_expected.to eq("1234") }
   end
 end
