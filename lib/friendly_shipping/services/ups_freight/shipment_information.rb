@@ -19,7 +19,8 @@ module FriendlyShipping
         def initialize(
           total:,
           bol_id:,
-          pro_number:,
+          number: nil,
+          pro_number: nil,
           pickup_request_number: nil,
           documents: [],
           shipping_method: nil,
@@ -28,7 +29,7 @@ module FriendlyShipping
         )
           @total = total
           @bol_id = bol_id
-          @pro_number = pro_number
+          @pro_number = pro_number || number
           @pickup_request_number = pickup_request_number
           @documents = documents
           @shipping_method = shipping_method
