@@ -362,7 +362,8 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
         shipper_number: '12345',
         paperless_invoice: true,
         terms_of_shipment: :cost_and_freight,
-        package_options: package_options
+        package_options: package_options,
+        declaration_statement: 'I hereby certify...'
       )
     end
 
@@ -391,6 +392,7 @@ RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentConfirmRequest 
       expect(subject.at('ShipmentServiceOptions/InternationalForms/ReasonForExport').text).to eq('SALE')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/CurrencyCode').text).to eq('USD')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/TermsOfShipment').text).to eq('CFR')
+      expect(subject.at('ShipmentServiceOptions/InternationalForms/DeclarationStatement').text).to eq('I hereby certify...')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/Description').text).to eq('Wooden block')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/CommodityCode').text).to eq('6116.10.0000')
       expect(subject.at('ShipmentServiceOptions/InternationalForms/Product/OriginCountryCode').text).to eq('CA')

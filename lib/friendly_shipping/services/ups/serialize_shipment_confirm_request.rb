@@ -242,6 +242,7 @@ module FriendlyShipping
               xml.InvoiceDate(invoice_date.strftime('%Y%m%d'))
               xml.ReasonForExport(reason_for_export)
               xml.CurrencyCode(options.billing_options.currency || 'USD')
+              xml.DeclarationStatement(options.declaration_statement) if options.declaration_statement
 
               if options.terms_of_shipment_code
                 xml.TermsOfShipment(options.terms_of_shipment_code)
