@@ -20,7 +20,7 @@ module FriendlyShipping
                 ReferenceNumbers: serialize_reference_numbers(options.reference_numbers),
                 AdditionalServices: options.additional_service_codes
               }.compact,
-              PickupRequest: serialize_pickup_request(options.pickup_time_window),
+              PickupRequest: serialize_pickup_request(options),
               GenerateUniversalPro: !!options.generate_universal_pro
             }.compact
           end
@@ -66,17 +66,19 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Range] pickup_time_window
+          # @param [FriendlyShipping::Services::RL::BOLOptions] options
           # @return [Hash, nil]
-          def serialize_pickup_request(pickup_time_window)
+          def serialize_pickup_request(options)
+            pickup_time_window = options.pickup_time_window
             return if pickup_time_window.nil?
 
             {
               PickupInformation: {
                 PickupDate: pickup_time_window.begin.strftime('%m/%d/%Y'),
                 ReadyTime: pickup_time_window.begin.strftime('%I:%M %p'),
-                CloseTime: pickup_time_window.end.strftime('%I:%M %p')
-              }
+                CloseTime: pickup_time_window.end.strftime('%I:%M %p'),
+                AdditionalInstructions: options.pickup_instructions
+              }.compact
             }
           end
 
