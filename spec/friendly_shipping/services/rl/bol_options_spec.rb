@@ -15,6 +15,7 @@ RSpec.describe FriendlyShipping::Services::RL::BOLOptions do
   it { is_expected.to respond_to(:pickup_time_window) }
   it { is_expected.to respond_to(:pickup_instructions) }
   it { is_expected.to respond_to(:declared_value) }
+  it { is_expected.to respond_to(:special_instructions) }
   it { is_expected.to respond_to(:reference_numbers) }
   it { is_expected.to respond_to(:additional_service_codes) }
   it { is_expected.to respond_to(:generate_universal_pro) }

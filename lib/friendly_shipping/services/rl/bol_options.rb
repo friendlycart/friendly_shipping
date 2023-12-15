@@ -10,6 +10,7 @@ module FriendlyShipping
         attr_reader :pickup_time_window,
                     :pickup_instructions,
                     :declared_value,
+                    :special_instructions,
                     :reference_numbers,
                     :additional_service_codes,
                     :generate_universal_pro,
@@ -18,6 +19,7 @@ module FriendlyShipping
         # @param [Range] pickup_time_window
         # @param [String] pickup_instructions
         # @param [Numeric] declared_value
+        # @param [String] special_instructions
         # @param [Hash] reference_numbers
         # @param [Array<String>] additional_service_codes
         # @param [Boolean] generate_universal_pro
@@ -28,6 +30,7 @@ module FriendlyShipping
           pickup_time_window:,
           pickup_instructions: nil,
           declared_value: nil,
+          special_instructions: nil,
           reference_numbers: {},
           additional_service_codes: [],
           packages_serializer: BOLPackagesSerializer,
@@ -37,6 +40,7 @@ module FriendlyShipping
           @pickup_time_window = pickup_time_window
           @pickup_instructions = pickup_instructions
           @declared_value = declared_value
+          @special_instructions = special_instructions
           @reference_numbers = reference_numbers
           @additional_service_codes = additional_service_codes
           @packages_serializer = packages_serializer

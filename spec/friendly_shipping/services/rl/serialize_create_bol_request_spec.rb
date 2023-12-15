@@ -22,6 +22,8 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
     FriendlyShipping::Services::RL::BOLOptions.new(
       pickup_time_window: pickup_time_window,
       pickup_instructions: "Pickup instructions",
+      declared_value: 124.35,
+      special_instructions: "Special instructions",
       reference_numbers: {
         shipper_number: "A4234592",
         po_number: "123456"
@@ -175,6 +177,11 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
             PhoneNumber: "123-123-1234",
             EmailAddress: "acme@example.com"
           },
+          DeclaredValue: {
+            Amount: 124.35,
+            Per: "1"
+          },
+          SpecialInstructions: "Special instructions",
           Items: serialized_packages,
           ReferenceNumbers: {
             ShipperNumber: "A4234592",
