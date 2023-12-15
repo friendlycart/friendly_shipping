@@ -8,6 +8,7 @@ module FriendlyShipping
     class RL
       class BOLOptions < ShipmentOptions
         attr_reader :pickup_time_window,
+                    :pickup_instructions,
                     :declared_value,
                     :reference_numbers,
                     :additional_service_codes,
@@ -15,6 +16,7 @@ module FriendlyShipping
                     :packages_serializer
 
         # @param [Range] pickup_time_window
+        # @param [String] pickup_instructions
         # @param [Numeric] declared_value
         # @param [Hash] reference_numbers
         # @param [Array<String>] additional_service_codes
@@ -24,6 +26,7 @@ module FriendlyShipping
         # @param [Array<Object>] **kwargs
         def initialize(
           pickup_time_window:,
+          pickup_instructions: nil,
           declared_value: nil,
           reference_numbers: {},
           additional_service_codes: [],
@@ -32,6 +35,7 @@ module FriendlyShipping
           **kwargs
         )
           @pickup_time_window = pickup_time_window
+          @pickup_instructions = pickup_instructions
           @declared_value = declared_value
           @reference_numbers = reference_numbers
           @additional_service_codes = additional_service_codes

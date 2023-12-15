@@ -21,6 +21,7 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
   let(:options) do
     FriendlyShipping::Services::RL::BOLOptions.new(
       pickup_time_window: pickup_time_window,
+      pickup_instructions: "Pickup instructions",
       reference_numbers: {
         shipper_number: "A4234592",
         po_number: "123456"
@@ -185,7 +186,8 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
           PickupInformation: {
             PickupDate: "08/01/2023",
             ReadyTime: "09:00 AM",
-            CloseTime: "05:00 PM"
+            CloseTime: "05:00 PM",
+            AdditionalInstructions: "Pickup instructions"
           }
         },
         GenerateUniversalPro: true
