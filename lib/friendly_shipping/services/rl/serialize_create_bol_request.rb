@@ -17,6 +17,7 @@ module FriendlyShipping
                 BillTo: serialize_location(shipment.origin),
                 Items: options.packages_serializer.call(packages: shipment.packages, options: options),
                 DeclaredValue: serialize_declared_value(options.declared_value),
+                SpecialInstructions: options.special_instructions,
                 ReferenceNumbers: serialize_reference_numbers(options.reference_numbers),
                 AdditionalServices: options.additional_service_codes
               }.compact,
