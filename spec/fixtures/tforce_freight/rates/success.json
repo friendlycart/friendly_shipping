@@ -1,0 +1,143 @@
+{
+  "summary": {
+    "responseStatus": {
+      "code": "PRT",
+      "message": "1 of 3 Rate(s) returned."
+    },
+    "transactionReference": {
+      "transactionId": "140fdff5-3df5-419e-bc3f-84b781f55cc9"
+    },
+    "classDensityIndicatior": "CC"
+  },
+  "detail": [
+    {
+      "detailStatus": {
+        "code": "1",
+        "message": "success"
+      },
+      "alerts": [
+        {
+          "code": "688",
+          "message": "FBR688: FULL RATES RETURNED. CUSTOMER COULD NOT BE FOUND FOR THAT ZIP CODE."
+        }
+      ],
+      "service": {
+        "code": "308",
+        "description": "LTL"
+      },
+      "rate": [
+        {
+          "code": "DSCNT",
+          "description": "Discount",
+          "value": "1987.05",
+          "unit": "USD"
+        },
+        {
+          "code": "DSCNT_RATE",
+          "description": "DiscountRate",
+          "value": "75.00",
+          "unit": "%"
+        },
+        {
+          "code": "INDE",
+          "description": "INSIDE_DL",
+          "value": "169.00",
+          "unit": "USD"
+        },
+        {
+          "code": "INPU",
+          "description": "INSIDE_PU",
+          "value": "169.00",
+          "unit": "USD"
+        },
+        {
+          "code": "LIFD",
+          "description": "LIFT_GATE_DL",
+          "value": "175.00",
+          "unit": "USD"
+        },
+        {
+          "code": "LIFO",
+          "description": "LIFT_GATE_PU",
+          "value": "175.00",
+          "unit": "USD"
+        },
+        {
+          "code": "FUEL_SUR",
+          "description": "FuelSurcharge Fee",
+          "value": "223.21",
+          "unit": "USD"
+        },
+        {
+          "code": "LND_GROSS",
+          "description": "LND_GROSS",
+          "value": "2649.40",
+          "unit": "USD"
+        },
+        {
+          "code": "AFTR_DSCNT",
+          "description": "AFTR_DSCNT",
+          "value": "662.35",
+          "unit": "USD"
+        }
+      ],
+      "commodities": [
+        {
+          "description": "MISC",
+          "weight": {
+            "weight": "500",
+            "adjustedWeight": "500",
+            "weightUnit": "LBS"
+          }
+        },
+        {
+          "description": "MISC",
+          "weight": {
+            "weight": "500",
+            "adjustedWeight": "500",
+            "weightUnit": "LBS"
+          }
+        }
+      ],
+      "shipmentCharges": {
+        "total": {
+          "value": "1573.56",
+          "currency": "USD"
+        }
+      },
+      "shipmentWeights": {
+        "billable": {
+          "value": "1000",
+          "unit": "LBS"
+        }
+      },
+      "timeInTransit": {
+        "timeInTransit": "3",
+        "unit": "DAY"
+      }
+    },
+    {
+      "detailStatus": {
+        "code": "NFO",
+        "message": "Rate not found."
+      },
+      "service": {
+        "code": "309",
+        "description": "GRTD"
+      },
+      "rate": []
+    },
+    {
+      "detailStatus": {
+        "code": "NFO",
+        "message": "Rate not found."
+      },
+      "service": {
+        "code": "334",
+        "description": "GRAM"
+      },
+      "rate": []
+    }
+  ],
+  "customerContext": "order-12345"
+}
