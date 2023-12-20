@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-monads", "~> 1.0"
   spec.add_runtime_dependency "money", "~> 6.0"
   spec.add_runtime_dependency "nokogiri", "~> 1.6"
-  spec.add_runtime_dependency "physical", "~> 0.4", ">= 0.4.5"
+  spec.add_runtime_dependency "physical", "~> 0.5", ">= 0.5.1"
   spec.add_runtime_dependency "rest-client", "~> 2.0"
 
   spec.required_ruby_version = '>= 2.7'

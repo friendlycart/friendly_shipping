@@ -20,7 +20,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequ
         to_country_code: "US",
         to_postal_code: shipment.destination.zip,
         to_city_locality: "Herndon",
-        to_state_province: "IL",
+        to_state_province: "VA",
         weight: { value: 0.0625, unit: "pound" },
         confirmation: "none",
         address_residential_indicator: "no"

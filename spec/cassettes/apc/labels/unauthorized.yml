@@ -7,9 +7,9 @@ http_interactions:
       encoding: UTF-8
       string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"apc_priority_ddp_delcon","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"15 7
-        Ave","address_line2":"South","city_locality":"Herndon","state_province":"AB","postal_code":"T0A3J0","country_code":"CA","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Ave","address_line2":"Suite 100","city_locality":"Herndon","state_province":"AB","postal_code":"T0A3J0","country_code":"CA","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"78756","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":342.24208030659776,"unit":"ounce"},"label_messages":{},"package_code":null,"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"apc","customs":{"contents":"merchandise","non_delivery":"return_to_sender","customs_items":[{"sku":null,"description":"Broom","quantity":3,"value":{"amount":"25.0","currency":"USD"},"harmonized_tariff_code":null,"country_of_origin":null}]}},"test_label":true}'
+        Street","address_line2":"Suite 100","city_locality":"Herndon","state_province":"VA","postal_code":"78756","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":342.24208030659776,"unit":"ounce"},"label_messages":{},"package_code":null,"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"apc","customs":{"contents":"merchandise","non_delivery":"return_to_sender","customs_items":[{"sku":null,"description":"Broom","quantity":3,"value":{"amount":"25.0","currency":"USD"},"harmonized_tariff_code":null,"country_of_origin":null}]}},"test_label":true}'
     headers:
       Accept:
       - "*/*"

@@ -21,7 +21,7 @@ http_interactions:
           <AddressKeyFormat>
             <ConsigneeName>Company</ConsigneeName>
             <AddressLine>123 Does Not Exist St</AddressLine>
-            <AddressLine>South</AddressLine>
+            <AddressLine>Suite 100</AddressLine>
             <PoliticalDivision2>New York</PoliticalDivision2>
             <PoliticalDivision1>NY</PoliticalDivision1>
             <PostcodePrimaryLow>10005</PostcodePrimaryLow>

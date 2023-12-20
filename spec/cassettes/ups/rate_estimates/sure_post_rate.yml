@@ -31,7 +31,7 @@ http_interactions:
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
                 <AddressLine1>11 Lovely Street</AddressLine1>
-                <AddressLine2>South</AddressLine2>
+                <AddressLine2>Suite 100</AddressLine2>
                 <City>Herndon</City>
                 <PostalCode>27703</PostalCode>
                 <StateProvinceCode>NC</StateProvinceCode>
@@ -46,7 +46,7 @@ http_interactions:
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
                 <AddressLine1>11 Lovely Street</AddressLine1>
-                <AddressLine2>South</AddressLine2>
+                <AddressLine2>Suite 100</AddressLine2>
                 <City>Herndon</City>
                 <PostalCode>32821</PostalCode>
                 <StateProvinceCode>FL</StateProvinceCode>

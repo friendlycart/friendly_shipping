@@ -21,7 +21,7 @@ http_interactions:
           <AddressKeyFormat>
             <ConsigneeName>Company</ConsigneeName>
             <AddressLine>401 Dover St</AddressLine>
-            <AddressLine>South</AddressLine>
+            <AddressLine>Suite 100</AddressLine>
             <PoliticalDivision2>Westbury</PoliticalDivision2>
             <PoliticalDivision1>NY</PoliticalDivision1>
             <PostcodePrimaryLow>11590</PostcodePrimaryLow>

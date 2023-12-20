@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.rlc.com/TransitTimes
     body:
       encoding: UTF-8
-      string: '{"PickupDate":"08/04/2023","Origin":{"City":"New York","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destinations":[{"StateOrProvince":"IL","CountryCode":"USA"}]}'
+      string: '{"PickupDate":"08/04/2023","Origin":{"City":"New York","StateOrProvince":"NY","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destinations":[{"StateOrProvince":"VA","CountryCode":"USA"}]}'
     headers:
       Accept:
       - "*/*"

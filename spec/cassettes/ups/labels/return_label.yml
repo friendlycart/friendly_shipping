@@ -29,7 +29,7 @@ http_interactions:
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
                 <AddressLine1>7007 Sea World Dr</AddressLine1>
-                <AddressLine2>South</AddressLine2>
+                <AddressLine2>Suite 100</AddressLine2>
                 <City>Orlando</City>
                 <PostalCode>32821</PostalCode>
                 <StateProvinceCode>FL</StateProvinceCode>
@@ -58,7 +58,7 @@ http_interactions:
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
                 <AddressLine1>7007 Sea World Dr</AddressLine1>
-                <AddressLine2>South</AddressLine2>
+                <AddressLine2>Suite 100</AddressLine2>
                 <City>Orlando</City>
                 <PostalCode>32821</PostalCode>
                 <StateProvinceCode>FL</StateProvinceCode>

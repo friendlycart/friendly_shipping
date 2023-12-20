@@ -10,11 +10,11 @@ http_interactions:
         sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
         sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false},{"code":"pkg","freight_class":"92.5","nmfc_code":"16030
         sub 1","description":"Commodities","dimensions":{"width":1,"height":2,"length":1,"unit":"inches"},"weight":{"value":1,"unit":"pounds"},"quantity":1,"stackable":true,"hazardous_materials":false}],"options":[{"code":"LFTP"},{"code":"IPU"}],"ship_from":{"account":"%UPS_SHIPPER_NUMBER%","address":{"company_name":"Company","address_line1":"11
-        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10005","country_code":"US"},"contact":{"name":"Jane
+        Lovely Street","city_locality":"Herndon","state_province":"VA","postal_code":"10005","country_code":"US"},"contact":{"name":"Jane
         Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"ship_to":{"address":{"company_name":"Company","address_line1":"11
-        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10006","country_code":"US"},"contact":{"name":"Jane
+        Lovely Street","city_locality":"Herndon","state_province":"VA","postal_code":"10006","country_code":"US"},"contact":{"name":"Jane
         Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"bill_to":{"type":"shipper","payment_terms":"prepaid","account":"%UPS_SHIPPER_NUMBER%","address":{"company_name":"Company","address_line1":"11
-        Lovely Street","city_locality":"Herndon","state_province":"IL","postal_code":"10005","country_code":"US"},"contact":{"name":"Jane
+        Lovely Street","city_locality":"Herndon","state_province":"VA","postal_code":"10005","country_code":"US"},"contact":{"name":"Jane
         Doe","phone_number":"555-555-0199","email":"jane@company.com"}},"requested_by":{"company_name":"Company","contact":{"name":"Jane
         Doe","phone_number":"555-555-0199","email":"jane@company.com"}}},"shipment_measurements":{"total_linear_length":{"value":16,"unit":"inches"},"total_width":{"value":6,"unit":"inches"},"total_height":{"value":12,"unit":"inches"},"total_weight":{"value":2,"unit":"pounds"}}}'
     headers:
