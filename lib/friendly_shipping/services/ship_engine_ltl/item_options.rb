@@ -4,6 +4,7 @@ module FriendlyShipping
   module Services
     class ShipEngineLTL
       # Item options for rate quotes.
+      # @deprecated Please use `PackageOptions` instead.
       class ItemOptions < FriendlyShipping::ItemOptions
         # @return [String] the packaging code
         attr_reader :packaging_code
@@ -35,6 +36,7 @@ module FriendlyShipping
           hazardous_materials: false,
           **kwargs
         )
+          warn "[DEPRECATION] `ItemOptions` is deprecated.  Please use `PackageOptions` instead."
           @packaging_code = packaging_code
           @freight_class = freight_class
           @nmfc_code = nmfc_code

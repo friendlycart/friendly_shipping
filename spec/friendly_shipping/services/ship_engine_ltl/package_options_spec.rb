@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::ShipEngineLTL::ItemOptions do
-  subject(:options) { described_class.new(item_id: "123") }
+RSpec.describe FriendlyShipping::Services::ShipEngineLTL::PackageOptions do
+  subject(:options) { described_class.new(package_id: "123") }
 
   [
     :packaging_code,

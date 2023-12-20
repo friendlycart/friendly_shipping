@@ -2,33 +2,33 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
-  subject { described_class.call(packages: packages, options: options) }
+RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializeStructures do
+  subject { described_class.call(structures: structures, options: options) }
 
-  let(:packages) { [package_1, package_2] }
+  let(:structures) { [structure_1, structure_2] }
 
   let(:options) do
     FriendlyShipping::Services::ShipEngineLTL::QuoteOptions.new(
       service_code: "stnd",
       pickup_date: Time.parse("2023-07-19 10:30:00 UTC"),
       accessorial_service_codes: %w[LFTP IPU],
-      package_options: [
-        FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
-          package_id: "package 1",
-          item_options: [
-            FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
-              item_id: "item 1",
+      structure_options: [
+        FriendlyShipping::Services::ShipEngineLTL::StructureOptions.new(
+          structure_id: "structure 1",
+          package_options: [
+            FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
+              package_id: "package 1",
               packaging_code: "box",
               freight_class: "92.5",
               nmfc_code: "16030 sub 1"
             )
           ]
         ),
-        FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
-          package_id: "package 2",
-          item_options: [
-            FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
-              item_id: "item 2",
+        FriendlyShipping::Services::ShipEngineLTL::StructureOptions.new(
+          structure_id: "structure 2",
+          package_options: [
+            FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
+              package_id: "package 2",
               packaging_code: "box",
               freight_class: "92.5",
               nmfc_code: "16030 sub 1"
@@ -39,11 +39,39 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
     )
   end
 
+  let(:structure_1) do
+    FactoryBot.build(
+      :physical_structure,
+      id: "structure 1",
+      packages: [package_1]
+    )
+  end
+
+  let(:structure_2) do
+    FactoryBot.build(
+      :physical_structure,
+      id: "structure 2",
+      packages: [package_2]
+    )
+  end
+
   let(:package_1) do
     FactoryBot.build(
       :physical_package,
       id: "package 1",
-      items: [item_1]
+      description: "Tumblers",
+      items: [
+        Physical::Item.new(
+          weight: Measured::Weight(10.53, :lb)
+        )
+      ],
+      container: Physical::Box.new(
+        dimensions: [
+          Measured::Length(7.874, :in),
+          Measured::Length(5.906, :in),
+          Measured::Length(11.811, :in)
+        ]
+      )
     )
   end
 
@@ -51,35 +79,19 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
     FactoryBot.build(
       :physical_package,
       id: "package 2",
-      items: [item_2]
-    )
-  end
-
-  let(:item_1) do
-    FactoryBot.build(
-      :physical_item,
-      id: "item 1",
-      description: "Tumblers",
-      weight: Measured::Weight(10.53, :lb),
-      dimensions: [
-        Measured::Length(7.874, :in),
-        Measured::Length(5.906, :in),
-        Measured::Length(11.811, :in)
-      ]
-    )
-  end
-
-  let(:item_2) do
-    FactoryBot.build(
-      :physical_item,
-      id: "item 2",
       description: "Wicks",
-      weight: Measured::Weight(1.06, :lb),
-      dimensions: [
-        Measured::Length(4.341, :in),
-        Measured::Length(2.354, :in),
-        Measured::Length(1.902, :in)
-      ]
+      items: [
+        Physical::Item.new(
+          weight: Measured::Weight(1.06, :lb)
+        )
+      ],
+      container: Physical::Box.new(
+        dimensions: [
+          Measured::Length(4.341, :in),
+          Measured::Length(2.354, :in),
+          Measured::Length(1.902, :in)
+        ]
+      )
     )
   end
 
