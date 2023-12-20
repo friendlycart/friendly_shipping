@@ -7,9 +7,9 @@ http_interactions:
       encoding: UTF-8
       string: '{"label_format":"pdf","label_download_type":"url","shipment":{"service_code":"usps_priority_mail","ship_to":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10018","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
+        Street","address_line2":"Suite 100","city_locality":"Herndon","state_province":"VA","postal_code":"10018","country_code":"US","address_residential_indicator":"No"},"ship_from":{"name":"Jane
         Doe","phone":"555-555-0199","company_name":"Company","address_line1":"11 Lovely
-        Street","address_line2":"South","city_locality":"Herndon","state_province":"IL","postal_code":"10017","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"%SHIPENGINE_CARRIER_ID%"},"test_label":true}'
+        Street","address_line2":"Suite 100","city_locality":"Herndon","state_province":"VA","postal_code":"10017","country_code":"US","address_residential_indicator":"No"},"packages":[{"weight":{"value":9.771592939272766,"unit":"ounce"},"label_messages":{},"dimensions":{"unit":"inch","width":5.91,"length":7.87,"height":11.81}}],"carrier_id":"%SHIPENGINE_CARRIER_ID%"},"test_label":true}'
     headers:
       Accept:
       - "*/*"

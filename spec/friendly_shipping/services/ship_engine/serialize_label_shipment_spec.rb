@@ -32,9 +32,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
             phone: "555-555-0199",
             company_name: "Company",
             address_line1: "11 Lovely Street",
-            address_line2: "South",
+            address_line2: "Suite 100",
             city_locality: "Herndon",
-            state_province: "IL",
+            state_province: "VA",
             postal_code: shipment.destination.zip,
             country_code: "US",
             address_residential_indicator: "No"
@@ -44,9 +44,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
             phone: "555-555-0199",
             company_name: "Company",
             address_line1: "11 Lovely Street",
-            address_line2: "South",
+            address_line2: "Suite 100",
             city_locality: "Herndon",
-            state_province: "IL",
+            state_province: "VA",
             postal_code: shipment.origin.zip,
             country_code: "US",
             address_residential_indicator: "No"

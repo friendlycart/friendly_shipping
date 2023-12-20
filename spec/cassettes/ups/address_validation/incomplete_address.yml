@@ -21,7 +21,7 @@ http_interactions:
           <AddressKeyFormat>
             <ConsigneeName>United Nations</ConsigneeName>
             <AddressLine>East 43nd Street</AddressLine>
-            <AddressLine>South</AddressLine>
+            <AddressLine>Suite 100</AddressLine>
             <PoliticalDivision2>New York</PoliticalDivision2>
             <PoliticalDivision1>NY</PoliticalDivision1>
             <PostcodePrimaryLow>27777</PostcodePrimaryLow>

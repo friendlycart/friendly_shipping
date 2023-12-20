@@ -75,7 +75,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
       it 'returns a Failure with the correct error message' do
         aggregate_failures do
           is_expected.to be_failure
-          expect(subject.failure.to_s).to eq("Failure: The postal code 78756 is invalid for IL United States.")
+          expect(subject.failure.to_s).to eq("Failure: The postal code 78756 is invalid for VA United States.")
         end
       end
     end

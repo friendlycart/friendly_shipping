@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.rlc.com/RateQuote
     body:
       encoding: UTF-8
-      string: '{"RateQuote":{"PickupDate":"08/02/2023","Origin":{"City":"Herndon","StateOrProvince":"IL","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destination":{"City":"Herndon","StateOrProvince":"IL","ZipOrPostalCode":"10002","CountryCode":"USA"},"Items":[],"AdditionalServices":["Hazmat"],"Pallets":[{"Code":"0001","Weight":49,"Quantity":1}]}}'
+      string: '{"RateQuote":{"PickupDate":"08/02/2023","Origin":{"City":"Herndon","StateOrProvince":"VA","ZipOrPostalCode":"10001","CountryCode":"USA"},"Destination":{"City":"Herndon","StateOrProvince":"VA","ZipOrPostalCode":"10002","CountryCode":"USA"},"Items":[],"AdditionalServices":["Hazmat"],"Pallets":[{"Code":"0001","Weight":49,"Quantity":1}]}}'
     headers:
       Accept:
       - "*/*"

@@ -21,7 +21,7 @@ http_interactions:
           <AddressKeyFormat>
             <ConsigneeName>Hogwarts School of Wizardry</ConsigneeName>
             <AddressLine>Platform nine and a half</AddressLine>
-            <AddressLine>South</AddressLine>
+            <AddressLine>Suite 100</AddressLine>
             <PoliticalDivision2>New York</PoliticalDivision2>
             <PoliticalDivision1>NY</PoliticalDivision1>
             <PostcodePrimaryLow>10017</PostcodePrimaryLow>

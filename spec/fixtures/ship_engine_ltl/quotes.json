@@ -56,7 +56,7 @@
         "company_name":"Company",
         "country_code":"US",
         "postal_code":"10001",
-        "state_province":"IL"
+        "state_province":"VA"
       },
       "contact":{
         "email":"jane@company.com",
@@ -174,7 +174,7 @@
         "company_name":"Company",
         "country_code":"US",
         "postal_code":"10001",
-        "state_province":"IL"
+        "state_province":"VA"
       },
       "contact":{
         "email":"jane@company.com",
@@ -192,7 +192,7 @@
         "company_name":"Company",
         "country_code":"US",
         "postal_code":"10002",
-        "state_province":"IL"
+        "state_province":"VA"
       },
       "contact":{
         "email":"jane@company.com",

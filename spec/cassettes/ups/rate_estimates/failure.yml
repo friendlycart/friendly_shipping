@@ -32,10 +32,10 @@ http_interactions:
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
                 <AddressLine1>11 Lovely Street</AddressLine1>
-                <AddressLine2>South</AddressLine2>
+                <AddressLine2>Suite 100</AddressLine2>
                 <City>Herndon</City>
                 <PostalCode>78756</PostalCode>
-                <StateProvinceCode>IL</StateProvinceCode>
+                <StateProvinceCode>VA</StateProvinceCode>
                 <CountryCode>US</CountryCode>
                 <ResidentialAddressIndicator/>
               </Address>
@@ -47,7 +47,7 @@ http_interactions:
               <PhoneNumber>555-555-0199</PhoneNumber>
               <Address>
                 <AddressLine1>11 Lovely Street</AddressLine1>
-                <AddressLine2>South</AddressLine2>
+                <AddressLine2>Suite 100</AddressLine2>
                 <City>Herndon</City>
                 <PostalCode>32821</PostalCode>
                 <StateProvinceCode>FL</StateProvinceCode>
@@ -133,7 +133,7 @@ http_interactions:
       Content-Length:
       - '382'
       Apierrormsg:
-      - The postal code 78756 is invalid for IL United States.
+      - The postal code 78756 is invalid for VA United States.
       Apihttpstatus:
       - '400'
       Apierrorcode:
@@ -144,7 +144,7 @@ http_interactions:
       encoding: UTF-8
       string: |-
         <?xml version="1.0"?>
-        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111285</ErrorCode><ErrorDescription>The postal code 78756 is invalid for IL United States.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
+        <RatingServiceSelectionResponse><Response><ResponseStatusCode>0</ResponseStatusCode><ResponseStatusDescription>Failure</ResponseStatusDescription><Error><ErrorSeverity>Hard</ErrorSeverity><ErrorCode>111285</ErrorCode><ErrorDescription>The postal code 78756 is invalid for VA United States.</ErrorDescription></Error></Response></RatingServiceSelectionResponse>
     http_version: 
   recorded_at: Tue, 29 Oct 2019 16:07:24 GMT
 recorded_with: VCR 5.0.0

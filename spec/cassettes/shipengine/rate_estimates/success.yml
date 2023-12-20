@@ -49,7 +49,7 @@ http_interactions:
     uri: https://api.shipengine.com/v1/rates/estimate
     body:
       encoding: UTF-8
-      string: '{"carrier_ids":["%SHIPENGINE_CARRIER_ID%"],"from_country_code":"US","from_postal_code":"78756","to_country_code":"US","to_postal_code":"91521","to_city_locality":"Herndon","to_state_province":"IL","weight":{"value":1.2214491174090958,"unit":"pound"},"confirmation":"none","address_residential_indicator":"no"}'
+      string: '{"carrier_ids":["%SHIPENGINE_CARRIER_ID%"],"from_country_code":"US","from_postal_code":"78756","to_country_code":"US","to_postal_code":"91521","to_city_locality":"Herndon","to_state_province":"VA","weight":{"value":1.2214491174090958,"unit":"pound"},"confirmation":"none","address_residential_indicator":"no"}'
     headers:
       Accept:
       - "*/*"

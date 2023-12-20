@@ -5,7 +5,7 @@ http_interactions:
     uri: https://stg-secure.shippingapis.com/ShippingAPI.dll
     body:
       encoding: UTF-8
-      string: API=Verify&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CAddressValidateRequest+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CAddress%3E%0A++++%3CAddress1%3ESouth%3C%2FAddress1%3E%0A++++%3CAddress2%3EEast+43nd+Street%3C%2FAddress2%3E%0A++++%3CCity%3ENew+York%3C%2FCity%3E%0A++++%3CState%3ENY%3C%2FState%3E%0A++++%3CZip5%3E27777%3C%2FZip5%3E%0A++++%3CZip4%2F%3E%0A++%3C%2FAddress%3E%0A%3C%2FAddressValidateRequest%3E%0A
+      string: API=Verify&XML=%3C%3Fxml+version%3D%221.0%22%3F%3E%0A%3CAddressValidateRequest+USERID%3D%22%USPS_LOGIN%%22%3E%0A++%3CAddress%3E%0A++++%3CAddress1%3ESuite 100%3C%2FAddress1%3E%0A++++%3CAddress2%3EEast+43nd+Street%3C%2FAddress2%3E%0A++++%3CCity%3ENew+York%3C%2FCity%3E%0A++++%3CState%3ENY%3C%2FState%3E%0A++++%3CZip5%3E27777%3C%2FZip5%3E%0A++++%3CZip4%2F%3E%0A++%3C%2FAddress%3E%0A%3C%2FAddressValidateRequest%3E%0A
     headers:
       Accept:
       - "*/*"
