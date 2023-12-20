@@ -20,13 +20,19 @@ RSpec.describe FriendlyShipping::Services::RL::BOLOptions do
     :reference_numbers,
     :additional_service_codes,
     :generate_universal_pro,
-    :packages_serializer
+    :packages_serializer,
+    :structures_serializer
   ].each do |attr|
     it { is_expected.to respond_to(attr) }
   end
 
   it_behaves_like "overrideable package options class" do
     let(:default_class) { FriendlyShipping::Services::RL::PackageOptions }
+    let(:required_attrs) { { pickup_time_window: 1.hour.ago..1.hour.from_now } }
+  end
+
+  it_behaves_like "overrideable structure options class" do
+    let(:default_class) { FriendlyShipping::Services::RL::StructureOptions }
     let(:required_attrs) { { pickup_time_window: 1.hour.ago..1.hour.from_now } }
   end
 
@@ -45,6 +51,12 @@ RSpec.describe FriendlyShipping::Services::RL::BOLOptions do
 
       it { is_expected.to eq(Object) }
     end
+  end
+
+  describe "#structures_serializer" do
+    subject { options.structures_serializer }
+
+    it { is_expected.to eq(FriendlyShipping::Services::RL::BOLStructuresSerializer) }
   end
 
   describe "#packages_serializer" do

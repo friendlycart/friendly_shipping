@@ -16,7 +16,7 @@ module FriendlyShipping
                 Shipper: SerializeLocation.call(shipment.origin),
                 Consignee: SerializeLocation.call(shipment.destination),
                 BillTo: SerializeLocation.call(shipment.origin),
-                Items: options.packages_serializer.call(packages: shipment.packages, options: options),
+                Items: serialize_items(shipment, options),
                 DeclaredValue: serialize_declared_value(options.declared_value),
                 SpecialInstructions: options.special_instructions,
                 ReferenceNumbers: serialize_reference_numbers(options.reference_numbers),
@@ -28,6 +28,18 @@ module FriendlyShipping
           end
 
           private
+
+          # @param shipment [Physical::Shipment] the shipment with items to serialize
+          # @param options [BOLOptions] options for the items to be serialized
+          # @return [Hash]
+          def serialize_items(shipment, options)
+            if options.packages_serializer
+              warn "[DEPRECATION] `packages_serializer` is deprecated.  Please use `structures_serializer` instead."
+              options.packages_serializer.call(packages: shipment.packages, options: options)
+            else
+              options.structures_serializer.call(structures: shipment.structures, options: options)
+            end
+          end
 
           # @param declared_value [Numeric] the declared value to serialize
           # @return [Hash, nil] the serialized declared value or nil if the value is blank

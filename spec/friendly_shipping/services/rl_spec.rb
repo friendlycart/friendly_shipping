@@ -76,23 +76,81 @@ RSpec.describe FriendlyShipping::Services::RL do
   describe "#create_bill_of_lading" do
     subject { service.create_bill_of_lading(shipment, options: options) }
 
+    let(:shipment) do
+      FactoryBot.build(
+        :physical_shipment,
+        origin: origin,
+        destination: destination,
+        structures: [pallet],
+        packages: nil
+      )
+    end
+    let(:pallet) do
+      FactoryBot.build(
+        :physical_structure,
+        id: "pallet",
+        packages: [package_1, package_2]
+      )
+    end
+
+    let(:package_1) do
+      FactoryBot.build(
+        :physical_package,
+        id: "package 1",
+        description: "Wicks",
+        items: [
+          Physical::Item.new(
+            weight: Measured::Weight(50, :g)
+          )
+        ],
+        container: Physical::Box.new(
+          dimensions: [
+            Measured::Length(1, :cm),
+            Measured::Length(2, :cm),
+            Measured::Length(3, :cm)
+          ]
+        )
+      )
+    end
+
+    let(:package_2) do
+      FactoryBot.build(
+        :physical_package,
+        id: "package 2",
+        description: "Tumblers",
+        items: [
+          Physical::Item.new(
+            weight: Measured::Weight(50, :g)
+          )
+        ],
+        container: Physical::Box.new(
+          dimensions: [
+            Measured::Length(1, :cm),
+            Measured::Length(2, :cm),
+            Measured::Length(3, :cm)
+          ]
+        )
+      )
+    end
+
     let(:options) do
       FriendlyShipping::Services::RL::BOLOptions.new(
         pickup_time_window: 1.hour.ago..1.hour.from_now,
         additional_service_codes: %w[OriginLiftgate],
-        package_options: shipment.packages.map do |package|
-          FriendlyShipping::Services::RL::PackageOptions.new(
-            package_id: package.id,
-            item_options: package.items.map do |item|
-              FriendlyShipping::Services::RL::ItemOptions.new(
-                item_id: item.id,
+        structure_options: shipment.structures.map do |structure|
+          FriendlyShipping::Services::RL::StructureOptions.new(
+            structure_id: structure.id,
+            package_options: structure.packages.map do |package|
+              FriendlyShipping::Services::RL::PackageOptions.new(
+                package_id: package.id,
                 nmfc_primary_code: "87700",
                 nmfc_sub_code: "07",
                 freight_class: "92.5"
               )
             end
           )
-        end
+        end,
+        packages_serializer: nil
       )
     end
 
@@ -114,6 +172,58 @@ RSpec.describe FriendlyShipping::Services::RL do
       it { is_expected.to be_a Dry::Monads::Failure }
       it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::ApiError }
       it { expect(subject.failure.data.message).to include("There must be at least one item in the list") }
+    end
+
+    describe "deprecated packages behavior" do
+      # TODO: Remove when packages_serializer is removed
+
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          origin: origin,
+          destination: destination
+        )
+      end
+
+      let(:options) do
+        FriendlyShipping::Services::RL::BOLOptions.new(
+          pickup_time_window: 1.hour.ago..1.hour.from_now,
+          additional_service_codes: %w[OriginLiftgate],
+          package_options: shipment.packages.map do |package|
+            FriendlyShipping::Services::RL::PackageOptions.new(
+              package_id: package.id,
+              item_options: package.items.map do |item|
+                FriendlyShipping::Services::RL::ItemOptions.new(
+                  item_id: item.id,
+                  nmfc_primary_code: "87700",
+                  nmfc_sub_code: "07",
+                  freight_class: "92.5"
+                )
+              end
+            )
+          end
+        )
+      end
+
+      context "with a successful request", vcr: { cassette_name: "rl/create_bill_of_lading/success" } do
+        it { is_expected.to be_a Dry::Monads::Success }
+
+        it "has all the right data" do
+          result = subject.value!.data
+          expect(result).to be_a(FriendlyShipping::Services::RL::ShipmentInformation)
+          expect(result.pro_number).to eq("WP7506414")
+          expect(result.pickup_request_number).to eq("74201384")
+        end
+      end
+
+      context "with an unsuccessful request", vcr: { cassette_name: "rl/create_bill_of_lading/failure" } do
+        # Request will fail with no packages provided
+        let(:shipment) { FactoryBot.build(:physical_shipment, packages: []) }
+
+        it { is_expected.to be_a Dry::Monads::Failure }
+        it { expect(subject.failure.data).to be_a FriendlyShipping::Services::RL::ApiError }
+        it { expect(subject.failure.data.message).to include("There must be at least one item in the list") }
+      end
     end
   end
 
