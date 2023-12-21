@@ -67,17 +67,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateCommodityInformat
       )
     end
 
-    let(:pickup_date) { Date.today }
-
-    let(:billing_address) do
-      Physical::Location.new(
-        city: "Durham",
-        zip: "27703",
-        region: "NC",
-        country: "US"
-      )
-    end
-
+    let(:billing_address) { FactoryBot.build(:physical_location) }
     let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "03") }
 
     it do
