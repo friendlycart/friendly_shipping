@@ -30,7 +30,7 @@ module FriendlyShipping
           @handling_unit_code = HANDLING_UNIT_TYPES.fetch(handling_unit).fetch(:code)
           @handling_unit_description = HANDLING_UNIT_TYPES.fetch(handling_unit).fetch(:description)
           @handling_unit_tag = "HandlingUnit#{HANDLING_UNIT_TYPES.fetch(handling_unit).fetch(:handling_unit_tag)}"
-          super(**kwargs.merge(item_options_class: RatesItemOptions))
+          super(**kwargs.reverse_merge(item_options_class: RatesItemOptions))
         end
       end
     end

@@ -151,7 +151,7 @@ module FriendlyShipping
           @reason_for_export = reason_for_export
           @invoice_date = invoice_date
           @declaration_statement = declaration_statement
-          super(**kwargs.merge(package_options_class: package_options_class))
+          super(**kwargs.reverse_merge(package_options_class: package_options_class))
         end
 
         def delivery_confirmation_code

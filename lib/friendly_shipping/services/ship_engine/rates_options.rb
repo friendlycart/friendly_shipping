@@ -15,7 +15,7 @@ module FriendlyShipping
         def initialize(carriers:, service_code:, **kwargs)
           @carriers = carriers
           @service_code = service_code
-          super(**kwargs.merge(package_options_class: RatesPackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: RatesPackageOptions))
         end
 
         def carrier_ids

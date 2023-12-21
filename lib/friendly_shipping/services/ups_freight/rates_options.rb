@@ -51,7 +51,7 @@ module FriendlyShipping
           @customer_context = customer_context
           @pickup_request_options = pickup_request_options
           @commodity_information_generator = commodity_information_generator
-          super(**kwargs.merge(package_options_class: RatesPackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: RatesPackageOptions))
         end
       end
     end
