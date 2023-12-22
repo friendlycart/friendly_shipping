@@ -3,12 +3,9 @@
 module FriendlyShipping
   module Services
     class UpsFreight
-      # Options for Items in a UPS Freight shipment
-      #
-      # @attribute [Symbol] packaging How the item is packaged, one of the keys of `PACKAGING_TYPES`
-      # @attribute [String] freight_class The freight class of this item, for example '55' or '92.5'
-      # @attribute [String] nmfc_code The national motor freight corporation code for this item. Something like '13050 sub 4'
+      # Options for Items in a UPS Freight shipment.
       class RatesItemOptions < FriendlyShipping::ItemOptions
+        # Maps friendly names to packaging types.
         PACKAGING_TYPES = {
           bag: { code: "BAG", description: "Bag" },
           bale: { code: "BAL", description: "Bale" },
@@ -49,11 +46,23 @@ module FriendlyShipping
           wrapped: { code: "WRP", description: "Wrapped" }
         }.freeze
 
-        attr_reader :packaging_code,
-                    :packaging_description,
-                    :freight_class,
-                    :nmfc_code
+        # @return [String]
+        attr_reader :packaging_code
 
+        # @return [String]
+        attr_reader :packaging_description
+
+        # @return [String]
+        attr_reader :freight_class
+
+        # @return [String]
+        attr_reader :nmfc_code
+
+        # @param packaging [Symbol] how the item is packaged (see {PACKAGING_TYPES})
+        # @param freight_class [String] the freight class of this item, for example '55' or '92.5'
+        # @param nmfc_code [String] the national motor freight corporation code for this item, for example '13050 sub 4'
+        # @param kwargs [Hash]
+        # @options kwargs [String] :item_id the ID for the item that belongs to these options
         def initialize(
           packaging: :carton,
           freight_class: nil,
