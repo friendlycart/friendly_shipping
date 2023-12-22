@@ -15,7 +15,7 @@ module FriendlyShipping
         # @param [String] nmfc_sub_code
         # @param [Array<Object>] **kwargs
         def initialize(
-          freight_class:,
+          freight_class: nil,
           nmfc_primary_code: nil,
           nmfc_sub_code: nil,
           **kwargs

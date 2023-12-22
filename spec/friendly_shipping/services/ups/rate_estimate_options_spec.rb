@@ -22,6 +22,11 @@ RSpec.describe FriendlyShipping::Services::Ups::RateEstimateOptions do
     it { is_expected.to respond_to(message) }
   end
 
+  it_behaves_like "overrideable package options class" do
+    let(:default_class) { FriendlyShipping::Services::Ups::RateEstimatePackageOptions }
+    let(:required_attrs) { { shipper_number: 'SECRET' } }
+  end
+
   describe 'sub-version validation' do
     subject(:options) { described_class.new(sub_version: 'bogus', shipper_number: 'SECRET') }
 

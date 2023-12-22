@@ -41,6 +41,9 @@ VCR.configure do |c|
   end
 end
 
+require "support/shared_examples/overrideable_item_options_class"
+require "support/shared_examples/overrideable_package_options_class"
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"

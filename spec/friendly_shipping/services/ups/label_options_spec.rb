@@ -26,6 +26,11 @@ RSpec.describe FriendlyShipping::Services::Ups::LabelOptions do
     it { is_expected.to respond_to(message) }
   end
 
+  it_behaves_like "overrideable package options class" do
+    let(:default_class) { FriendlyShipping::Services::Ups::LabelPackageOptions }
+    let(:required_attrs) { { shipping_method: double, shipper_number: double } }
+  end
+
   describe 'sub-version validation' do
     subject(:options) { described_class.new(sub_version: 'bogus', shipping_method: double, shipper_number: double) }
 
