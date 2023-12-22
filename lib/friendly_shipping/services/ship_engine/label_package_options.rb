@@ -21,7 +21,7 @@ module FriendlyShipping
         def initialize(package_code: nil, messages: [], **kwargs)
           @package_code = package_code
           @messages = messages
-          super(**kwargs.merge(item_options_class: LabelItemOptions))
+          super(**kwargs.reverse_merge(item_options_class: LabelItemOptions))
         end
       end
     end

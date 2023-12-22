@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups/label_package_options'
 
 RSpec.describe FriendlyShipping::Services::Ups::LabelPackageOptions do
-  subject(:options) { described_class.new(package_id: 'my_package_id') }
+  subject(:options) { described_class.new(package_id: 'package') }
 
   [
     :delivery_confirmation_code,
@@ -13,6 +13,10 @@ RSpec.describe FriendlyShipping::Services::Ups::LabelPackageOptions do
     :declared_value
   ].each do |message|
     it { is_expected.to respond_to(message) }
+  end
+
+  it_behaves_like "overrideable item options class" do
+    let(:default_class) { FriendlyShipping::Services::Ups::LabelItemOptions }
   end
 
   describe 'delivery_confirmation_code' do

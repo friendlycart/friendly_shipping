@@ -14,4 +14,9 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL::QuoteOptions do
   ].each do |message|
     it { is_expected.to respond_to(message) }
   end
+
+  it_behaves_like "overrideable package options class" do
+    let(:default_class) { FriendlyShipping::Services::ShipEngineLTL::PackageOptions }
+    let(:required_attrs) { {} }
+  end
 end

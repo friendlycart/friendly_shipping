@@ -26,7 +26,7 @@ module FriendlyShipping
           @pickup_date = pickup_date
           @accessorial_service_codes = accessorial_service_codes
           @packages_serializer_class = packages_serializer_class
-          super(**kwargs.merge(package_options_class: PackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
       end
     end

@@ -35,7 +35,7 @@ module FriendlyShipping
           @delivery_confirmation = delivery_confirmation
           @shipper_release = shipper_release
           @declared_value = declared_value
-          super(**kwargs.merge(item_options_class: LabelItemOptions))
+          super(**kwargs.reverse_merge(item_options_class: LabelItemOptions))
         end
 
         def delivery_confirmation_code

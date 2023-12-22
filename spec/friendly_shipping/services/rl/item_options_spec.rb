@@ -3,12 +3,13 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::RL::ItemOptions do
-  subject(:options) do
-    described_class.new(
-      item_id: "123",
-      freight_class: "92.5"
-    )
-  end
+  subject(:options) { described_class.new(item_id: "123") }
 
-  it { is_expected.to respond_to(:freight_class) }
+  [
+    :freight_class,
+    :nmfc_primary_code,
+    :nmfc_sub_code
+  ].each do |attr|
+    it { is_expected.to respond_to(attr) }
+  end
 end

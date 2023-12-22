@@ -8,7 +8,7 @@ module FriendlyShipping
       # Options for packages/pallets within a TForce Freight shipment
       class RatesPackageOptions < FriendlyShipping::PackageOptions
         def initialize(**kwargs)
-          super(**kwargs.merge(item_options_class: RatesItemOptions))
+          super(**kwargs.reverse_merge(item_options_class: RatesItemOptions))
         end
       end
     end

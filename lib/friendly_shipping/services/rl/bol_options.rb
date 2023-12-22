@@ -46,7 +46,7 @@ module FriendlyShipping
           @packages_serializer = packages_serializer
           @generate_universal_pro = generate_universal_pro
           validate_additional_service_codes!
-          super(**kwargs.merge(package_options_class: PackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
 
         ADDITIONAL_SERVICE_CODES = %w[

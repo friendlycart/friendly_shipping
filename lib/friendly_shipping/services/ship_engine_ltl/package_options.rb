@@ -7,7 +7,7 @@ module FriendlyShipping
     class ShipEngineLTL
       class PackageOptions < FriendlyShipping::PackageOptions
         def initialize(**kwargs)
-          super(**kwargs.merge(item_options_class: ItemOptions))
+          super(**kwargs.reverse_merge(item_options_class: ItemOptions))
         end
       end
     end

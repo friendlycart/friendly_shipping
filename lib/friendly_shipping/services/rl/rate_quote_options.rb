@@ -30,7 +30,7 @@ module FriendlyShipping
           @additional_service_codes = additional_service_codes
           @packages_serializer = packages_serializer
           validate_additional_service_codes!
-          super(**kwargs.merge(package_options_class: PackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
 
         ADDITIONAL_SERVICE_CODES = %w[

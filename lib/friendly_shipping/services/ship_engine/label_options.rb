@@ -34,7 +34,7 @@ module FriendlyShipping
           @label_format = label_format
           @label_image_id = label_image_id
           @customs_options = customs_options
-          super(**kwargs.merge(package_options_class: LabelPackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: LabelPackageOptions))
         end
       end
     end

@@ -20,7 +20,7 @@ module FriendlyShipping
           package_options_class: FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions,
           **kwargs
         )
-          super(**kwargs.merge(package_options_class: package_options_class))
+          super(**kwargs.reverse_merge(package_options_class: package_options_class))
         end
       end
     end

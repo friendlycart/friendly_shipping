@@ -10,7 +10,7 @@ module FriendlyShipping
       # @attribute [RatesItemOptions] item_options Options for each of the items in the package
       class RatesPackageOptions < FriendlyShipping::PackageOptions
         def initialize(**kwargs)
-          super(**kwargs.merge(item_options_class: RatesItemOptions))
+          super(**kwargs.reverse_merge(item_options_class: RatesItemOptions))
         end
       end
     end

@@ -5,9 +5,9 @@ require 'friendly_shipping/services/usps/rate_estimate_options'
 
 RSpec.describe FriendlyShipping::Services::UspsInternational::RateEstimateOptions do
   let(:options) { described_class.new }
-  describe '#options_for_package' do
-    subject { options.options_for_package(double(package_id: 'my_package_id')) }
 
-    it { is_expected.to be_a(FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions) }
+  it_behaves_like "overrideable package options class" do
+    let(:default_class) { FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions }
+    let(:required_attrs) { {} }
   end
 end
