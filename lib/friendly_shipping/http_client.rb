@@ -7,16 +7,22 @@ require 'friendly_shipping/api_failure'
 require 'friendly_shipping/api_error_handler'
 
 module FriendlyShipping
+  # A façade for `RestClient` which constructs requests, wraps responses in `Dry::Monad`
+  # results, and calls the API error handler with failures.
   class HttpClient
     include Dry::Monads::Result::Mixin
 
+    # @return [.call] the API error handler
     attr_reader :error_handler
 
-    # @param [Proc, #call] error_handler Called to handle an error if one occurs
+    # @param error_handler [.call] called if an API error occurs
     def initialize(error_handler: FriendlyShipping::ApiErrorHandler.new)
       @error_handler = error_handler
     end
 
+    # Makes a GET request and handles the response.
+    # @param request [Request] the request to GET
+    # @return [Success<Response>, Failure<ApiFailure>]
     def get(request)
       http_response = ::RestClient.get(
         request.url, request.headers
@@ -27,6 +33,9 @@ module FriendlyShipping
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
+    # Makes a DELETE request and handles the response.
+    # @param request [Request] the request to DELETE
+    # @return [Success<Response>, Failure<ApiFailure>]
     def delete(request)
       http_response = ::RestClient.delete(request.url, request.headers)
 
@@ -35,6 +44,9 @@ module FriendlyShipping
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
+    # Makes a POST request and handles the response.
+    # @param request [Request] the request to POST
+    # @return [Success<Response>, Failure<ApiFailure>]
     def post(request)
       http_response = ::RestClient.post(
         request.url,
@@ -47,6 +59,9 @@ module FriendlyShipping
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
+    # Makes a PUT request and handles the response.
+    # @param request [Request] the request to PUT
+    # @return [Success<Response>, Failure<ApiFailure>]
     def put(request)
       http_response = ::RestClient.put(
         request.url,
