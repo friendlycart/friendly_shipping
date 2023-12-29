@@ -23,7 +23,7 @@ require 'friendly_shipping/services/ups_freight/api_error'
 module FriendlyShipping
   module Services
     class UpsFreight
-      include Dry::Monads[:result]
+      include Dry::Monads::Result::Mixin
 
       attr_reader :test, :key, :login, :password, :client
 

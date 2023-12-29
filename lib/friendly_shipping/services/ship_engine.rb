@@ -56,7 +56,7 @@ module FriendlyShipping
       # Get rates from ShipEngine
       #
       # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
-      # @options [FriendlyShipping::Services::ShipEngine::RatesOptions] The options relevant to rates. See object description.
+      # @param [FriendlyShipping::Services::ShipEngine::RatesOptions] options The options relevant to rates. See object description.
       #
       # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
@@ -77,8 +77,7 @@ module FriendlyShipping
       # Get rate estimates from ShipEngine
       #
       # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
-      #
-      # @options [FriendlyShipping::Services::ShipEngine::RateEstimatesOptions] The options relevant to estimating rates. See object description.
+      # @param [FriendlyShipping::Services::ShipEngine::RateEstimatesOptions] options The options relevant to estimating rates. See object description.
       #
       # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that

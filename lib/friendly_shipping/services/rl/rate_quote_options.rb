@@ -17,7 +17,7 @@ module FriendlyShipping
         # @param [Array<String>] additional_service_codes
         # @param [Callable] packages_serializer A callable that takes packages
         #   and an options object to create an Array of item hashes per the R+L Carriers docs
-        # @param [Array<Object>] **kwargs
+        # @param [Hash] kwargs
         def initialize(
           pickup_date:,
           declared_value: nil,

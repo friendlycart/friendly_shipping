@@ -21,7 +21,7 @@ module FriendlyShipping
 
         MAX_WEIGHT = Measured::Weight(25, :pounds)
 
-        # @param [Physical::Package]
+        # @param [Physical::Package] package
         def initialize(package)
           @package = package
         end

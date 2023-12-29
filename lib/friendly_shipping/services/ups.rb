@@ -27,7 +27,7 @@ require 'friendly_shipping/services/ups/timing_options'
 module FriendlyShipping
   module Services
     class Ups
-      include Dry::Monads[:result]
+      include Dry::Monads::Result::Mixin
 
       attr_reader :test, :key, :login, :password, :client
 

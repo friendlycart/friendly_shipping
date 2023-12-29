@@ -4,7 +4,7 @@ require 'friendly_shipping/api_error'
 
 module FriendlyShipping
   class ApiErrorHandler
-    include Dry::Monads[:result]
+    include Dry::Monads::Result::Mixin
 
     attr_reader :api_error_class
 

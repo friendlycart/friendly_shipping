@@ -9,7 +9,7 @@ require 'friendly_shipping/services/usps_international/rate_estimate_options'
 module FriendlyShipping
   module Services
     class UspsInternational
-      include Dry::Monads[:result]
+      include Dry::Monads::Result::Mixin
 
       attr_reader :test, :login, :client
 

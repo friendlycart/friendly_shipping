@@ -15,7 +15,7 @@ module FriendlyShipping
           # @param [String] login The USPS login code
           # @param [FriendlyShipping::Services::Usps::RateEstimateOptions] options The options
           #   object to use with this request.
-          # @return Array<[FriendlyShipping::Rate]> A set of Rates that this package may be sent with
+          # @return [Array<FriendlyShipping::Rate>] A set of Rates that this package may be sent with
           def call(shipment:, login:, options:)
             xml_builder = Nokogiri::XML::Builder.new do |xml|
               xml.RateV4Request('USERID' => login) do

@@ -8,7 +8,7 @@ require 'friendly_shipping/api_error_handler'
 
 module FriendlyShipping
   class HttpClient
-    include Dry::Monads[:result]
+    include Dry::Monads::Result::Mixin
 
     attr_reader :error_handler
 

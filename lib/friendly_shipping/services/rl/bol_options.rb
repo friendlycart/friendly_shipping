@@ -25,7 +25,7 @@ module FriendlyShipping
         # @param [Boolean] generate_universal_pro
         # @param [Callable] packages_serializer A callable that takes packages
         #   and an options object to create an Array of item hashes per the R+L Carriers docs
-        # @param [Array<Object>] **kwargs
+        # @param [Hash] kwargs
         def initialize(
           pickup_time_window:,
           pickup_instructions: nil,

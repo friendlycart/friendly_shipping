@@ -6,7 +6,7 @@ module FriendlyShipping
   module Services
     class RL
       class PackageOptions < FriendlyShipping::PackageOptions
-        # @param [Array<Object>] **kwargs
+        # @param [Hash] kwargs
         def initialize(**kwargs)
           super(**kwargs.reverse_merge(item_options_class: ItemOptions))
         end

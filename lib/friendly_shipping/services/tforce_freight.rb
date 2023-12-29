@@ -27,7 +27,7 @@ require 'friendly_shipping/services/tforce_freight/api_error'
 module FriendlyShipping
   module Services
     class TForceFreight
-      include Dry::Monads[:result]
+      include Dry::Monads::Result::Mixin
 
       # @return [AccessToken] the access token
       attr_reader :access_token
