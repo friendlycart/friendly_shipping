@@ -12,6 +12,7 @@ group :development do
   gem "dotenv", "~> 3.0"
   gem "factory_bot", "~> 6.2"
   gem "pry", "~> 0.12"
+  gem "rack"
   gem "rake", ">= 12.3.3"
   gem "rspec", "~> 3.0"
   gem "rspec_junit_formatter", "~> 0.4"
@@ -19,4 +20,6 @@ group :development do
   gem "simplecov", "~> 0.17"
   gem "vcr", "~> 6.0"
   gem "webmock", "~> 3.6"
+  gem "webrick"
+  gem "yard"
 end
