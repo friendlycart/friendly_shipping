@@ -11,11 +11,11 @@ module FriendlyShipping
 
         # Select the corresponding rate for a package from all the rates USPS returns to us
         #
-        # @param [FriendlyShipping::ShippingMethod] shipping_method The shipping method we want to filter by
-        # @param [Array<FriendlyShipping::Rate>] rates The rates we select from
-        # @param [FriendlyShipping::PackageOptions] package_options The package options we want to match with a rate
+        # @param [ShippingMethod] shipping_method The shipping method we want to filter by
+        # @param [Array<Rate>] rates The rates we select from
+        # @param [PackageOptions] package_options The package options we want to match with a rate
         #
-        # @return [FriendlyShipping::Rate] The rate that most closely matches our package
+        # @return [Rate] The rate that most closely matches our package
         def self.call(shipping_method, rates, package_options)
           # Keep all rates with the requested shipping method
           rates_with_this_shipping_method = rates.select { |r| r.shipping_method == shipping_method }

@@ -10,9 +10,9 @@ module FriendlyShipping
         class << self
           # Parse a response from USPS' time in transit API
           #
-          # @param [FriendlyShipping::Request] request The request that was used to obtain this Response
-          # @param [FriendlyShipping::Response] response The response that USPS returned
-          # @return [Result<ApiResult<Array<FriendlyShipping::Timing>>>] When successfully parsing, an array of timings in a Success Monad.
+          # @param [Request] request The request that was used to obtain this Response
+          # @param [Response] response The response that USPS returned
+          # @return [Result<ApiResult<Array<Timing>>>] When successfully parsing, an array of timings in a Success Monad.
           def call(request:, response:)
             # Filter out error responses and directly return a failure
             parsing_result = ParseXMLResponse.call(
