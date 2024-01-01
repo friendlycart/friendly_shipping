@@ -6,16 +6,14 @@ require 'friendly_shipping/services/rl/shipping_methods'
 module FriendlyShipping
   module Services
     class RL
+      # Parses the response from the R+L API when getting transit times.
       class ParseTransitTimesResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
-          # @param [FriendlyShipping::Request] request
-          # @param [FriendlyShipping::Response] response
-          # @return [
-          #   Dry::Monads::Success<FriendlyShipping::ApiResult>,
-          #   Dry::Monads::Failure<FriendlyShipping::ApiResult>
-          # ]
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @return [Success<ApiResult>, Failure<ApiResult>] the parsed timings
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             timings = build_timings(parsed_json)
@@ -41,8 +39,10 @@ module FriendlyShipping
 
           private
 
-          # @param [String] parsed_json
-          # @return [Array<FriendlyShipping::Timing>]
+          # Builds {Timing} instances from the parsed JSON.
+          #
+          # @param parsed_json [String] the parsed JSON
+          # @return [Array<Timing>] the parsed timings
           def build_timings(parsed_json)
             destinations = parsed_json['Destinations']
             return [] unless destinations

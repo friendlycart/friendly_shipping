@@ -6,13 +6,14 @@ require 'friendly_shipping/services/rl/shipment_information'
 module FriendlyShipping
   module Services
     class RL
+      # Parses the response from the R+L API when creating a Bill of Lading (BOL).
       class ParseCreateBOLResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
-          # @param [FriendlyShipping::Request] request
-          # @param [FriendlyShipping::Response] response
-          # @return [Dry::Monads::Result<ApiResult<ShipmentInformation>>]
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @return [Result<ApiResult<ShipmentInformation>>] shipment info with the BOL document attached
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             shipment_info = ShipmentInformation.new(

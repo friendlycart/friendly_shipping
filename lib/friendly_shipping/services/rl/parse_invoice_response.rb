@@ -12,7 +12,7 @@ module FriendlyShipping
         class << self
           # @param [FriendlyShipping::Request] request
           # @param [FriendlyShipping::Response] response
-          # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>]
+          # @return [Result<ApiResult<ShipmentDocument>>]
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             data = (parsed_json['Documents'].find { _1["Type"] == "Invoice" } || {})["Data"]

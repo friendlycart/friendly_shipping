@@ -6,13 +6,14 @@ require 'friendly_shipping/services/rl/shipment_document'
 module FriendlyShipping
   module Services
     class RL
+      # Parses the response from the R+L API when printing shipping labels.
       class ParsePrintShippingLabelsResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
-          # @param [FriendlyShipping::Request] request
-          # @param [FriendlyShipping::Response] response
-          # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>]
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @return [Result<ApiResult<ShipmentDocument>>] shipping document containing the labels
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             label_doc = ShipmentDocument.new(

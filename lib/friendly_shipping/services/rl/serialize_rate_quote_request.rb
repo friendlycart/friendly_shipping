@@ -3,11 +3,12 @@
 module FriendlyShipping
   module Services
     class RL
+      # Serializes an R+L API request to get a shipping rate quote.
       class SerializeRateQuoteRequest
         class << self
-          # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
-          # @return [Hash]
+          # @param shipment [Physical::Shipment] the shipment for the request
+          # @param options [RateQuoteOptions] options for the request
+          # @return [Hash] the serialized request
           def call(shipment:, options:)
             {
               RateQuote: {
@@ -24,8 +25,8 @@ module FriendlyShipping
 
           private
 
-          # @param [Physical::Location] location
-          # @return [Hash]
+          # @param location [Physical::Location] the location to serialize
+          # @return [Hash] the serialized location
           def serialize_location(location)
             {
               City: location.city,
@@ -35,9 +36,9 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Array<Physical::Package>] packages
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
-          # @return [Array<Hash>]
+          # @param packages [Array<Physical::Package>] the items (as packages) to serialize
+          # @param options [RateQuoteOptions] options for the items
+          # @return [Array<Hash>] the serialized items
           def serialize_items(packages, options)
             item_hashes = packages.flat_map do |package|
               package_options = options.options_for_package(package)
@@ -52,8 +53,8 @@ module FriendlyShipping
             group_items(item_hashes)
           end
 
-          # @param [Array<Physical::Pallet>] pallets
-          # @return [Array<Hash>]
+          # @param pallets [Array<Physical::Pallet>] the pallets to serialize
+          # @return [Array<Hash>] the serialized pallets
           def serialize_pallets(pallets)
             pallets.group_by do |pallet|
               pallet.weight.convert_to(:pounds).value.ceil

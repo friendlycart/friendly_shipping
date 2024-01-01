@@ -5,15 +5,22 @@ require 'friendly_shipping/item_options'
 module FriendlyShipping
   module Services
     class RL
+      # Serializes items for R+L API requests.
       class ItemOptions < FriendlyShipping::ItemOptions
-        attr_reader :freight_class,
-                    :nmfc_primary_code,
-                    :nmfc_sub_code
+        # @return [String] the freight class
+        attr_reader :freight_class
 
-        # @param [String] freight_class
-        # @param [String] nmfc_primary_code
-        # @param [String] nmfc_sub_code
-        # @param [Hash] kwargs
+        # @return [String] the NMFC primary code
+        attr_reader :nmfc_primary_code
+
+        # @return [String] the NMFC sub code
+        attr_reader :nmfc_sub_code
+
+        # @param freight_class [String] the freight class
+        # @param nmfc_primary_code [String] the NMFC primary code
+        # @param nmfc_sub_code [String] the NMFC sub code
+        # @param kwargs [Hash]
+        # @option kwargs [String] :item_id the ID for the item that belongs to these options
         def initialize(
           freight_class: nil,
           nmfc_primary_code: nil,
