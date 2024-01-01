@@ -65,7 +65,7 @@ module FriendlyShipping
 
       # Get rates for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to get rates for
-      # @param [FriendlyShipping::Services::Ups::RateEstimateOptions] options What options
+      # @param [RateEstimateOptions] options What options
       #    to use for this rate estimate call
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
@@ -87,7 +87,7 @@ module FriendlyShipping
 
       # Get timing information for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
-      # @param [FriendlyShipping::Services::Ups::TimingOptions] options Options for this call
+      # @param [TimingOptions] options Options for this call
       def timings(shipment, options:, debug: false)
         time_in_transit_request_xml = SerializeTimeInTransitRequest.call(
           shipment: shipment,
