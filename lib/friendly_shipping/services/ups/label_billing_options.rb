@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO stopped here
+
 module FriendlyShipping
   module Services
     class Ups
