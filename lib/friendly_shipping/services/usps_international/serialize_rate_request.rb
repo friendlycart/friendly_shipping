@@ -11,9 +11,9 @@ module FriendlyShipping
           #   shipment.packages[0].properties[:box_name] Can be :variable or a
           #     flat rate container defined in CONTAINERS.
           # @param [String] login The USPS login code
-          # @param [FriendlyShipping::Services::UspsInternational::RateEstimateOptions] options The options
+          # @param [RateEstimateOptions] options The options
           #   object to use with this request.
-          # @return [Array<FriendlyShipping::Rate>] A set of Rates that this package may be sent with
+          # @return [Array<Rate>] A set of Rates that this package may be sent with
           def call(shipment:, login:, options:)
             xml_builder = Nokogiri::XML::Builder.new do |xml|
               xml.IntlRateV2Request('USERID' => login) do
