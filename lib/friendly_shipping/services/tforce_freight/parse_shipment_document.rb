@@ -5,9 +5,13 @@ require 'friendly_shipping/services/ups_freight/shipment_document'
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Parses shipment document JSON into a `ShipmentDocument`.
       class ParseShipmentDocument
+        # Maps document types to friendly names.
         REVERSE_DOCUMENT_TYPES = DocumentOptions::DOCUMENT_TYPES.map(&:reverse_each).to_h(&:to_a)
 
+        # @param image_data [Hash] the shipping document JSON
+        # @return [ShipmentDocument] the parsed shipment document
         def self.call(image_data:)
           type_code = image_data["type"]
           format = image_data["format"]

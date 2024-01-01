@@ -5,12 +5,12 @@ require 'friendly_shipping/services/tforce_freight/generate_location_hash'
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Generate a TForceFreight pickup request hash for JSON serialization.
+      # Generates a pickup request hash for JSON serialization.
       class GeneratePickupRequestHash
         class << self
           # @param shipment [Physical::Shipment] the shipment for which we want to create a pickup request
           # @param options [PickupOptions] options for the pickup request
-          # @return [Hash]
+          # @return [Hash] pickup request hash
           def call(shipment:, options:)
             {
               pickup: pickup(options),

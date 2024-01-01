@@ -3,14 +3,16 @@
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Options for creating a TForce Freight BOL
+      # Options for creating a Bill of Lading (BOL).
       class BOLOptions < FriendlyShipping::ShipmentOptions
+        # Maps friendly names to billing codes.
         BILLING_CODES = {
           prepaid: "10",
           third_party: "30",
           freight_collect: "40"
         }.freeze
 
+        # Maps friendly names to reference number codes.
         REFERENCE_NUMBER_CODES = {
           bill_of_lading_number: "BL",
           purchase_order_number: "PO",
@@ -25,6 +27,7 @@ module FriendlyShipping
           other: "OTHER"
         }.freeze
 
+        # Maps friendly names to pickup options.
         PICKUP_OPTIONS = {
           inside: "INPU",
           liftgate: "LIFO",
@@ -35,6 +38,7 @@ module FriendlyShipping
           residential: "RESP"
         }.freeze
 
+        # Maps friendly names to delivery options.
         DELIVERY_OPTIONS = {
           inside: "INDE",
           liftgate: "LIFD",
@@ -103,7 +107,7 @@ module FriendlyShipping
         # @param document_options [Array<DocumentOptions>] options for documents
         # @param commodity_information_generator [Proc, #call] the callable used generate commodity information
         # @param kwargs [Hash]
-        # @option kwargs [Enumerable<PackageOptions>] :package_options the options for packages in this shipment
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this shipment
         # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           service_code: FriendlyShipping::Services::TForceFreight::SHIPPING_METHODS.first.service_code,

@@ -3,11 +3,12 @@
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Generates a handling units hash for JSON serialization.
       class GenerateHandlingUnitsHash
         class << self
           # @param shipment [Physical::Shipment]
           # @param options [FriendlyShipping::ShipmentOptions]
-          # @return [Hash]
+          # @return [Hash] handling units hash suitable for JSON request
           def call(shipment:, options:)
             handling_units(shipment, options).reduce(&:merge)
           end

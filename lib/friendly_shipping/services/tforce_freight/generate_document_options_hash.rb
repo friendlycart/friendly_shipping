@@ -3,9 +3,10 @@
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Generates a document options hash for JSON serialization.
       class GenerateDocumentOptionsHash
-        # @param document_options [DocumentOptions]
-        # @return [Hash]
+        # @param document_options [DocumentOptions] the document options
+        # @return [Hash] document options hash suitable for JSON request
         def self.call(document_options:)
           {
             type: document_options.document_type_code,

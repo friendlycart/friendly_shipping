@@ -5,12 +5,12 @@ require 'friendly_shipping/services/tforce_freight/generate_location_hash'
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Generate a TForceFreight BOL request hash for JSON serialization.
+      # Generates a Bill of Lading (BOL) request hash for JSON serialization.
       class GenerateCreateBOLRequestHash
         class << self
           # @param shipment [Physical::Shipment] the shipment for which we want to create a BOL
           # @param options [BOLOptions] options for the BOL
-          # @return [Hash]
+          # @return [Hash] BOL request hash
           def call(shipment:, options:)
             {
               requestOptions: request_options(options),
@@ -82,6 +82,7 @@ module FriendlyShipping
           end
 
           # @param location [Physical::Location]
+          # @return [String, nil]
           def address_line(location)
             [
               location.address1,

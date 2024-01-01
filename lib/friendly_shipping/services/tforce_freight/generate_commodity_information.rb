@@ -3,9 +3,11 @@
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Generates a commodity information hash for JSON serialization.
       class GenerateCommodityInformation
-        # @param [Physical::Shipment] shipment
-        # @param [FriendlyShipping::Services::TForceFreight::RatesOptions] options
+        # @param shipment [Physical::Shipment] the shipment with commodities to serialize
+        # @param options [RatesOptions] the options to serialize
+        # @return [Array<Hash>] commodities hash suitable for JSON request
         def self.call(shipment:, options:)
           shipment.packages.flat_map do |package|
             package_options = options.options_for_package(package)
