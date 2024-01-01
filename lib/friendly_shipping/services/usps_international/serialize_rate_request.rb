@@ -3,15 +3,16 @@
 module FriendlyShipping
   module Services
     class UspsInternational
+      # Serializes a rate request for the USPS international rating API
       class SerializeRateRequest
         class << self
+          # Serialize a rate request into XML
+          #
           # @param [Physical::Shipment] shipment The shipment we want to get rates for
-          #   shipment.packages[0].properties[:box_name] Can be :variable or a
-          #     flat rate container defined in CONTAINERS.
           # @param [String] login The USPS login code
-          # @param [FriendlyShipping::Services::UspsInternational::RateEstimateOptions] options The options
+          # @param [RateEstimateOptions] options The options
           #   object to use with this request.
-          # @return [Array<FriendlyShipping::Rate>] A set of Rates that this package may be sent with
+          # @return [String] The XML request body
           def call(shipment:, login:, options:)
             xml_builder = Nokogiri::XML::Builder.new do |xml|
               xml.IntlRateV2Request('USERID' => login) do
@@ -49,19 +50,27 @@ module FriendlyShipping
 
           private
 
+          # @param package [Physical::Package]
+          # @return [String] 'true' or 'false'
           def machinable(package)
             FriendlyShipping::Services::USPSShip::MachinablePackage.new(package).machinable? ? 'true' : 'false'
           end
 
+          # @param package [Physical::Package]
+          # @return [Numeric] the ounces part of the package weight, between 1 and 15.999
           def ounces_for(package)
             ounces = (package.weight.convert_to(:ounces).value.to_f % 16).round(2).ceil
             ounces == 16 ? 15.999 : [ounces, 1].max
           end
 
+          # @param package [Physical::Package]
+          # @return [Integer] the whole pounds of the package weight
           def pounds_for(package)
             package.weight.convert_to(:pounds).value.to_f.floor
           end
 
+          # @param package [Physical::Package]
+          # @return [Float] the girth in inches, calculated from the two smallest dimensions
           def girth(package)
             width, length = package.dimensions.sort.first(2)
             (width.scale(2) + length.scale(2)).convert_to(:inches).value.to_f

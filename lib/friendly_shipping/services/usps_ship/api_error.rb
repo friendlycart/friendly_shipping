@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # An error returned by the USPS Ship API
       class ApiError < FriendlyShipping::ApiError
         # @param [RestClient::Exception] cause
         def initialize(cause)
