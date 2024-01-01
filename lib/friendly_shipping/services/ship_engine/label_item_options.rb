@@ -5,13 +5,18 @@ require 'friendly_shipping/item_options'
 module FriendlyShipping
   module Services
     class ShipEngine
-      # Represents item options for obtaining shipment labels.
-      # @option commodity_code [String] This item's HS or NMFC code for international shipments.
-      # @option country_of_origin [String] This item's country of origin for international shipments.
+      # Item options for generating shipping labels.
       class LabelItemOptions < FriendlyShipping::ItemOptions
-        attr_reader :commodity_code,
-                    :country_of_origin
+        # @return [String] the HS or NMFC code for international shipments
+        attr_reader :commodity_code
 
+        # @return [String] the country of origin for international shipments
+        attr_reader :country_of_origin
+
+        # @param commodity_code [String] the HS or NMFC code for international shipments
+        # @param country_of_origin [String] the country of origin for international shipments
+        # @param kwargs [Hash]
+        # @option kwargs [String] :item_id the ID for the item that belongs to these options
         def initialize(
           commodity_code: nil,
           country_of_origin: nil,

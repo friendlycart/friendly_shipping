@@ -7,24 +7,35 @@ require 'friendly_shipping/services/ship_engine/customs_items_serializer'
 module FriendlyShipping
   module Services
     class ShipEngine
-      # Options for generating ShipEngine labels
-      #
-      # @attribute label_format [Symbol] The format for the label. Possible Values: :png, :zpl and :pdf. Default :pdf
-      # @attribute label_download_type [Symbol] Whether to download directly (`:inline`) or
-      #   obtain a URL to the label (`:url`). Default :url
-      # @attribute label_image_id [String] Identifier for image uploaded to ShipEngine. Default: nil
-      # @attribute package_options [Enumberable<LabelPackageOptions>] Package options for the packages in the shipment
-      # @param [Callable] customs_items_serializer A callable that takes packages and an options object
-      #   to create the customs items array for the shipment
-      #
+      # Options for generating shipping labels.
       class LabelOptions < FriendlyShipping::ShipmentOptions
-        attr_reader :shipping_method,
-                    :label_download_type,
-                    :label_format,
-                    :label_image_id,
-                    :customs_options,
-                    :customs_items_serializer
+        # @return [ShippingMethod] the label's shipping method
+        attr_reader :shipping_method
 
+        # @return [Symbol] whether to download directly or obtain a URL to the label
+        attr_reader :label_download_type
+
+        # @return [Symbol] the format for the label
+        attr_reader :label_format
+
+        # @return [String] identifier for image uploaded to ShipEngine
+        attr_reader :label_image_id
+
+        # @return [LabelCustomsOptions] customs options for international shipment labels
+        attr_reader :customs_options
+
+        # @return [Proc, #call] a callable that takes packages and an options object to create the customs items array for the shipment
+        attr_reader :customs_items_serializer
+
+        # @param shipping_method [ShippingMethod] the label's shipping method
+        # @param label_download_type [Symbol] whether to download directly (`:inline`) or obtain a URL to the label (`:url`). Default :url
+        # @param label_format [Symbol] the format for the label. Possible Values: :png, :zpl and :pdf. Default :pdf
+        # @param label_image_id [String] identifier for image uploaded to ShipEngine. Default: nil
+        # @param customs_options [LabelCustomsOptions] customs options for obtaining international shipment labels
+        # @param customs_items_serializer [Proc, #call] a callable that takes packages and an options object to create the customs items array for the shipment
+        # @param kwargs [Hash]
+        # @option kwargs [Array<LabelPackageOptions>] :package_options package options for the packages in the shipment
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           shipping_method:,
           label_download_type: :url,

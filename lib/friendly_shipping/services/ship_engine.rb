@@ -23,13 +23,21 @@ require 'friendly_shipping/services/ship_engine/label_package_options'
 
 module FriendlyShipping
   module Services
+    # API service class for ShipEngine, a shipping API supporting UPS, USPS, etc.
+    # @see https://www.shipengine.com/docs/ ShipEngine API docs
     class ShipEngine
+      # The API base URL.
       API_BASE = "https://api.shipengine.com/v1/"
+
+      # The API paths. Used when constructing endpoint URLs.
       API_PATHS = {
         carriers: "carriers",
         labels: "labels"
       }.freeze
 
+      # @param token [String] the API token
+      # @param test [Boolean] whether to use test API endpoints
+      # @param client [HttpClient] optional custom HTTP client to use for requests
       def initialize(token:, test: true, client: nil)
         @token = token
         @test = test
@@ -38,9 +46,10 @@ module FriendlyShipping
         @client = client || HttpClient.new(error_handler: error_handler)
       end
 
-      # Get configured carriers from ShipEngine
+      # Get configured carriers.
       #
-      # @return [Result<ApiResult<Array<Carrier>>>] Carriers configured in your account
+      # @param debug [Boolean] whether to attach debugging information to the response
+      # @return [ApiResult<Array<Carrier>>, Failure<ApiFailure>] carriers configured in your account
       def carriers(debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:carriers],
@@ -53,14 +62,14 @@ module FriendlyShipping
         end
       end
 
-      # Get rates from ShipEngine
+      # Get rates.
       #
-      # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
-      # @param [FriendlyShipping::Services::ShipEngine::RatesOptions] options The options relevant to rates. See object description.
+      # @param shipment [Physical::Shipment] the shipment for which we're getting rates
+      # @param options [RatesOptions] the options for getting rates (see object description)
       #
-      # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
-      #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
-      #   can be serialized into an error message using `to_s`.
+      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>] When successfully parsing, an
+      #   array of rates in a Success Monad. When the parsing is not successful or ShipEngine can't give us rates,
+      #   a Failure monad containing something that can be serialized into an error message using `to_s`.
       def rates(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{FriendlyShipping::Services::ShipEngine::API_BASE}rates",
@@ -74,14 +83,14 @@ module FriendlyShipping
         end
       end
 
-      # Get rate estimates from ShipEngine
+      # Get rate estimates.
       #
-      # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
-      # @param [FriendlyShipping::Services::ShipEngine::RateEstimatesOptions] options The options relevant to estimating rates. See object description.
+      # @param shipment [Physical::Shipment] the shipment for which we're getting rate estimates
+      # @param options [RateEstimatesOptions] the options for getting rate estimates (see object description)
       #
-      # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
-      #   When the parsing is not successful or ShipEngine can't give us rates, a Failure monad containing something that
-      #   can be serialized into an error message using `to_s`.
+      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>>] When successfully parsing, an
+      #   array of rates in a Success Monad. When the parsing is not successful or ShipEngine can't give us rates,
+      #   a Failure monad containing something that can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options: FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}rates/estimate",
@@ -95,17 +104,16 @@ module FriendlyShipping
         end
       end
 
+      # ShipEngine returns timings as part of the rate estimates response
       alias_method :timings, :rate_estimates
 
-      # Get label(s) from ShipEngine
+      # Get shipping labels.
       #
-      # @param [Physical::Shipment] shipment The shipment object we're trying to get labels for
+      # @param shipment [Physical::Shipment] The shipment for which we're getting labels.
       #   Note: Some ShipEngine carriers, notably USPS, only support one package per shipment, and that's
       #   all that the integration supports at this point.
-      # @param [FriendlyShipping::Services::ShipEngine::LabelOptions] options The options relevant to estimating rates. See object description.
-      #
-      # @return [Result<ApiResult<Array<FriendlyShipping::Label>>>] The label returned.
-      #
+      # @param options [LabelOptions] the options for getting labels (see object description)
+      # @return [ApiResult<Array<Label>>, Failure<ApiFailure>] the shipping labels
       def labels(shipment, options:)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
@@ -118,11 +126,11 @@ module FriendlyShipping
         end
       end
 
-      # Void a ShipEngine label
+      # Void a shipping label.
       #
-      # @param label [FriendlyShipping::Label]
-      # @param debug [Boolean] whether to append debug information to the API result
-      # @return [Result<ApiResult<String>>] the result message
+      # @param label [Label] the label to void
+      # @param debug [Boolean] whether to include debugging information in the result
+      # @return [Success<ApiResult<String>>, Failure<ApiFailure<String>>] the success or failure message
       def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
@@ -157,8 +165,17 @@ module FriendlyShipping
 
       private
 
-      attr_reader :token, :test, :client
+      # @return [String] the API token
+      attr_reader :token
 
+      # @return [Boolean] whether to use test API endpoints
+      attr_reader :test
+
+      # @return [HttpClient] the HTTP client to use for requests
+      attr_reader :client
+
+      # Returns the content type and API key as a headers hash.
+      # @return [Hash]
       def request_headers
         {
           content_type: :json,

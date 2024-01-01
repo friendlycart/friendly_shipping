@@ -3,8 +3,13 @@
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Serializes a shipment and options for the label API request.
       class SerializeLabelShipment
         class << self
+          # @param shipment [Physical::Shipment] the shipment to serialize
+          # @param options [LabelOptions] the options to serialize
+          # @param test [Boolean] whether to use the test API
+          # @return [Hash] the serialized request
           def call(shipment:, options:, test:)
             shipment_hash = {
               label_format: options.label_format,
@@ -39,6 +44,8 @@ module FriendlyShipping
 
           private
 
+          # @param address [Physical::Location]
+          # @return [Hash]
           def serialize_address(address)
             {
               name: address.name,
@@ -53,6 +60,9 @@ module FriendlyShipping
             }.merge(SerializeAddressResidentialIndicator.call(address))
           end
 
+          # @param packages [Array<Physical::Package>]
+          # @param options [LabelOptions]
+          # @return [Array<Hash>]
           def serialize_packages(packages, options)
             packages.map do |package|
               package_options = options.options_for_package(package)
@@ -72,6 +82,8 @@ module FriendlyShipping
             end
           end
 
+          # @param packages [Array<Physical::Package>]
+          # @param options [LabelOptions]
           def serialize_customs(packages, options)
             {
               contents: options.customs_options.contents,
@@ -80,6 +92,8 @@ module FriendlyShipping
             }
           end
 
+          # @param weight [Measured::Weight]
+          # @return [Hash]
           def serialize_weight(weight)
             ounces = weight.convert_to(:ounce).value.to_f.round(2)
             {
@@ -91,6 +105,8 @@ module FriendlyShipping
             }
           end
 
+          # @param shipment [Physical::Shipment]
+          # @return [Boolean]
           def international?(shipment)
             shipment.origin.country != shipment.destination.country
           end

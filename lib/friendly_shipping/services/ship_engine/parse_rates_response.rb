@@ -5,16 +5,15 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Parses the rates API response.
       class ParseRatesResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
-          # @param [FriendlyShipping::Request] request
-          # @param [FriendlyShipping::Response] response
-          # @return [
-          #   Dry::Monads::Success<FriendlyShipping::ApiResult>,
-          #   Dry::Monads::Failure<FriendlyShipping::ApiFailure>
-          # ]
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @param options [RatesOptions] the options to use when parsing
+          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<String>>] the parsed rates or error
           def call(request:, response:, options:)
             parsed_json = JSON.parse(response.body)
             rates = build_rates(parsed_json, options)
@@ -40,10 +39,9 @@ module FriendlyShipping
 
           private
 
-          CURRENCY = Money::Currency.new('USD').freeze
-
-          # @param [String] parsed_json
-          # @return [Array<FriendlyShipping::Rate>]
+          # @param parsed_json [String] the parsed JSON
+          # @param options [RateOptions] the options to use when parsing
+          # @return [Array<Rate>] the parsed rates
           def build_rates(parsed_json, options)
             returned_rates = parsed_json.dig('rate_response', 'rates')
             return [] unless returned_rates
@@ -84,6 +82,8 @@ module FriendlyShipping
             end.compact
           end
 
+          # @param rate_hash [Hash] the rate hash
+          # @return [Hash<Symbol,Money>] the amounts in the hash
           def get_amounts(rate_hash)
             [:shipping, :other, :insurance, :confirmation].to_h do |name|
               currency = Money::Currency.new(rate_hash["#{name}_amount"]["currency"])

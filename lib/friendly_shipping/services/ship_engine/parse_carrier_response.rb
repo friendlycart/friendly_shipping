@@ -5,8 +5,12 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Parses the carriers API response.
       class ParseCarrierResponse
         class << self
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @return [ApiResult<Array<Carrier>] the parsed carriers
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             carriers = parsed_json['carriers'].map do |carrier_data|
@@ -35,6 +39,11 @@ module FriendlyShipping
 
           private
 
+          # Parses and returns a ShipEngine shipping method from the carriers API response.
+          #
+          # @param carrier [Carrier] the carrier for the shipping method
+          # @param shipping_method_data [Hash] the data for the shipping method
+          # @return [ShippingMethod] the parsed shipping method
           def parse_shipping_method(carrier, shipping_method_data)
             FriendlyShipping::ShippingMethod.new(
               carrier: carrier,

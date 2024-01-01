@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Serializes a shipment and options for the rates API request.
       class SerializeRatesRequest
         class << self
+          # @param shipment [Physical::Shipment] the shipment to serialize
+          # @param options [LabelOptions] the options to serialize
+          # @return [Hash] the serialized request
           def call(shipment:, options:)
             rates_hash = {
               shipment: {
@@ -36,6 +40,8 @@ module FriendlyShipping
 
           private
 
+          # @param package [Physical::Package]
+          # @return [Array<Hash>]
           def serialize_items(package)
             return [] unless package&.items.present?
 
@@ -49,6 +55,8 @@ module FriendlyShipping
             end
           end
 
+          # @param address [Physical::Location]
+          # @return [Hash]
           def serialize_address(address)
             {
               name: address.name,
@@ -63,6 +71,9 @@ module FriendlyShipping
             }.merge(SerializeAddressResidentialIndicator.call(address))
           end
 
+          # @param shipment [Physical::Shipment]
+          # @param options [LabelOptions]
+          # @return [Array<Hash>]
           def serialize_packages(shipment, options)
             shipment.packages.map do |package|
               {
@@ -81,6 +92,9 @@ module FriendlyShipping
             end
           end
 
+          # @param package [Physical::Package]
+          # @param options [LabelOptions]
+          # @return [Array<Hash>]
           def serialize_products(package, options)
             package.items.group_by(&:sku).map do |sku, items|
               reference_item = items.first
@@ -100,6 +114,8 @@ module FriendlyShipping
             end
           end
 
+          # @param shipment [Physical::Shipment]
+          # @return [Boolean]
           def international?(shipment)
             shipment.origin.country != shipment.destination.country
           end
