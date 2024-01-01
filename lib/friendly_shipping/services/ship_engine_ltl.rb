@@ -13,16 +13,24 @@ require 'friendly_shipping/services/ship_engine_ltl/item_options'
 
 module FriendlyShipping
   module Services
+    # API service class for ShipEngine LTL, a shipping API supporting Freight carriers.
+    # @see https://www.shipengine.com/docs/ltl/ ShipEngine LTL API docs
     class ShipEngineLTL
       include Dry::Monads::Result::Mixin
 
+      # The API base URL.
       API_BASE = "https://api.shipengine.com/v-beta/ltl/"
+
+      # The API paths. Used when constructing endpoint URLs.
       API_PATHS = {
         connections: "connections",
         carriers: "carriers",
         quotes: "quotes"
       }.freeze
 
+      # @param token [String] the API token
+      # @param test [Boolean] whether to use test API endpoints
+      # @param client [HttpClient] optional custom HTTP client to use for requests
       def initialize(token:, test: true, client: nil)
         @token = token
         @test = test
@@ -31,9 +39,11 @@ module FriendlyShipping
         @client = client || HttpClient.new(error_handler: error_handler)
       end
 
-      # Get configured LTL carriers from ShipEngine
+      # Get configured LTL carriers.
       #
-      # @return [Result<ApiResult<Array<Carrier>>>] LTL carriers configured in your account
+      # @param debug [Boolean] whether to attach debugging information to the response
+      # @return [Success<ApiResult<Array<Carrier>>>, Failure<ApiFailure<Array<String>>>] On success,
+      #   LTL carriers configured in your account. On failure, a list of error messages.
       def carriers(debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:carriers],
@@ -45,12 +55,13 @@ module FriendlyShipping
         end
       end
 
-      # Connect an LTL carrier to ShipEngine
+      # Connect an LTL carrier.
       #
-      # @param [Hash] credentials The carrier's connection information
-      # @param [String] scac Standard Carrier Alpha Code
-      #
-      # @return [Result<ApiResult<Hash>>] The unique carrier ID assigned by ShipEngine
+      # @param credentials [Hash] the carrier's connection information
+      # @param scac [String] Standard Carrier Alpha Code
+      # @see https://nmfta.org/scac/ SCAC
+      # @param debug [Boolean] whether to attach debugging information to the response
+      # @return [Success<ApiResult<Hash>>, Failure<ApiFailure<String>>] the carrier or error message
       def connect_carrier(credentials, scac, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:connections] + "/#{scac}",
@@ -69,13 +80,14 @@ module FriendlyShipping
         end
       end
 
-      # Update an existing LTL carrier in ShipEngine
+      # Update an existing LTL carrier.
       #
-      # @param [Hash] credentials The carrier's connection information
-      # @param [String] scac Standard Carrier Alpha Code
-      # @param [String] carrier_id The carrier ID from ShipEngine that you want to update
-      #
-      # @return [Result<ApiResult<Hash>>] The unique carrier ID assigned by ShipEngine
+      # @param credentials [Hash] the carrier's connection information
+      # @param scac [String] Standard Carrier Alpha Code
+      # @see https://nmfta.org/scac/ SCAC
+      # @param carrier_id [String] the ID for the carrier you want to update
+      # @param debug [Boolean] whether to attach debugging information to the response
+      # @return [Success<ApiResult<Hash>>, Failure<ApiFailure<String>>] the carrier or error message
       def update_carrier(credentials, scac, carrier_id, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:connections] + "/#{scac}/#{carrier_id}",
@@ -94,13 +106,13 @@ module FriendlyShipping
         end
       end
 
-      # Request an LTL price quote from ShipEngine
+      # Request an LTL price quote.
       #
-      # @param [String] carrier_id The carrier ID from ShipEngine that you want to quote against
-      # @param [Physical::Shipment] shipment The shipment to quote
-      # @param [FriendlyShipping::Services::ShipEngineLTL::QuoteOptions] options The options for the quote
-      #
-      # @return [Result<ApiResult<Hash>>] The price quote from ShipEngine
+      # @param carrier_id [String] the carrier ID
+      # @param shipment [Physical::Shipment] the shipment to quote
+      # @param options [QuoteOptions] the options for the quote
+      # @param debug [Boolean] whether to attach debugging information to the response
+      # @return [Success<ApiResult<Hash>>, Failure<ApiFailure<String>>] the quote or error message
       def request_quote(carrier_id, shipment, options, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:quotes] + "/#{carrier_id}",
@@ -116,8 +128,17 @@ module FriendlyShipping
 
       private
 
-      attr_reader :token, :test, :client
+      # @return [String] the API token
+      attr_reader :token
 
+      # @return [Boolean] whether to use test API endpoints
+      attr_reader :test
+
+      # @return [HttpClient] the HTTP client to use for requests
+      attr_reader :client
+
+      # Returns the content type and API key as a headers hash.
+      # @return [Hash]
       def request_headers
         {
           content_type: :json,

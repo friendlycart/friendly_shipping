@@ -3,10 +3,12 @@
 module FriendlyShipping
   module Services
     class ShipEngineLTL
+      # Serializes a shipment and options for the rate quote API request.
       class SerializeQuoteRequest
         class << self
-          # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::Services::ShipEngineLTL::QuoteOptions] options
+          # @param shipment [Physical::Shipment] the shipment to serialize
+          # @param options [QuoteOptions] the options to serialize
+          # @return [Hash] the serialized request
           def call(shipment:, options:)
             {
               shipment: {
@@ -25,14 +27,16 @@ module FriendlyShipping
 
           private
 
-          # @param [FriendlyShipping::Services::ShipEngineLTL::QuoteOptions] options
+          # @param options [QuoteOptions]
+          # @return [Array<Hash>]
           def serialize_options(options)
             options.accessorial_service_codes.map do |code|
               { code: code }
             end
           end
 
-          # @param [Physical::Location] location
+          # @param location [Physical::Location]
+          # @return [Hash]
           def serialize_ship_address(location)
             {
               account: location.properties.with_indifferent_access['account_number'],
@@ -41,7 +45,8 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Physical::Location] location
+          # @param location [Physical::Location]
+          # @return [Hash]
           def serialize_bill_address(location)
             {
               type: "shipper",
@@ -52,7 +57,8 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Physical::Location] location
+          # @param location [Physical::Location]
+          # @return [Hash]
           def serialize_address(location)
             {
               company_name: location.company_name,
@@ -64,7 +70,8 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Physical::Location] location
+          # @param location [Physical::Location]
+          # @return [Hash]
           def serialize_contact(location)
             {
               name: location.name,
@@ -73,7 +80,8 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Physical::Location] location
+          # @param location [Physical::Location]
+          # @return [Hash]
           def serialize_requested_by(location)
             {
               company_name: location.company_name,
@@ -81,7 +89,8 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [Array<Physical::Package>] packages
+          # @param packages [Array<Physical::Package>]
+          # @return [Hash]
           def serialize_shipment_measurements(packages)
             {
               total_linear_length: {

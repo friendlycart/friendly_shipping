@@ -3,10 +3,12 @@
 module FriendlyShipping
   module Services
     class ShipEngineLTL
+      # Serializes packages for the rate quote API request.
       class SerializePackages
         class << self
-          # @param [Array<Physical::Package>] packages
-          # @param [FriendlyShipping::Services::ShipEngineLTL::QuoteOptions] options
+          # @param packages [Array<Physical::Package>]
+          # @param options [QuoteOptions]
+          # @return [Array<Hash>]
           def call(packages:, options:)
             packages.flat_map do |package|
               package_options = options.options_for_package(package)
