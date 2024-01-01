@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Parses the response of a UPS Freight ship request into a {ShipmentInformation}.
       class ParseFreightLabelResponse
         class << self
+          # @param request [Request] the request that was sent
+          # @param response [Response] the response received
+          # @return [ApiResult<ShipmentInformation>] the parsed shipment information
           def call(request:, response:)
             json = JSON.parse(response.body)
 
@@ -57,6 +61,8 @@ module FriendlyShipping
 
           private
 
+          # @param shipment_results [Hash] the ShipmentResults part of the response JSON
+          # @return [Hash] rates, total charge and billable weight values found in the results
           def build_cost_breakdown(shipment_results)
             {
               "Rates" => shipment_results.fetch("Rate", []).to_h do |rate|

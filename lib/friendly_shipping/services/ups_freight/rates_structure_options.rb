@@ -15,20 +15,20 @@ module FriendlyShipping
           loose: { code: "LOO", description: "Loose", handling_unit_tag: 'Two' }
         }.freeze
 
-        # @return [String]
+        # @return [String] the description of the handling unit type
         attr_reader :handling_unit_description
 
-        # @return [String]
+        # @return [String] the request key for the handling unit, "HandlingUnitOne" or "HandlingUnitTwo"
         attr_reader :handling_unit_tag
 
-        # @return [String]
+        # @return [String] the code for the handling unit type
         attr_reader :handling_unit_code
 
-        # @param handling_unit [Symbol] how this shipment is divided (see {HANDLING_UNIT_TYPES})
+        # @param handling_unit [Symbol] the handling unit type of this structure (see {HANDLING_UNIT_TYPES})
         # @param kwargs [Hash]
-        # @options kwargs [Object] :structure_id unique identifier for this set of options
-        # @options kwargs [Array<PackageOptions>] :package_options the options for packages in this structure
-        # @options kwargs [Class] :package_options_class the class to use for package options when none are provided
+        # @option kwargs [Object] :structure_id unique identifier for this set of options
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this structure
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           handling_unit: :pallet,
           **kwargs

@@ -56,33 +56,33 @@ module FriendlyShipping
           loose: { code: "LOO", description: "Loose", handling_unit_tag: 'Two' }
         }.freeze
 
-        # @return [String]
+        # @return [String] the code for the packaging type
         attr_reader :packaging_code
 
-        # @return [String]
+        # @return [String] the description of the packaging type
         attr_reader :packaging_description
 
-        # @return [String]
+        # @return [String, nil] the freight class
         attr_reader :freight_class
 
-        # @return [String]
+        # @return [String, nil] the NMFC code
         attr_reader :nmfc_code
 
-        # @return [String]
+        # @return [String] the description of the handling unit type
         attr_reader :handling_unit_description
 
-        # @return [String]
+        # @return [String] the request key for the handling unit, "HandlingUnitOne" or "HandlingUnitTwo"
         attr_reader :handling_unit_tag
 
-        # @return [String]
+        # @return [String] the code for the handling unit type
         attr_reader :handling_unit_code
 
-        # @param packaging [Symbol] how this shipment is packaged (see {PACKAGING_TYPES})
+        # @param packaging [Symbol] how the package is packaged (see {PACKAGING_TYPES})
         # @param freight_class [String] the freight class
         # @param nmfc_code [String] the NMFC code
-        # @param handling_unit [Symbol] how this shipment is divided (see {HANDLING_UNIT_TYPES})
+        # @param handling_unit [Symbol] the handling unit type of this package (see {HANDLING_UNIT_TYPES})
         # @param kwargs [Hash]
-        # @option kwargs [String] :package_id the ID for the package  that belongs to these options
+        # @option kwargs [String] :package_id the ID for the package that belongs to these options
         # @option kwargs [Array<ItemOptions>] :item_options the options for items in this package
         # @option kwargs [Class] :item_options_class the class to use for item options when none are provided
         def initialize(

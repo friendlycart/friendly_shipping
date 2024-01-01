@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the FreightShipRequest hash for UPS Freight ship (label) requests.
       class GenerateFreightShipRequestHash
         class << self
+          # @param shipment [Physical::Shipment] the shipment to ship
+          # @param options [LabelOptions] the label options
+          # @return [Hash] the request hash
           def call(shipment:, options:)
             {
               FreightShipRequest: {
@@ -34,6 +38,8 @@ module FriendlyShipping
 
           private
 
+          # @param options [LabelOptions] the label options
+          # @return [Array<Hash>, nil] the email, pickup and delivery option hashes that are present, or nil if none are
           def shipment_service_options(options)
             email_options = options.email_options.map { |email_opts| GenerateEmailOptionsHash.call(email_options: email_opts) }.presence
             pickup_options = options.pickup_options ? GeneratePickupOptionsHash.call(pickup_options: options.pickup_options) : nil
@@ -41,6 +47,8 @@ module FriendlyShipping
             [email_options, pickup_options, delivery_options].compact.presence
           end
 
+          # @param options [LabelOptions] the label options
+          # @return [Hash] the payer and billing option hash
           def payment_information(options)
             payer_address = GenerateLocationHash.call(location: options.billing_address).
                             merge(ShipperNumber: options.shipper_number)
