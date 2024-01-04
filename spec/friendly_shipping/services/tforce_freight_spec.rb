@@ -4,9 +4,18 @@ require 'spec_helper'
 require 'friendly_shipping/services/tforce_freight'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight do
-  let(:service) { described_class.new(access_token: "secret-token") }
+  let(:service) { described_class.new(access_token: access_token) }
 
-  describe "carriers" do
+  let(:access_token) do
+    FriendlyShipping::Services::TForceFreight::AccessToken.new(
+      token_type: "Bearer",
+      expires_in: 3599,
+      ext_expires_in: 3599,
+      raw_token: "secret-token"
+    )
+  end
+
+  describe "#carriers" do
     subject { service.carriers.value! }
 
     it "has only one carrier with four shipping methods" do
@@ -20,6 +29,55 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
         "TForce Freight LTL - Guaranteed A.M.",
         "TForce Standard LTL",
       )
+    end
+  end
+
+  describe "#create_access_token" do
+    subject(:create_access_token) do
+      service.create_access_token(
+        token_endpoint: "https://example.com",
+        client_id: "client-id",
+        client_secret: "client-secret",
+        scope: "read"
+      )
+    end
+
+    let(:response) do
+      instance_double(
+        RestClient::Response,
+        code: 200,
+        body: %({
+          "token_type": "Bearer",
+          "expires_in": 3599,
+          "ext_expires_in": 3599,
+          "access_token": "XYADfw4Hz2KdN_sd8N4TzMo9"
+        }),
+        headers: {
+          "Cache-Control" => "no-store, no-cache",
+          "Content-Type" => "application/json; charset=utf-8"
+        }
+      )
+    end
+
+    before do
+      expect(RestClient).to receive(:post).with(
+        "https://example.com",
+        "client_id=client-id&client_secret=client-secret&grant_type=client_credentials&scope=read",
+        { Accept: "application/json", Content_Type: "application/x-www-form-urlencoded" }
+      ).and_return(response)
+    end
+
+    it "makes API request and returns access token" do
+      result = create_access_token
+      expect(result).to be_success
+      expect(result.value!).to be_a(FriendlyShipping::ApiResult)
+
+      access_token = result.value!.data
+      expect(access_token).to be_a(FriendlyShipping::Services::TForceFreight::AccessToken)
+      expect(access_token.token_type).to eq("Bearer")
+      expect(access_token.expires_in).to eq(3599)
+      expect(access_token.ext_expires_in).to eq(3599)
+      expect(access_token.raw_token).to eq("XYADfw4Hz2KdN_sd8N4TzMo9")
     end
   end
 
