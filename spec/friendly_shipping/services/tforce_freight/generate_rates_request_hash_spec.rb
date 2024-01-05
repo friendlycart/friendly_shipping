@@ -130,6 +130,31 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateRatesRequestHa
           customerContext: "order-12345"
         )
       end
+
+      context "when values are missing" do
+        let(:options) do
+          FriendlyShipping::Services::TForceFreight::RatesOptions.new(
+            billing_address: billing_location,
+            shipping_method: FriendlyShipping::ShippingMethod.new(service_code: "308")
+          )
+        end
+
+        it do
+          is_expected.to eq(
+            {
+              serviceCode: "308",
+              pickupDate: "2024-01-05",
+              type: "L",
+              densityEligible: false,
+              gfpOptions: {
+                accessorialRate: false
+              },
+              timeInTransit: true,
+              quoteNumber: false
+            }
+          )
+        end
+      end
     end
 
     describe "shipFrom" do
