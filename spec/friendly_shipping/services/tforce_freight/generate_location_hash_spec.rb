@@ -16,7 +16,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateLocationHash d
       )
     end
 
-    it "has all the right things" do
+    it do
       is_expected.to eq(
         address: {
           city: "Richmond",
@@ -25,6 +25,27 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateLocationHash d
           country: "US"
         }
       )
+    end
+
+    context "with missing values" do
+      let(:location) do
+        Physical::Location.new(
+          city: nil,
+          zip: "23224",
+          region: "VA",
+          country: "US"
+        )
+      end
+
+      it do
+        is_expected.to eq(
+          address: {
+            stateProvinceCode: "VA",
+            postalCode: "23224",
+            country: "US"
+          }
+        )
+      end
     end
   end
 end

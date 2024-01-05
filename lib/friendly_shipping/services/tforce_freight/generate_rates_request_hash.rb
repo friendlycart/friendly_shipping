@@ -34,7 +34,7 @@ module FriendlyShipping
               timeInTransit: options.time_in_transit,
               quoteNumber: options.quote_number,
               customerContext: options.customer_context
-            }
+            }.compact
           end
 
           def payment(options)

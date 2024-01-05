@@ -12,7 +12,7 @@ module FriendlyShipping
                 stateProvinceCode: location.region&.code,
                 postalCode: location.zip,
                 country: location.country&.code
-              }
+              }.compact
             }
           end
         end
