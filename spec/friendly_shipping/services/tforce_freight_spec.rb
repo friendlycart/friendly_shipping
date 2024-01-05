@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/tforce_freight'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight do
-  let(:service) { described_class.new(access_token: access_token) }
+  subject(:service) { described_class.new(access_token: access_token) }
 
   let(:access_token) do
     FriendlyShipping::Services::TForceFreight::AccessToken.new(
@@ -16,14 +16,14 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
   end
 
   describe "#carriers" do
-    subject { service.carriers.value! }
+    subject(:carriers) { service.carriers.value! }
 
     it "has only one carrier with four shipping methods" do
-      expect(subject.length).to eq(1)
-      expect(subject.first.shipping_methods.map(&:service_code)).to contain_exactly(
+      expect(carriers.length).to eq(1)
+      expect(carriers.first.shipping_methods.map(&:service_code)).to contain_exactly(
         "308", "309", "334", "349"
       )
-      expect(subject.first.shipping_methods.map(&:name)).to contain_exactly(
+      expect(carriers.first.shipping_methods.map(&:name)).to contain_exactly(
         "TForce Freight LTL",
         "TForce Freight LTL - Guaranteed",
         "TForce Freight LTL - Guaranteed A.M.",
@@ -82,6 +82,8 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
   end
 
   describe "#rates" do
+    subject(:rates) { service.rates(shipment, options: options) }
+
     let(:shipment) { Physical::Shipment.new(packages: packages, origin: origin, destination: destination) }
 
     let(:origin) do
@@ -190,15 +192,13 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       ]
     end
 
-    subject { service.rates(shipment, options: options) }
-
     context "with a valid request", vcr: { cassette_name: "tforce_freight/rates/success", match_requests_on: [:method, :uri, :content_type] } do
       it { is_expected.to be_success }
 
       it "has all the right data" do
-        rates = subject.value!.data
-        expect(rates.length).to eq(3)
-        rate = rates.first
+        result = rates.value!.data
+        expect(result.length).to eq(3)
+        rate = result.first
         expect(rate).to be_a(FriendlyShipping::Rate)
         expect(rate.total_amount).to eq(Money.new(157_356, "USD"))
         expect(rate.shipping_method.name).to eq("TForce Freight LTL")
@@ -219,8 +219,10 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       it { is_expected.to be_failure }
 
       it "has the correct error message" do
-        expect(subject.failure.to_s).to include("Invalid type. Expected String but got Null.")
+        expect(rates.failure.to_s).to include("Invalid type. Expected String but got Null.")
       end
     end
   end
+
+  it { is_expected.to respond_to(:rate_estimates) }
 end

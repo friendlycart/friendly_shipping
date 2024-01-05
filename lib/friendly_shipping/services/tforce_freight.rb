@@ -106,6 +106,8 @@ module FriendlyShipping
         end
       end
 
+      alias_method :rate_estimates, :rates
+
       private
 
       def build_request(action, payload, debug)
