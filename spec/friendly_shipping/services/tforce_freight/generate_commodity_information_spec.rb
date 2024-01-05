@@ -92,7 +92,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
               length: 1.87,
               width: 3.91,
               height: 5.81,
-              unit: "inches"
+              unit: "IN"
             },
             nmfc: {
               prime: "87700",
@@ -111,7 +111,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
               length: 1.34,
               width: 3.29,
               height: 5.91,
-              unit: "inches"
+              unit: "IN"
             },
             nmfc: {
               prime: "87700",
