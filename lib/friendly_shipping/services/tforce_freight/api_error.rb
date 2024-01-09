@@ -19,8 +19,13 @@ module FriendlyShipping
           return error.message unless error.response
 
           parsed_json = JSON.parse(error.response.body)
-          status = parsed_json['statusCode']
-          message = parsed_json['message']
+          if parsed_json['summary'].present?
+            status = parsed_json.dig("summary", "responseStatus", "code")
+            message = parsed_json.dig("summary", "responseStatus", "message")
+          else
+            status = parsed_json['statusCode']
+            message = parsed_json['message']
+          end
           [status, message].compact.join(": ")
         rescue JSON::ParserError, KeyError => _e
           nil

@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "responseStatus": {
+      "code": "502",
+      "message": "Rate requires assistance from Customer Service (800-333-7400)"
+    },
+    "transactionReference": {
+      "transactionId": "eb3912fc-797c-430b-b17a-59a4448d7749"
+    }
+  },
+  "detail": null
+}

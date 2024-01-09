@@ -134,6 +134,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateRatesRequestHa
       context "when values are missing" do
         let(:options) do
           FriendlyShipping::Services::TForceFreight::RatesOptions.new(
+            pickup_date: Date.parse("2024-01-05"),
             billing_address: billing_location,
             shipping_method: FriendlyShipping::ShippingMethod.new(service_code: "308")
           )

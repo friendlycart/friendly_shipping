@@ -9,6 +9,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ApiError do
     let(:body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'tforce_freight', fixture)) }
     let(:error) { RestClient::Exception.new(double(body: body)) }
 
+    context "with API error response" do
+      let(:fixture) { "failure_with_api_error.json" }
+      it { is_expected.to eq("502: Rate requires assistance from Customer Service (800-333-7400)") }
+    end
+
     context "with HTTP error response" do
       let(:fixture) { "failure_with_http_error.json" }
 
