@@ -8,7 +8,6 @@ module FriendlyShipping
     class TForceFreight
       # Options for generating TForce Freight rates for a shipment
       #
-
       # @attribute [Physical::Location] billing_address The billing address
       # @attribute [FriendlyShipping::ShippingMethod] shipping_method The shipping method to use
       # @attribute [Date] pickup_date Date of the Pickup. Defaults to today.
@@ -33,9 +32,9 @@ module FriendlyShipping
         }.freeze
 
         TYPE_CODES = {
-          l: "L",
-          f: "F",
-          b: "B"
+          l: "L", # LTL (Less Than Truckload) only
+          f: "F", # GFP (Ground w/Freight Pricing) only
+          b: "B"  # Both (LTL and GFP)
         }.freeze
 
         PICKUP_OPTIONS = {
