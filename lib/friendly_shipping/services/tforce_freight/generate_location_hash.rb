@@ -10,7 +10,7 @@ module FriendlyShipping
               address: {
                 city: location.city,
                 stateProvinceCode: location.region&.code,
-                postalCode: location.zip,
+                postalCode: location.zip&.strip&.[](0..4),
                 country: location.country&.code
               }.compact
             }
