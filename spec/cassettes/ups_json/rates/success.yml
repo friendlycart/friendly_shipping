@@ -1,0 +1,198 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/rating/v1707/Shop
+    body:
+      encoding: UTF-8
+      string: '{"RateRequest":{"Request":{"RequestOption":"Shop","SubVersion":"v1707","TransactionReference":{"CustomerContext":null}},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"01"},"Shipment":{"Shipper":{"AttentionName":"Jane
+        Doe","Name":"Company","ShipperNumber":"Y9319W","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"27703","StateProvinceCode":"NC","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipTo":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"32821","StateProvinceCode":"FL","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipFrom":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"27703","StateProvinceCode":"NC","CountryCode":"US","ResidentialAddressIndicator":"T"}},"PaymentDetails":{"ShipmentCharge":[{"Type":"01","BillShipper":{"AccountNumber":"Y9319W"}}]},"NumOfPieces":2,"Package":[{"PackagingType":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{"DeclaredValue":{"CurrencyCode":"USD","MonetaryValue":"0"}},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}},{"PackagingType":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{"DeclaredValue":{"CurrencyCode":"USD","MonetaryValue":"0"}},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}}]},"ShipmentRatingOptions":{"NegotiatedRatesIndicator":"2"}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %UPS_ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1791'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - iewssoat21k8Gm6jdpcCkd
+      Referrer-Policy:
+      - same-origin
+      Content-Type:
+      - application/json;charset=UTF-8
+      X-Request-Id:
+      - 2d5c5daa-6c03-4de5-8108-04e8396be7a0
+      Content-Length:
+      - '10969'
+      Expires:
+      - Wed, 17 Jan 2024 22:37:46 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 17 Jan 2024 22:37:46 GMT
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - ak_p; desc="1705531065497_3088855575_336771025_63242_117231_52_65_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=31
+      - origin; dur=592
+      Ak-Grn-1:
+      - 0.17321cb8.1705531065.1412b7d1
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"RateResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"},
+        "Alert":[{"Code":"110971", "Description":"Your invoice may vary from the displayed
+        reference rates"}], "TransactionReference":""}, "RatedShipment":[{"Service":{"Code":"01",
+        "Description":""}, "RatedShipmentAlert":{"Code":"110971", "Description":"Your
+        invoice may vary from the displayed reference rates"}, "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"10.0"}, "TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"261.10"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"0.00"},
+        "ItemizedCharges":{"Code":"270", "CurrencyCode":"USD", "MonetaryValue":"12.40"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"261.10"}, "GuaranteedDelivery":{"BusinessDaysInTransit":"1",
+        "DeliveryByTime":"10:30 A.M."}, "RatedPackage":[{"TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"130.55"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"106.34"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400",
+        "CurrencyCode":"USD", "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375",
+        "CurrencyCode":"USD", "MonetaryValue":"18.01"}], "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"130.55"}, "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"5.0"}}, {"TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"130.55"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"106.34"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400",
+        "CurrencyCode":"USD", "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375",
+        "CurrencyCode":"USD", "MonetaryValue":"18.01"}], "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"130.55"}, "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"5.0"}}]}, {"Service":{"Code":"02", "Description":""},
+        "RatedShipmentAlert":{"Code":"110971", "Description":"Your invoice may vary
+        from the displayed reference rates"}, "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"10.0"}, "TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"92.94"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"0.00"},
+        "ItemizedCharges":{"Code":"270", "CurrencyCode":"USD", "MonetaryValue":"12.40"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"92.94"}, "GuaranteedDelivery":{"BusinessDaysInTransit":"2"},
+        "RatedPackage":[{"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"46.47"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"33.86"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"6.41"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"46.47"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}, {"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"46.47"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"33.86"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"6.41"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"46.47"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}]}, {"Service":{"Code":"03", "Description":""}, "RatedShipmentAlert":{"Code":"110971",
+        "Description":"Your invoice may vary from the displayed reference rates"},
+        "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"10.0"}, "TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"48.36"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":{"Code":"270",
+        "CurrencyCode":"USD", "MonetaryValue":"11.30"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"48.36"},
+        "RatedPackage":[{"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"24.18"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"15.33"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"3.20"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"24.18"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}, {"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"24.18"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"15.33"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"3.20"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"24.18"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}]}, {"Service":{"Code":"12", "Description":""}, "RatedShipmentAlert":{"Code":"110971",
+        "Description":"Your invoice may vary from the displayed reference rates"},
+        "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"10.0"}, "TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"73.76"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":{"Code":"270",
+        "CurrencyCode":"USD", "MonetaryValue":"12.40"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"73.76"},
+        "GuaranteedDelivery":{"BusinessDaysInTransit":"3"}, "RatedPackage":[{"TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"36.88"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"25.59"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400",
+        "CurrencyCode":"USD", "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375",
+        "CurrencyCode":"USD", "MonetaryValue":"5.09"}], "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"36.88"}, "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"5.0"}}, {"TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"36.88"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"25.59"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400",
+        "CurrencyCode":"USD", "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375",
+        "CurrencyCode":"USD", "MonetaryValue":"5.09"}], "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"36.88"}, "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"5.0"}}]}, {"Service":{"Code":"13", "Description":""},
+        "RatedShipmentAlert":{"Code":"110971", "Description":"Your invoice may vary
+        from the displayed reference rates"}, "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS",
+        "Description":"Pounds"}, "Weight":"10.0"}, "TransportationCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"241.98"}, "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"0.00"},
+        "ItemizedCharges":{"Code":"270", "CurrencyCode":"USD", "MonetaryValue":"12.40"},
+        "ServiceOptionsCharges":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "TotalCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"241.98"}, "GuaranteedDelivery":{"BusinessDaysInTransit":"1"},
+        "RatedPackage":[{"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"120.99"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"98.10"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"16.69"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"120.99"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}, {"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"120.99"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"98.10"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"16.69"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"120.99"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}]}, {"Service":{"Code":"14", "Description":""}, "RatedShipmentAlert":{"Code":"110971",
+        "Description":"Your invoice may vary from the displayed reference rates"},
+        "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"10.0"}, "TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"330.70"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"0.00"}, "ItemizedCharges":{"Code":"270",
+        "CurrencyCode":"USD", "MonetaryValue":"12.40"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"330.70"},
+        "GuaranteedDelivery":{"BusinessDaysInTransit":"1", "DeliveryByTime":"8:00
+        A.M."}, "RatedPackage":[{"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"165.35"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"136.34"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"22.81"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"165.35"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}, {"TransportationCharges":{"CurrencyCode":"USD", "MonetaryValue":"165.35"},
+        "BaseServiceCharge":{"CurrencyCode":"USD", "MonetaryValue":"136.34"}, "ServiceOptionsCharges":{"CurrencyCode":"USD",
+        "MonetaryValue":"0.00"}, "ItemizedCharges":[{"Code":"400", "CurrencyCode":"USD",
+        "MonetaryValue":"0.00", "SubType":"EVS"}, {"Code":"375", "CurrencyCode":"USD",
+        "MonetaryValue":"22.81"}], "TotalCharges":{"CurrencyCode":"USD", "MonetaryValue":"165.35"},
+        "Weight":"1.0", "BillingWeight":{"UnitOfMeasurement":{"Code":"LBS", "Description":"Pounds"},
+        "Weight":"5.0"}}]}]}}'
+  recorded_at: Wed, 17 Jan 2024 22:37:46 GMT
+recorded_with: VCR 6.1.0

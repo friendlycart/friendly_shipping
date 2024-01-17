@@ -29,6 +29,7 @@ VCR.configure do |c|
   c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV.fetch('SHIPENGINE_CARRIER_ID', nil) }
   c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_ID%') { ENV.fetch('SHIPENGINE_LTL_CARRIER_ID', nil) }
   c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_SCAC%') { ENV.fetch('SHIPENGINE_LTL_CARRIER_SCAC', nil) }
+  c.filter_sensitive_data('%UPS_ACCESS_TOKEN%') { ENV.fetch('UPS_ACCESS_TOKEN', nil) }
   c.filter_sensitive_data('%UPS_LOGIN%') { ENV.fetch('UPS_LOGIN', nil) }
   c.filter_sensitive_data('%UPS_KEY%') { ENV.fetch('UPS_KEY', nil) }
   c.filter_sensitive_data('%UPS_PASSWORD%') { ENV.fetch('UPS_PASSWORD', nil) }
