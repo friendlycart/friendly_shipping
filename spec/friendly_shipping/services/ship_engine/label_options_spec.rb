@@ -26,4 +26,21 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::LabelOptions do
     subject(:customs_options) { options.customs_options }
     it { is_expected.to be_a(FriendlyShipping::Services::ShipEngine::LabelCustomsOptions) }
   end
+
+  context "customs_items_serializer" do
+    subject(:customs_items_serializer) { options.customs_items_serializer }
+
+    it { is_expected.to be(FriendlyShipping::Services::ShipEngine::CustomsItemsSerializer) }
+
+    context "can be overridden" do
+      subject(:options) do
+        described_class.new(shipping_method: double,
+                            customs_items_serializer: alternate_serializer).customs_items_serializer
+      end
+
+      let(:alternate_serializer) { Class }
+
+      it { is_expected.to eq(Class) }
+    end
+  end
 end

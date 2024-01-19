@@ -271,5 +271,22 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
         )
       )
     end
+
+    context "with a custom customs items serializer" do
+      let(:options) do
+        FriendlyShipping::Services::ShipEngine::LabelOptions.new(
+          shipping_method: shipping_method,
+          label_format: :zpl,
+          package_options: package_options,
+          customs_items_serializer: AnotherSerializer
+        )
+      end
+
+      it "calls the custom serializer" do
+        stub_const("AnotherSerializer", Class.new)
+        expect(AnotherSerializer).to receive(:call).once
+        subject
+      end
+    end
   end
 end
