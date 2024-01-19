@@ -10,7 +10,8 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::RatesItemOptions do
       packaging: :carton,
       freight_class: "92.5",
       nmfc_primary_code: "16030",
-      nmfc_sub_code: "01"
+      nmfc_sub_code: "01",
+      hazardous: true
     )
   end
 
@@ -20,6 +21,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::RatesItemOptions do
     expect(rates_item_options.nmfc_sub_code).to eq("01")
     expect(rates_item_options.packaging_code).to eq("CTN")
     expect(rates_item_options.packaging_description).to eq("Carton")
+    expect(rates_item_options.hazardous).to be(true)
   end
 
   context "with loose packaging" do
