@@ -37,7 +37,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::PickupOptions do
   it "has the right attributes" do
     expect(options.pickup_at).to eq(Time.parse("2023-05-18 12:30:00"))
     expect(options.pickup_time_window).to eq(Time.parse("2023-05-18 08:00:00")..Time.parse("2023-05-18 16:00:00"),)
-    expect(options.service_options). to eq(%w[INPU LIFO])
+    expect(options.service_options).to eq(%w[INPU LIFO])
     expect(options.pickup_instructions).to eq("East Dock")
     expect(options.handling_instructions).to eq("Handle with care")
     expect(options.delivery_instructions).to eq("West Dock")
