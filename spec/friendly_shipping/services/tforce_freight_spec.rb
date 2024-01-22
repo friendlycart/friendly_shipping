@@ -11,7 +11,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       token_type: "Bearer",
       expires_in: 3599,
       ext_expires_in: 3599,
-      raw_token: "secret-token"
+      raw_token: "secret_token"
     )
   end
 
@@ -192,7 +192,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       ]
     end
 
-    context "with a valid request", vcr: { cassette_name: "tforce_freight/rates/success", match_requests_on: [:method, :uri, :content_type] } do
+    context "with a valid request", vcr: { cassette_name: "tforce_freight/rates/success" } do
       it { is_expected.to be_success }
 
       it "has all the right data" do
@@ -206,7 +206,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       end
     end
 
-    context "with a missing destination postal code", vcr: { cassette_name: "tforce_freight/rates/failure", match_requests_on: [:method, :uri, :content_type] } do
+    context "with a missing destination postal code", vcr: { cassette_name: "tforce_freight/rates/failure" } do
       let(:destination) do
         Physical::Location.new(
           company_name: "Consignee Test 1",
@@ -225,4 +225,140 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
   end
 
   it { is_expected.to respond_to(:rate_estimates) }
+
+  describe "#create_pickup" do
+    subject(:create_pickup) { service.create_pickup(shipment, options: options) }
+
+    let(:shipment) { Physical::Shipment.new(packages: packages, origin: origin, destination: destination) }
+
+    let(:origin) do
+      Physical::Location.new(
+        company_name: "ACME Inc",
+        name: "John Smith",
+        email: "john@acme.com",
+        phone: "123-123-1234",
+        address1: "123 Maple St",
+        address2: "Suite 456",
+        city: "Richmond",
+        zip: "23224",
+        region: "VA",
+        country: "US"
+      )
+    end
+
+    let(:destination) do
+      Physical::Location.new(
+        company_name: "Widgets LLC",
+        name: "Jane Doe",
+        email: "jane@widgets.com",
+        phone: "456-456-4567",
+        address1: "123 Oak Ave",
+        address2: "Suite 456",
+        city: "Allanton",
+        zip: "63025",
+        region: "MO",
+        country: "US"
+      )
+    end
+
+    let(:packages) { [package_one, package_two] }
+
+    let(:package_one) do
+      Physical::Package.new(
+        id: "my_package_1",
+        items: [item_one]
+      )
+    end
+
+    let(:package_two) do
+      Physical::Package.new(
+        id: "my_package_2",
+        items: [item_two]
+      )
+    end
+
+    let(:item_one) do
+      Physical::Item.new(
+        id: "item_one",
+        weight: Measured::Weight(500, :lbs)
+      )
+    end
+
+    let(:item_two) do
+      Physical::Item.new(
+        id: "item_two",
+        weight: Measured::Weight(500, :lbs)
+      )
+    end
+
+    let(:options) do
+      FriendlyShipping::Services::TForceFreight::PickupOptions.new(
+        pickup_time_window: Time.parse("2024-01-22 08:00:00")..Time.parse("2024-01-22 16:00:00"),
+        pickup_at: Time.parse("2024-01-22 12:30:00"),
+        service_options: %w[INPU LIFO],
+        pickup_instructions: "East Dock",
+        handling_instructions: "Handle with care",
+        delivery_instructions: "West Dock",
+        package_options: package_options
+      )
+    end
+
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+          package_id: package_one.id,
+          item_options: item_one_options
+        ),
+        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+          package_id: package_two.id,
+          item_options: item_two_options
+        )
+      ]
+    end
+
+    let(:item_one_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+          item_id: "item_one",
+          packaging: :carton
+        )
+      ]
+    end
+
+    let(:item_two_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+          item_id: "item_two",
+          packaging: :pallet
+        )
+      ]
+    end
+
+    context "with a valid request", vcr: { cassette_name: "tforce_freight/create_pickup/success" } do
+      it { is_expected.to be_success }
+
+      it "has all the right data" do
+        result = create_pickup.value!.data
+        expect(result).to eq(
+          confirmation_number: "WBU5337790",
+          destination_is_rural: "false",
+          email_sent: "false",
+          origin_is_rural: "false",
+          response_status_code: "1",
+          response_status_description: "Success",
+          transaction_id: "7acf9c09-55f0-41a4-9371-9caafd63d618"
+        )
+      end
+    end
+
+    context "with a missing destination postal code", vcr: { cassette_name: "tforce_freight/create_pickup/failure" } do
+      let(:destination) { Physical::Location.new }
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(create_pickup.failure.to_s).to include("Invalid type. Expected String but got Null.")
+      end
+    end
+  end
 end
