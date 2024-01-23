@@ -6,6 +6,7 @@ require 'friendly_shipping/services/ups_json/api_error'
 require 'friendly_shipping/services/ups_json/generate_rates_payload'
 require 'friendly_shipping/services/ups_json/parse_json_response'
 require 'friendly_shipping/services/ups_json/parse_money_hash'
+require 'friendly_shipping/services/ups_json/parse_rate_modifier_hash'
 require 'friendly_shipping/services/ups_json/parse_rates_response'
 require 'friendly_shipping/services/ups_json/rates_item_options'
 require 'friendly_shipping/services/ups_json/rates_package_options'
@@ -52,9 +53,7 @@ module FriendlyShipping
         headers = {
           "Authorization" => "Bearer #{token}",
           "Content-Type" => "application/json",
-          "Accept" => "application/json",
-          "transId" => options.trans_id,
-          "transactionSrc" => options.transaction_src
+          "Accept" => "application/json"
         }.compact
         rates_request_body = GenerateRatesPayload.call(shipment: shipment, options: options).to_json
 
@@ -137,27 +136,6 @@ module FriendlyShipping
         end
       end
 
-      # Validate an address.
-      # @param [Physical::Location] location The address we want to verify
-      # @return [Result<ApiResult<Array<Physical::Location>>>] The response data from UPS encoded in a
-      #   `Physical::Location` object. Name and Company name are always nil, the
-      #   address lines will be made conformant to what UPS considers right. The returned location will
-      #   have the address_type set if possible.
-      def address_validation(location, debug: false)
-        address_validation_request_xml = SerializeAddressValidationRequest.call(location: location)
-        url = base_url + RESOURCES[:address_validation]
-        request = FriendlyShipping::Request.new(
-          url: url,
-          http_method: "POST",
-          body: access_request_xml + address_validation_request_xml,
-          readable_body: address_validation_request_xml,
-          debug: debug
-        )
-
-        client.post(request).bind do |response|
-          ParseAddressValidationResponse.call(response: response, request: request)
-        end
-      end
 
       # Classify an address.
       # @param [Physical::Location] location The address we want to classify
@@ -175,26 +153,6 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseAddressClassificationResponse.call(response: response, request: request)
-        end
-      end
-
-      # Find city and state for a given ZIP code
-      # @param [Physical::Location] location A location object with country and ZIP code set
-      # @return [Result<ApiResult<Array<Physical::Location>>>] The response data from UPS encoded in a
-      #   `Physical::Location` object. Country, City and ZIP code will be set, everything else nil.
-      def city_state_lookup(location, debug: false)
-        city_state_lookup_request_xml = SerializeCityStateLookupRequest.call(location: location)
-        url = base_url + RESOURCES[:city_state_lookup]
-        request = FriendlyShipping::Request.new(
-          url: url,
-          http_method: "POST",
-          body: access_request_xml + city_state_lookup_request_xml,
-          readable_body: city_state_lookup_request_xml,
-          debug: debug
-        )
-
-        client.post(request).bind do |response|
-          ParseCityStateLookupResponse.call(response: response, request: request, location: location)
         end
       end
 

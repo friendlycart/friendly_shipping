@@ -16,13 +16,12 @@ module FriendlyShipping
             snippet[:ShipperNumber] = shipper_number if shipper_number.present?
             snippet[:PhoneNumber] = location.phone if location.phone
             snippet[:Address] = {
-              AddressLine1: location.address1,
-              AddressLine2: location.address2,
+              AddressLine: [location.address1, location.address2, location.address3].compact,
               City: location.city,
               PostalCode: location.zip,
               StateProvinceCode: location.region&.code,
               CountryCode: location.country&.code,
-              ResidentialAddressIndicator: location.commercial? ? nil : 'T'
+              ResidentialAddressIndicator: location.commercial? ? nil : 'X'
             }.compact
             snippet
           end

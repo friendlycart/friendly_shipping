@@ -6,12 +6,12 @@ module FriendlyShipping
       class ParseRatesResponse
         class << self
           def call(request:, response:, shipment:)
-            parsing_result = ParseJsonResponse.call(
+            parsed_response = ParseJsonResponse.call(
               request: request,
               response: response,
               expected_root_key: 'RateResponse'
             )
-            parsing_result.fmap do |parsing_result|
+            parsed_response.fmap do |parsing_result|
               FriendlyShipping::ApiResult.new(
                 build_rates(parsing_result, shipment),
                 original_request: request,
@@ -32,84 +32,71 @@ module FriendlyShipping
               total_cost = ParseMoneyHash.call(rated_shipment['TotalCharges'], 'TotalCharges')
               insurance_price = ParseMoneyHash.call(rated_shipment['ServiceOptionsCharges'], 'ServiceOptionsCharges')
               negotiated_rate = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'NetSummaryCharges', 'GrandTotal'), 'GrandTotal')
+              negotiated_charges = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'ItemizedCharges'), 'ItemizedCharges')
+
+              itemized_charges = rated_shipment['ItemizedCharges'].is_a?(Hash) ? [rated_shipment['ItemizedCharges']] : rated_shipment['ItemizedCharges']
+              itemized_charges = itemized_charges.map do |charge|
+                ParseMoneyHash.call(charge, 'MonetaryValue')
+              end
+
+              rated_shipment_warnings = rated_shipment['RatedShipmentAlert'].is_a?(Hash) ? [rated_shipment['RatedShipmentAlert']] : rated_shipment['RatedShipmentAlert']
+              rated_shipment_warnings = rated_shipment_warnings.map { |alert| alert["Description"] }
+              if rated_shipment_warnings.any? { |e| e.match?(/to Residential/) }
+                new_address_type = 'residential'
+              elsif rated_shipment_warnings.any? { |e| e.match?(/to Commercial/) }
+                new_address_type = 'commercial'
+              end
 
               rates << FriendlyShipping::Rate.new(
                 shipping_method:,
                 amounts: { total: total_cost },
-                warnings: [],
+                warnings: rated_shipment_warnings,
                 errors: [],
-                data: {}
+                data: {
+                  insurance_price: insurance_price,
+                  negotiated_rate: negotiated_rate,
+                  negotiated_charges: negotiated_charges,
+                  days_to_delivery: days_to_delivery,
+                  new_address_type: new_address_type,
+                  itemized_charges: itemized_charges,
+                  packages: build_packages(rated_shipment)
+                }.compact
               )
             end
             rates
-
-            #
-            #
-            #   total = ParseMoneyElement.call(rated_shipment.at('TotalCharges')).last
-            #   insurance_price = ParseMoneyElement.call(rated_shipment.at('ServiceOptionsCharges'))&.last
-            #   negotiated_rate = ParseMoneyElement.call(
-            #     rated_shipment.at('NegotiatedRates/NetSummaryCharges/GrandTotal')
-            #   )&.last
-            #   negotiated_charges = extract_charges(rated_shipment.xpath('NegotiatedRates/ItemizedCharges'))
-            #   itemized_charges = extract_charges(rated_shipment.xpath('ItemizedCharges'))
-            #
-            #   rated_shipment_warnings = rated_shipment.css('RatedShipmentWarning').map { |e| e.text.strip }
-            #   if rated_shipment_warnings.any? { |e| e.match?(/to Residential/) }
-            #     new_address_type = 'residential'
-            #   elsif rated_shipment_warnings.any? { |e| e.match?(/to Commercial/) }
-            #     new_address_type = 'commercial'
-            #   end
-            #
-            #   FriendlyShipping::Rate.new(
-            #     shipping_method: shipping_method,
-            #     amounts: { total: total },
-            #     warnings: rated_shipment_warnings,
-            #     errors: [],
-            #     data: {
-            #       insurance_price: insurance_price,
-            #       negotiated_rate: negotiated_rate,
-            #       negotiated_charges: negotiated_charges,
-            #       days_to_delivery: days_to_delivery,
-            #       new_address_type: new_address_type,
-            #       itemized_charges: itemized_charges,
-            #       packages: build_packages(rated_shipment)
-            #     }.compact
-            #   )
-            # end
           end
 
           private
 
           def build_packages(rated_shipment)
-            rated_shipment.css('RatedPackage').map do |rated_package|
-              currency_code = rated_package.at('TotalCharges/CurrencyCode').text
+            package_array = rated_shipment['RatedPackage'].is_a?(Hash) ? [rated_shipment['RatedPackage']] : rated_shipment['RatedPackage']
+            package_array.map do |rated_package|
+              currency_code = rated_package.dig('TotalCharges', 'CurrencyCode')
               {
-                transportation_charges: ParseMoneyElement.call(rated_package.at('TransportationCharges'))&.last,
-                base_service_charge: ParseMoneyElement.call(rated_package.at('BaseServiceCharge'))&.last,
-                service_options_charges: ParseMoneyElement.call(rated_package.at('ServiceOptionsCharges'))&.last,
-                itemized_charges: extract_charges(rated_package.xpath('ItemizedCharges')),
-                total_charges: ParseMoneyElement.call(rated_package.at('TotalCharges'))&.last,
-                negotiated_charges: extract_charges(rated_package.xpath('NegotiatedCharges/ItemizedCharges')),
-                rate_modifiers: extract_modifiers(rated_package.xpath('RateModifier'), currency_code: currency_code),
-                weight: BigDecimal(rated_package.at('Weight').text),
-                billing_weight: BigDecimal(rated_package.at('BillingWeight/Weight').text)
+                transportation_charges: ParseMoneyHash.call(rated_package['TransportationCharges'], 'TransportationCharges'),
+                base_service_charge: ParseMoneyHash.call(rated_package['BaseServiceCharge'], 'BaseServiceCharge'),
+                service_options_charges: ParseMoneyHash.call(rated_package['ServiceOptionsCharges'], 'ServiceOptionsCharges'),
+                itemized_charges: extract_charges(rated_package['ItemizedCharges'], 'ItemizedCharges'),
+                total_charges: ParseMoneyHash.call(rated_package['TotalCharges'], 'TotalCharges'),
+                negotiated_charges: extract_charges(rated_package.dig('NegotiatedRateCharges', 'ItemizedCharges'), 'ItemizedCharges'),
+                rate_modifiers: extract_modifiers(rated_package['RateModifier'], currency_code: currency_code),
+                weight: BigDecimal(rated_package['Weight']),
+                billing_weight: BigDecimal(rated_package.dig('BillingWeight', 'Weight'))
               }.compact
             end
           end
 
-          def extract_charges(node)
-            node.map do |element|
-              ParseMoneyElement.call(element)
-            end.compact.to_h
+          def extract_charges(charges, key_name)
+            charges&.map do |charge|
+              ParseMoneyHash.call(charge, key_name)
+            end&.compact
           end
 
-          # @param [Nokogiri::XML::NodeSet] node The RateModifier node set from the source XML
-          # @param [String] currency_code The currency code for the modifier amounts (i.e. 'USD')
-          # @param [Array<Hash>]
-          def extract_modifiers(node, currency_code:)
-            node.map do |element|
-              ParseModifierElement.call(element, currency_code: currency_code)
-            end.compact.to_h
+          def extract_modifiers(modifiers, currency_code:)
+            modifiers = [modifiers] if modifiers.is_a?(Hash)
+            modifiers&.map do |modifier|
+              ParseRateModifierHash.call(modifier, currency_code:)
+            end&.compact
           end
         end
       end

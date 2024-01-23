@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://wwwcie.ups.com/api/rating/v1707/Shop
+    uri: https://wwwcie.ups.com/api/rating/v2205/Shop
     body:
       encoding: UTF-8
       string: '{"RateRequest":{"Request":{"RequestOption":"Shop","SubVersion":"v1707","TransactionReference":{"CustomerContext":null}},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"01"},"Shipment":{"Shipper":{"AttentionName":"Jane

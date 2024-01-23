@@ -103,130 +103,23 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         end
       end
     end
-  end
 
-  describe '#city_state_lookup' do
-    subject { service.city_state_lookup(location) }
-
-    context 'with a good ZIP code', vcr: { cassette_name: 'ups_json/city_state_lookup/success' } do
-      let(:location) { Physical::Location.new(zip: '27587', country: 'US') }
-
-      it { is_expected.to be_success }
-
-      it 'has correct data' do
-        result_data = subject.value!.data.first
-        expect(result_data.city).to eq('WAKE FOREST')
-        expect(result_data.region.code).to eq('NC')
-      end
-    end
-
-    context 'with a ZIP code spanning multiple states', vcr: { cassette_name: 'ups_json/city_state_lookup/multiple_states' } do
-      let(:location) { Physical::Location.new(zip: '81137', country: 'US') }
-
-      it { is_expected.to be_success }
-
-      it 'has correct data' do
-        result_data = subject.value!.data.first
-        # Even though this ZIP code DOES span two states, UPS returns Colorado.
-        expect(subject.value!.data.length).to eq(1)
-        expect(result_data.city).to eq('IGNACIO')
-        expect(result_data.region.code).to eq('CO')
-      end
-    end
-
-    context 'with a bad ZIP code', vcr: { cassette_name: 'ups_json/city_state_lookup/failure' } do
-      let(:location) { Physical::Location.new(zip: '00000', country: 'US') }
-
-      it { is_expected.to be_failure }
-
-      it 'has a nice error message' do
-        expect(subject.failure.to_s).to eq('Failure: The field, PostalCode, contains invalid data, 00000')
-      end
-    end
-  end
-
-  describe '#address_validation' do
-    subject { service.address_validation(address) }
-
-    context 'with a valid address', vcr: { cassette_name: 'ups_json/address_validation/valid_address' } do
-      let(:address) do
-        FactoryBot.build(
-          :physical_location,
-          name: "Dag Hammerskjöld",
-          company_name: "United Nations",
-          address1: "405 East 42nd Street",
-          city: "New York",
-          region: "NY",
-          zip: "10017"
-        )
+    context "with a response with a RateModifier", vcr: { cassette_name: 'ups_json/rates/rate_modifier' } do
+      let(:destination) { FactoryBot.build(:physical_location, address1: '1 Richland Ave', address2: nil, city: "San Francisco", region: "CA", zip: '94110') }
+      let(:origin) { FactoryBot.build(:physical_location, region: "NV", zip: '89502', address1: nil, address2: nil, city: "Reno", address_type: 'commercial') }
+      let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "03") }
+      let(:options) do
+        FriendlyShipping::Services::UpsJson::RatesOptions.new(shipper_number: shipper_number, shipping_method:, customer_classification: :shipper_number)
       end
 
-      it 'returns the address, upcased, in UPS standard form' do
-        expect(subject).to be_success
-        result_address = subject.value!.data.first
-        expect(result_address.address1).to eq('405 E 42ND ST')
-      end
-    end
-
-    context 'with an entirely invalid address', vcr: { cassette_name: 'ups_json/address_validation/invalid_address' } do
-      let(:address) do
-        FactoryBot.build(
-          :physical_location,
-          name: "Wat Wetlands",
-          company_name: "Hogwarts School of Wizardry",
-          address1: "Platform nine and a half",
-          city: "New York",
-          region: "NY",
-          zip: "10017"
-        )
-      end
-
-      it 'returns a failure indicating the address could not be validated' do
-        expect(subject).to be_failure
-      end
-    end
-
-    context 'with a slightly invalid address', vcr: { cassette_name: 'ups_json/address_validation/correctable_address' } do
-      let(:address) do
-        FactoryBot.build(
-          :physical_location,
-          name: "Dag Hammerskjöld",
-          company_name: "United Nations",
-          address1: "406 East 43nd Street",
-          city: "New York",
-          region: "NY",
-          zip: "27777"
-        )
-      end
-
-      it 'returns a corrected address' do
-        is_expected.to be_success
-        corrected_address = subject.value!.data.first
-        expect(corrected_address.zip).to eq('10036-6322')
-      end
-    end
-
-    context 'with an incomplete address', vcr: { cassette_name: 'ups_json/address_validation/incomplete_address' } do
-      let(:address) do
-        FactoryBot.build(
-          :physical_location,
-          name: "Dag Hammerskjöld",
-          company_name: "United Nations",
-          address1: "East 43nd Street",
-          city: "New York",
-          region: "NY",
-          zip: "27777"
-        )
-      end
-
-      it 'returns several alternatives' do
-        is_expected.to be_success
-        suggested_addresses = subject.value!.data
-        expect(suggested_addresses.length).to eq(15)
-        # All returned addresses need to have a first address line
-        expect(suggested_addresses.map(&:address1).compact.length).to eq(15)
-        # In this particular request, the last suggested address has a second address line.
-        expect(suggested_addresses.last.address2).to eq("FRNT A-B")
+      it 'returns the RateModifiers' do
+        aggregate_failures do
+          is_expected.to be_success
+          expect(subject.value!.data).to be_a(Array)
+          expect(subject.value!.data.first.data[:rate_modifier]).to be_nil
+          expect(subject.value!.data[3]).to be_a(FriendlyShipping::Rate)
+          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq([{'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD'))}])
+        end
       end
     end
   end
@@ -328,13 +221,13 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(subject).to be_a(Enumerable)
         expect(subject.length).to eq(6)
         expect(subject.map(&:shipping_method).map(&:name)).to contain_exactly(
-          "UPS Next Day Air Early",
-          "UPS Next Day Air",
-          "UPS Next Day Air Saver",
-          "UPS 2nd Day Air A.M.",
-          "UPS 2nd Day Air",
-          "UPS Ground"
-        )
+                                                                "UPS Next Day Air Early",
+                                                                "UPS Next Day Air",
+                                                                "UPS Next Day Air Saver",
+                                                                "UPS 2nd Day Air A.M.",
+                                                                "UPS 2nd Day Air",
+                                                                "UPS Ground"
+                                                              )
         last_timing = subject.last
         expect(last_timing.shipping_method.name).to eq('UPS Ground')
         expect(subject.map { |h| h.properties[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "2"])

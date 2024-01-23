@@ -8,8 +8,7 @@ module FriendlyShipping
           def call(package:,
                    delivery_confirmation_code: nil,
                    shipper_release: false,
-                   transmit_dimensions: true
-          )
+                   transmit_dimensions: true)
             package_hash = {
               PackagingType: {
                 Code: '02'
@@ -35,7 +34,9 @@ module FriendlyShipping
             end
 
             package_hash[:PackageServiceOptions][:ShipperReleaseIndicator] = true if shipper_release
-            package_hash[:PackageServiceOptions][:DeliveryConfirmation] = { DCISType: delivery_confirmation_code } if delivery_confirmation_code
+            if delivery_confirmation_code
+              package_hash[:PackageServiceOptions][:DeliveryConfirmation] = { DCISType: delivery_confirmation_code }
+            end
 
             total_value = package.items.inject(Money.new(0, 'USD')) do |package_sum, item|
               package_sum + (item.cost || Money.new(0, 'USD'))

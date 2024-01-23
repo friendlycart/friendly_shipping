@@ -11,10 +11,7 @@ module FriendlyShipping
     # @option shipper_number [String] The shipper number of the origin of the shipment.
     #
     # Optional:
-    # @option transId [String] An identifier unique to the request. Length 32
-    # @option transactionSrc [String] An identifier of the client/source application that is making the request. Length 512
     #
-
     # @option carbon_neutral [Boolean] Ship with UPS' carbon neutral program
     # @option customer_context [String ] Optional element to identify transactions between client and server
     # @option customer_classification [Symbol] Which kind of rates to request. See UPS docs for more details. Default: `shipper_number`
@@ -26,7 +23,7 @@ module FriendlyShipping
     # @option saturday_pickup [Boolean] should we request Saturday pickup?. Default: false
     # @option shipping_method [FriendlyShipping::ShippingMethod] Request rates for a particular shipping method only?
     #   Default is `nil`, which translates to 'All shipping methods' (The "Shop" option in UPS parlance)
-    # @option sub_version [String] The UPS API sub-version to use for requests. Default: 1707
+    # @option sub_version [String] The UPS API sub-version to use for requests. Default: v2205
     # @option with_time_in_transit [Boolean] Whether to request timing information alongside the rates
     # @option package_options_class [Class] See FriendlyShipping::ShipmentOptions
     #
@@ -64,8 +61,6 @@ module FriendlyShipping
                     :shipper_number,
                     :shipping_method,
                     :sub_version,
-                    :trans_id,
-                    :transaction_src,
                     :with_time_in_transit
 
         def initialize(
@@ -81,11 +76,9 @@ module FriendlyShipping
           saturday_pickup: false,
           shipper: nil,
           shipping_method: nil,
-          sub_version: "v1707",
+          sub_version: "v2205",
           with_time_in_transit: false,
           package_options_class: FriendlyShipping::Services::UpsJson::RatesPackageOptions,
-          trans_id: nil,
-          transaction_src: nil,
           **kwargs
         )
           raise ArgumentError, "Invalid sub-version: #{sub_version}" unless sub_version.in?(SUB_VERSIONS)
@@ -104,8 +97,6 @@ module FriendlyShipping
           @shipping_method = shipping_method
           @sub_version = sub_version
           @with_time_in_transit = with_time_in_transit
-          @trans_id = trans_id
-          @transaction_src = transaction_src
           super(**kwargs.reverse_merge(package_options_class: package_options_class))
         end
 

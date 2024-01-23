@@ -33,16 +33,13 @@ module FriendlyShipping
                           AccountNumber: options.shipper_number
                         }
                       }
-                    # TODO bill third party
                     ]
                   },
                   NumOfPieces: shipment.packages.count
-                },
-                ShipmentRatingOptions: {
-                  NegotiatedRatesIndicator: "2" # Account based rates
                 }
               }
             }
+
           if options.customer_context.present?
             payload[:RateRequest][:Request][:TransactionReference] = { CustomerContext: options.customer_context }
           end
@@ -51,63 +48,36 @@ module FriendlyShipping
             GeneratePackageHash.call(package: package)
           end
 
+          if options.pickup_date && options.sub_version.to_i >= 2205
+            payload[:RateRequest][:Shipment][:DeliveryTimeInformation] = {
+              PackageBillType: "03", # Non-document
+              Pickup: {
+                Date: options.pickup_date.strftime('%Y%m%d'),
+                Time: options
+              }
+            }
+          end
+
+          if options.shipping_method
+            payload[:RateRequest][:Shipment][:Service] = { Code: options.shipping_method.service_code }
+          end
+
+          payload[:RateRequest][:Shipment][:ShipmentServiceOptions] = {
+            UPScarbonneutralIndicator: options.carbon_neutral,
+            SaturdayDelivery: options.saturday_delivery,
+            SaturdayPickup: options.saturday_pickup
+          }.compact
+
+          if options.negotiated_rates
+            payload[:RateRequest][:Shipment][:NegotiatedRatesIndicator] = options.negotiated_rates
+          end
 
           payload
-          #     shipper = options.shipper || shipment.origin
-          #
-          #     xml.Shipment do
-          #       if shipper != shipment.origin
-          #         xml.ShipFrom do
-          #           SerializeAddressSnippet.call(xml: xml, location: shipment.origin)
-          #         end
-          #       end
-          #
-          #       if options.pickup_date && options.sub_version.to_i >= 2205
-          #         xml.DeliveryTimeInformation do
-          #           xml.Pickup do
-          #             xml.Date options.pickup_date.strftime('%Y%m%d')
-          #             xml.Time options.pickup_date.strftime('%H%M')
-          #           end
-          #         end
-          #       end
-          #
-          #       shipment.packages.each do |package|
-          #         package_options = options.options_for_package(package)
-          #         SerializePackageNode.call(
-          #           xml: xml,
-          #           package: package,
-          #           transmit_dimensions: package_options.transmit_dimensions
-          #         )
-          #       end
-          #
-          #       if options.shipping_method
-          #         xml.Service do
-          #           xml.Code options.shipping_method.service_code
-          #         end
-          #       end
-          #
-          #       xml.ShipmentServiceOptions do
-          #         xml.UPScarbonneutralIndicator if options.carbon_neutral
-          #         xml.SaturdayDelivery if options.saturday_delivery
-          #         xml.SaturdayPickup if options.saturday_pickup
-          #       end
-          #
-          #       if options.negotiated_rates
-          #         xml.RateInformation do
-          #           xml.NegotiatedRatesIndicator if options.negotiated_rates
-          #         end
-          #       end
-          #     end
-          #   end
-          # end
-          #
-          # xml_builder.to_xml
         end
 
         def self.international?(shipment)
           shipment.origin.country != shipment.destination.country
         end
-
       end
     end
   end
