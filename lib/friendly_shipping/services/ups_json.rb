@@ -2,6 +2,7 @@
 
 require 'dry/monads'
 require 'friendly_shipping/http_client'
+require 'friendly_shipping/services/ups_json/access_token'
 require 'friendly_shipping/services/ups_json/api_error'
 require 'friendly_shipping/services/ups_json/generate_rates_payload'
 require 'friendly_shipping/services/ups_json/parse_json_response'
@@ -18,7 +19,7 @@ module FriendlyShipping
     class UpsJson
       include Dry::Monads[:result]
 
-      attr_reader :token, :test, :client
+      attr_reader :access_token, :test, :client
 
       SHIPPING_METHODS = FriendlyShipping::Services::UpsJson::SHIPPING_METHODS
       CARRIER = FriendlyShipping::Carrier.new(
@@ -31,8 +32,8 @@ module FriendlyShipping
       TEST_URL = 'https://wwwcie.ups.com'
       LIVE_URL = 'https://onlinetools.ups.com'
 
-      def initialize(token:, test: true, client: nil)
-        @token = token
+      def initialize(access_token:, test: true, client: nil)
+        @access_token = access_token
         @test = test
         error_handler = ApiErrorHandler.new(api_error_class: UpsJson::ApiError)
         @client = client || HttpClient.new(error_handler: error_handler)
@@ -42,6 +43,45 @@ module FriendlyShipping
         Success([CARRIER])
       end
 
+      # Creates an access token to be used for future API requests.
+      #
+      # @param client_id [String] the Client ID of your UPS application
+      # @param client_secret [String] the Client Secret of your UPS application
+      # @param merchant_id [String] the shipper number associated with your UPS application
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [ApiResult<AccessToken>] the access token
+      def create_access_token(
+        client_id:,
+        client_secret:,
+        merchant_id:,
+        debug: false
+      )
+        request = FriendlyShipping::Request.new(
+          url: "#{base_url}/security/v1/oauth/token",
+          http_method: "POST",
+          body: "grant_type=client_credentials",
+          headers: {
+            Authorization: "Basic #{Base64.urlsafe_encode64("#{client_id}:#{client_secret}")}",
+            Content_Type: "application/x-www-form-urlencoded",
+            'X-Merchant-Id': merchant_id,
+            Accept: "application/json"
+          },
+          debug: debug
+        )
+        client.post(request).fmap do |response|
+          hash = JSON.parse(response.body)
+          FriendlyShipping::ApiResult.new(
+            AccessToken.new(
+              expires_in: hash['expires_in'],
+              issued_at: hash['issued_at'],
+              raw_token: hash['access_token']
+            ),
+            original_request: request,
+            original_response: response
+          )
+        end
+      end
+
       # Get rates for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to get rates for
       # @param [FriendlyShipping::Services::UpsJson::RateOptions] options What options
@@ -49,9 +89,10 @@ module FriendlyShipping
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
       def rates(shipment, options:, debug: false)
+        # maybe add v outside of sub_version since ups is inconsistent?
         url = "#{base_url}/api/rating/#{options.sub_version || 'v1'}/Shop"
         headers = {
-          "Authorization" => "Bearer #{token}",
+          "Authorization" => "Bearer #{access_token}",
           "Content-Type" => "application/json",
           "Accept" => "application/json"
         }.compact
@@ -75,6 +116,8 @@ module FriendlyShipping
       # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
       # @param [FriendlyShipping::Services::Ups::TimingOptions] options Options for this call
       def timings(shipment, options:, debug: false)
+        raise 'NYI'
+
         time_in_transit_request_xml = SerializeTimeInTransitRequest.call(
           shipment: shipment,
           options: options
@@ -135,7 +178,6 @@ module FriendlyShipping
           end
         end
       end
-
 
       # Classify an address.
       # @param [Physical::Location] location The address we want to classify

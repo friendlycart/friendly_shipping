@@ -11,8 +11,7 @@ module FriendlyShipping
             # TODO: is this still the right logic?
             attention_name = location.name if international || location.company_name
             snippet[:AttentionName] = attention_name if attention_name
-
-            snippet[:Name] = (location.company_name || location.name)[0..34]
+            snippet[:Name] = (location.company_name || location.name)&.slice(0..34)
             snippet[:ShipperNumber] = shipper_number if shipper_number.present?
             snippet[:PhoneNumber] = location.phone if location.phone
             snippet[:Address] = {
@@ -23,7 +22,7 @@ module FriendlyShipping
               CountryCode: location.country&.code,
               ResidentialAddressIndicator: location.commercial? ? nil : 'X'
             }.compact
-            snippet
+            snippet.compact
           end
         end
       end

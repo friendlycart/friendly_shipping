@@ -23,8 +23,8 @@ module FriendlyShipping
                 },
                 Shipment: {
                   Shipper: GenerateAddressHash.call(location: options.shipper || shipment.origin, international: international?(shipment), shipper_number: options.shipper_number),
-                  ShipTo: GenerateAddressHash.call(location: shipment.destination, international: international?(shipment), shipper_number: nil),
-                  ShipFrom: GenerateAddressHash.call(location: shipment.origin, international: international?(shipment), shipper_number: nil),
+                  ShipTo: GenerateAddressHash.call(location: shipment.destination, international: international?(shipment)),
+                  ShipFrom: GenerateAddressHash.call(location: shipment.origin),
                   PaymentDetails: {
                     ShipmentCharge: [
                       {

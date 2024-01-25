@@ -7,7 +7,7 @@ module FriendlyShipping
         def self.call(money_hash, key_name)
           return unless money_hash
 
-          monetary_value = money_hash['MonetaryValue'].to_d
+          monetary_value = money_hash['MonetaryValue']&.to_d
           return if monetary_value.zero?
 
           currency_code = money_hash['CurrencyCode']

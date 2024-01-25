@@ -118,7 +118,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           expect(subject.value!.data).to be_a(Array)
           expect(subject.value!.data.first.data[:rate_modifier]).to be_nil
           expect(subject.value!.data[3]).to be_a(FriendlyShipping::Rate)
-          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq([{'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD'))}])
+          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq([{ 'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD')) }])
         end
       end
     end
@@ -221,13 +221,13 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(subject).to be_a(Enumerable)
         expect(subject.length).to eq(6)
         expect(subject.map(&:shipping_method).map(&:name)).to contain_exactly(
-                                                                "UPS Next Day Air Early",
-                                                                "UPS Next Day Air",
-                                                                "UPS Next Day Air Saver",
-                                                                "UPS 2nd Day Air A.M.",
-                                                                "UPS 2nd Day Air",
-                                                                "UPS Ground"
-                                                              )
+          "UPS Next Day Air Early",
+          "UPS Next Day Air",
+          "UPS Next Day Air Saver",
+          "UPS 2nd Day Air A.M.",
+          "UPS 2nd Day Air",
+          "UPS Ground"
+        )
         last_timing = subject.last
         expect(last_timing.shipping_method.name).to eq('UPS Ground')
         expect(subject.map { |h| h.properties[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "2"])

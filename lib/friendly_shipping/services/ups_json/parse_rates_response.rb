@@ -23,16 +23,21 @@ module FriendlyShipping
           def build_rates(rates_result, shipment)
             rates = []
 
-            rates_result.dig('RateResponse', 'RatedShipment').each do |rated_shipment|
+            rated_shipments = if rates_result.dig('RateResponse', 'RatedShipment').is_a?(Hash)
+                                [rates_result.dig('RateResponse', 'RatedShipment')]
+                              else
+                                rates_result.dig('RateResponse', 'RatedShipment')
+                              end
+            rated_shipments.each do |rated_shipment|
               service_code = rated_shipment.dig('Service', 'Code')
               shipping_method = CARRIER.shipping_methods.detect do |sm|
                 sm.service_code == service_code && shipment.origin.country.in?(sm.origin_countries)
               end
               days_to_delivery = rated_shipment.dig('GuaranteedDelivery', 'BusinessDaysInTransit').to_i
-              total_cost = ParseMoneyHash.call(rated_shipment['TotalCharges'], 'TotalCharges')
-              insurance_price = ParseMoneyHash.call(rated_shipment['ServiceOptionsCharges'], 'ServiceOptionsCharges')
-              negotiated_rate = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'NetSummaryCharges', 'GrandTotal'), 'GrandTotal')
-              negotiated_charges = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'ItemizedCharges'), 'ItemizedCharges')
+              total_cost = ParseMoneyHash.call(rated_shipment['TotalCharges'], 'TotalCharges').last
+              insurance_price = ParseMoneyHash.call(rated_shipment['ServiceOptionsCharges'], 'ServiceOptionsCharges')&.last
+              negotiated_rate = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'NetSummaryCharges', 'GrandTotal'), 'GrandTotal')&.last
+              negotiated_charges = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'ItemizedCharges'), 'ItemizedCharges')&.last
 
               itemized_charges = rated_shipment['ItemizedCharges'].is_a?(Hash) ? [rated_shipment['ItemizedCharges']] : rated_shipment['ItemizedCharges']
               itemized_charges = itemized_charges.map do |charge|
@@ -49,7 +54,7 @@ module FriendlyShipping
 
               rates << FriendlyShipping::Rate.new(
                 shipping_method:,
-                amounts: { total: total_cost },
+                amounts: {total: total_cost},
                 warnings: rated_shipment_warnings,
                 errors: [],
                 data: {
@@ -87,6 +92,7 @@ module FriendlyShipping
           end
 
           def extract_charges(charges, key_name)
+            charges = [charges] if charges.is_a?(Hash)
             charges&.map do |charge|
               ParseMoneyHash.call(charge, key_name)
             end&.compact
