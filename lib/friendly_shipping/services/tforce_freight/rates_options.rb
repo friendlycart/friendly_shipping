@@ -40,15 +40,22 @@ module FriendlyShipping
         PICKUP_OPTIONS = {
           inside: "INPU",
           liftgate: "LIFO",
-          residential: "RESP",
-          limited_access: "LAPU"
+          limited_access: "LAPU",
+          holiday: "WHPU",
+          weekend: "WHPU",
+          tradeshow: "TRPU",
+          residential: "RESP"
         }.freeze
 
         DELIVERY_OPTIONS = {
           inside: "INDE",
           liftgate: "LIFD",
-          residential: "RESD",
-          limited_access: "LADL"
+          limited_access: "LADL",
+          holiday: "WHDL",
+          weekend: "WHDL",
+          call_consignee: "NTFN",
+          tradeshow: "TRDS",
+          residential: "RESD"
         }.freeze
 
         attr_reader :billing_address,
