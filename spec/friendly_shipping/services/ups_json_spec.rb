@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups_json'
 
 RSpec.describe FriendlyShipping::Services::UpsJson do
-  subject(:service) { described_class.new(token: ENV.fetch('UPS_ACCESS_TOKEN', nil)) }
+  subject(:service) { described_class.new(access_token: ENV.fetch('UPS_ACCESS_TOKEN', nil)) }
 
   describe '#carriers' do
     subject { service.carriers }
@@ -183,7 +183,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
-  describe '#timings', vcr: { cassette_name: 'ups_json/timings/success' } do
+  describe '#timings', vcr: { cassette_name: 'ups_json/timings/success', decode_compressed_response: true } do
     let(:origin) do
       FactoryBot.build(
         :physical_location,
@@ -208,11 +208,15 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
     let(:shipment) { FactoryBot.build(:physical_shipment, origin: origin, destination: destination) }
 
-    let(:options) { FriendlyShipping::Services::Ups::TimingOptions.new }
+    let(:options) { FriendlyShipping::Services::UpsJson::TimingsOptions.new }
 
     subject(:timings) { service.timings(shipment, options: options, debug: true) }
 
     it { is_expected.to be_success }
+
+    it 'fails if the UPS api is down', vcr: { cassette_name: 'ups_json/timings/failure' } do
+      expect(subject.failure.to_s).to eq('{"code"=>"10004", "message"=>"The service is temporarily unavailable"}')
+    end
 
     describe 'contents' do
       subject { timings.value!.data }
@@ -221,16 +225,16 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(subject).to be_a(Enumerable)
         expect(subject.length).to eq(6)
         expect(subject.map(&:shipping_method).map(&:name)).to contain_exactly(
-          "UPS Next Day Air Early",
-          "UPS Next Day Air",
-          "UPS Next Day Air Saver",
-          "UPS 2nd Day Air A.M.",
-          "UPS 2nd Day Air",
-          "UPS Ground"
+          "UPS Next Day Air® Early",
+          "UPS Next Day Air®",
+          "UPS Next Day Air Saver®",
+          "UPS 2nd Day Air®",
+          "UPS Ground",
+          "UPS 3 Day Select®"
         )
         last_timing = subject.last
-        expect(last_timing.shipping_method.name).to eq('UPS Ground')
-        expect(subject.map { |h| h.properties[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "2"])
+        expect(last_timing.shipping_method.name).to eq('UPS 3 Day Select®')
+        expect(subject.map { |h| h.properties[:business_transit_days] }).to eq([1, 1, 1, 2, 2, 3])
       end
     end
   end

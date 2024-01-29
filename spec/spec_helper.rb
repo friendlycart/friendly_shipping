@@ -29,7 +29,6 @@ VCR.configure do |c|
   c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV.fetch('SHIPENGINE_CARRIER_ID', nil) }
   c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_ID%') { ENV.fetch('SHIPENGINE_LTL_CARRIER_ID', nil) }
   c.filter_sensitive_data('%SHIPENGINE_LTL_CARRIER_SCAC%') { ENV.fetch('SHIPENGINE_LTL_CARRIER_SCAC', nil) }
-  c.filter_sensitive_data('%UPS_ACCESS_TOKEN%') { ENV.fetch('UPS_ACCESS_TOKEN', nil) }
   c.filter_sensitive_data('%UPS_LOGIN%') { ENV.fetch('UPS_LOGIN', nil) }
   c.filter_sensitive_data('%UPS_KEY%') { ENV.fetch('UPS_KEY', nil) }
   c.filter_sensitive_data('%UPS_PASSWORD%') { ENV.fetch('UPS_PASSWORD', nil) }
@@ -39,6 +38,11 @@ VCR.configure do |c|
   # Matches the Content-Type request header
   c.register_request_matcher :content_type do |r1, r2|
     r1.headers['Content-Type'] == r2.headers['Content-Type']
+  end
+
+  # so VCR does not encode the responses from UPS with ® as binary
+  c.before_record do |i|
+    i.response.body.force_encoding('UTF-8')
   end
 end
 

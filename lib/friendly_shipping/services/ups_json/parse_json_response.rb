@@ -13,10 +13,8 @@ module FriendlyShipping
 
             if response_body.nil? || response_body.keys.first != expected_root_key
               wrap_failure('Empty or unexpected root key', request, response)
-            elsif request_successful?(response_body, expected_root_key)
-              Success(response_body)
             else
-              wrap_failure(error_message(response_body), request, response)
+              Success(response_body)
             end
           rescue JSON::ParserError => e
             wrap_failure(e, request, response)
@@ -24,13 +22,9 @@ module FriendlyShipping
 
           private
 
-          def request_successful?(response_body, expected_root_key)
-            response_body.dig(expected_root_key, 'Response', 'ResponseStatus', 'Code') == SUCCESSFUL_RESPONSE_STATUS_CODE
-          end
-
           def error_message(response_body)
-            errors = response_body.dig('response', 'errors')
-            errors.join(", ").presence || 'UPS could not process the request.'
+            errors = response_body['errors']
+            errors&.join(", ").presence || 'UPS could not process the request.'
           end
 
           def wrap_failure(failure, request, response)

@@ -5,14 +5,17 @@ require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups_json/access_token'
 require 'friendly_shipping/services/ups_json/api_error'
 require 'friendly_shipping/services/ups_json/generate_rates_payload'
+require 'friendly_shipping/services/ups_json/generate_timings_payload'
 require 'friendly_shipping/services/ups_json/parse_json_response'
 require 'friendly_shipping/services/ups_json/parse_money_hash'
 require 'friendly_shipping/services/ups_json/parse_rate_modifier_hash'
 require 'friendly_shipping/services/ups_json/parse_rates_response'
+require 'friendly_shipping/services/ups_json/parse_timings_response'
 require 'friendly_shipping/services/ups_json/rates_item_options'
 require 'friendly_shipping/services/ups_json/rates_package_options'
 require 'friendly_shipping/services/ups_json/rates_options'
 require 'friendly_shipping/services/ups_json/shipping_methods'
+require 'friendly_shipping/services/ups_json/timings_options'
 
 module FriendlyShipping
   module Services
@@ -95,7 +98,7 @@ module FriendlyShipping
           "Authorization" => "Bearer #{access_token}",
           "Content-Type" => "application/json",
           "Accept" => "application/json"
-        }.compact
+        }
         rates_request_body = GenerateRatesPayload.call(shipment: shipment, options: options).to_json
 
         request = FriendlyShipping::Request.new(
@@ -116,101 +119,42 @@ module FriendlyShipping
       # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
       # @param [FriendlyShipping::Services::Ups::TimingOptions] options Options for this call
       def timings(shipment, options:, debug: false)
-        raise 'NYI'
-
-        time_in_transit_request_xml = SerializeTimeInTransitRequest.call(
-          shipment: shipment,
-          options: options
-        )
-        time_in_transit_url = base_url + RESOURCES[:timings]
+        url = "#{base_url}/api/shipments/v1/transittimes"
+        headers = {
+          "Authorization" => "Bearer #{access_token}",
+          "Content-Type" => "application/json",
+          "Accept" => "application/json",
+          "transId" => SecureRandom.uuid,
+          "transactionSrc" => "testing"
+        }
+        timings_request_body = GenerateTimingsPayload.call(shipment: shipment, options: options).to_json
 
         request = FriendlyShipping::Request.new(
-          url: time_in_transit_url,
+          url:,
           http_method: "POST",
-          body: access_request_xml + time_in_transit_request_xml,
-          readable_body: time_in_transit_request_xml,
-          debug: debug
+          headers:,
+          body: timings_request_body,
+          debug:
         )
 
         client.post(request).bind do |response|
-          ParseTimeInTransitResponse.call(response: response, request: request)
+          ParseTimingsResponse.call(response: response, request: request, shipment: shipment)
         end
       end
 
       def labels(shipment, options:, debug: false)
-        ## Method body starts
-        ship_confirm_request_xml = SerializeShipmentConfirmRequest.call(
-          shipment: shipment,
-          options: options
-        )
-        ship_confirm_url = base_url + RESOURCES[:ship_confirm]
-
-        ship_confirm_request = FriendlyShipping::Request.new(
-          url: ship_confirm_url,
-          http_method: "POST",
-          body: access_request_xml + ship_confirm_request_xml,
-          readable_body: ship_confirm_request_xml,
-          debug: debug
-        )
-
-        client.post(ship_confirm_request).bind do |ship_confirm_response|
-          ParseShipmentConfirmResponse.call(
-            request: ship_confirm_request,
-            response: ship_confirm_response
-          )
-        end.bind do |ship_confirm_result|
-          ship_accept_url = base_url + RESOURCES[:ship_accept]
-          ship_accept_request_xml = SerializeShipmentAcceptRequest.call(
-            digest: ship_confirm_result.data,
-            options: options
-          )
-
-          ship_accept_request = FriendlyShipping::Request.new(
-            url: ship_accept_url,
-            http_method: "POST",
-            body: access_request_xml + ship_accept_request_xml,
-            readable_body: ship_accept_request_xml,
-            debug: debug
-          )
-
-          client.post(ship_accept_request).bind do |ship_accept_response|
-            ParseShipmentAcceptResponse.call(request: ship_accept_request, response: ship_accept_response)
-          end
-        end
+        raise 'NYI'
       end
 
       # Classify an address.
       # @param [Physical::Location] location The address we want to classify
       # @return [Result<ApiResult<String>>] Either `"commercial"`, `"residential"`, or `"unknown"`
       def address_classification(location, debug: false)
-        address_validation_request_xml = SerializeAddressValidationRequest.call(location: location)
-        url = base_url + RESOURCES[:address_validation]
-        request = FriendlyShipping::Request.new(
-          url: url,
-          http_method: "POST",
-          body: access_request_xml + address_validation_request_xml,
-          readable_body: address_validation_request_xml,
-          debug: debug
-        )
-
-        client.post(request).bind do |response|
-          ParseAddressClassificationResponse.call(response: response, request: request)
-        end
+        raise 'NYI'
       end
 
       def void(label, debug: false)
-        url = base_url + RESOURCES[:void]
-        void_request_xml = SerializeVoidShipmentRequest.call(label: label)
-        request = FriendlyShipping::Request.new(
-          url: url,
-          http_method: "POST",
-          body: access_request_xml + void_request_xml,
-          readable_body: void_request_xml,
-          debug: debug
-        )
-        client.post(request).bind do |response|
-          ParseVoidShipmentResponse.call(request: request, response: response)
-        end
+        raise 'NYI'
       end
 
       private

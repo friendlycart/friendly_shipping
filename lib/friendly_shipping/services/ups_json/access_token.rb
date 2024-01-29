@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'jwt'
-
 module FriendlyShipping
   module Services
     class UpsJson
