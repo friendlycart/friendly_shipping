@@ -3,12 +3,13 @@
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Options for Items in a UPS Freight shipment
+      # Options for Items in a TForce Freight shipment
       #
       # @attribute [Symbol] packaging
       # @attribute [String] freight_class
       # @attribute [String] nmfc_primary_code
       # @attribute [String] nmfc_sub_code
+      # @attribute [Boolean] hazardous
       class RatesItemOptions < FriendlyShipping::ItemOptions
         PACKAGING_TYPES = {
           bag: { code: "BAG", description: "Bag" },
@@ -54,13 +55,15 @@ module FriendlyShipping
                     :packaging_description,
                     :freight_class,
                     :nmfc_primary_code,
-                    :nmfc_sub_code
+                    :nmfc_sub_code,
+                    :hazardous
 
         def initialize(
           packaging: :carton,
           freight_class: nil,
           nmfc_primary_code: nil,
           nmfc_sub_code: nil,
+          hazardous: false,
           **kwargs
         )
           @packaging_code = PACKAGING_TYPES.fetch(packaging).fetch(:code)
@@ -68,6 +71,7 @@ module FriendlyShipping
           @freight_class = freight_class
           @nmfc_primary_code = nmfc_primary_code
           @nmfc_sub_code = nmfc_sub_code
+          @hazardous = hazardous
           super(**kwargs)
         end
       end

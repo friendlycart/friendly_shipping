@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.tforcefreight.com/pickup/request?api-version=cie-v1
+    body:
+      encoding: UTF-8
+      string: '{"pickup":{"date":"2023-05-18","time":"12:30:00","openTime":"08:00:00","closeTime":"04:00:00"},"requester":{"companyName":"ACME
+        Inc","contactName":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"}},"origin":{"companyName":"ACME
+        Inc","contactName":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"},"address":{"address1":"123
+        Maple St","address2":"Suite 456","city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"}},"pomDestination":{"companyName":"Consignee
+        Test 1","phone":{"number":null},"address":{"city":"Allanton","stateProvinceCode":"MO","country":"US"}},"services":["INPU","LIFO"],"lineItems":[{"description":"Commodities","weight":"500/1","weightUnit":"LBS","pieces":1,"packagingType":"CTN","hazardous":false},{"description":"Commodities","weight":"500/1","weightUnit":"LBS","pieces":1,"packagingType":"PLT","hazardous":false}],"instructions":{"pickup":"East
+        Dock","handling":"Handle with care","delivery":"West Dock"}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer secret_token
+      Content-Length:
+      - '992'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Length:
+      - '217'
+      Content-Type:
+      - application/json
+      Request-Context:
+      - appId=cid-v1:2851e6bf-1dfd-43fd-837a-37e3cd142cdd
+      Date:
+      - Fri, 19 Jan 2024 18:25:46 GMT
+    body:
+      encoding: UTF-8
+      string: '{ "statusCode": 400, "message": "Body of the request does not conform
+        to the definition which is associated with the content type application/json.
+        Invalid type. Expected String but got Null. Line: 1, Position: 553" }'
+  recorded_at: Fri, 19 Jan 2024 18:25:47 GMT
+recorded_with: VCR 6.1.0

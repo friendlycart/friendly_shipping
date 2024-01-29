@@ -7,8 +7,11 @@ require 'friendly_shipping/services/tforce_freight/shipping_methods'
 require 'friendly_shipping/services/tforce_freight/rates_options'
 require 'friendly_shipping/services/tforce_freight/rates_package_options'
 require 'friendly_shipping/services/tforce_freight/rates_item_options'
+require 'friendly_shipping/services/tforce_freight/pickup_options'
 require 'friendly_shipping/services/tforce_freight/parse_rates_response'
+require 'friendly_shipping/services/tforce_freight/parse_pickup_response'
 require 'friendly_shipping/services/tforce_freight/generate_rates_request_hash'
+require 'friendly_shipping/services/tforce_freight/generate_pickup_request_hash'
 require 'friendly_shipping/services/tforce_freight/api_error'
 
 module FriendlyShipping
@@ -16,8 +19,16 @@ module FriendlyShipping
     class TForceFreight
       include Dry::Monads[:result]
 
-      attr_reader :access_token, :test, :client
+      # @return [AccessToken] the access token
+      attr_reader :access_token
 
+      # @return [Boolean] whether to use the test API version
+      attr_reader :test
+
+      # @return [HttpClient] the HTTP client
+      attr_reader :client
+
+      # The TForce Freight carrier
       CARRIER = FriendlyShipping::Carrier.new(
         id: 'tforce_freight',
         name: 'TForce Freight',
@@ -25,10 +36,13 @@ module FriendlyShipping
         shipping_methods: SHIPPING_METHODS
       )
 
+      # The base URL for TForce API requests
       BASE_URL = 'https://api.tforcefreight.com'
 
+      # The TForce API endpoints
       RESOURCES = {
         rates: '/rating/getRate',
+        create_pickup: '/pickup/request'
       }.freeze
 
       # @param access_token [AccessToken] the access token
@@ -42,6 +56,7 @@ module FriendlyShipping
         @client = client || HttpClient.new(error_handler: error_handler)
       end
 
+      # @return [Array<Carrier>]
       def carriers
         Success([CARRIER])
       end
@@ -93,10 +108,12 @@ module FriendlyShipping
       end
 
       # Get rates for a shipment
-      # @param [Physical::Shipment] shipment The shipment for which we want to get rates
-      # @param [FriendlyShipping::Services::TForceFreight::RatesOptions] options Options for obtaining rates for this shipment.
-      # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
-      #   `FriendlyShipping::ApiResult` object.
+      # @see https://developer.tforcefreight.com/api-details#api=rating-v1 API documentation
+      #
+      # @param shipment [Physical::Shipment] the shipment for which we want to get rates
+      # @param options [RatesOptions] options for obtaining rates for this shipment
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<Array<Rate>>>] the rates returned from TForce encoded in a `ApiResult` object
       def rates(shipment, options:, debug: false)
         freight_rate_request_hash = GenerateRatesRequestHash.call(shipment: shipment, options: options)
         request = build_request(:rates, freight_rate_request_hash, debug)
@@ -106,10 +123,30 @@ module FriendlyShipping
         end
       end
 
+      # Create a pickup request
+      # @see https://developer.tforcefreight.com/api-details#api=pickup-v1 API documentation
+      #
+      # @param shipment [Physical::Shipment] the shipment for which to create a pickup request
+      # @param options [PickupOptions] options for the pickup request
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult>] the pickup returned from TForce encoded in a `ApiResult` object
+      def create_pickup(shipment, options:, debug: false)
+        pickup_request_hash = GeneratePickupRequestHash.call(shipment: shipment, options: options)
+        request = build_request(:create_pickup, pickup_request_hash, debug)
+
+        client.post(request).fmap do |response|
+          ParsePickupResponse.call(response: response, request: request)
+        end
+      end
+
       alias_method :rate_estimates, :rates
 
       private
 
+      # @param action [Symbol] the desired action key from {RESOURCES}
+      # @param payload [Hash] the payload to send to the API
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Request]
       def build_request(action, payload, debug)
         url = BASE_URL + RESOURCES[action] + "?api-version=#{api_version}"
         FriendlyShipping::Request.new(
@@ -125,6 +162,7 @@ module FriendlyShipping
         )
       end
 
+      # @return [String] the API version to use
       def api_version
         test ? "cie-v1" : "v1"
       end
