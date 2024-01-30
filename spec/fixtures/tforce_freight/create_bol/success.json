@@ -1,0 +1,26 @@
+{
+  "summary":{
+    "code":"OK",
+    "message":"success"
+  },
+  "detail":{
+    "bolId":46176429,
+    "pro":"020968290",
+    "documents":{
+      "image":[
+        {
+          "status":"NFO",
+          "type":"20",
+          "format":"PDF",
+          "data":""
+        },
+        {
+          "status":"NFO",
+          "type":"30",
+          "format":"PDF",
+          "data":""
+        }
+      ]
+    }
+  }
+}
