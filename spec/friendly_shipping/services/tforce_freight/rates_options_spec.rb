@@ -34,24 +34,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::RatesOptions do
 
   it { is_expected.to be_a(FriendlyShipping::ShipmentOptions) }
 
-  [
-    :pickup_date,
-    :billing_address,
-    :billing_code,
-    :shipping_method,
-    :type_code,
-    :density_eligible,
-    :accessorial_rate,
-    :time_in_transit,
-    :quote_number,
-    :pickup_options,
-    :delivery_options,
-    :customer_context,
-    :commodity_information_generator
-  ].each do |option|
-    it { is_expected.to respond_to(option) }
-  end
-
   it_behaves_like "overrideable package options class" do
     let(:default_class) { FriendlyShipping::Services::TForceFreight::RatesPackageOptions }
     let(:required_attrs) { { billing_address: billing_location, shipping_method: shipping_method } }

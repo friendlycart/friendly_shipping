@@ -26,6 +26,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
     let(:item_one) do
       Physical::Item.new(
         id: "item_one",
+        description: "Widgets",
         weight: Measured::Weight(10.523, :lbs),
         dimensions: [
           Measured::Length(1.874, :in),
@@ -38,6 +39,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
     let(:item_two) do
       Physical::Item.new(
         id: "item_two",
+        description: "Gadgets",
         weight: Measured::Weight(8.243, :lbs),
         dimensions: [
           Measured::Length(1.341, :in),
@@ -86,6 +88,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
       is_expected.to eq(
         [
           {
+            description: "Widgets",
             class: "92.5",
             dangerousGoods: false,
             dimensions: {
@@ -105,6 +108,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
               weightUnit: "LBS"
             }
           }, {
+            description: "Gadgets",
             class: "92.5",
             dangerousGoods: false,
             dimensions: {
