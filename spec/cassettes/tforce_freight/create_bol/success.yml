@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.tforcefreight.com/shipping/bol/create?api-version=cie-v1
+    body:
+      encoding: UTF-8
+      string: '{"requestOptions":{"serviceCode":"308","pickupDate":"2024-01-22","previewRate":false,"timeInTransit":false},"shipFrom":{"name":"ACME
+        Inc","contact":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"},"address":{"addressLine":"123
+        Maple St Suite 456","city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"},"isResidential":false},"shipTo":{"name":"Widgets
+        LLC","contact":"Jane Doe","email":"jane@widgets.com","phone":{"number":"456-456-4567"},"address":{"addressLine":"123
+        Oak Ave Suite 456","city":"Allanton","stateProvinceCode":"MO","postalCode":"63025","country":"US"},"isResidential":false},"payment":{"payer":{"name":"ACME
+        Inc","contact":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"},"address":{"addressLine":"123
+        Maple St Suite 456","city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"}},"billingCode":"10"},"commodities":[{"description":"Widgets","class":"92.5","nmfc":{"prime":"16030","sub":"1"},"pieces":1,"weight":{"weight":500.0,"weightUnit":"LBS"},"packagingType":"CTN","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"IN"}},{"description":"Gadgets","class":"92.5","nmfc":{"prime":"16030","sub":"1"},"pieces":1,"weight":{"weight":500.0,"weightUnit":"LBS"},"packagingType":"PLT","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"IN"}}],"instructions":{"pickup":"East
+        Dock","handling":"Handle with care","delivery":"West Dock"},"serviceOptions":{"pickup":[],"delivery":["INDE","LIFD"]},"pickupRequest":{"pickup":{"date":"2024-01-22","time":"12:30:00","openTime":"08:00:00","closeTime":"16:00:00"},"requester":{"companyName":"ACME
+        Inc","contactName":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"}},"pomIndicator":false},"documents":{"image":[{"type":"20","format":"01","label":{"type":"01","startPosition":1,"numberOfStickers":1}},{"type":"30","format":"01","label":{"type":"02","startPosition":1,"numberOfStickers":2}}]},"handlingUnitOne":{"quantity":2,"typeCode":"PLT"},"references":[{"number":"123","type":"BL"},{"number":"456","type":"PO"}]}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer secret_token
+      Content-Length:
+      - '2138'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache,no-store,must-revalidate,max-age=0,no-cache="set-cookie"
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '1441'
+      Content-Type:
+      - application/json
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000;includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Request-Context:
+      - appId=cid-v1:2851e6bf-1dfd-43fd-837a-37e3cd142cdd
+      Date:
+      - Tue, 30 Jan 2024 14:47:32 GMT
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "summary":{
+            "code":"OK",
+            "message":"success"
+          },
+          "detail":{
+            "bolId":46178022,
+            "pro":"090509075",
+            "documents":{
+              "image":[
+                {
+                  "status":"NFO",
+                  "type":"20",
+                  "format":"PDF",
+                  "data":""
+                },
+                {
+                  "status":"NFO",
+                  "type":"30",
+                  "format":"PDF",
+                  "data":""
+                }
+              ]
+            }
+          }
+        }
+  recorded_at: Tue, 30 Jan 2024 14:47:32 GMT
+recorded_with: VCR 6.1.0

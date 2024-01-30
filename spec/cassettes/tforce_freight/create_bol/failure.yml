@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.tforcefreight.com/shipping/bol/create?api-version=cie-v1
+    body:
+      encoding: UTF-8
+      string: '{"requestOptions":{"serviceCode":"308","pickupDate":"2024-01-22","previewRate":false,"timeInTransit":false},"shipFrom":{"name":"ACME
+        Inc","contact":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"},"address":{"addressLine":"123
+        Maple St Suite 456","city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"},"isResidential":false},"shipTo":{"phone":{"number":null},"address":{"addressLine":""},"isResidential":false},"payment":{"payer":{"name":"ACME
+        Inc","contact":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"},"address":{"addressLine":"123
+        Maple St Suite 456","city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"}},"billingCode":"10"},"commodities":[{"description":"Commodities","nmfc":{},"pieces":1,"weight":{"weight":500,"weightUnit":"LBS"},"packagingType":"CTN","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"IN"}},{"description":"Commodities","nmfc":{},"pieces":1,"weight":{"weight":500,"weightUnit":"LBS"},"packagingType":"PLT","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"IN"}}],"instructions":{"pickup":"East
+        Dock","handling":"Handle with care","delivery":"West Dock"},"serviceOptions":{"pickup":[],"delivery":["INDE","LIFD"]},"pickupRequest":{"pickup":{"date":"2024-01-22","time":"12:30:00","openTime":"08:00:00","closeTime":"16:00:00"},"requester":{"companyName":"ACME
+        Inc","contactName":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"}},"pomIndicator":false},"documents":{"image":[{"type":"20","format":"01","label":{"type":"01","startPosition":1,"numberOfStickers":1}},{"type":"30","format":"01","label":{"type":"02","startPosition":1,"numberOfStickers":2}}]},"handlingUnitOne":{"quantity":2,"typeCode":"PLT"},"references":[{"number":"123","type":"BL"},{"number":"456","type":"PO"}]}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer secret_token
+      Content-Length:
+      - '1883'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 400
+      message: ContentInvalid
+    headers:
+      Content-Length:
+      - '613'
+      Content-Type:
+      - application/json
+      Request-Context:
+      - appId=cid-v1:2851e6bf-1dfd-43fd-837a-37e3cd142cdd
+      Date:
+      - Mon, 29 Jan 2024 17:41:47 GMT
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+           "summary": {
+                                    "responseStatus": {
+                                        "code": "ERROR",
+                                        "message": "Body of the request does not conform to the definition which is associated with the content type application/json. Required properties are missing from object: name. Line: 1, Position: 457"
+                                    },
+                                    "transactionReference": {
+                                        "transactionId": "1060bca6-e212-4cbe-8e23-bfcf02cb4354"
+                                    }
+                                }
+                            }
+  recorded_at: Mon, 29 Jan 2024 17:41:47 GMT
+recorded_with: VCR 6.1.0

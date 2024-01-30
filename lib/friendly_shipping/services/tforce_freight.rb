@@ -8,10 +8,17 @@ require 'friendly_shipping/services/tforce_freight/rates_options'
 require 'friendly_shipping/services/tforce_freight/rates_package_options'
 require 'friendly_shipping/services/tforce_freight/rates_item_options'
 require 'friendly_shipping/services/tforce_freight/pickup_options'
+require 'friendly_shipping/services/tforce_freight/bol_options'
+require 'friendly_shipping/services/tforce_freight/document_options'
 require 'friendly_shipping/services/tforce_freight/parse_rates_response'
 require 'friendly_shipping/services/tforce_freight/parse_pickup_response'
+require 'friendly_shipping/services/tforce_freight/parse_create_bol_response'
 require 'friendly_shipping/services/tforce_freight/generate_rates_request_hash'
 require 'friendly_shipping/services/tforce_freight/generate_pickup_request_hash'
+require 'friendly_shipping/services/tforce_freight/generate_create_bol_request_hash'
+require 'friendly_shipping/services/tforce_freight/generate_handling_units_hash'
+require 'friendly_shipping/services/tforce_freight/generate_reference_hash'
+require 'friendly_shipping/services/tforce_freight/generate_document_options_hash'
 require 'friendly_shipping/services/tforce_freight/api_error'
 
 module FriendlyShipping
@@ -42,7 +49,8 @@ module FriendlyShipping
       # The TForce API endpoints
       RESOURCES = {
         rates: '/rating/getRate',
-        create_pickup: '/pickup/request'
+        create_pickup: '/pickup/request',
+        create_bol: '/shipping/bol/create'
       }.freeze
 
       # @param access_token [AccessToken] the access token
@@ -108,7 +116,7 @@ module FriendlyShipping
       end
 
       # Get rates for a shipment
-      # @see https://developer.tforcefreight.com/api-details#api=rating-v1 API documentation
+      # @see https://developer.tforcefreight.com/api-details#api=rating-v1&operation=get-rate API documentation
       #
       # @param shipment [Physical::Shipment] the shipment for which we want to get rates
       # @param options [RatesOptions] options for obtaining rates for this shipment
@@ -124,7 +132,7 @@ module FriendlyShipping
       end
 
       # Create a pickup request
-      # @see https://developer.tforcefreight.com/api-details#api=pickup-v1 API documentation
+      # @see https://developer.tforcefreight.com/api-details#api=pickup-v1&operation=create-request API documentation
       #
       # @param shipment [Physical::Shipment] the shipment for which to create a pickup request
       # @param options [PickupOptions] options for the pickup request
@@ -136,6 +144,22 @@ module FriendlyShipping
 
         client.post(request).fmap do |response|
           ParsePickupResponse.call(response: response, request: request)
+        end
+      end
+
+      # Create a Bill of Lading (BOL)
+      # @see https://developer.tforcefreight.com/api-details#api=shipping-cie-vnext&operation=shipping-create-bol API documentation
+      #
+      # @param shipment [Physical::Shipment] the shipment for which to create a BOL
+      # @param options [PickupOptions] options for the BOL
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult>] the BOL returned from TForce encoded in a `ApiResult` object
+      def create_bol(shipment, options:, debug: false)
+        bol_request_hash = GenerateCreateBOLRequestHash.call(shipment: shipment, options: options)
+        request = build_request(:create_bol, bol_request_hash, debug)
+
+        client.post(request).fmap do |response|
+          ParseCreateBOLResponse.call(response: response, request: request)
         end
       end
 

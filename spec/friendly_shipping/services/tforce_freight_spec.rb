@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/tforce_freight'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight do
-  subject(:service) { described_class.new(access_token: access_token) }
+  subject(:service) { described_class.new(access_token: access_token, test: true) }
 
   let(:access_token) do
     FriendlyShipping::Services::TForceFreight::AccessToken.new(
@@ -358,6 +358,178 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
       it "has the correct error message" do
         expect(create_pickup.failure.to_s).to include("Invalid type. Expected String but got Null.")
+      end
+    end
+  end
+
+  describe "#create_bol" do
+    subject(:create_bol) { service.create_bol(shipment, options: options) }
+
+    let(:shipment) { Physical::Shipment.new(packages: packages, origin: origin, destination: destination) }
+
+    let(:origin) do
+      Physical::Location.new(
+        company_name: "ACME Inc",
+        name: "John Smith",
+        email: "john@acme.com",
+        phone: "123-123-1234",
+        address1: "123 Maple St",
+        address2: "Suite 456",
+        city: "Richmond",
+        zip: "23224",
+        region: "VA",
+        country: "US"
+      )
+    end
+
+    let(:destination) do
+      Physical::Location.new(
+        company_name: "Widgets LLC",
+        name: "Jane Doe",
+        email: "jane@widgets.com",
+        phone: "456-456-4567",
+        address1: "123 Oak Ave",
+        address2: "Suite 456",
+        city: "Allanton",
+        zip: "63025",
+        region: "MO",
+        country: "US"
+      )
+    end
+
+    let(:packages) { [package_one, package_two] }
+
+    let(:package_one) do
+      Physical::Package.new(
+        id: "my_package_1",
+        items: [item_one]
+      )
+    end
+
+    let(:package_two) do
+      Physical::Package.new(
+        id: "my_package_2",
+        items: [item_two]
+      )
+    end
+
+    let(:item_one) do
+      Physical::Item.new(
+        id: "item_one",
+        weight: Measured::Weight(500, :lbs),
+        description: "Widgets"
+      )
+    end
+
+    let(:item_two) do
+      Physical::Item.new(
+        id: "item_two",
+        weight: Measured::Weight(500, :lbs),
+        description: "Gadgets"
+      )
+    end
+
+    let(:options) do
+      FriendlyShipping::Services::TForceFreight::BOLOptions.new(
+        pickup_at: Time.parse("2024-01-22 12:30:00"),
+        pickup_time_window: Time.parse("2024-01-22 08:00:00")..Time.parse("2024-01-22 16:00:00"),
+        delivery_options: %w[INDE LIFD],
+        pickup_instructions: "East Dock",
+        handling_instructions: "Handle with care",
+        delivery_instructions: "West Dock",
+        package_options: package_options,
+        reference_numbers: [
+          { code: :bill_of_lading_number, value: "123" },
+          { code: :purchase_order_number, value: "456" }
+        ],
+        document_options: document_options
+      )
+    end
+
+    let(:document_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::DocumentOptions.new(
+          type: :tforce_bol
+        ),
+        FriendlyShipping::Services::TForceFreight::DocumentOptions.new(
+          type: :label,
+          thermal: true,
+          number_of_stickers: 2
+        )
+      ]
+    end
+
+    let(:package_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+          package_id: package_one.id,
+          item_options: item_one_options
+        ),
+        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+          package_id: package_two.id,
+          item_options: item_two_options
+        )
+      ]
+    end
+
+    let(:item_one_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+          item_id: "item_one",
+          packaging: :carton,
+          freight_class: "92.5",
+          nmfc_primary_code: "16030",
+          nmfc_sub_code: "1"
+        )
+      ]
+    end
+
+    let(:item_two_options) do
+      [
+        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+          item_id: "item_two",
+          packaging: :pallet,
+          freight_class: "92.5",
+          nmfc_primary_code: "16030",
+          nmfc_sub_code: "1"
+        )
+      ]
+    end
+
+    context "with a valid request", vcr: { cassette_name: "tforce_freight/create_bol/success" } do
+      it { is_expected.to be_success }
+
+      it "has all the right data" do
+        result = create_bol.value!.data
+        expect(result).to eq(
+          code: "OK",
+          message: "success",
+          bol_id: 46_178_022,
+          pro_number: "090509075",
+          documents: [
+            {
+              type: "20",
+              format: "PDF",
+              status: "NFO",
+              data: ""
+            }, {
+              type: "30",
+              format: "PDF",
+              status: "NFO",
+              data: ""
+            }
+          ]
+        )
+      end
+    end
+
+    context "with a missing destination postal code", vcr: { cassette_name: "tforce_freight/create_bol/failure" } do
+      let(:destination) { Physical::Location.new }
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(create_bol.failure.to_s).to include("Required properties are missing from object: name")
       end
     end
   end
