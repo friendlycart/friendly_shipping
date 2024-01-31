@@ -24,7 +24,6 @@ module FriendlyShipping
 
       attr_reader :access_token, :test, :client
 
-      SHIPPING_METHODS = FriendlyShipping::Services::UpsJson::SHIPPING_METHODS
       CARRIER = FriendlyShipping::Carrier.new(
         id: 'ups',
         name: 'United Parcel Service',
@@ -117,7 +116,7 @@ module FriendlyShipping
 
       # Get timing information for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
-      # @param [FriendlyShipping::Services::Ups::TimingOptions] options Options for this call
+      # @param [FriendlyShipping::Services::UpsJson::TimingOptions] options Options for this call
       def timings(shipment, options:, debug: false)
         url = "#{base_url}/api/shipments/v1/transittimes"
         headers = {

@@ -21,11 +21,7 @@ module FriendlyShipping
           end
 
           def build_timings(timings_result, shipment)
-            service_timings = if timings_result.dig('emsResponse', 'services').is_a?(Hash)
-                                [timings_result.dig('emsResponse', 'services')]
-                              else
-                                timings_result.dig('emsResponse', 'services')
-                              end
+            service_timings = Array.wrap(timings_result.dig('emsResponse', 'services'))
             service_timings.map do |timing|
               service_description = timing['serviceLevelDescription']
               shipping_method = SHIPPING_METHODS.detect do |potential_shipping_method|

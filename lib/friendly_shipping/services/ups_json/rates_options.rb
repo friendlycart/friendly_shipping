@@ -78,7 +78,7 @@ module FriendlyShipping
           shipping_method: nil,
           sub_version: "v2205",
           with_time_in_transit: false,
-          package_options_class: FriendlyShipping::Services::UpsJson::RatesPackageOptions,
+          package_options_class: RatesPackageOptions,
           **kwargs
         )
           raise ArgumentError, "Invalid sub-version: #{sub_version}" unless sub_version.in?(SUB_VERSIONS)

@@ -23,11 +23,7 @@ module FriendlyShipping
           def build_rates(rates_result, shipment)
             rates = []
 
-            rated_shipments = if rates_result.dig('RateResponse', 'RatedShipment').is_a?(Hash)
-                                [rates_result.dig('RateResponse', 'RatedShipment')]
-                              else
-                                rates_result.dig('RateResponse', 'RatedShipment')
-                              end
+            rated_shipments = Array.wrap(rates_result.dig('RateResponse', 'RatedShipment'))
             rated_shipments.each do |rated_shipment|
               service_code = rated_shipment.dig('Service', 'Code')
               shipping_method = CARRIER.shipping_methods.detect do |sm|
@@ -39,12 +35,12 @@ module FriendlyShipping
               negotiated_rate = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'NetSummaryCharges', 'GrandTotal'), 'GrandTotal')&.last
               negotiated_charges = ParseMoneyHash.call(rated_shipment.dig('NegotiatedRates', 'ItemizedCharges'), 'ItemizedCharges')&.last
 
-              itemized_charges = rated_shipment['ItemizedCharges'].is_a?(Hash) ? [rated_shipment['ItemizedCharges']] : rated_shipment['ItemizedCharges']
+              itemized_charges = Array.wrap(rated_shipment['ItemizedCharges'])
               itemized_charges = itemized_charges.map do |charge|
                 ParseMoneyHash.call(charge, 'MonetaryValue')
               end
 
-              rated_shipment_warnings = rated_shipment['RatedShipmentAlert'].is_a?(Hash) ? [rated_shipment['RatedShipmentAlert']] : rated_shipment['RatedShipmentAlert']
+              rated_shipment_warnings = Array.wrap(rated_shipment['RatedShipmentAlert'])
               rated_shipment_warnings = rated_shipment_warnings.map { |alert| alert["Description"] }
               if rated_shipment_warnings.any? { |e| e.match?(/to Residential/) }
                 new_address_type = 'residential'
@@ -74,7 +70,7 @@ module FriendlyShipping
           private
 
           def build_packages(rated_shipment)
-            package_array = rated_shipment['RatedPackage'].is_a?(Hash) ? [rated_shipment['RatedPackage']] : rated_shipment['RatedPackage']
+            package_array = Array.wrap(rated_shipment['RatedPackage'])
             package_array.map do |rated_package|
               currency_code = rated_package.dig('TotalCharges', 'CurrencyCode')
               {
@@ -92,15 +88,13 @@ module FriendlyShipping
           end
 
           def extract_charges(charges, key_name)
-            charges = [charges] if charges.is_a?(Hash)
-            charges&.map do |charge|
+            Array.wrap(charges).map do |charge|
               ParseMoneyHash.call(charge, key_name)
             end&.compact
           end
 
           def extract_modifiers(modifiers, currency_code:)
-            modifiers = [modifiers] if modifiers.is_a?(Hash)
-            modifiers&.map do |modifier|
+            Array.wrap(modifiers).map do |modifier|
               ParseRateModifierHash.call(modifier, currency_code:)
             end&.compact
           end

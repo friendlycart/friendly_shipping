@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/shipments/v1/transittimes
+    body:
+      encoding: UTF-8
+      string: '{"originCountryCode":"US","originStateProvince":{"type":"state","code":"NC","name":"North
+        Carolina","subregions":[]},"originCityName":"Raleigh","originPostalCode":"27615","destinationCountryCode":"US","destinationStateProvince":{"type":"state","code":"FL","name":"Florida","subregions":[]},"destinationCityName":"Orlando","destinationPostalCode":"32821","residentialIndicator":"01","shipDate":"2024-01-29","weight":"0.55404","weightUnitOfMeasure":"LBS","billType":"02","numberOfPackages":2}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %UPS_ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '490'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Type:
+      - application/json
+      Authtransid:
+      - ''
+      Errorcode:
+      - '500'
+      Errordescription:
+      - UnexpectedEOFAtTarget
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Max-Age:
+      - '600'
+      X-Request-Id:
+      - 4086c116-6bc8-4a4a-8816-7b264fefc131
+      Content-Length:
+      - '97'
+      Expires:
+      - Mon, 29 Jan 2024 15:37:28 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 29 Jan 2024 15:37:28 GMT
+      Connection:
+      - close
+      Server-Timing:
+      - ak_p; desc="1706542646773_3088855575_26329281_118110_71215_53_114_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=9
+      - origin; dur=1175
+      Ak-Grn-1:
+      - 0.17321cb8.1706542646.191c0c1
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"response": {"errors": [{"code": "10004","message": "The service is
+        temporarily unavailable"}]}}'
+  recorded_at: Mon, 29 Jan 2024 15:37:28 GMT
+recorded_with: VCR 6.1.0
