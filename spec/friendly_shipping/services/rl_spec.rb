@@ -205,4 +205,20 @@ RSpec.describe FriendlyShipping::Services::RL do
       it { expect(subject.failure.data.message).to include("ServicePoint Zip code is required and cannot be null or empty") }
     end
   end
+
+  describe "#get_invoice" do
+    subject { service.get_invoice(pro_number) }
+    let(:pro_number) { "WP9974772" }
+
+    context "with a successful request", vcr: { cassette_name: "rl/get_invoice/success" } do
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      it "has all the right data" do
+        result = subject.value!.data
+        expect(result).to be_a(FriendlyShipping::Services::RL::ShippingDocument)
+        expect(result.format).to eq(:pdf)
+        expect(result.decoded_binary).to start_with("%PDF-")
+      end
+    end
+  end
 end
