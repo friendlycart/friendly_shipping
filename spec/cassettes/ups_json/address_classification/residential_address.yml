@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/addressvalidation/v1/2
+    body:
+      encoding: UTF-8
+      string: '{"XAVRequest":{"Request":{"RequestOption":"2"},"AddressKeyFormat":[{"AddressLine":["401
+        Dover St"],"ConsigneeName":"Company","CountryCode":"US","PoliticalDivision1":"New
+        York","PoliticalDivision2":"Westbury","PostcodePrimaryLow":"11590"}]}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer eyJraWQiOiI2NGM0YjYyMC0yZmFhLTQzNTYtYjA0MS1mM2EwZjM2Y2MxZmEiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzM4NCJ9.eyJzdWIiOiJ1cHNkZXZlbG9wZXJAY2FuZGxlc2NpZW5jZS5jb20iLCJjbGllbnRpZCI6ImU0M1BCRG1QbTZOdTRTNnlFdXlNQnYyTEN3M2J1RVoyQVhFMFRITEpsQmo2TXFzUyIsIm1lcl9pZCI6Ilk5MzE5VyIsImlzcyI6Imh0dHBzOi8vYXBpcy51cHMuY29tIiwidXVpZCI6IjQzNkNERTAwLThEM0UtMUJGRS1BNURCLTkyREM3QUU3MjVCOSIsInNpZCI6IjY0YzRiNjIwLTJmYWEtNDM1Ni1iMDQxLWYzYTBmMzZjYzFmYSIsImF1ZCI6Ijc4Mjk0NWQ0LTk1NTQtNDZkMi04NjYwLTZmZDdlYWNkNDkwMSIsImF0IjoiWTBEb0NhM3poemo5R3N5TWFhY1ExTVNTVWZzbCIsIm5iZiI6MTcwNjgwNjExNywic2NvcGUiOiJMb2NhdG9yV2lkZ2V0IiwiRGlzcGxheU5hbWUiOiJDYW5kbGVTY2llbmNlIFNoaXBwaW5nIEFwcCIsImV4cCI6MTcwNjgyMDUxNywiaWF0IjoxNzA2ODA2MTE3LCJqdGkiOiI1MTRlZTllOC1kNzY2LTQ2MDEtODc5Yi0zNTFlZThhZWNiYmMifQ.Yo0vHPdWGidRcqvht35yQw0X0fBj_CETYLuoS6Vq94FEBe-7kat1rN_e9rC-3oCZgXKvJiSBop8_asaw6P__eCO-3y337WGgtvXSBWZGLuTWD6fVIuXczb-OwiPKEc1u7vffd60DkQo4OR9iBDPR_zi2AnV7K-bBoo3PtAVPpgg5CejFTcZzt_Vq-RXAhfpn89Tt_8Ip1nUAOIgF08LZBcU38F_BgHCP5Hh5Yqkci62_z32Yg8q_LRNueyNx0vWmujUoxJBBmsdlJ67ltU4havu8CsQDAD8vYZTCcxHej9QG5DLHcpkCRmXKq5iDVTXoWzrBuf7FnDiKfCaApWuOQ6Iihh49KAQDPIg9spvunEimGJJP3PCMeMVR9TjMx_wSgxqjVeYKoeVlIHbEoiIkX6FH9m_KMGpkBnFCNKqvODt4CSoTtPW8ELQbl2oaruNdwO_1FH-kVScz81geebPhGkdAC8WZ78T3AwyasV3hIrUdtDzWGzZkPMP4QSg835mxxVeqicjCEHXLfw5YedLnjpcexZlJEkVZL8UdOF3e8w8-JQhCwvOMu_BK11WVPgIi_aRq6HjrOL2PFSLyY6m2bUcTgJxubg0-Wmu2c5jUaCjneS3EHoOvyxjseyyHVF6-wA0Ci8VEVySZY-YXThKzGB_BLof616ztSf52VLwClkM
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '240'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - onlinetools.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - 000000000216jCqWXlL9hb
+      Referrer-Policy:
+      - same-origin
+      - same-origin
+      Content-Type:
+      - application/json;charset=UTF-8
+      X-Request-Id:
+      - f1764bc4-a6d4-4be4-a193-5f53cc301105
+      Content-Length:
+      - '152'
+      Expires:
+      - Thu, 01 Feb 2024 17:50:07 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 01 Feb 2024 17:50:07 GMT
+      Connection:
+      - keep-alive
+      Ak-Grn-1:
+      - 0.1da73717.1706809807.2cd5b326
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"XAVResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"}},
+        "AddressClassification":{"Code":"2", "Description":"Residential"}}}'
+  recorded_at: Thu, 01 Feb 2024 17:50:07 GMT
+recorded_with: VCR 6.1.0

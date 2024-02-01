@@ -132,8 +132,8 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         FactoryBot.build(
           :physical_location,
           name: "Dag Hammerskjöld",
-          company_name: "United Nations",
-          address1: "405 East 42nd Street",
+          address1: "800 2nd Ave",
+          address2: nil,
           city: "New York",
           region: "NY",
           zip: "10017"
@@ -152,6 +152,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           :physical_location,
           name: "John Doe",
           address1: "401 Dover St",
+          address2: nil,
           city: "Westbury",
           region: "NY",
           zip: "11590"
@@ -179,6 +180,24 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       it 'returns the address type' do
         expect(subject).to be_success
         expect(subject.value!.data).to eq('unknown')
+      end
+    end
+
+    context 'with an invalid address', vcr: { cassette_name: 'ups_json/address_classification/invalid_address' } do
+      let(:address) do
+        FactoryBot.build(
+          :physical_location,
+          name: "Jane Doe",
+          address1: "123 Does Not Exist St",
+          city: "Unknown City",
+          region: "NY",
+          zip: "10005"
+        )
+      end
+
+      it 'returns failure with the error message' do
+        expect(subject).to be_failure
+        expect(subject.failure.to_s).to eq('{"code"=>"9264030", "message"=>"The state is not supported in the Customer Integration Environment."}')
       end
     end
   end

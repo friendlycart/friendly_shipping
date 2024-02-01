@@ -4,8 +4,10 @@ require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups_json/access_token'
 require 'friendly_shipping/services/ups_json/api_error'
+require 'friendly_shipping/services/ups_json/generate_address_classification_payload'
 require 'friendly_shipping/services/ups_json/generate_rates_payload'
 require 'friendly_shipping/services/ups_json/generate_timings_payload'
+require 'friendly_shipping/services/ups_json/parse_address_classification_response'
 require 'friendly_shipping/services/ups_json/parse_json_response'
 require 'friendly_shipping/services/ups_json/parse_money_hash'
 require 'friendly_shipping/services/ups_json/parse_rate_modifier_hash'
@@ -112,6 +114,7 @@ module FriendlyShipping
           ParseRatesResponse.call(response: response, request: request, shipment: shipment)
         end
       end
+
       alias_method :rate_estimates, :rates
 
       # Get timing information for a shipment
@@ -141,7 +144,7 @@ module FriendlyShipping
         end
       end
 
-      def labels(shipment, options:, debug: false)
+      def labels(_shipment, options:, debug: false)
         raise 'NYI'
       end
 
@@ -149,10 +152,21 @@ module FriendlyShipping
       # @param [Physical::Location] location The address we want to classify
       # @return [Result<ApiResult<String>>] Either `"commercial"`, `"residential"`, or `"unknown"`
       def address_classification(location, debug: false)
-        raise 'NYI'
+        url = "#{base_url}/api/addressvalidation/v1/2"
+        headers = {
+          "Authorization" => "Bearer #{access_token}",
+          "Content-Type" => "application/json",
+          "Accept" => "application/json"
+        }
+        body = GenerateAddressClassificationPayload.call(location: location).to_json
+        request = FriendlyShipping::Request.new(url:, http_method: "POST", headers:, body:, debug:)
+
+        client.post(request).bind do |response|
+          ParseAddressClassificationResponse.call(response: response, request: request)
+        end
       end
 
-      def void(label, debug: false)
+      def void(_label, debug: false)
         raise 'NYI'
       end
 
