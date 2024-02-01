@@ -23,6 +23,7 @@ require 'friendly_shipping/services/ship_engine_ltl'
 require "friendly_shipping/services/tforce_freight"
 require "friendly_shipping/services/ups"
 require "friendly_shipping/services/ups_freight"
+require "friendly_shipping/services/ups_json"
 require "friendly_shipping/services/usps"
 require "friendly_shipping/services/usps_international"
 

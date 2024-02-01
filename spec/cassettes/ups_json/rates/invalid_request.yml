@@ -1,0 +1,87 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://wwwcie.ups.com/api/rating/v2205/Shop
+      body:
+        encoding: UTF-8
+        string: '{"RateRequest":{"Request":{"RequestOption":"Shop","SubVersion":"v1707","TransactionReference":{"CustomerContext":null}},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"01"},"Shipment":{"Shipper":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"27703","StateProvinceCode":"NC","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipTo":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"32821","StateProvinceCode":"FL","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipFrom":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"27703","StateProvinceCode":"NC","CountryCode":"US","ResidentialAddressIndicator":"T"}},"PaymentDetails":{"ShipmentCharge":[{"Type":"01","BillShipper":{"AccountNumber":"12345"}}]},"NumOfPieces":2,"Package":[{"PackagingType":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{"DeclaredValue":{"CurrencyCode":"USD","MonetaryValue":"0"}},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}},{"PackagingType":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{"DeclaredValue":{"CurrencyCode":"USD","MonetaryValue":"0"}},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}}]},"ShipmentRatingOptions":{"NegotiatedRatesIndicator":"2"}}}'
+      headers:
+        Accept:
+          - application/json
+        User-Agent:
+          - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+        Authorization:
+          - Bearer %UPS_ACCESS_TOKEN%
+        Content-Type:
+          - application/json
+        Content-Length:
+          - '1765'
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Host:
+          - wwwcie.ups.com
+    response:
+      status:
+        code: 400
+        message: Bad Request
+      headers:
+        Access-Control-Allow-Credentials:
+          - 'true'
+        Access-Control-Max-Age:
+          - '600'
+        X-Frame-Options:
+          - DENY
+        X-Xss-Protection:
+          - 1; mode=block
+        X-Content-Type-Options:
+          - nosniff
+        Bkndtransid:
+          - iewssoat21k8DNPqgXkNjw
+        Referrer-Policy:
+          - same-origin
+        Apierrorcode:
+          - '112111'
+        Apierrormsg:
+          - Missing or Invalid Shipper Number.
+        Content-Type:
+          - application/json;charset=UTF-8
+        Errorcode:
+          - '112111'
+        Errordescription:
+          - Missing or Invalid Shipper Number.
+        X-Request-Id:
+          - b99a9e74-a43c-4f30-9848-8e9e4179a907
+        Content-Length:
+          - '90'
+        Expires:
+          - Wed, 17 Jan 2024 22:34:06 GMT
+        Cache-Control:
+          - max-age=0, no-cache, no-store
+        Pragma:
+          - no-cache
+        Date:
+          - Wed, 17 Jan 2024 22:34:06 GMT
+        Connection:
+          - close
+        Server-Timing:
+          - ak_p; desc="1705530845786_3088866605_114419660_29876_7855_41_40_-";dur=1
+          - cdn-cache; desc=MISS
+          - edge; dur=74
+          - origin; dur=224
+        Ak-Grn-1:
+          - 0.2d5d1cb8.1705530845.6d1e7cc
+        Strict-Transport-Security:
+          - max-age=31536000 ; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"response":{"errors":[{"code":"112111","message":"Missing or Invalid
+        Shipper Number."}]}}'
+    recorded_at: Wed, 17 Jan 2024 22:34:06 GMT
+recorded_with: VCR 6.1.0

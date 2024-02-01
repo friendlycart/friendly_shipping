@@ -39,6 +39,11 @@ VCR.configure do |c|
   c.register_request_matcher :content_type do |r1, r2|
     r1.headers['Content-Type'] == r2.headers['Content-Type']
   end
+
+  # so VCR does not encode the responses from UPS with ® as binary
+  c.before_record do |i|
+    i.response.body.force_encoding('UTF-8')
+  end
 end
 
 require "support/shared_examples/overrideable_item_options_class"

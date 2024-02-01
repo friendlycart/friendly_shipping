@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/rating/v2205/Shop
+    body:
+      encoding: UTF-8
+      string: '{"RateRequest":{"Request":{"RequestOption":"Shop","SubVersion":"v1707","TransactionReference":{"CustomerContext":null}},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"01"},"Shipment":{"Shipper":{"AttentionName":"Jane
+        Doe","Name":"Company","ShipperNumber":"%UPS_SHIPPER_NUMBER%","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"78756","StateProvinceCode":"VA","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipTo":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"32821","StateProvinceCode":"FL","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipFrom":{"AttentionName":"Jane
+        Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
+        Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"78756","StateProvinceCode":"VA","CountryCode":"US","ResidentialAddressIndicator":"T"}},"PaymentDetails":{"ShipmentCharge":[{"Type":"01","BillShipper":{"AccountNumber":"%UPS_SHIPPER_NUMBER%"}}]},"NumOfPieces":2,"Package":[{"PackagingType":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{"DeclaredValue":{"CurrencyCode":"USD","MonetaryValue":"0"}},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}},{"PackagingType":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{"DeclaredValue":{"CurrencyCode":"USD","MonetaryValue":"0"}},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}}]},"ShipmentRatingOptions":{"NegotiatedRatesIndicator":"2"}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %UPS_ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1791'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - ciewssoas1l5xVgFPyDlQk
+      Referrer-Policy:
+      - same-origin
+      Apierrorcode:
+      - '111285'
+      Apierrormsg:
+      - The postal code 78756 is invalid for VA United States.
+      Content-Type:
+      - application/json;charset=UTF-8
+      Errorcode:
+      - '111285'
+      Errordescription:
+      - The postal code 78756 is invalid for VA United States.
+      X-Request-Id:
+      - ddb2eb85-60b7-4205-91bb-afca00547502
+      Content-Length:
+      - '110'
+      Expires:
+      - Thu, 18 Jan 2024 16:17:03 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 18 Jan 2024 16:17:03 GMT
+      Connection:
+      - close
+      Server-Timing:
+      - ak_p; desc="1705594622726_1750650825_404287014_38694_4949_39_37_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=25
+      - origin; dur=354
+      Ak-Grn-1:
+      - 0.c9cf5868.1705594622.1818ee26
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"response":{"errors":[{"code":"111285","message":"The postal code
+        78756 is invalid for VA United States."}]}}'
+  recorded_at: Thu, 18 Jan 2024 16:17:03 GMT
+recorded_with: VCR 6.1.0

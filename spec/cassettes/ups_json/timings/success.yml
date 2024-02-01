@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/shipments/v1/transittimes
+    body:
+      encoding: UTF-8
+      string: '{"originCountryCode":"US","originStateProvince":"NC","originCityName":"Raleigh","originPostalCode":"27615","destinationCountryCode":"US","destinationStateProvince":"FL","destinationCityName":"Orlando","destinationPostalCode":"32821","residentialIndicator":"01","shipDate":"2024-01-29","weight":"0.55404","weightUnitOfMeasure":"LBS","billType":"02","numberOfPackages":"2"}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %UPS_ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Transid:
+      - f8ce5dd2-f4cf-40b1-abfc-33516ab166e2
+      Transactionsrc:
+      - testing
+      Content-Length:
+      - '371'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - f8ce5dd2-f4cf-40b1-abfc-33516ab166e2
+      Content-Type:
+      - application/json
+      X-Request-Id:
+      - d4a4adff-2752-41f4-bccb-1fa8f97e5e08
+      Content-Length:
+      - '4044'
+      Expires:
+      - Mon, 29 Jan 2024 16:25:18 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 29 Jan 2024 16:25:18 GMT
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - ak_p; desc="1706545518145_1750650826_518732590_34915_6154_47_64_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=8
+      - origin; dur=342
+      Ak-Grn-1:
+      - 0.cacf5868.1706545518.1eeb3b2e
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"emsResponse":{"shipDate":"2024-01-29","shipTime":"11:25:18","serviceLevel":"A","billType":"02","residentialIndicator":"01","destinationCityName":"ORLANDO","destinationCountryName":"UNITED
+        STATES","destinationCountryCode":"US","destinationPostalCode":"32821","destinationPostalCodeLow":"32821","destinationPostalCodeHigh":"32821","destinationStateProvince":"FL","originCityName":"RALEIGH","originCountryName":"UNITED
+        STATES","originCountryCode":"US","originPostalCode":"27615","originPostalCodeLow":"27615","originPostalCodeHigh":"27615","originStateProvince":"NC","weightUnitOfMeasure":"LBS","weight":"0.6","shipmentContentsValue":"0","guaranteeSuspended":false,"numberOfServices":6,"services":[{"serviceLevel":"1DM","serviceLevelDescription":"UPS
+        Next Day Air® Early","businessTransitDays":1,"totalTransitDays":0,"deliveryDate":"2024-01-30","deliveryTime":"08:00:00","deliveryDayOfWeek":"TUE","nextDayPickupIndicator":"0","saturdayPickupIndicator":"0","saturdayDeliveryIndicator":"0","sundayPickupIndicator":"0","sundayDeliveryIndicator":"0","guaranteeIndicator":"1","restDaysCount":0,"holidayCount":0,"delayCount":0,"commitTime":"08:00:00","shipDate":"2024-01-29","pickupTime":"20:00:00","pickupDate":"2024-01-29","poddays":0,"cstccutoffTime":"18:00:00"},{"serviceLevel":"1DA","serviceLevelDescription":"UPS
+        Next Day Air®","businessTransitDays":1,"totalTransitDays":0,"deliveryDate":"2024-01-30","deliveryTime":"12:00:00","deliveryDayOfWeek":"TUE","nextDayPickupIndicator":"0","saturdayPickupIndicator":"0","saturdayDeliveryIndicator":"0","sundayPickupIndicator":"0","sundayDeliveryIndicator":"0","guaranteeIndicator":"1","restDaysCount":0,"holidayCount":0,"delayCount":0,"commitTime":"12:00:00","shipDate":"2024-01-29","pickupTime":"20:00:00","pickupDate":"2024-01-29","poddays":0,"cstccutoffTime":"18:00:00"},{"serviceLevel":"1DP","serviceLevelDescription":"UPS
+        Next Day Air Saver®","businessTransitDays":1,"totalTransitDays":0,"deliveryDate":"2024-01-30","deliveryTime":"23:00:00","deliveryDayOfWeek":"TUE","nextDayPickupIndicator":"0","saturdayPickupIndicator":"0","saturdayDeliveryIndicator":"0","sundayPickupIndicator":"0","sundayDeliveryIndicator":"0","guaranteeIndicator":"1","restDaysCount":0,"holidayCount":0,"delayCount":0,"commitTime":"23:00:00","shipDate":"2024-01-29","pickupTime":"20:00:00","pickupDate":"2024-01-29","poddays":0,"cstccutoffTime":"18:00:00"},{"serviceLevel":"2DA","serviceLevelDescription":"UPS
+        2nd Day Air®","businessTransitDays":2,"totalTransitDays":0,"deliveryDate":"2024-01-31","deliveryTime":"23:00:00","deliveryDayOfWeek":"WED","nextDayPickupIndicator":"0","saturdayPickupIndicator":"0","saturdayDeliveryIndicator":"0","sundayPickupIndicator":"0","sundayDeliveryIndicator":"0","guaranteeIndicator":"0","restDaysCount":0,"holidayCount":0,"delayCount":0,"commitTime":"23:00:00","shipDate":"2024-01-29","pickupTime":"20:00:00","pickupDate":"2024-01-29","poddays":0,"cstccutoffTime":"18:00:00"},{"serviceLevel":"GND","serviceLevelDescription":"UPS
+        Ground","businessTransitDays":2,"totalTransitDays":0,"deliveryDate":"2024-01-31","deliveryTime":"23:00:00","deliveryDayOfWeek":"WED","nextDayPickupIndicator":"0","saturdayPickupIndicator":"0","saturdayDeliveryIndicator":"0","sundayPickupIndicator":"0","sundayDeliveryIndicator":"0","guaranteeIndicator":"0","restDaysCount":0,"holidayCount":0,"delayCount":0,"commitTime":"23:00:00","shipDate":"2024-01-29","pickupTime":"20:00:00","pickupDate":"2024-01-29","poddays":0,"cstccutoffTime":"17:00:00"},{"serviceLevel":"3DS","serviceLevelDescription":"UPS
+        3 Day Select®","businessTransitDays":3,"totalTransitDays":0,"deliveryDate":"2024-02-01","deliveryTime":"23:00:00","deliveryDayOfWeek":"THU","nextDayPickupIndicator":"0","saturdayPickupIndicator":"0","saturdayDeliveryIndicator":"0","sundayPickupIndicator":"0","sundayDeliveryIndicator":"0","guaranteeIndicator":"0","restDaysCount":0,"holidayCount":0,"delayCount":0,"commitTime":"23:00:00","shipDate":"2024-01-29","pickupTime":"20:00:00","pickupDate":"2024-01-29","poddays":0,"cstccutoffTime":"17:00:00"}]}}'
+  recorded_at: Mon, 29 Jan 2024 16:25:18 GMT
+recorded_with: VCR 6.1.0
