@@ -25,8 +25,6 @@ module FriendlyShipping
           }
         end
 
-        private
-
         def self.shipment_contents_value(shipment)
           shipment.packages.map do |package|
             package.items.sum { |item| item.cost || 0 }
