@@ -15,7 +15,9 @@ module FriendlyShipping
           # @return [Dry::Monads::Result<ApiResult<ShippingDocument>>]
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
-            document = ShippingDocument.new(binary: parsed_json['Documents'].first['Data'])
+            data = (parsed_json['Documents'].find { _1["Type"] == "Invoice" } || {})["Data"]
+
+            document = ShippingDocument.new(binary: data)
             if document.valid?
               Success(
                 ApiResult.new(
@@ -25,10 +27,16 @@ module FriendlyShipping
                 )
               )
             else
-              errors = parsed_json.fetch('Errors', [{ 'ErrorMessage' => 'Unknown error' }])
+              errors = if parsed_json["Messages"].present?
+                         parsed_json["Messages"]
+                       else
+                         parsed_json.fetch('Errors', [{ 'ErrorMessage' => 'Unknown error' }]).
+                           map { _1['ErrorMessage'] }
+                       end
+
               Failure(
                 ApiResult.new(
-                  errors.map { |e| e['ErrorMessage'] },
+                  errors,
                   original_request: request,
                   original_response: response
                 )
