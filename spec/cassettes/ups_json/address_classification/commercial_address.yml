@@ -14,7 +14,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
       Authorization:
-      - Bearer %UPS_ACCESS_TOKEN%
+      - Bearer %ACCESS_TOKEN%
       Content-Type:
       - application/json
       Content-Length:

@@ -34,6 +34,9 @@ VCR.configure do |c|
   c.filter_sensitive_data('%UPS_PASSWORD%') { ENV.fetch('UPS_PASSWORD', nil) }
   c.filter_sensitive_data('%UPS_SHIPPER_NUMBER%') { ENV.fetch('UPS_SHIPPER_NUMBER', nil) }
   c.filter_sensitive_data('%USPS_LOGIN%') { ENV.fetch('USPS_LOGIN', nil) }
+  c.filter_sensitive_data('Bearer %ACCESS_TOKEN%') do |interaction|
+    interaction.request.headers['Authorization']&.first
+  end
 
   # Matches the Content-Type request header
   c.register_request_matcher :content_type do |r1, r2|

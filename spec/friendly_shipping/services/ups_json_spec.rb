@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/ups_json'
 
 RSpec.describe FriendlyShipping::Services::UpsJson do
-  subject(:service) { described_class.new(access_token: ENV.fetch('UPS_ACCESS_TOKEN', nil)) }
+  subject(:service) { described_class.new(access_token: ENV.fetch('ACCESS_TOKEN', nil)) }
 
   describe '#carriers' do
     subject { service.carriers }
