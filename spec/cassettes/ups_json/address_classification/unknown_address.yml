@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/addressvalidation/v1/2
+    body:
+      encoding: UTF-8
+      string: '{"XAVRequest":{"Request":{"RequestOption":"2"},"AddressKeyFormat":[{"AddressLine":["123
+        Does Not Exist St","Suite 100"],"ConsigneeName":"Company","CountryCode":"US","PoliticalDivision1":"New
+        York","PoliticalDivision2":"New York","PostcodePrimaryLow":"10005"}]}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '261'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - onlinetools.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - 000000000215RYnM8N9SN5
+      Referrer-Policy:
+      - same-origin
+      - same-origin
+      Content-Type:
+      - application/json;charset=UTF-8
+      X-Request-Id:
+      - 942dbd6e-ee34-4533-b611-c9c19d7d5533
+      Content-Length:
+      - '148'
+      Expires:
+      - Thu, 01 Feb 2024 16:54:41 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 01 Feb 2024 16:54:41 GMT
+      Connection:
+      - keep-alive
+      Ak-Grn-1:
+      - 0.0fa73717.1706806480.139c7831
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"XAVResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"}},
+        "AddressClassification":{"Code":"0", "Description":"Unknown"}}}'
+  recorded_at: Thu, 01 Feb 2024 16:54:41 GMT
+recorded_with: VCR 6.1.0

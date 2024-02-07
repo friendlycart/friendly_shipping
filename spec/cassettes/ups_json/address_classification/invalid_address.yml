@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/addressvalidation/v1/2
+    body:
+      encoding: UTF-8
+      string: '{"XAVRequest":{"Request":{"RequestOption":"2"},"AddressKeyFormat":[{"AddressLine":["123
+        Does Not Exist St","Suite 100"],"ConsigneeName":"Company","CountryCode":"US","PoliticalDivision1":"New
+        York","PoliticalDivision2":"Unknown City","PostcodePrimaryLow":"10005"}]}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '265'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - 000000000216l7BKwXcbBH
+      Referrer-Policy:
+      - same-origin
+      Apierrorcode:
+      - '9264030'
+      Apierrormsg:
+      - The state is not supported in the Customer Integration Environment.
+      Content-Type:
+      - application/json;charset=UTF-8
+      Errorcode:
+      - '9264030'
+      Errordescription:
+      - The state is not supported in the Customer Integration Environment.
+      X-Request-Id:
+      - 3fd808a4-1e7e-4a5c-bea3-435961e0dd82
+      Content-Length:
+      - '124'
+      Expires:
+      - Thu, 01 Feb 2024 17:53:41 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 01 Feb 2024 17:53:41 GMT
+      Connection:
+      - close
+      Server-Timing:
+      - ak_p; desc="1706810020920_1750650825_332959953_50056_20682_45_46_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=26
+      - origin; dur=476
+      Ak-Grn-1:
+      - 0.c9cf5868.1706810020.13d890d1
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"response":{"errors":[{"code":"9264030","message":"The state is not
+        supported in the Customer Integration Environment."}]}}'
+  recorded_at: Thu, 01 Feb 2024 17:53:41 GMT
+recorded_with: VCR 6.1.0

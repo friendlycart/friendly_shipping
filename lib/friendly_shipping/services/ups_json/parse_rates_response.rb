@@ -50,7 +50,7 @@ module FriendlyShipping
 
               rates << FriendlyShipping::Rate.new(
                 shipping_method:,
-                amounts: {total: total_cost},
+                amounts: { total: total_cost },
                 warnings: rated_shipment_warnings,
                 errors: [],
                 data: {
@@ -96,7 +96,7 @@ module FriendlyShipping
           def extract_modifiers(modifiers, currency_code:)
             Array.wrap(modifiers).map do |modifier|
               ParseRateModifierHash.call(modifier, currency_code:)
-            end&.compact
+            end.compact.to_h
           end
         end
       end

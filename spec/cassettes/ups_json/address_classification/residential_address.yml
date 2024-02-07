@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/addressvalidation/v1/2
+    body:
+      encoding: UTF-8
+      string: '{"XAVRequest":{"Request":{"RequestOption":"2"},"AddressKeyFormat":[{"AddressLine":["401
+        Dover St"],"ConsigneeName":"Company","CountryCode":"US","PoliticalDivision1":"New
+        York","PoliticalDivision2":"Westbury","PostcodePrimaryLow":"11590"}]}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '240'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - onlinetools.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - 000000000216jCqWXlL9hb
+      Referrer-Policy:
+      - same-origin
+      - same-origin
+      Content-Type:
+      - application/json;charset=UTF-8
+      X-Request-Id:
+      - f1764bc4-a6d4-4be4-a193-5f53cc301105
+      Content-Length:
+      - '152'
+      Expires:
+      - Thu, 01 Feb 2024 17:50:07 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 01 Feb 2024 17:50:07 GMT
+      Connection:
+      - keep-alive
+      Ak-Grn-1:
+      - 0.1da73717.1706809807.2cd5b326
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"XAVResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"}},
+        "AddressClassification":{"Code":"2", "Description":"Residential"}}}'
+  recorded_at: Thu, 01 Feb 2024 17:50:07 GMT
+recorded_with: VCR 6.1.0
