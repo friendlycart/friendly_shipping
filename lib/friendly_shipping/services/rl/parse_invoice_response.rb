@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'friendly_shipping/services/rl/shipping_document'
+require 'friendly_shipping/services/rl/shipment_document'
 
 module FriendlyShipping
   module Services
@@ -12,12 +12,12 @@ module FriendlyShipping
         class << self
           # @param [FriendlyShipping::Request] request
           # @param [FriendlyShipping::Response] response
-          # @return [Dry::Monads::Result<ApiResult<ShippingDocument>>]
+          # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>]
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             data = (parsed_json['Documents'].find { _1["Type"] == "Invoice" } || {})["Data"]
 
-            document = ShippingDocument.new(binary: data)
+            document = ShipmentDocument.new(binary: data, format: :pdf, document_type: :invoice)
             if document.valid?
               Success(
                 ApiResult.new(
