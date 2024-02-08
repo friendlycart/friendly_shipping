@@ -155,10 +155,10 @@ module FriendlyShipping
       #
       # @param [String] pro_number The PRO number for the Invoice
       #
-      # @return [Dry::Monads::Result<ApiResult<ShippingDocument>>] The binary Invoice document from R&L
+      # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary Invoice document from R&L
       def get_invoice(pro_number, debug: false)
         request = FriendlyShipping::Request.new(
-          url: API_BASE + API_PATHS[:documents] + "?ProNumber=#{pro_number}&DocumentTypes=Invoice&MediaType=PDF",
+          url: api_base + API_PATHS[:documents] + "?ProNumber=#{pro_number}&DocumentTypes=Invoice&MediaType=PDF",
           http_method: "GET",
           headers: request_headers,
           debug: debug
