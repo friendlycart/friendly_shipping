@@ -501,25 +501,27 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
       it "has all the right data" do
         result = create_bol.value!.data
-        expect(result).to eq(
-          code: "OK",
-          message: "success",
-          bol_id: 46_178_022,
-          pro_number: "090509075",
-          documents: [
-            {
-              type: "20",
-              format: "PDF",
-              status: "NFO",
-              data: ""
-            }, {
-              type: "30",
-              format: "PDF",
-              status: "NFO",
-              data: ""
-            }
-          ]
+        expect(result).to match(
+          hash_including(
+            code: "OK",
+            message: "success",
+            bol_id: 46_178_022,
+            pro_number: "090509075"
+          )
         )
+        expect(result[:documents].size).to eq(2)
+
+        document = result[:documents][0]
+        expect(document.document_type).to eq(:tforce_bol)
+        expect(document.document_format).to eq(:pdf)
+        expect(document.status).to eq("NFO")
+        expect(document.binary).to start_with("%PDF-")
+
+        document = result[:documents][1]
+        expect(document.document_type).to eq(:label)
+        expect(document.document_format).to eq(:pdf)
+        expect(document.status).to eq("NFO")
+        expect(document.binary).to start_with("%PDF-")
       end
     end
 

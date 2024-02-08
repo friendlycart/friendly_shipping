@@ -10,25 +10,28 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ParseCreateBOLResponse
     let(:response) { double(body: response_body) }
 
     it "has the right data" do
-      expect(call.data).to eq(
-        code: "OK",
-        message: "success",
-        bol_id: 46_176_429,
-        pro_number: "020968290",
-        documents: [
-          {
-            type: "20",
-            format: "PDF",
-            status: "NFO",
-            data: ""
-          }, {
-            type: "30",
-            format: "PDF",
-            status: "NFO",
-            data: ""
-          }
-        ]
+      data = call.data
+      expect(data).to match(
+        hash_including(
+          code: "OK",
+          message: "success",
+          bol_id: 46_176_429,
+          pro_number: "020968290"
+        )
       )
+      expect(data[:documents].size).to eq(2)
+
+      document_1 = data[:documents][0]
+      expect(document_1.document_type).to eq(:tforce_bol)
+      expect(document_1.document_format).to eq(:pdf)
+      expect(document_1.status).to eq("NFO")
+      expect(document_1.binary).to start_with("%PDF-")
+
+      document_2 = data[:documents][1]
+      expect(document_2.document_type).to eq(:label)
+      expect(document_2.document_format).to eq(:pdf)
+      expect(document_2.status).to eq("NFO")
+      expect(document_2.binary).to start_with("%PDF-")
     end
   end
 end

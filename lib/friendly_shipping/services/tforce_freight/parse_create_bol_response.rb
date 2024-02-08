@@ -20,7 +20,9 @@ module FriendlyShipping
             message = json.dig("summary", "message")
             bol_id = json.dig("detail", "bolId")
             pro_number = json.dig("detail", "pro")
-            documents = json.dig("detail", "documents", "image")&.map { _1.transform_keys(&:to_sym) }
+            documents = json.dig("detail", "documents", "image")&.map do |image_data|
+              ParseShipmentDocument.call(image_data: image_data)
+            end
 
             FriendlyShipping::ApiResult.new(
               {
