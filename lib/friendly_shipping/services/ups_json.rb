@@ -162,7 +162,7 @@ module FriendlyShipping
           "Accept" => "application/json"
         }
         body = GenerateLabelsPayload.call(shipment: shipment, options: options).to_json
-        request = FriendlyShipping::Request.new(url:, http_method: "POST", headers:, body:, debug:)
+        request = FriendlyShipping::Request.new(url: url, http_method: "POST", headers: headers, body: body, debug: debug)
 
         client.post(request).bind do |response|
           ParseLabelsResponse.call(response: response, request: request)
@@ -194,17 +194,23 @@ module FriendlyShipping
         end
       end
 
+      # Void a label, aka by UPS as the Shipping Void Shipment api:
+      #   https://developer.ups.com/api/reference?loc=en_US#tag/Shipping_other
+      # @param [Label] label The label to be voided
+      # @return [Result<ApiResult>] The VoidShipmentResponse body from UPS.
       def void(label, debug: false)
-        url = "#{base_url}/api/shipments/v1/void/cancel/#{label.shipment_id}"
+        # The docs say to use both the shipment_id and tracking number, but the tracking number seems to work alone.
+        # url = "#{base_url}/api/shipments/v1/void/cancel/#{label.shipment_id}?trackingNumber=#{label.tracking_number}"
+        url = "#{base_url}/api/shipments/v1/void/cancel/#{label.tracking_number}"
         headers = {
           "Authorization" => "Bearer #{access_token}",
           "Content-Type" => "application/json",
           "Accept" => "application/json"
         }
-        request = FriendlyShipping::Request.new(url:, http_method: "DELETE", headers:, debug:)
+        request = FriendlyShipping::Request.new(url: url, http_method: "DELETE", headers: headers, debug: debug)
 
         client.delete(request).bind do |response|
-          ParseVoidResponse.call(response: response, request: request, shipment: shipment)
+          ParseVoidResponse.call(response: response, request: request)
         end
       end
 

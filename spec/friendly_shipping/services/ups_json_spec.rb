@@ -258,7 +258,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
-  xdescribe '#labels' do
+  describe '#labels' do
     let(:origin) do
       FactoryBot.build(
         :physical_location,
@@ -494,28 +494,31 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
-  xdescribe '#void' do
-    let(:label) { FriendlyShipping::Label.new(tracking_number: tracking_number) }
+  describe '#void' do
+    let(:label) { FriendlyShipping::Label.new(shipment_id: shipment_id, tracking_number: tracking_number) }
     subject { service.void(label) }
 
     context 'for a successful void attempt', vcr: { cassette_name: 'ups_json/void/success' } do
-      let(:tracking_number) { '1Z12345E0390817264' }
+      # these numbers come from https://developer.ups.com/api/reference/shipping/business-rules?loc=en_US and are valid in the CIE environment
+      let(:shipment_id) { '1ZISDE016691676846' }
+      let(:tracking_number) { '1Z2220060290602143' }
 
       it { is_expected.to be_success }
 
       it 'says "Success"' do
-        expect(subject.value!.data).to eq("Success")
+        expect(subject.value!.data.to_s).to include("Success")
       end
     end
 
     context 'for an unsuccessful void attempt', vcr: { cassette_name: 'ups_json/void/failure' } do
-      let(:tracking_number) { '1Z12345E1290420899' }
+      let(:shipment_id) { '1Z2220060290530202' }
+      let(:tracking_number) { '1Z2220060292634221' }
 
       it { is_expected.to be_failure }
 
-      it 'raises a ResponseError' do
+      it 'returns an error with a good message' do
         expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
-        expect(subject.failure.data).to eq('Failure: The Pickup Request associated with this shipment has already been completed')
+        expect(subject.failure.to_s).to eq('{"code"=>"190102", "message"=>"No shipment found within the allowed void period"}')
       end
     end
   end

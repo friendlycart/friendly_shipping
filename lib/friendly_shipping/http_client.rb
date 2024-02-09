@@ -27,6 +27,14 @@ module FriendlyShipping
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
+    def delete(request)
+      http_response = ::RestClient.delete(request.url, request.headers)
+
+      Success(Response.new_from_rest_client_response(http_response))
+    rescue ::RestClient::Exception => e
+      error_handler.call(e, original_request: request, original_response: e.response)
+    end
+
     def post(request)
       http_response = ::RestClient.post(
         request.url,
