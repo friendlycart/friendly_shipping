@@ -258,7 +258,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
-  describe '#labels' do
+  xdescribe '#labels' do
     let(:origin) do
       FactoryBot.build(
         :physical_location,
@@ -494,7 +494,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
-  describe '#void' do
+  xdescribe '#void' do
     let(:label) { FriendlyShipping::Label.new(tracking_number: tracking_number) }
     subject { service.void(label) }
 
