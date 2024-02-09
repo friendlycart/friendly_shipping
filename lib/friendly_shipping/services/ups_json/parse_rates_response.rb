@@ -90,13 +90,13 @@ module FriendlyShipping
           def extract_charges(charges, key_name)
             Array.wrap(charges).map do |charge|
               ParseMoneyHash.call(charge, key_name)
-            end&.compact
+            end.compact
           end
 
           def extract_modifiers(modifiers, currency_code:)
             Array.wrap(modifiers).map do |modifier|
               ParseRateModifierHash.call(modifier, currency_code:)
-            end.compact.to_h
+            end.compact
           end
         end
       end
