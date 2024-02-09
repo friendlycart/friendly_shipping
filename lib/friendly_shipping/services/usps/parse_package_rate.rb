@@ -5,14 +5,14 @@ module FriendlyShipping
     class Usps
       class ParsePackageRate
         # USPS returns all the info about a rate in a long string with a bit of gibberish.
-        ESCAPING_AND_SYMBOLS = /&lt;\S*&gt;/.freeze
+        ESCAPING_AND_SYMBOLS = /&lt;\S*&gt;/
 
         # At the beginning of the long String, USPS keeps a copy of its own name. We know we're dealing with
         # them though, so we can filter that out, too.
-        LEADING_USPS = /^USPS /.freeze
+        LEADING_USPS = /^USPS /
 
         # This combines all the things we want to filter out.
-        SERVICE_NAME_SUBSTITUTIONS = /#{ESCAPING_AND_SYMBOLS}|#{LEADING_USPS}/.freeze
+        SERVICE_NAME_SUBSTITUTIONS = /#{ESCAPING_AND_SYMBOLS}|#{LEADING_USPS}/
 
         # Often we get a multitude of rates for the same service given some combination of
         # Box type and (see below) and "Hold for Pickup" service. This creates a regular expression
@@ -39,15 +39,15 @@ module FriendlyShipping
         }.map { |k, v| "(?<#{k}>#{v})" }.join("|").freeze
 
         # We use this for identifying rates that use the Hold for Pickup service.
-        HOLD_FOR_PICKUP = /Hold for Pickup/i.freeze
+        HOLD_FOR_PICKUP = /Hold for Pickup/i
 
         # For most rate options, USPS will return how many business days it takes to deliver this
         # package in the format "{1,2,3}-Day". We can filter this out using the below Regex.
-        DAYS_TO_DELIVERY = /(?<days>\d)-Day/.freeze
+        DAYS_TO_DELIVERY = /(?<days>\d)-Day/
 
         # When delivering to military ZIP codes, we don't actually get a timing estimate, but instead the string
         # "Military". We use this to indicate that this rate is for a military zip code in the rates' data Hash.
-        MILITARY = /MILITARY/i.freeze
+        MILITARY = /MILITARY/i
 
         # The tags used in the rate node that we get information from.
         SERVICE_CODE_TAG = 'CLASSID'

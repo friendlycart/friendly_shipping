@@ -7,7 +7,7 @@ module FriendlyShipping
         class CannotDetermineRate < StandardError; end
         # Some shipping rates use 'Flat Rate Boxes', indicating that
         # they are available for ALL flat rate boxes.
-        FLAT_RATE_BOX = /Flat Rate Box/i.freeze
+        FLAT_RATE_BOX = /Flat Rate Box/i
 
         # Select the corresponding rate for a package from all the rates USPS returns to us
         #
