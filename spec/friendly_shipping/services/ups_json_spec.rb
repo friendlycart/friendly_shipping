@@ -109,7 +109,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       let(:origin) { FactoryBot.build(:physical_location, region: "NV", zip: '89502', address1: nil, address2: nil, city: "Reno", address_type: 'commercial') }
       let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: "03") }
       let(:options) do
-        FriendlyShipping::Services::UpsJson::RatesOptions.new(shipper_number: shipper_number, shipping_method:, customer_classification: :shipper_number)
+        FriendlyShipping::Services::UpsJson::RatesOptions.new(shipper_number: shipper_number, shipping_method: shipping_method, customer_classification: :shipper_number)
       end
 
       it 'returns the RateModifiers' do
