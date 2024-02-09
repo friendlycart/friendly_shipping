@@ -4,18 +4,18 @@ module FriendlyShipping
   module Services
     class TForceFreight
       class ShipmentDocument
-        attr_reader :document_type, :document_format, :status, :binary
+        attr_reader :document_type, :document_format, :binary, :status
 
         def initialize(
           document_type:,
           document_format:,
-          status:,
-          binary:
+          binary:,
+          status: nil
         )
           @document_type = document_type
           @document_format = document_format
-          @status = status
           @binary = binary
+          @status = status
         end
       end
     end

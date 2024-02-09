@@ -7,8 +7,8 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ShipmentDocument do
     described_class.new(
       document_type: :label,
       document_format: "PDF",
-      status: "NFO",
-      binary: binary
+      binary: binary,
+      status: "NFO"
     )
   end
 
@@ -17,7 +17,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ShipmentDocument do
   it "stores the data" do
     expect(document.document_type).to eq(:label)
     expect(document.document_format).to eq("PDF")
-    expect(document.status).to eq("NFO")
     expect(document.binary).to be(binary)
+    expect(document.status).to eq("NFO")
   end
 end
