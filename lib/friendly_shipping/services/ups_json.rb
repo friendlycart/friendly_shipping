@@ -103,11 +103,11 @@ module FriendlyShipping
         rates_request_body = GenerateRatesPayload.call(shipment: shipment, options: options).to_json
 
         request = FriendlyShipping::Request.new(
-          url:,
+          url: url,
           http_method: "POST",
-          headers:,
+          headers: headers,
           body: rates_request_body,
-          debug:
+          debug: debug
         )
 
         client.post(request).bind do |response|
@@ -132,11 +132,11 @@ module FriendlyShipping
         timings_request_body = GenerateTimingsPayload.call(shipment: shipment, options: options).to_json
 
         request = FriendlyShipping::Request.new(
-          url:,
+          url: url,
           http_method: "POST",
-          headers:,
+          headers: headers,
           body: timings_request_body,
-          debug:
+          debug: debug
         )
 
         client.post(request).bind do |response|
@@ -159,7 +159,14 @@ module FriendlyShipping
           "Accept" => "application/json"
         }
         body = GenerateAddressClassificationPayload.call(location: location).to_json
-        request = FriendlyShipping::Request.new(url:, http_method: "POST", headers:, body:, debug:)
+
+        request = FriendlyShipping::Request.new(
+          url: url,
+          http_method: "POST",
+          headers: headers,
+          body: body,
+          debug: debug
+        )
 
         client.post(request).bind do |response|
           ParseAddressClassificationResponse.call(response: response, request: request)

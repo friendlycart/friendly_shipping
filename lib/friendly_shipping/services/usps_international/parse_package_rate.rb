@@ -5,14 +5,14 @@ module FriendlyShipping
     class UspsInternational
       class ParsePackageRate
         # USPS returns all the info about a rate in a long string with a bit of gibberish.
-        ESCAPING_AND_SYMBOLS = /&lt;\S*&gt;/.freeze
+        ESCAPING_AND_SYMBOLS = /&lt;\S*&gt;/
 
         # At the beginning of the long String, USPS keeps a copy of its own name. We know we're dealing with
         # them though, so we can filter that out, too.
-        LEADING_USPS = /^USPS /.freeze
+        LEADING_USPS = /^USPS /
 
         # This combines all the things we want to filter out.
-        SERVICE_NAME_SUBSTITUTIONS = /#{ESCAPING_AND_SYMBOLS}|#{LEADING_USPS}/.freeze
+        SERVICE_NAME_SUBSTITUTIONS = /#{ESCAPING_AND_SYMBOLS}|#{LEADING_USPS}/
 
         # Often we get a multitude of rates for the same service given some combination of
         # Box type and (see below) and "Hold for Pickup" service. This creates a regular expression

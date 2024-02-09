@@ -10,7 +10,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseInvoiceResponse do
 
   context "with successful response" do
     context "with an invoice" do
-      let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "get_invoice", "success.json")).read }
+      let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "rl", "get_invoice", "success.json")) }
       let(:api_result) { subject.value! }
       let(:result) { api_result.data }
 
@@ -26,7 +26,7 @@ RSpec.describe FriendlyShipping::Services::RL::ParseInvoiceResponse do
     end
 
     context "with out an invoice" do
-      let(:response_body) { File.open(File.join(gem_root, "spec", "fixtures", "rl", "get_invoice", "missing.json")).read }
+      let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "rl", "get_invoice", "missing.json")) }
       let(:api_result) { subject.failure }
       let(:result) { api_result.data }
 

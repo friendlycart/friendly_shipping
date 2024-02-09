@@ -49,7 +49,7 @@ module FriendlyShipping
               end
 
               rates << FriendlyShipping::Rate.new(
-                shipping_method:,
+                shipping_method: shipping_method,
                 amounts: { total: total_cost },
                 warnings: rated_shipment_warnings,
                 errors: [],
@@ -95,7 +95,7 @@ module FriendlyShipping
 
           def extract_modifiers(modifiers, currency_code:)
             Array.wrap(modifiers).map do |modifier|
-              ParseRateModifierHash.call(modifier, currency_code:)
+              ParseRateModifierHash.call(modifier, currency_code: currency_code)
             end.compact
           end
         end
