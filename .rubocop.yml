@@ -4,7 +4,8 @@ AllCops:
   TargetRubyVersion: 3.2
 
 inherit_from:
-- .rubocop-relaxed.yml
+  - .rubocop_todo.yml
+  - .rubocop-relaxed.yml
 
 Metrics/BlockLength:
   Enabled: false
