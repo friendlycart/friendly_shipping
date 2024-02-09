@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.rlc.com/DocumentRetrieval?DocumentTypes=Invoice&MediaType=PDF&ProNumber=WP9974772
+    uri: https://apisandbox.rlc.com/DocumentRetrieval?DocumentTypes=Invoice&MediaType=PDF&ProNumber=WP9974772
     body:
       encoding: US-ASCII
       string: ''

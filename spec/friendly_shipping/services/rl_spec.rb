@@ -237,9 +237,9 @@ RSpec.describe FriendlyShipping::Services::RL do
 
       it "has all the right data" do
         result = subject.value!.data
-        expect(result).to be_a(FriendlyShipping::Services::RL::ShippingDocument)
+        expect(result).to be_a(FriendlyShipping::Services::RL::ShipmentDocument)
         expect(result.format).to eq(:pdf)
-        expect(result.decoded_binary).to start_with("%PDF-")
+        expect(result.binary).to start_with("JVB")
       end
     end
   end
