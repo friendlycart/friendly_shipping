@@ -40,7 +40,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::RatesOptions do
     it { expect(options.pickup_date).to be_nil }
     it { expect(options.saturday_delivery).to be(false) }
     it { expect(options.saturday_pickup).to be(false) }
-    it { expect(options.sub_version).to eq('v2205') }
+    it { expect(options.sub_version).to eq('2205') }
     it { expect(options.with_time_in_transit).to be(false) }
   end
 

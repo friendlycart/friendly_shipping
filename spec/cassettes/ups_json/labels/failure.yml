@@ -1,0 +1,85 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/shipments/v2205/ship
+    body:
+      encoding: UTF-8
+      string: '{"ShipmentRequest":{"Request":{"RequestOption":"validate","SubVersion":"2205","TransactionReference":{"CustomerContext":"request-id-12345"}},"Shipment":{"Description":"","Service":{"Code":"03"},"Shipper":{"AttentionName":"John
+        Doe","Name":"Company","ShipperNumber":"%UPS_SHIPPER_NUMBER%","Phone":{"Number":"555-555-0199"},"Address":{"AddressLine":["10
+        Lovely Street"],"City":"Raleigh","PostalCode":"27615","StateProvinceCode":"NC","CountryCode":"US"}},"ShipTo":{"AttentionName":"Jane
+        Doe","Name":"Company","Phone":{"Number":"555-555-0199"},"Address":{"AddressLine":["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Suite
+        100"],"City":"Orlando","PostalCode":"32821","StateProvinceCode":"FL","CountryCode":"US","ResidentialAddressIndicator":"X"}},"ShipmentDate":"20240209","PaymentInformation":{"ShipmentCharge":[{"Type":"01","BillShipper":{"AccountNumber":"%UPS_SHIPPER_NUMBER%"}}]},"ShipmentRatingOptions":{"NegotiatedRatesIndicator":"X"},"ShipmentServiceOptions":{"UPScarbonneutralIndicator":"X","LabelDelivery":{"LabelLinksIndicator":"X"}},"Package":[{"Packaging":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{},"Description":"","Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}},{"Packaging":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"PackageServiceOptions":{},"Description":"","Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}}]},"LabelSpecification":{"LabelImageFormat":{"Code":"ZPL"},"LabelStockSize":{"Width":"4","Height":"6"}}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1596'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - ciewssoat295Bs5TnQjt3W
+      Referrer-Policy:
+      - same-origin
+      Apierrorcode:
+      - '120202'
+      Apierrormsg:
+      - Missing or invalid ship to address line 1
+      Content-Type:
+      - application/json;charset=UTF-8
+      Errorcode:
+      - '120202'
+      Errordescription:
+      - Missing or invalid ship to address line 1
+      X-Request-Id:
+      - b315295c-b3f6-449e-9c68-2a52190c111a
+      Content-Length:
+      - '97'
+      Expires:
+      - Fri, 09 Feb 2024 16:23:02 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Fri, 09 Feb 2024 16:23:02 GMT
+      Connection:
+      - close
+      Server-Timing:
+      - ak_p; desc="1707495781966_3088866573_184105149_45694_6715_40_45_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=16
+      - origin; dur=434
+      Ak-Grn-1:
+      - 0.0d5d1cb8.1707495782.af938bd
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"response":{"errors":[{"code":"120202","message":"Missing or invalid
+        ship to address line 1"}]}}'
+  recorded_at: Fri, 09 Feb 2024 16:23:02 GMT
+recorded_with: VCR 6.1.0
