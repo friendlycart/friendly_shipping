@@ -12,9 +12,9 @@ module FriendlyShipping
             {
               BillOfLading: {
                 BOLDate: Time.now.strftime('%m/%d/%Y'),
-                Shipper: serialize_location(shipment.origin),
-                Consignee: serialize_location(shipment.destination),
-                BillTo: serialize_location(shipment.origin),
+                Shipper: SerializeLocation.call(shipment.origin),
+                Consignee: SerializeLocation.call(shipment.destination),
+                BillTo: SerializeLocation.call(shipment.origin),
                 Items: options.packages_serializer.call(packages: shipment.packages, options: options),
                 DeclaredValue: serialize_declared_value(options.declared_value),
                 SpecialInstructions: options.special_instructions,
@@ -27,22 +27,6 @@ module FriendlyShipping
           end
 
           private
-
-          # @param [Physical::Location] location
-          # @return [Hash]
-          def serialize_location(location)
-            {
-              CompanyName: location.company_name.presence || location.name,
-              AddressLine1: location.address1,
-              AddressLine2: location.address2,
-              City: location.city,
-              StateOrProvince: location.region.code,
-              ZipOrPostalCode: location.zip,
-              CountryCode: location.country.alpha_3_code,
-              PhoneNumber: clean_phone(location.phone),
-              EmailAddress: location.email
-            }.compact
-          end
 
           # @param [Numeric] declared_value
           # @return [Hash, nil]
@@ -81,14 +65,6 @@ module FriendlyShipping
                 AdditionalInstructions: options.pickup_instructions
               }.compact
             }
-          end
-
-          # RL does not support leading country codes in phone numbers.
-          #
-          # @param [String] phone
-          # @return [String]
-          def clean_phone(phone)
-            phone.gsub(/^1-/, "")
           end
         end
       end
