@@ -34,12 +34,19 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeLocation do
   end
 
   context "when phone has leading country code" do
-    let(:location) do
-      FactoryBot.build(
-        :physical_location,
-        phone: "1-123-123-1234"
+    let(:location) { FactoryBot.build(:physical_location, phone: "1-123-123-1234") }
+
+    it do
+      is_expected.to match(
+        hash_including(
+          PhoneNumber: "123-123-1234"
+        )
       )
     end
+  end
+
+  context "when phone has leading and/or trailing whitespace" do
+    let(:location) { FactoryBot.build(:physical_location, phone: "  123-123-1234  ") }
 
     it do
       is_expected.to match(

@@ -29,7 +29,7 @@ module FriendlyShipping
           # @param [String] phone
           # @return [String]
           def clean_phone(phone)
-            phone.gsub(/^1-/, "")
+            phone.gsub(/^1-/, "").strip
           end
         end
       end
