@@ -71,13 +71,13 @@ http_interactions:
                   "status":"NFO",
                   "type":"20",
                   "format":"PDF",
-                  "data":""
+                  "data":"JVBERi0="
                 },
                 {
                   "status":"NFO",
                   "type":"30",
                   "format":"PDF",
-                  "data":""
+                  "data":"JVBERi0="
                 }
               ]
             }

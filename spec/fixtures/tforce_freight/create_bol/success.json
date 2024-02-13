@@ -1,24 +1,132 @@
 {
-  "summary":{
-    "code":"OK",
-    "message":"success"
+  "summary": {
+    "code": "OK",
+    "message": "success",
+    "transactionReference": {
+      "transactionId": "24684b25-406b-4e38-972a-f1fbd701daeb"
+    }
   },
-  "detail":{
-    "bolId":46176429,
-    "pro":"020968290",
-    "documents":{
-      "image":[
+  "detail": {
+    "bolId": 46176429,
+    "pro": "020968290",
+    "originServiceCenter": "LOS",
+    "rateDetail": [
+      {
+        "alerts": [
+          {
+            "code": "853",
+            "message": "FBR853: DESTINATION IS A RURAL POINT"
+          }
+        ],
+        "service": {
+          "code": "308",
+          "description": "TForce Freight LTL"
+        },
+        "rate": [
+          {
+            "code": "DSCNT",
+            "description": "Discount",
+            "value": "1809.75",
+            "unit": "USD"
+          },
+          {
+            "code": "DSCNT_RATE",
+            "description": "Discount Rate",
+            "value": "75.00",
+            "unit": "%"
+          },
+          {
+            "code": "INDE",
+            "description": "INSIDE_DL",
+            "value": "169.00",
+            "unit": "USD"
+          },
+          {
+            "code": "PFFF",
+            "description": "FREEZE_PROT",
+            "value": "45.00",
+            "unit": "USD"
+          },
+          {
+            "code": "EXLI",
+            "description": "EXLI",
+            "value": "74.50",
+            "unit": "USD"
+          },
+          {
+            "code": "RESP",
+            "description": "RESIDENTIAL_PU",
+            "value": "207.00",
+            "unit": "USD"
+          },
+          {
+            "code": "LIFO",
+            "description": "LIFT_GATE_PU",
+            "value": "175.00",
+            "unit": "USD"
+          },
+          {
+            "code": "FUEL_SUR",
+            "description": "Fuel Surcharge Fee",
+            "value": "255.78",
+            "unit": "USD"
+          },
+          {
+            "code": "HICST",
+            "description": "HICST",
+            "value": "22.00",
+            "unit": "USD"
+          },
+          {
+            "code": "LND_GROSS",
+            "description": "LND_GROSS",
+            "value": "2413.00",
+            "unit": "USD"
+          },
+          {
+            "code": "AFTR_DSCNT",
+            "description": "AFTR_DSCNT",
+            "value": "603.25",
+            "unit": "USD"
+          }
+        ],
+        "shipmentCharges": {
+          "total": {
+            "value": "1551.53",
+            "currency": "USD"
+          }
+        },
+        "shipmentWeights": {
+          "billable": {
+            "value": "1000",
+            "unit": "LBS"
+          }
+        },
+        "timeInTransit": {
+          "timeInTransit": "1",
+          "unit": "DAY"
+        }
+      }
+    ],
+    "pickup": {
+      "confirmationNumber": "WBU1234567",
+      "emailSent": "false",
+      "originIsRural": "true",
+      "destinationIsRural": "false"
+    },
+    "documents": {
+      "image": [
         {
-          "status":"NFO",
-          "type":"20",
-          "format":"PDF",
-          "data":""
+          "status": "NFO",
+          "type": "20",
+          "format": "PDF",
+          "data": "JVBERi0="
         },
         {
-          "status":"NFO",
-          "type":"30",
-          "format":"PDF",
-          "data":""
+          "status": "NFO",
+          "type": "30",
+          "format": "PDF",
+          "data": "JVBERi0="
         }
       ]
     }

@@ -68,15 +68,15 @@ module FriendlyShipping
                 name: location.company_name.presence || location.name,
                 contact: location.name,
                 email: location.email,
-                phone: { number: location.phone, },
+                phone: { number: location.phone }.compact,
                 address: {
                   addressLine: address_line(location),
                   city: location.city,
                   stateProvinceCode: location.region&.code,
                   postalCode: location.zip,
                   country: location.country&.code
-                }
-              },
+                }.compact
+              }.compact_blank,
               billingCode: options.billing_code
             }
           end
@@ -87,7 +87,7 @@ module FriendlyShipping
               location.address1,
               location.address2,
               location.address3
-            ].compact.reject(&:blank?).join(" ")
+            ].compact.reject(&:blank?).join(" ").presence
           end
 
           # @param options [BOLOptions]

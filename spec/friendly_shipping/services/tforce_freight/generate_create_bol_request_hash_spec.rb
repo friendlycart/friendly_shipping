@@ -217,6 +217,17 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
           }
         )
       end
+
+      context "with missing fields" do
+        let(:origin) { Physical::Location.new }
+
+        it do
+          is_expected.to eq(
+            payer: {},
+            billingCode: "10"
+          )
+        end
+      end
     end
 
     describe "handlingUnitOne" do

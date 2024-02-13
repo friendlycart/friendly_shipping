@@ -4,6 +4,8 @@ require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/tforce_freight/access_token'
 require 'friendly_shipping/services/tforce_freight/shipping_methods'
+require 'friendly_shipping/services/tforce_freight/shipment_document'
+require 'friendly_shipping/services/tforce_freight/shipment_information'
 require 'friendly_shipping/services/tforce_freight/rates_options'
 require 'friendly_shipping/services/tforce_freight/rates_package_options'
 require 'friendly_shipping/services/tforce_freight/rates_item_options'
@@ -13,6 +15,7 @@ require 'friendly_shipping/services/tforce_freight/document_options'
 require 'friendly_shipping/services/tforce_freight/parse_rates_response'
 require 'friendly_shipping/services/tforce_freight/parse_pickup_response'
 require 'friendly_shipping/services/tforce_freight/parse_create_bol_response'
+require 'friendly_shipping/services/tforce_freight/parse_shipment_document'
 require 'friendly_shipping/services/tforce_freight/generate_rates_request_hash'
 require 'friendly_shipping/services/tforce_freight/generate_pickup_request_hash'
 require 'friendly_shipping/services/tforce_freight/generate_create_bol_request_hash'
@@ -151,7 +154,7 @@ module FriendlyShipping
       # @see https://developer.tforcefreight.com/api-details#api=shipping-cie-vnext&operation=shipping-create-bol API documentation
       #
       # @param shipment [Physical::Shipment] the shipment for which to create a BOL
-      # @param options [PickupOptions] options for the BOL
+      # @param options [BOLOptions] options for the BOL
       # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult>] the BOL returned from TForce encoded in a `ApiResult` object
       def create_bol(shipment, options:, debug: false)
