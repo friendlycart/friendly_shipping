@@ -154,7 +154,7 @@ module FriendlyShipping
       # @see https://developer.tforcefreight.com/api-details#api=shipping-cie-vnext&operation=shipping-create-bol API documentation
       #
       # @param shipment [Physical::Shipment] the shipment for which to create a BOL
-      # @param options [PickupOptions] options for the BOL
+      # @param options [BOLOptions] options for the BOL
       # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult>] the BOL returned from TForce encoded in a `ApiResult` object
       def create_bol(shipment, options:, debug: false)
