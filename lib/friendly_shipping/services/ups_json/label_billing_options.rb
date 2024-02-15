@@ -18,6 +18,13 @@ module FriendlyShipping
                     :billing_country,
                     :currency
 
+        # @param bill_third_party [Boolean] bill an account other than the shipper's
+        # @param bill_to_consignee [Boolean] bill the consignee instead of the third party shipper
+        # @param prepay [Boolean] bill the shipper immediately
+        # @param billing_account [String, nil] the account number to bill
+        # @param billing_zip [String, nil] the postal code of the billing account
+        # @param billing_country [String, nil] the country code of the billing account
+        # @param currency [String, nil] the currency code used for international forms
         def initialize(
           bill_third_party: false,
           bill_to_consignee: false,

@@ -3,8 +3,18 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Generates the hash representing a package in UPS rates and labels request payloads.
       class GeneratePackageHash
         class << self
+          # @param package [Physical::Package] the package to convert
+          # @param delivery_confirmation_code [Integer, nil] the UPS delivery confirmation code for the package
+          # @param shipper_release [Boolean] whether the package may be released without a signature
+          # @param transmit_dimensions [Boolean] whether to include the package's dimensions, if they are all
+          #   finite and non-zero
+          # @param declared_value [Boolean] whether to include the declared value (only applied for rates)
+          # @param package_flavor [String, nil] `"rates"` for a rates request, otherwise the hash is built for labels
+          # @param reference_numbers [Hash, nil] reference number codes mapped to reference number values
+          # @return [Hash] the package hash, with blank values removed
           def call(package:,
                    delivery_confirmation_code: nil,
                    shipper_release: false,

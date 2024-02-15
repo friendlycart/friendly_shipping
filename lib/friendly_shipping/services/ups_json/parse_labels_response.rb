@@ -5,8 +5,12 @@ require 'base64'
 module FriendlyShipping
   module Services
     class UpsJson
+      # Parses the response of a label creation request.
       class ParseLabelsResponse
         class << self
+          # @param request [Request] the request that was sent
+          # @param response [Response] the response received
+          # @return [Result<ApiResult<Array<Label>>>] the labels built from the response
           def call(request:, response:)
             parsed_response = ParseJsonResponse.call(
               request: request,
@@ -22,6 +26,8 @@ module FriendlyShipping
             end
           end
 
+          # @param labels_result [Hash] the parsed response body
+          # @return [Array<Label>] one label per package result. Only the first label includes the customs form.
           def build_labels(labels_result)
             shipment_result = labels_result["ShipmentResponse"]["ShipmentResults"]
             customs_form = build_customs_form(shipment_result)
@@ -49,6 +55,8 @@ module FriendlyShipping
             end
           end
 
+          # @param package [Hash] a PackageResults entry
+          # @return [Hash{String => Money}] the non-zero charges of the package, keyed by label
           def build_cost_breakdown(package)
             costs = [
               package["BaseServiceCharge"]&.merge("Code" => "BaseServiceCharge"),
@@ -59,16 +67,23 @@ module FriendlyShipping
             costs.map { |cost| ParseMoneyHash.call(cost, "UnknownSurcharge") }.compact.to_h
           end
 
+          # @param shipment_result [Hash] the ShipmentResults hash
+          # @return [Money, nil] the total charges of the shipment
           def get_shipment_cost(shipment_result)
             total_charges_hash = shipment_result.dig("ShipmentCharges", "TotalCharges")
             ParseMoneyHash.call(total_charges_hash, "TotalCharges")&.last
           end
 
+          # @param shipment_result [Hash] the ShipmentResults hash
+          # @return [Money, nil] the negotiated total charge of the shipment
           def get_negotiated_rate(shipment_result)
             negotiated_total_hash = shipment_result.dig("NegotiatedRateCharges", "TotalCharge")
             ParseMoneyHash.call(negotiated_total_hash, "TotalCharge")&.last
           end
 
+          # @param shipment_result [Hash] the ShipmentResults hash
+          # @return [Hash, nil] the form's code, description, image format and decoded image data, or nil if the
+          #   response has no form image
           def build_customs_form(shipment_result)
             form = shipment_result["Form"]
             return nil unless form
