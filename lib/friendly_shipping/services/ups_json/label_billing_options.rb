@@ -7,7 +7,7 @@ module FriendlyShipping
       # @option bill_third_party [Boolean] When truthy, bill an account other than the shipper's.
       #  Specified by billing_(account, zip and country)
       # @option bill_to_consignee [Boolean] If billing a third party, bill the consignee instead of the 3rd party shipper
-      # @option prepay [Boolean] If truthy the shipper will be bill immediately. Otherwise the shipper is billed
+      # @option prepay [Boolean] If truthy the shipper will be billed immediately. Otherwise the shipper is billed
       #   when the label is used. Default: false
       class LabelBillingOptions
         attr_reader :bill_third_party,

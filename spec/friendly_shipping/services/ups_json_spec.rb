@@ -118,7 +118,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           expect(subject.value!.data).to be_a(Array)
           expect(subject.value!.data.first.data[:rate_modifier]).to be_nil
           expect(subject.value!.data[3]).to be_a(FriendlyShipping::Rate)
-          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq([{ 'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD')) }])
+          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq({ 'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD')) })
         end
       end
     end

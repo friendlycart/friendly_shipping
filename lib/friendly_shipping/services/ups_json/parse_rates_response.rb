@@ -80,7 +80,7 @@ module FriendlyShipping
                 itemized_charges: extract_charges(rated_package['ItemizedCharges'], 'ItemizedCharges'),
                 total_charges: ParseMoneyHash.call(rated_package['TotalCharges'], 'TotalCharges'),
                 negotiated_charges: extract_charges(rated_package.dig('NegotiatedRateCharges', 'ItemizedCharges'), 'ItemizedCharges'),
-                rate_modifiers: extract_modifiers(rated_package['RateModifier'], currency_code: currency_code),
+                rate_modifiers: {}.merge(*extract_modifiers(rated_package['RateModifier'], currency_code: currency_code)),
                 weight: BigDecimal(rated_package['Weight']),
                 billing_weight: BigDecimal(rated_package.dig('BillingWeight', 'Weight'))
               }.compact

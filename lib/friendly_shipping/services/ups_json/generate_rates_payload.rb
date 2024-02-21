@@ -45,7 +45,10 @@ module FriendlyShipping
           end
 
           payload[:RateRequest][:Shipment][:Package] = shipment.packages.map do |package|
-            GeneratePackageHash.call(package: package, package_flavor: 'rates')
+            GeneratePackageHash.call(
+              package: package,
+              package_flavor: 'rates'
+            )
           end
 
           if options.pickup_date && options.sub_version.to_i >= 2205

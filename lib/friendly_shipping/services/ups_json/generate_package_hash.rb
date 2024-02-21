@@ -9,6 +9,7 @@ module FriendlyShipping
                    delivery_confirmation_code: nil,
                    shipper_release: false,
                    transmit_dimensions: true,
+                   declared_value: false,
                    package_flavor: nil)
             # UPS consistency across apis is a bit of a mess
             packaging_type_key = package_flavor == "rates" ? "PackagingType" : "Packaging"
@@ -47,15 +48,16 @@ module FriendlyShipping
               package_sum + (item.cost || Money.new(0, "USD"))
             end
 
-            # since this key is invalid for labels, UPS responds with "Accessory may not be combined with the product."
-            if package_flavor == "rates"
+            # this key is invalid for labels, UPS responds with "Accessory may not be combined with the product."
+            if package_flavor == "rates" && declared_value
               package_hash[:PackageServiceOptions][:DeclaredValue] = {
                 CurrencyCode: "USD",
-                MonetaryValue: total_value.cents.to_s
+                MonetaryValue: total_value.to_s
               }
             end
 
-            package_hash
+            package_hash[:PackageServiceOptions].compact_blank!
+            package_hash.compact_blank!
           end
         end
       end

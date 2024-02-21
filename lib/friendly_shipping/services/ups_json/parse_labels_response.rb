@@ -33,6 +33,7 @@ module FriendlyShipping
                 usps_tracking_number: package["USPSPICNumber"],
                 label_data: Base64.decode64(package["ShippingLabel"]["GraphicImage"]),
                 label_format: package["ShippingLabel"]["ImageFormat"]["Code"],
+                label_href: package["LabelURL"],
                 cost: package_cost,
                 shipment_cost: get_shipment_cost(shipment_result),
                 data: {

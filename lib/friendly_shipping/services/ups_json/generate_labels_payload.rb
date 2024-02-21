@@ -65,7 +65,7 @@ module FriendlyShipping
             }
           }.compact
 
-          if international?(shipment) && options.terms_of_shipment_code == "DDP" && options.billing_options.bill_third_party
+          if international?(shipment) && options.terms_of_shipment_code == "DDP"
             payload[:ShipmentRequest][:Shipment][:PaymentInformation][:ShipmentCharge].append(build_ddp_billing_info(options))
           end
 
@@ -101,11 +101,6 @@ module FriendlyShipping
                 MonetaryValue: total_value.to_f.to_s
               }
             end
-
-            contents_description = shipment.packages.flat_map do |package|
-              package.items.map(&:description)
-            end.compact.uniq.join(', ').slice(0, 50)
-            payload[:ShipmentRequest][:Shipment][:Description] = contents_description
           end
 
           if options.return_service_code
@@ -113,11 +108,19 @@ module FriendlyShipping
             payload[:ShipmentRequest][:Shipment][:ShipmentServiceOptions].delete(:LabelDelivery)
             payload[:ShipmentRequest][:Shipment].delete(:ShipmentServiceOptions)
             payload[:ShipmentRequest][:Shipment].delete(:ShipmentDate)
-
           end
 
           payload[:ShipmentRequest][:Shipment][:Package] = shipment.packages.map do |package|
-            GeneratePackageHash.call(package: package, package_flavor: 'labels')
+            package_options = options.options_for_package(package)
+            delivery_confirmation_code = package_level_delivery_confirmation?(shipment) ? package_options.delivery_confirmation_code : nil
+
+            GeneratePackageHash.call(
+              package: package,
+              delivery_confirmation_code: delivery_confirmation_code,
+              shipper_release: package_options.shipper_release,
+              declared_value: package_options.declared_value,
+              package_flavor: 'labels'
+            )
           end
 
           payload[:ShipmentRequest][:LabelSpecification] = {
@@ -129,9 +132,6 @@ module FriendlyShipping
               Height: options.label_size[1].to_s # "Only valid values are 6 or 8."
             }
           }
-          # TODO needed?
-          # This is the preferred way of identifying GIF image type to be generated. Required if /ShipmentRequest/LabelSpecificationLabelSpecification/LabelImageFormat/Code = Gif. Default to Mozilla/4.5 if this field is missing or has invalid value.
-          # HTTPUserAgent: "Mozilla/4.5"
 
           payload.compact
         end
@@ -184,7 +184,6 @@ module FriendlyShipping
             item_options = all_item_options.detect { |o| o.item_id == reference_item.id } || LabelItemOptions.new(item_id: nil)
 
             product_hash = {
-              # TODO "a maximum of 3 times" - what does this mean?
               Description: description&.slice(0, 35), # Description of the product. Applies to all International Forms. Optional for Partial Invoice. Must be present at least once and can occur for a maximum of 3 times.
               CommodityCode: item_options.commodity_code,
               OriginCountryCode: item_options.country_of_origin || shipment.origin.country.code,
@@ -200,6 +199,14 @@ module FriendlyShipping
             result[:Product] << product_hash
           end
           result
+        end
+
+        # For certain origin/destination pairs, UPS allows each package in a shipment to have a specified
+        # delivery_confirmation option otherwise the delivery_confirmation option must be specified on the entire shipment.
+        # See https://developer.ups.com/api/reference/rating/appendix?loc=en_US for details
+        def self.package_level_delivery_confirmation?(shipment)
+          origin, destination = shipment.origin.country.code, shipment.destination.country.code
+          origin == destination || [['US', 'PR'], ['PR', 'US']].include?([origin, destination])
         end
       end
     end
