@@ -9,10 +9,10 @@ module FriendlyShipping
         # @param [String] usps_tracking_number The label's usps tracking number. Limited to SUREPOST
         def initialize(
           usps_tracking_number: nil,
-          **params
+          **kwargs
         )
           @usps_tracking_number = usps_tracking_number
-          super(**params)
+          super(**kwargs)
         end
       end
     end

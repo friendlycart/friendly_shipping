@@ -99,11 +99,7 @@ module FriendlyShipping
       #   `FriendlyShipping::ApiResult` object.
       def rates(shipment, options:, debug: false)
         url = "#{base_url}/api/rating/v#{options.sub_version || '1'}/Shop"
-        headers = {
-          "Authorization" => "Bearer #{access_token}",
-          "Content-Type" => "application/json",
-          "Accept" => "application/json"
-        }
+        headers = required_headers(access_token)
         rates_request_body = GenerateRatesPayload.call(shipment: shipment, options: options).to_json
 
         request = FriendlyShipping::Request.new(
@@ -126,13 +122,10 @@ module FriendlyShipping
       # @param [FriendlyShipping::Services::UpsJson::TimingOptions] options Options for this call
       def timings(shipment, options:, debug: false)
         url = "#{base_url}/api/shipments/v1/transittimes"
-        headers = {
-          "Authorization" => "Bearer #{access_token}",
-          "Content-Type" => "application/json",
-          "Accept" => "application/json",
+        headers = required_headers(access_token).merge(
           "transId" => SecureRandom.uuid,
-          "transactionSrc" => "testing"
-        }
+          "transactionSrc" => "testing" # this is a required field according to https://developer.ups.com/api/reference?loc=en_US#operation/TimeInTransit
+        )
         timings_request_body = GenerateTimingsPayload.call(shipment: shipment, options: options).to_json
 
         request = FriendlyShipping::Request.new(
@@ -156,11 +149,7 @@ module FriendlyShipping
       #   `FriendlyShipping::ApiResult` object.
       def labels(shipment, options:, debug: false)
         url = "#{base_url}/api/shipments/v#{options.sub_version || '2205'}/ship"
-        headers = {
-          "Authorization" => "Bearer #{access_token}",
-          "Content-Type" => "application/json",
-          "Accept" => "application/json"
-        }
+        headers = required_headers(access_token)
         body = GenerateLabelsPayload.call(shipment: shipment, options: options).to_json
         request = FriendlyShipping::Request.new(url: url, http_method: "POST", headers: headers, body: body, debug: debug)
 
@@ -174,11 +163,7 @@ module FriendlyShipping
       # @return [Result<ApiResult<String>>] Either `"commercial"`, `"residential"`, or `"unknown"`
       def address_classification(location, debug: false)
         url = "#{base_url}/api/addressvalidation/v1/2"
-        headers = {
-          "Authorization" => "Bearer #{access_token}",
-          "Content-Type" => "application/json",
-          "Accept" => "application/json"
-        }
+        headers = required_headers(access_token)
         body = GenerateAddressClassificationPayload.call(location: location).to_json
 
         request = FriendlyShipping::Request.new(
@@ -202,11 +187,7 @@ module FriendlyShipping
         # The docs say to use both the shipment_id and tracking number, but the tracking number seems to work alone.
         # url = "#{base_url}/api/shipments/v1/void/cancel/#{label.shipment_id}?trackingNumber=#{label.tracking_number}"
         url = "#{base_url}/api/shipments/v1/void/cancel/#{label.tracking_number}"
-        headers = {
-          "Authorization" => "Bearer #{access_token}",
-          "Content-Type" => "application/json",
-          "Accept" => "application/json"
-        }
+        headers = required_headers(access_token)
         request = FriendlyShipping::Request.new(url: url, http_method: "DELETE", headers: headers, debug: debug)
 
         client.delete(request).bind do |response|
@@ -215,6 +196,14 @@ module FriendlyShipping
       end
 
       private
+
+      def required_headers(access_token)
+        {
+          "Authorization" => "Bearer #{access_token}",
+          "Content-Type" => "application/json",
+          "Accept" => "application/json"
+        }
+      end
 
       def base_url
         test ? TEST_URL : LIVE_URL

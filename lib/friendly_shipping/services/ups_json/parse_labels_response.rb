@@ -52,7 +52,7 @@ module FriendlyShipping
               Array.wrap(package["ItemizedCharges"])
             ].flatten
 
-            costs.map { |cost| ParseMoneyHash.call(cost, "Uh oh") }.compact.to_h
+            costs.map { |cost| ParseMoneyHash.call(cost, "UnknownSurcharge") }.compact.to_h
           end
 
           def get_shipment_cost(shipment_result)

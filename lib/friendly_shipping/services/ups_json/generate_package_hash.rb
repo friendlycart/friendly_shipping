@@ -51,7 +51,7 @@ module FriendlyShipping
             # this key is invalid for labels, UPS responds with "Accessory may not be combined with the product."
             if package_flavor == "rates" && declared_value
               package_hash[:PackageServiceOptions][:DeclaredValue] = {
-                CurrencyCode: "USD",
+                CurrencyCode: total_value.currency.iso_code,
                 MonetaryValue: total_value.to_s
               }
             end
