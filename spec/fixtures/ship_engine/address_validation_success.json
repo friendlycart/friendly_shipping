@@ -1,0 +1,34 @@
+[
+  {
+    "status": "verified",
+    "original_address": {
+      "name": "John Smith",
+      "phone": "123-123-1234",
+      "email": null,
+      "company_name": "ACME Inc",
+      "address_line1": "123 Maple St",
+      "address_line2": "Suite 456",
+      "address_line3": null,
+      "city_locality": "Richmond",
+      "state_province": "VA",
+      "postal_code": "23224",
+      "country_code": "US",
+      "address_residential_indicator": "no"
+    },
+    "matched_address": {
+      "name": "JOHN SMITH",
+      "phone": "123-123-1234",
+      "email": null,
+      "company_name": "ACME INC",
+      "address_line1": "123 MAPLE AVE STE 456",
+      "address_line2": "",
+      "address_line3": null,
+      "city_locality": "RICHMOND",
+      "state_province": "VA",
+      "postal_code": "23226",
+      "country_code": "US",
+      "address_residential_indicator": "unknown"
+    },
+    "messages": []
+  }
+]
