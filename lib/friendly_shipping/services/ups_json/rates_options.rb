@@ -48,7 +48,7 @@ module FriendlyShipping
           standard_rates: "53"
         }.freeze
 
-        SUB_VERSIONS = %w[v1 v1601 v1607 v1701 v1707 v2108 v2205].freeze
+        SUB_VERSIONS = %w[1 1601 1607 1701 1707 2108 2205].freeze
 
         attr_reader :carbon_neutral,
                     :customer_context,
@@ -76,7 +76,7 @@ module FriendlyShipping
           saturday_pickup: false,
           shipper: nil,
           shipping_method: nil,
-          sub_version: "v2205",
+          sub_version: "2205",
           with_time_in_transit: false,
           package_options_class: RatesPackageOptions,
           **kwargs

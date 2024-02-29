@@ -348,7 +348,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
         name: 'John Doe',
         company_name: 'Company',
         address1: '10 Lovely Street',
-        address2: 'Northwest',
+        # address2: 'Northwest',
         region: 'NC',
         city: 'Raleigh',
         zip: '27615'

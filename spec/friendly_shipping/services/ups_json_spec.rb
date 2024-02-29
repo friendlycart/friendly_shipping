@@ -118,7 +118,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           expect(subject.value!.data).to be_a(Array)
           expect(subject.value!.data.first.data[:rate_modifier]).to be_nil
           expect(subject.value!.data[3]).to be_a(FriendlyShipping::Rate)
-          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq([{ 'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD')) }])
+          expect(subject.value!.data[3].data[:packages].first[:rate_modifiers]).to eq({ 'DTM (Destination Modifier)' => Money.new(-60, Money::Currency.new('USD')) })
         end
       end
     end
@@ -258,27 +258,30 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
-  xdescribe '#labels' do
+  describe '#labels' do
     let(:origin) do
       FactoryBot.build(
         :physical_location,
         name: 'John Doe',
         company_name: 'Company',
         address1: '10 Lovely Street',
-        address2: 'Northwest',
+        address2: nil,
         region: 'NC',
         city: 'Raleigh',
-        zip: '27615'
+        zip: '27615',
+        address_type: 'commercial'
       )
     end
 
     let(:destination) do
       FactoryBot.build(
         :physical_location,
-        address1: '7007 Sea World Dr',
-        city: 'Orlando',
-        region: 'FL',
-        zip: '32821'
+        address1: '2838 Wake Forest Rd',
+        address2: nil,
+        address_type: 'commercial',
+        city: 'Raleigh',
+        region: 'NC',
+        zip: '27609'
       )
     end
 
@@ -290,11 +293,12 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     subject(:labels) { service.labels(shipment, options: options, debug: true) }
 
     let(:options) do
-      FriendlyShipping::Services::Ups::LabelOptions.new(
+      FriendlyShipping::Services::UpsJson::LabelOptions.new(
         shipping_method: shipping_method,
         shipper_number: shipper_number,
         negotiated_rates: true,
-        customer_context: 'request-id-12345'
+        customer_context: 'request-id-12345',
+        label_format: 'ZPL'
       )
     end
 
@@ -303,11 +307,11 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       first_label = subject.value!.data.first
       expect(subject.value!.data.length).to eq(2)
       expect(first_label.tracking_number).to be_present
-      expect(first_label.label_data.first(5)).to eq("GIF87")
+      expect(first_label.label_data.first(5)).to eq("GIF89")
       expect(first_label.label_format).to eq("GIF")
-      expect(first_label.cost).to eq(Money.new(1257, 'USD'))
-      expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
-      expect(first_label.data[:negotiated_rate]).to eq(Money.new(2479, 'USD'))
+      expect(first_label.cost).to eq(Money.new(1833, 'USD'))
+      expect(first_label.shipment_cost).to eq(Money.new(4796, 'USD'))
+      expect(first_label.data[:negotiated_rate]).to eq(Money.new(4748, 'USD'))
       expect(first_label.data[:customer_context]).to eq('request-id-12345')
     end
 
@@ -324,20 +328,20 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(first_label.tracking_number).to be_present
         expect(first_label.label_data.first(5)).to eq("GIF89")
         expect(first_label.label_format).to eq("GIF")
-        expect(first_label.cost).to eq(Money.new(1646, 'USD'))
-        expect(first_label.shipment_cost).to eq(Money.new(1646, 'USD'))
-        expect(first_label.data[:negotiated_rate]).to eq(Money.new(1625, 'USD'))
+        expect(first_label.cost).to eq(Money.new(252, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(1846, 'USD'))
+        expect(first_label.data[:negotiated_rate]).to eq(Money.new(1823, 'USD'))
         expect(first_label.data[:customer_context]).to eq('request-id-12345')
       end
     end
 
     context 'return shipments' do
       let(:options) do
-        FriendlyShipping::Services::Ups::LabelOptions.new(
+        FriendlyShipping::Services::UpsJson::LabelOptions.new(
           shipping_method: shipping_method,
           shipper_number: shipper_number,
           negotiated_rates: true,
-          return_service: :ups_print_and_mail
+          return_service: :ups_print_return_label
         )
       end
 
@@ -360,17 +364,17 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         first_label = subject.value!.data.first
         expect(subject.value!.data.length).to eq(1)
         expect(first_label.tracking_number).to be_present
-        expect(first_label.label_data).to be nil
-        expect(first_label.label_format).to be nil
-        expect(first_label.cost).to eq(Money.new(1235, 'USD'))
-        expect(first_label.shipment_cost).to eq(Money.new(1235, 'USD'))
-        expect(first_label.data[:negotiated_rate]).to eq(Money.new(995, 'USD'))
+        expect(first_label.label_data.first(5)).to eq("GIF89")
+        expect(first_label.label_format).to eq("GIF")
+        expect(first_label.cost).to eq(Money.new(300, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(1556, 'USD'))
+        expect(first_label.data[:negotiated_rate]).to eq(Money.new(1436, 'USD'))
       end
     end
 
     context 'prepaid' do
       let(:options) do
-        FriendlyShipping::Services::Ups::LabelOptions.new(
+        FriendlyShipping::Services::UpsJson::LabelOptions.new(
           shipping_method: shipping_method,
           shipper_number: shipper_number,
           billing_options: billing_options
@@ -378,7 +382,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       end
 
       let(:billing_options) do
-        FriendlyShipping::Services::Ups::LabelBillingOptions.new(
+        FriendlyShipping::Services::UpsJson::LabelBillingOptions.new(
           prepay: true,
           billing_account: ENV.fetch('UPS_SHIPPER_NUMBER', nil),
           billing_zip: '27703',
@@ -391,10 +395,10 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         first_label = subject.value!.data.first
         expect(subject.value!.data.length).to eq(2)
         expect(first_label.tracking_number).to be_present
-        expect(first_label.label_data.first(5)).to eq("GIF87")
+        expect(first_label.label_data.first(5)).to eq("GIF89")
         expect(first_label.label_format).to eq("GIF")
-        expect(first_label.cost).to eq(Money.new(1257, 'USD'))
-        expect(first_label.shipment_cost).to eq(Money.new(2514, 'USD'))
+        expect(first_label.cost).to eq(Money.new(201, 'USD'))
+        expect(first_label.shipment_cost).to eq(Money.new(2862, 'USD'))
       end
     end
 
@@ -430,12 +434,13 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       let(:item_4) { FactoryBot.build(:physical_item, description: 'Computer', cost: Money.new(30_000, "USD")) }
 
       let(:options) do
-        FriendlyShipping::Services::Ups::LabelOptions.new(
+        FriendlyShipping::Services::UpsJson::LabelOptions.new(
           shipping_method: shipping_method,
           shipper_number: shipper_number,
           paperless_invoice: true,
           terms_of_shipment: :delivery_duty_paid,
-          delivery_confirmation: :delivery_confirmation_adult_signature_required
+          delivery_confirmation: :delivery_confirmation_adult_signature_required,
+          label_format: "ZPL"
         )
       end
 
@@ -443,10 +448,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(subject).to be_a(Dry::Monads::Result)
         expect(subject.value!.data.length).to eq(2)
         expect(subject.value!.data.map(&:tracking_number)).to be_present
-        expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
-        expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
-        expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
-        expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+        expect(subject.value!.data.map(&:label_format).first).to eq("ZPL")
       end
 
       context 'when shipping to Puerto Rico' do
@@ -468,10 +470,8 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           expect(subject).to be_a(Dry::Monads::Result)
           expect(subject.value!.data.length).to eq(2)
           expect(subject.value!.data.map(&:tracking_number)).to be_present
-          expect(subject.value!.data.map(&:label_data).first.first(5)).to eq("GIF87")
-          expect(subject.value!.data.map(&:label_format).first).to eq("GIF")
-          expect(subject.value!.data.first.data[:form_format]).to eq("PDF")
-          expect(subject.value!.data.first.data[:form]).to start_with('%PDF-')
+          expect(subject.value!.data.map(&:label_data).first.length).to eq(5685)
+          expect(subject.value!.data.map(&:label_format).first).to eq("ZPL")
         end
       end
     end
@@ -489,33 +489,36 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
       it "returns a failure with a good error message" do
         is_expected.to be_failure
-        expect(subject.failure.to_s).to eq("Failure: Missing or invalid ship to address line 1")
+        expect(subject.failure.to_s).to eq('{"code"=>"120202", "message"=>"Missing or invalid ship to address line 1"}')
       end
     end
   end
 
-  xdescribe '#void' do
-    let(:label) { FriendlyShipping::Label.new(tracking_number: tracking_number) }
+  describe '#void' do
+    let(:label) { FriendlyShipping::Label.new(shipment_id: shipment_id, tracking_number: tracking_number) }
     subject { service.void(label) }
 
     context 'for a successful void attempt', vcr: { cassette_name: 'ups_json/void/success' } do
-      let(:tracking_number) { '1Z12345E0390817264' }
+      # these numbers come from https://developer.ups.com/api/reference/shipping/business-rules?loc=en_US and are valid in the CIE environment
+      let(:shipment_id) { '1ZISDE016691676846' }
+      let(:tracking_number) { '1Z2220060290602143' }
 
       it { is_expected.to be_success }
 
       it 'says "Success"' do
-        expect(subject.value!.data).to eq("Success")
+        expect(subject.value!.data.to_s).to include("Success")
       end
     end
 
     context 'for an unsuccessful void attempt', vcr: { cassette_name: 'ups_json/void/failure' } do
-      let(:tracking_number) { '1Z12345E1290420899' }
+      let(:shipment_id) { '1Z2220060290530202' }
+      let(:tracking_number) { '1Z2220060292634221' }
 
       it { is_expected.to be_failure }
 
-      it 'raises a ResponseError' do
+      it 'returns an error with a good message' do
         expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
-        expect(subject.failure.data).to eq('Failure: The Pickup Request associated with this shipment has already been completed')
+        expect(subject.failure.to_s).to eq('{"code"=>"190102", "message"=>"No shipment found within the allowed void period"}')
       end
     end
   end

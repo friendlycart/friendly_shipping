@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://wwwcie.ups.com/api/shipments/v1/void/cancel/1Z2220060292634221
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.2p53
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - ciewssoat2964MQZW9lfp6
+      Referrer-Policy:
+      - same-origin
+      Apierrorcode:
+      - '190102'
+      Apierrormsg:
+      - No shipment found within the allowed void period
+      Content-Type:
+      - application/json;charset=UTF-8
+      Errorcode:
+      - '190102'
+      Errordescription:
+      - No shipment found within the allowed void period
+      X-Request-Id:
+      - 1bc7d580-91e1-4259-9b01-c080ec375d48
+      Content-Length:
+      - '104'
+      Expires:
+      - Fri, 09 Feb 2024 17:22:22 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Fri, 09 Feb 2024 17:22:22 GMT
+      Connection:
+      - keep-alive
+      Ak-Grn-1:
+      - 0.6c622c17.1707499342.4eda72b4
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      Server-Timing:
+      - ak_p; desc="1707499342441_388784748_1322939060_12824_7678_37_38_-";dur=1
+    body:
+      encoding: UTF-8
+      string: '{"response":{"errors":[{"code":"190102","message":"No shipment found
+        within the allowed void period"}]}}'
+  recorded_at: Fri, 09 Feb 2024 17:22:22 GMT
+recorded_with: VCR 6.1.0
