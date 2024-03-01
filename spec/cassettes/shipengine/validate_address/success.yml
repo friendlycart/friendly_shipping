@@ -1,0 +1,78 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.shipengine.com/v1/addresses/validate
+    body:
+      encoding: UTF-8
+      string: '[{"name":"John Smith","phone":"123-123-1234","email":"john@acme.com","company_name":"ACME
+        Inc","address_line1":"123 Maple St","address_line2":"Suite 456","address_line3":null,"city_locality":"Richmond","state_province":"VA","postal_code":"23224","country_code":"US","address_residential_indicator":"yes"}]'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.2.3p157
+      Content-Type:
+      - application/json
+      Api-Key:
+      - "%SHIPENGINE_API_KEY%"
+      Content-Length:
+      - '305'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.shipengine.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 29 Feb 2024 19:15:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '930'
+      Connection:
+      - keep-alive
+      Ratelimit-Limit:
+      - '20'
+      Ratelimit-Remaining:
+      - '19'
+      Ratelimit-Reset:
+      - '60'
+      X-Shipengine-Requestid:
+      - 6e354a51-e777-48a4-aa0e-26b4c60cfe40
+      Request-Id:
+      - 6e354a51-e777-48a4-aa0e-26b4c60cfe40
+      Branch-Name:
+      - bWFpbg
+      Permissions-Policy:
+      - accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),
+        microphone=(), payment=(), usb=(), interest-cohort=()
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Robots-Tag:
+      - noindex
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+    body:
+      encoding: UTF-8
+      string: "[\r\n  {\r\n    \"status\": \"verified\",\r\n    \"original_address\":
+        {\r\n      \"name\": \"John Smith\",\r\n      \"phone\": \"123-123-1234\",\r\n
+        \     \"email\": null,\r\n      \"company_name\": \"ACME Inc\",\r\n      \"address_line1\":
+        \"123 Maple St\",\r\n      \"address_line2\": \"Suite 456\",\r\n      \"address_line3\":
+        null,\r\n      \"city_locality\": \"Richmond\",\r\n      \"state_province\":
+        \"VA\",\r\n      \"postal_code\": \"23224\",\r\n      \"country_code\": \"US\",\r\n
+        \     \"address_residential_indicator\": \"yes\"\r\n    },\r\n    \"matched_address\":
+        {\r\n      \"name\": \"JOHN SMITH\",\r\n      \"phone\": \"123-123-1234\",\r\n
+        \     \"email\": null,\r\n      \"company_name\": \"ACME INC\",\r\n      \"address_line1\":
+        \"123 MAPLE AVE STE 456\",\r\n      \"address_line2\": \"\",\r\n      \"address_line3\":
+        null,\r\n      \"city_locality\": \"RICHMOND\",\r\n      \"state_province\":
+        \"VA\",\r\n      \"postal_code\": \"23226\",\r\n      \"country_code\": \"US\",\r\n
+        \     \"address_residential_indicator\": \"unknown\"\r\n    },\r\n    \"messages\":
+        []\r\n  }\r\n]"
+  recorded_at: Thu, 29 Feb 2024 19:15:00 GMT
+recorded_with: VCR 6.1.0

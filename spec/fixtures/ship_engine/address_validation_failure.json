@@ -1,0 +1,41 @@
+[
+  {
+    "status": "error",
+    "original_address": {
+      "name": "John Smith",
+      "phone": "123-123-1234",
+      "email": null,
+      "company_name": "ACME Inc",
+      "address_line1": null,
+      "address_line2": "Suite 456",
+      "address_line3": null,
+      "city_locality": "Richmond",
+      "state_province": "VA",
+      "postal_code": "23224",
+      "country_code": "US",
+      "address_residential_indicator": "no"
+    },
+    "matched_address": {
+      "name": "JOHN SMITH",
+      "phone": "123-123-1234",
+      "email": null,
+      "company_name": "ACME INC",
+      "address_line1": "",
+      "address_line2": "SUITE 456",
+      "address_line3": null,
+      "city_locality": "RICHMOND",
+      "state_province": "VA",
+      "postal_code": "23224",
+      "country_code": "US",
+      "address_residential_indicator": "unknown"
+    },
+    "messages": [
+      {
+        "code": "a1004",
+        "message": "Address not found",
+        "type": "warning",
+        "detail_code": null
+      }
+    ]
+  }
+]

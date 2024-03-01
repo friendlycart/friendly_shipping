@@ -389,4 +389,26 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
       end
     end
   end
+
+  describe "validate_address", vcr: { cassette_name: "shipengine/validate_address/success" } do
+    subject(:validate_address) { service.validate_address(location) }
+
+    let(:location) do
+      Physical::Location.new(
+        company_name: "ACME Inc",
+        name: "John Smith",
+        email: "john@acme.com",
+        phone: "123-123-1234",
+        address1: "123 Maple St",
+        address2: "Suite 456",
+        city: "Richmond",
+        zip: "23224",
+        region: "VA",
+        country: "US",
+        address_type: "residential"
+      )
+    end
+
+    it { is_expected.to be_a Dry::Monads::Success }
+  end
 end

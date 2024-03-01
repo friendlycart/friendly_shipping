@@ -4,9 +4,11 @@ require 'dry/monads'
 require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ship_engine/api_error'
 require 'friendly_shipping/services/ship_engine/parse_carrier_response'
+require 'friendly_shipping/services/ship_engine/serialize_address_validation_request'
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
 require 'friendly_shipping/services/ship_engine/serialize_rates_request'
+require 'friendly_shipping/services/ship_engine/parse_address_validation_response'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
 require 'friendly_shipping/services/ship_engine/parse_void_response'
 require 'friendly_shipping/services/ship_engine/parse_rate_estimates_response'
@@ -126,6 +128,23 @@ module FriendlyShipping
           ParseVoidResponse.call(request: request, response: response)
         end
       end
+
+      # @param locations [Array<Physical::Location>]
+      # @return [Success<ApiResult>, Failure<ApiFailure>]
+      def validate_address(location, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: "#{API_BASE}addresses/validate",
+          http_method: "POST",
+          body: SerializeAddressValidationRequest.call(location: location).to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        client.post(request).bind do |response|
+          ParseAddressValidationResponse.call(response: response, request: request)
+        end
+      end
+
+      alias_method :city_state_lookup, :validate_address
 
       private
 
