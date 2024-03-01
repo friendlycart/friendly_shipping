@@ -28,23 +28,23 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 29 Feb 2024 19:15:00 GMT
+      - Fri, 01 Mar 2024 17:05:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
       - '930'
       Connection:
       - keep-alive
-      Ratelimit-Limit:
-      - '20'
       Ratelimit-Remaining:
       - '19'
+      Ratelimit-Limit:
+      - '20'
       Ratelimit-Reset:
-      - '60'
+      - '49'
       X-Shipengine-Requestid:
-      - 6e354a51-e777-48a4-aa0e-26b4c60cfe40
+      - 5c58e523-0662-4dbb-87f5-c2e59f35c9bc
       Request-Id:
-      - 6e354a51-e777-48a4-aa0e-26b4c60cfe40
+      - 5c58e523-0662-4dbb-87f5-c2e59f35c9bc
       Branch-Name:
       - bWFpbg
       Permissions-Policy:
@@ -74,5 +74,5 @@ http_interactions:
         \"VA\",\r\n      \"postal_code\": \"23226\",\r\n      \"country_code\": \"US\",\r\n
         \     \"address_residential_indicator\": \"unknown\"\r\n    },\r\n    \"messages\":
         []\r\n  }\r\n]"
-  recorded_at: Thu, 29 Feb 2024 19:15:00 GMT
+  recorded_at: Fri, 01 Mar 2024 17:05:11 GMT
 recorded_with: VCR 6.1.0
