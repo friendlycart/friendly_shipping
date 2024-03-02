@@ -33,7 +33,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
     end
   end
 
-  describe 'rate_estimates' do
+  shared_examples "returns rate estimates" do
     let(:package) { FactoryBot.build(:physical_package) }
     let(:origin) { FactoryBot.build(:physical_location, zip: '78756') }
     let(:destination) { FactoryBot.build(:physical_location, zip: '91521') }
@@ -86,6 +86,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
         end
       end
     end
+  end
+
+  describe "rate_estimates" do
+    it_behaves_like "returns rate estimates"
+  end
+
+  describe "timings" do
+    it_behaves_like "returns rate estimates"
   end
 
   describe 'rates' do

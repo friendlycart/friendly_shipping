@@ -95,6 +95,8 @@ module FriendlyShipping
         end
       end
 
+      alias_method :timings, :rate_estimates
+
       # Get label(s) from ShipEngine
       #
       # @param [Physical::Shipment] shipment The shipment object we're trying to get labels for
