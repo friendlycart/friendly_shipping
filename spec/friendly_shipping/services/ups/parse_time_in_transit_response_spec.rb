@@ -37,7 +37,7 @@ RSpec.describe FriendlyShipping::Services::Ups::ParseTimeInTransitResponse do
       expect(last_timing.shipping_method.name).to eq('UPS Ground')
       expect(last_timing.pickup.strftime('%Y-%m-%dT%H:%M')).to eq('2018-06-20T17:00')
       expect(last_timing.delivery.strftime('%Y-%m-%dT%H:%M')).to eq('2018-06-27T23:00')
-      expect(subject.map { |h| h.properties[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "3", "5"])
+      expect(subject.map { |h| h.data[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "3", "5"])
     end
   end
 

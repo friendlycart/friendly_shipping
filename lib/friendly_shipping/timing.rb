@@ -8,7 +8,8 @@ module FriendlyShipping
                 :guaranteed,
                 :warnings,
                 :errors,
-                :properties
+                :properties,
+                :data
 
     def initialize(
       shipping_method:,
@@ -17,7 +18,8 @@ module FriendlyShipping
       guaranteed: false,
       warnings: [],
       errors: [],
-      properties: {}
+      properties: {},
+      data: {}
     )
       @shipping_method = shipping_method
       @pickup = pickup
@@ -25,7 +27,8 @@ module FriendlyShipping
       @guaranteed = guaranteed
       @warnings = warnings
       @errors = errors
-      @properties = properties
+      @data = @properties = properties.presence || data
+      warn "[DEPRECATION] `properties` is deprecated.  Please use `data` instead." if properties.present?
     end
 
     def time_in_transit

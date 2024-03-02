@@ -24,14 +24,14 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
       expect(first_rate.shipping_method.name).to eq('Priority Mail Express')
       expect(first_rate.pickup).to eq(Time.new(2019, 12, 0o3))
       expect(first_rate.delivery).to eq(Time.new(2019, 12, 0o4))
-      expect(first_rate.properties).to eq(
+      expect(first_rate.data).to eq(
         commitment: '1-Day'
       )
       last_rate = subject.last
       expect(last_rate.shipping_method.name).to eq('Package Services')
       expect(last_rate.pickup).to eq(Time.new(2019, 12, 0o3))
       expect(last_rate.delivery).to eq(Time.new(2019, 12, 0o5))
-      expect(last_rate.properties).to eq(
+      expect(last_rate.data).to eq(
         commitment: '2 Days',
         destination_type: :hold_for_pickup
       )
@@ -45,7 +45,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
         expect(last_rate.shipping_method.name).to eq('Package Services')
         expect(last_rate.pickup).to eq(Time.new(2019, 12, 0o3))
         expect(last_rate.delivery).to eq(Time.new(2019, 12, 0o5))
-        expect(last_rate.properties).to eq(
+        expect(last_rate.data).to eq(
           commitment: '2 Days',
           destination_type: :hold_for_pickup
         )
@@ -60,7 +60,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
         expect(first_rate.shipping_method.name).to eq('Priority Mail')
         expect(first_rate.pickup).to eq(Time.new(2020, 1, 17))
         expect(first_rate.delivery).to eq(Time.new(2020, 1, 19))
-        expect(first_rate.properties).to eq(
+        expect(first_rate.data).to eq(
           commitment: '2-Day',
           destination_type: :street
         )

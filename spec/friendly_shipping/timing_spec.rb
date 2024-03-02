@@ -18,5 +18,6 @@ RSpec.describe FriendlyShipping::Timing do
   it { is_expected.to respond_to(:guaranteed) }
   it { is_expected.to respond_to(:warnings) }
   it { is_expected.to respond_to(:errors) }
+  it { is_expected.to respond_to(:data) }
   it { is_expected.to respond_to(:properties) }
 end

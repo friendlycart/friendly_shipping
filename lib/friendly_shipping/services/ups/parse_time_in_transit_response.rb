@@ -37,7 +37,7 @@ module FriendlyShipping
                 pickup: pickup,
                 delivery: delivery,
                 guaranteed: guaranteed,
-                properties: {
+                data: {
                   business_transit_days: business_transit_days
                 }
               )

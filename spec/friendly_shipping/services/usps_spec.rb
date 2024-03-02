@@ -87,7 +87,7 @@ RSpec.describe FriendlyShipping::Services::Usps do
           is_expected.to be_success
           expect(subject.value!.data).to be_a(Array)
           expect(subject.value!.data).to all(be_a(FriendlyShipping::Timing))
-          expect(subject.value!.data.last.properties[:warning]).to eq(
+          expect(subject.value!.data.last.data[:warning]).to eq(
             "The timeliness of service to destinations outside the contiguous US may be affected by the limited availability of transportation."
           )
         end

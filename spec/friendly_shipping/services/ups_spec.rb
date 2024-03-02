@@ -336,7 +336,7 @@ RSpec.describe FriendlyShipping::Services::Ups do
         )
         last_timing = subject.last
         expect(last_timing.shipping_method.name).to eq('UPS Ground')
-        expect(subject.map { |h| h.properties[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "2"])
+        expect(subject.map { |h| h.data[:business_transit_days] }).to eq(["1", "1", "1", "2", "2", "2"])
       end
     end
   end
