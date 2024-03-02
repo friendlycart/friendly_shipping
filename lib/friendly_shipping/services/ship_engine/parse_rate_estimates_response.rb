@@ -31,7 +31,9 @@ module FriendlyShipping
                 shipping_method: shipping_method,
                 amounts: amounts,
                 remote_service_id: rate['rate_id'],
+                pickup_date: rate['ship_date'] && Time.parse(rate['ship_date']),
                 delivery_date: rate['estimated_delivery_date'] && Time.parse(rate['estimated_delivery_date']),
+                guaranteed: rate['guaranteed_service'],
                 warnings: rate['warning_messages'],
                 errors: rate['error_messages']
               )
