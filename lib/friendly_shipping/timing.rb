@@ -6,6 +6,8 @@ module FriendlyShipping
                 :pickup,
                 :delivery,
                 :guaranteed,
+                :warnings,
+                :errors,
                 :properties
 
     def initialize(
@@ -13,12 +15,16 @@ module FriendlyShipping
       pickup:,
       delivery:,
       guaranteed: false,
+      warnings: [],
+      errors: [],
       properties: {}
     )
       @shipping_method = shipping_method
       @pickup = pickup
       @delivery = delivery
       @guaranteed = guaranteed
+      @warnings = warnings
+      @errors = errors
       @properties = properties
     end
 
