@@ -9,10 +9,13 @@ RSpec.describe FriendlyShipping::Rate do
       amounts: { shipping: Money.new(1000, 'USD') }
     )
   end
+
   it { is_expected.to respond_to(:shipping_method) }
   it { is_expected.to respond_to(:amounts) }
   it { is_expected.to respond_to(:remote_service_id) }
+  it { is_expected.to respond_to(:pickup_date) }
   it { is_expected.to respond_to(:delivery_date) }
+  it { is_expected.to respond_to(:guaranteed) }
   it { is_expected.to respond_to(:warnings) }
   it { is_expected.to respond_to(:errors) }
   it { is_expected.to respond_to(:data) }
