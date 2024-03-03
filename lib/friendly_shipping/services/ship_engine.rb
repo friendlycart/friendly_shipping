@@ -134,8 +134,10 @@ module FriendlyShipping
         end
       end
 
-      # @param locations [Array<Physical::Location>]
-      # @return [Success<ApiResult>, Failure<ApiFailure>]
+      # Validate an address using ShipEngine
+      #
+      # @param location [Physical::Location] the address to validate
+      # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiFailure>]
       def validate_address(location, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}addresses/validate",

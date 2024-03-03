@@ -14,9 +14,8 @@ module FriendlyShipping
           # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiFailure>]
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
-            result = parsed_json.first
-            if result['status'] == "error"
-              errors = result['messages'].map { |message| message['message'] }.join(", ")
+            if parsed_json.first['status'] == "error"
+              errors = parsed_json.first['messages'].map { |message| message['message'] }.join(", ")
               Failure(
                 ApiFailure.new(
                   errors,
@@ -25,24 +24,26 @@ module FriendlyShipping
                 )
               )
             else
-              address = result['matched_address']
-              location = Physical::Location.new(
-                name: address['name'],
-                email: address['email'],
-                phone: address['phone'],
-                company_name: address['company_name'],
-                address1: address['address_line1'],
-                address2: address['address_line2'],
-                address3: address['address_line3'],
-                city: address['city_locality'],
-                zip: address['postal_code'],
-                region: address['state_province'],
-                country: address['country_code'],
-                address_type: address_type(address)
-              )
+              locations = parsed_json.map do |result|
+                address = result['matched_address']
+                Physical::Location.new(
+                  name: address['name'],
+                  email: address['email'],
+                  phone: address['phone'],
+                  company_name: address['company_name'],
+                  address1: address['address_line1'],
+                  address2: address['address_line2'],
+                  address3: address['address_line3'],
+                  city: address['city_locality'],
+                  zip: address['postal_code'],
+                  region: address['state_province'],
+                  country: address['country_code'],
+                  address_type: address_type(address)
+                )
+              end
               Success(
                 ApiResult.new(
-                  location,
+                  locations,
                   original_request: request,
                   original_response: response
                 )
