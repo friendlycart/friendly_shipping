@@ -116,6 +116,11 @@ module FriendlyShipping
         end
       end
 
+      # Void a ShipEngine label
+      #
+      # @param label [FriendlyShipping::Label]
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<String>>] the result message
       def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
