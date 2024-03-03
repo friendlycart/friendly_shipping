@@ -25,7 +25,7 @@ module FriendlyShipping
             },
             confirmation: 'none',
             address_residential_indicator: shipment.destination.residential? ? "yes" : "no",
-            ship_date: Time.now.strftime('%Y-%m-%d'),
+            ship_date: options.ship_date.strftime('%Y-%m-%d'),
           }
         end
       end

@@ -3,13 +3,15 @@
 require 'spec_helper'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequest do
+  subject { described_class.call(shipment: shipment, options: options) }
+
   let(:container) { FactoryBot.build(:physical_box, weight: Measured::Weight(0, :g)) }
   let(:item) { FactoryBot.build(:physical_item, weight: Measured::Weight(1, :ounce)) }
   let(:package) { FactoryBot.build(:physical_package, items: [item], void_fill_density: Measured::Density(0, :g_ml), container: container) }
   let(:shipment) { FactoryBot.build(:physical_shipment, packages: [package]) }
-  let(:carrier) { FriendlyShipping::Carrier.new(id: 'se-123456') }
-  let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new(carriers: [carrier]) }
-  subject { described_class.call(shipment: shipment, options: options) }
+  let(:carrier) { FriendlyShipping::Carrier.new(id: "se-123456") }
+  let(:options) { FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new(carriers: [carrier], ship_date: ship_date) }
+  let(:ship_date) { Time.parse("2023-08-01") }
 
   it do
     is_expected.to match(
@@ -21,9 +23,19 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequ
         to_postal_code: shipment.destination.zip,
         to_city_locality: "Herndon",
         to_state_province: "VA",
-        weight: { value: 0.0625, unit: "pound" },
+        weight: {
+          value: 0.0625,
+          unit: "pound"
+        },
+        dimensions: {
+          height: 11.811023622047244,
+          length: 7.874015748031496,
+          width: 5.905511811023622,
+          unit: "inch"
+        },
         confirmation: "none",
-        address_residential_indicator: "no"
+        address_residential_indicator: "no",
+        ship_date: "2023-08-01"
       )
     )
   end
