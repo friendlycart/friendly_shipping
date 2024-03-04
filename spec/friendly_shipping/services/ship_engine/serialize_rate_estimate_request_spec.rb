@@ -34,7 +34,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequ
           unit: "inch"
         },
         confirmation: "none",
-        address_residential_indicator: "no",
+        address_residential_indicator: "unknown",
         ship_date: "2023-08-01"
       )
     )

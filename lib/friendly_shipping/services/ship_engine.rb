@@ -8,6 +8,7 @@ require 'friendly_shipping/services/ship_engine/serialize_address_validation_req
 require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
 require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
 require 'friendly_shipping/services/ship_engine/serialize_rates_request'
+require 'friendly_shipping/services/ship_engine/serialize_address_residential_indicator'
 require 'friendly_shipping/services/ship_engine/parse_address_validation_response'
 require 'friendly_shipping/services/ship_engine/parse_label_response'
 require 'friendly_shipping/services/ship_engine/parse_void_response'

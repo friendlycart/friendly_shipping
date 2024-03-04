@@ -15,9 +15,8 @@ module FriendlyShipping
                 ship_from: serialize_address(shipment.origin),
                 items: serialize_items(shipment.packages.first),
                 packages: serialize_packages(shipment, options),
-                confirmation: 'none',
-                address_residential_indicator: shipment.destination.residential? ? "yes" : "no"
-              },
+                confirmation: 'none'
+              }.merge(SerializeAddressResidentialIndicator.call(shipment.destination)),
               rate_options: {
                 carrier_ids: options.carrier_ids,
                 service_codes: [options.service_code],
@@ -57,9 +56,8 @@ module FriendlyShipping
               city_locality: address.city,
               state_province: address.region.code,
               postal_code: address.zip,
-              country_code: address.country.code,
-              address_residential_indicator: address.residential? ? "yes" : "no"
-            }
+              country_code: address.country.code
+            }.merge(SerializeAddressResidentialIndicator.call(address))
           end
 
           def serialize_packages(shipment, options)

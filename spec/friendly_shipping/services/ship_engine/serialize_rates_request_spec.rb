@@ -49,7 +49,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
             state_province: shipment.destination.region.code,
             postal_code: shipment.destination.zip,
             country_code: shipment.destination.country.code,
-            address_residential_indicator: "no"
+            address_residential_indicator: "unknown"
           },
           ship_from: {
             name: shipment.origin.name,
@@ -61,7 +61,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
             state_province: shipment.origin.region.code,
             postal_code: shipment.origin.zip,
             country_code: shipment.origin.country.code,
-            address_residential_indicator: "no"
+            address_residential_indicator: "unknown"
           },
           items: [{
             name: "Wicks",
@@ -92,7 +92,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
             }]
           }],
           confirmation: "none",
-          address_residential_indicator: "no"
+          address_residential_indicator: "unknown"
         },
         rate_options: {
           carrier_ids: ["se-123456"],

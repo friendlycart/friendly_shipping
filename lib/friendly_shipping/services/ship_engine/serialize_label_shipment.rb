@@ -49,9 +49,8 @@ module FriendlyShipping
               city_locality: address.city,
               state_province: address.region.code,
               postal_code: address.zip,
-              country_code: address.country.code,
-              address_residential_indicator: "No"
-            }
+              country_code: address.country.code
+            }.merge(SerializeAddressResidentialIndicator.call(address))
           end
 
           def serialize_packages(packages, options)

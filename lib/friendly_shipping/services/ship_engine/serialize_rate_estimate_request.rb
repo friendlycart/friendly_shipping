@@ -24,9 +24,8 @@ module FriendlyShipping
               height: shipment.packages.map { |p| p.height.convert_to(:inch).value.to_f }.sum
             },
             confirmation: 'none',
-            address_residential_indicator: shipment.destination.residential? ? "yes" : "no",
             ship_date: options.ship_date.strftime('%Y-%m-%d'),
-          }
+          }.merge(SerializeAddressResidentialIndicator.call(shipment.destination))
         end
       end
     end
