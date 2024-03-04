@@ -10,6 +10,7 @@ module FriendlyShipping
               shipment: {
                 carrier_ids: options.carrier_ids,
                 service_code: options.service_code,
+                ship_date: options.ship_date.strftime('%Y-%m-%d'),
                 ship_to: serialize_address(shipment.destination),
                 ship_from: serialize_address(shipment.origin),
                 items: serialize_items(shipment.packages.first),
@@ -36,9 +37,12 @@ module FriendlyShipping
           private
 
           def serialize_items(package)
-            package.items.map do |item|
+            package.items.group_by(&:sku).map do |sku, items|
+              reference_item = items.first
               {
-                name: item.description,
+                name: reference_item.description,
+                sku: sku,
+                quantity: items.size
               }
             end
           end
@@ -54,7 +58,7 @@ module FriendlyShipping
               state_province: address.region.code,
               postal_code: address.zip,
               country_code: address.country.code,
-              address_residential_indicator: "No"
+              address_residential_indicator: address.residential? ? "yes" : "no"
             }
           end
 
