@@ -63,7 +63,7 @@ module FriendlyShipping
                 pickup: pickup,
                 delivery: delivery,
                 guaranteed: false,
-                properties: {
+                data: {
                   days_in_transit: days_in_transit
                 }
               )

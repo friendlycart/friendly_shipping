@@ -10,13 +10,13 @@ module FriendlyShipping
               shipment: {
                 carrier_ids: options.carrier_ids,
                 service_code: options.service_code,
+                ship_date: options.ship_date.strftime('%Y-%m-%d'),
                 ship_to: serialize_address(shipment.destination),
                 ship_from: serialize_address(shipment.origin),
                 items: serialize_items(shipment.packages.first),
                 packages: serialize_packages(shipment, options),
-                confirmation: 'none',
-                address_residential_indicator: shipment.destination.residential? ? "yes" : "no"
-              },
+                confirmation: 'none'
+              }.merge(SerializeAddressResidentialIndicator.call(shipment.destination)),
               rate_options: {
                 carrier_ids: options.carrier_ids,
                 service_codes: [options.service_code],
@@ -36,9 +36,12 @@ module FriendlyShipping
           private
 
           def serialize_items(package)
-            package.items.map do |item|
+            package.items.group_by(&:sku).map do |sku, items|
+              reference_item = items.first
               {
-                name: item.description,
+                name: reference_item.description,
+                sku: sku,
+                quantity: items.size
               }
             end
           end
@@ -53,23 +56,22 @@ module FriendlyShipping
               city_locality: address.city,
               state_province: address.region.code,
               postal_code: address.zip,
-              country_code: address.country.code,
-              address_residential_indicator: "No"
-            }
+              country_code: address.country.code
+            }.merge(SerializeAddressResidentialIndicator.call(address))
           end
 
           def serialize_packages(shipment, options)
             shipment.packages.map do |package|
               {
                 weight: {
-                  value: package.weight.convert_to(:pound).value.to_f,
+                  value: package.weight.convert_to(:pound).value.to_f.round(2),
                   unit: 'pound'
                 },
                 dimensions: {
                   unit: 'inch',
-                  length: package.length.convert_to(:inch).value.to_f,
-                  width: package.width.convert_to(:inch).value.to_f,
-                  height: package.height.convert_to(:inch).value.to_f
+                  length: package.length.convert_to(:inch).value.to_f.round(2),
+                  width: package.width.convert_to(:inch).value.to_f.round(2),
+                  height: package.height.convert_to(:inch).value.to_f.round(2)
                 },
                 products: serialize_products(package, options),
               }

@@ -20,18 +20,9 @@ module FriendlyShipping
                 city_locality: location.city,
                 state_province: location.region&.code,
                 postal_code: location.zip,
-                country_code: location.country&.code,
-                address_residential_indicator: residential_indicator(location)
-              }
+                country_code: location.country&.code
+              }.merge(SerializeAddressResidentialIndicator.call(location))
             ]
-          end
-
-          private
-
-          def residential_indicator(location)
-            return "unknown" if location.address_type.nil?
-
-            location.address_type == "residential" ? "yes" : "no"
           end
         end
       end

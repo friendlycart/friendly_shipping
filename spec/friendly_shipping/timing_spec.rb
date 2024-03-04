@@ -4,13 +4,20 @@ require 'spec_helper'
 require 'friendly_shipping/timing'
 
 RSpec.describe FriendlyShipping::Timing do
-  let(:shipping_method) { FriendlyShipping::ShippingMethod.new(name: 'Acme Shipping', service_code: 'acme-08') }
-
-  subject { described_class.new(shipping_method: shipping_method, pickup: Time.now, delivery: Time.now + 2.days) }
-
-  it 'has pickup and arrival time objects' do
-    expect(subject.pickup).to be_a(Time)
-    expect(subject.delivery).to be_a(Time)
-    expect(subject.properties).to be_a(Hash)
+  subject do
+    described_class.new(
+      shipping_method: FriendlyShipping::ShippingMethod.new,
+      pickup: Time.now,
+      delivery: Time.now + 2.days
+    )
   end
+
+  it { is_expected.to respond_to(:shipping_method) }
+  it { is_expected.to respond_to(:pickup) }
+  it { is_expected.to respond_to(:delivery) }
+  it { is_expected.to respond_to(:guaranteed) }
+  it { is_expected.to respond_to(:warnings) }
+  it { is_expected.to respond_to(:errors) }
+  it { is_expected.to respond_to(:data) }
+  it { is_expected.to respond_to(:properties) }
 end

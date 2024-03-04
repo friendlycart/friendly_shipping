@@ -51,10 +51,10 @@ module FriendlyShipping
                 potential_shipping_method.name == MAIL_CLASSES[commitment_node.at('MailClass').text]
               end
               commitment_sequence = commitment_node.at('CommitmentSeq').text
-              properties = COMMITMENT_SEQUENCES[commitment_sequence]
-              next unless properties # Sometimes USPS returns an invalid CommitmentSeq
+              data = COMMITMENT_SEQUENCES[commitment_sequence]
+              next unless data # Sometimes USPS returns an invalid CommitmentSeq
 
-              scheduled_delivery_time = properties.delete(:commitment_time)
+              scheduled_delivery_time = data.delete(:commitment_time)
               scheduled_delivery_date = commitment_node.at('SDD').text
               parsed_delivery_time = Time.parse("#{scheduled_delivery_date} #{scheduled_delivery_time}")
               guaranteed = commitment_node.at('IsGuaranteed').text == '1'
@@ -64,7 +64,7 @@ module FriendlyShipping
                 pickup: effective_acceptance_date,
                 delivery: parsed_delivery_time,
                 guaranteed: guaranteed,
-                properties: properties
+                data: data
               )
             end.compact
           end
@@ -80,7 +80,7 @@ module FriendlyShipping
               warning_text = commitment_node.xpath('HFPU//NonExpeditedTransMsg/Msg')&.text
               warning = warning_text unless warning_text.empty?
 
-              properties = {
+              data = {
                 commitment: commitment_node.at('SvcStdMsg')&.text,
                 destination_type: NON_EXPEDITED_DESTINATION_TYPES[commitment_node.at('NonExpeditedDestType').text],
                 warning: warning
@@ -95,7 +95,7 @@ module FriendlyShipping
                 pickup: effective_acceptance_date,
                 delivery: parsed_delivery_time,
                 guaranteed: false,
-                properties: properties
+                data: data
               )
             end.compact
           end

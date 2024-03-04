@@ -49,9 +49,8 @@ module FriendlyShipping
               city_locality: address.city,
               state_province: address.region.code,
               postal_code: address.zip,
-              country_code: address.country.code,
-              address_residential_indicator: "No"
-            }
+              country_code: address.country.code
+            }.merge(SerializeAddressResidentialIndicator.call(address))
           end
 
           def serialize_packages(packages, options)
@@ -82,7 +81,7 @@ module FriendlyShipping
           end
 
           def serialize_weight(weight)
-            ounces = weight.convert_to(:ounce).value.to_f
+            ounces = weight.convert_to(:ounce).value.to_f.round(2)
             {
               weight: {
                 # Max weight for USPS First Class is 15.9 oz, not 16 oz

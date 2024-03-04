@@ -37,7 +37,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
             state_province: "VA",
             postal_code: shipment.destination.zip,
             country_code: "US",
-            address_residential_indicator: "No"
+            address_residential_indicator: "unknown"
           ),
           ship_from: hash_including(
             name: "Jane Doe",
@@ -49,7 +49,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeLabelShipment do
             state_province: "VA",
             postal_code: shipment.origin.zip,
             country_code: "US",
-            address_residential_indicator: "No"
+            address_residential_indicator: "unknown"
           ),
           packages: array_including(
             hash_including(
