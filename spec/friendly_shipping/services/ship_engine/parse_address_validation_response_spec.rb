@@ -14,11 +14,12 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseAddressValidationRes
     result = call
     expect(result).to be_success
     expect(result.value!).to be_a(FriendlyShipping::ApiResult)
-    expect(result.value!.data).to be_a(Physical::Location)
+    expect(result.value!.data).to be_a(Array)
+    expect(result.value!.data.first).to be_a(Physical::Location)
     expect(subject.value!.original_request).to eq(request)
     expect(subject.value!.original_response).to eq(response)
 
-    location = result.value!.data
+    location = result.value!.data.first
     expect(location.name).to eq("JOHN SMITH")
     expect(location.phone).to eq("123-123-1234")
     expect(location.email).to be_nil

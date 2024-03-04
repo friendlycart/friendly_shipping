@@ -116,6 +116,11 @@ module FriendlyShipping
         end
       end
 
+      # Void a ShipEngine label
+      #
+      # @param label [FriendlyShipping::Label]
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<String>>] the result message
       def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
@@ -129,8 +134,10 @@ module FriendlyShipping
         end
       end
 
-      # @param locations [Array<Physical::Location>]
-      # @return [Success<ApiResult>, Failure<ApiFailure>]
+      # Validate an address using ShipEngine
+      #
+      # @param location [Physical::Location] the address to validate
+      # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiFailure>]
       def validate_address(location, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}addresses/validate",
