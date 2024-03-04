@@ -64,14 +64,14 @@ module FriendlyShipping
             shipment.packages.map do |package|
               {
                 weight: {
-                  value: package.weight.convert_to(:pound).value.to_f,
+                  value: package.weight.convert_to(:pound).value.to_f.round(2),
                   unit: 'pound'
                 },
                 dimensions: {
                   unit: 'inch',
-                  length: package.length.convert_to(:inch).value.to_f,
-                  width: package.width.convert_to(:inch).value.to_f,
-                  height: package.height.convert_to(:inch).value.to_f
+                  length: package.length.convert_to(:inch).value.to_f.round(2),
+                  width: package.width.convert_to(:inch).value.to_f.round(2),
+                  height: package.height.convert_to(:inch).value.to_f.round(2)
                 },
                 products: serialize_products(package, options),
               }

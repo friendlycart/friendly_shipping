@@ -70,13 +70,13 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
           }],
           packages: [{
             weight: {
-              value: 0.0625,
+              value: 0.06,
               unit: "pound"
             },
             dimensions: {
-              height: 11.811023622047244,
-              length: 7.874015748031496,
-              width: 5.905511811023622,
+              height: 11.81,
+              length: 7.87,
+              width: 5.91,
               unit: "inch"
             },
             products: [{
