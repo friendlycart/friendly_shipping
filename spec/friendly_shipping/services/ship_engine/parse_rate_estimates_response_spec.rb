@@ -30,7 +30,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimatesRespons
     expect(rate_estimate.guaranteed).to be(true)
     expect(rate_estimate.warnings).to eq([])
     expect(rate_estimate.errors).to eq([])
-    expect(rate_estimate.data).to eq({})
+    expect(rate_estimate.data).to eq(
+      carrier_delivery_days: "6",
+      delivery_days: 7,
+      negotiated_rate: false,
+      package_type: "package",
+      trackable: true,
+      validation_status: "unknown"
+    )
     expect(subject.value!.original_request).to eq(request)
     expect(subject.value!.original_response).to eq(response)
   end
@@ -50,7 +57,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRateEstimatesRespons
       expect(rate_estimate.guaranteed).to be(false)
       expect(rate_estimate.warnings).to eq([])
       expect(rate_estimate.errors).to eq([])
-      expect(rate_estimate.data).to eq({})
+      expect(rate_estimate.data).to eq(
+        carrier_delivery_days: nil,
+        delivery_days: nil,
+        negotiated_rate: false,
+        package_type: nil,
+        trackable: false,
+        validation_status: "unknown"
+      )
       expect(subject.value!.original_request).to eq(request)
       expect(subject.value!.original_response).to eq(response)
     end

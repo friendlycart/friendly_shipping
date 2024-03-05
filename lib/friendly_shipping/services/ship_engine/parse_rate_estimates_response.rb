@@ -23,6 +23,7 @@ module FriendlyShipping
 
               shipping_method = FriendlyShipping::ShippingMethod.new(
                 carrier: carrier,
+                name: rate['service_type'],
                 service_code: rate['service_code']
               )
 
@@ -35,7 +36,15 @@ module FriendlyShipping
                 delivery_date: rate['estimated_delivery_date'] && Time.parse(rate['estimated_delivery_date']),
                 guaranteed: rate['guaranteed_service'],
                 warnings: rate['warning_messages'],
-                errors: rate['error_messages']
+                errors: rate['error_messages'],
+                data: {
+                  package_type: rate['package_type'],
+                  delivery_days: rate['delivery_days'],
+                  carrier_delivery_days: rate['carrier_delivery_days'],
+                  negotiated_rate: rate['negotiated_rate'],
+                  trackable: rate['trackable'],
+                  validation_status: rate['validation_status']
+                }
               )
             end.compact
 
