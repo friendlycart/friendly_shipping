@@ -71,7 +71,15 @@ module FriendlyShipping
                 remote_service_id: rate['rate_id'],
                 delivery_date: rate['estimated_delivery_date'] && Time.parse(rate['estimated_delivery_date']),
                 warnings: rate['warning_messages'],
-                errors: rate['error_messages']
+                errors: rate['error_messages'],
+                data: {
+                  package_type: rate['package_type'],
+                  delivery_days: rate['delivery_days'],
+                  carrier_delivery_days: rate['carrier_delivery_days'],
+                  negotiated_rate: rate['negotiated_rate'],
+                  trackable: rate['trackable'],
+                  validation_status: rate['validation_status']
+                }
               )
             end.compact
           end

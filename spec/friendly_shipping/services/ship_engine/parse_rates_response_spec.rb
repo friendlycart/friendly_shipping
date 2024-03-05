@@ -28,7 +28,14 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseRatesResponse do
     expect(rate_estimate.delivery_date).to be_nil
     expect(rate_estimate.warnings).to eq([])
     expect(rate_estimate.errors).to eq([])
-    expect(rate_estimate.data).to eq({})
+    expect(rate_estimate.data).to eq(
+      carrier_delivery_days: nil,
+      delivery_days: nil,
+      negotiated_rate: false,
+      package_type: nil,
+      trackable: false,
+      validation_status: "valid"
+    )
     expect(subject.value!.original_request).to eq(request)
     expect(subject.value!.original_response).to eq(response)
   end
