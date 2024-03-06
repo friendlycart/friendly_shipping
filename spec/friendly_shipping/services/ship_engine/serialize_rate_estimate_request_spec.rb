@@ -39,4 +39,21 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRateEstimateRequ
       )
     )
   end
+
+  context "when dimensions are missing" do
+    let(:container) do
+      FactoryBot.build(
+        :physical_box,
+        dimensions: [
+          Measured::Length(0, :in),
+          Measured::Length(0, :in),
+          Measured::Length(0, :in)
+        ]
+      )
+    end
+
+    it "excludes dimensions from result" do
+      is_expected.to match(hash_excluding(:dimensions))
+    end
+  end
 end
