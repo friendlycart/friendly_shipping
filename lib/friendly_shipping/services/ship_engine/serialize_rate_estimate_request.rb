@@ -18,15 +18,26 @@ module FriendlyShipping
                 value: shipment.packages.map { |p| p.weight.convert_to(:pound).value.to_f }.sum.round(2),
                 unit: 'pound'
               },
-              dimensions: {
-                unit: 'inch',
-                length: shipment.packages.map { |p| p.length.convert_to(:inch).value.to_f }.sum.round(2),
-                width: shipment.packages.map { |p| p.width.convert_to(:inch).value.to_f }.sum.round(2),
-                height: shipment.packages.map { |p| p.height.convert_to(:inch).value.to_f }.sum.round(2)
-              },
+              dimensions: dimensions(shipment.packages),
               confirmation: 'none',
               ship_date: options.ship_date.strftime('%Y-%m-%d'),
-            }.merge(SerializeAddressResidentialIndicator.call(shipment.destination))
+            }.merge(SerializeAddressResidentialIndicator.call(shipment.destination)).compact_blank
+          end
+
+          private
+
+          def dimensions(packages)
+            length = packages.map { |p| p.length.convert_to(:inch).value.to_f }.sum.round(2)
+            width = packages.map { |p| p.width.convert_to(:inch).value.to_f }.sum.round(2)
+            height = packages.map { |p| p.height.convert_to(:inch).value.to_f }.sum.round(2)
+            return {} if length == 0 && width == 0 && height == 0
+
+            {
+              unit: 'inch',
+              length: length,
+              width: width,
+              height: height
+            }
           end
         end
       end
