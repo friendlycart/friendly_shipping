@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://wwwcie.ups.com/api/rating/v2205/Shop
+    uri: https://wwwcie.ups.com/api/rating/v2205/Rate
     body:
       encoding: UTF-8
-      string: '{"RateRequest":{"Request":{"RequestOption":"Rate","SubVersion":"v2205"},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"00"},"Shipment":{"Shipper":{"AttentionName":"Jane
+      string: '{"RateRequest":{"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"00"},"Shipment":{"Shipper":{"AttentionName":"Jane
         Doe","Name":"Company","ShipperNumber":"%UPS_SHIPPER_NUMBER%","PhoneNumber":"555-555-0199","Address":{"AddressLine":[],"City":"Reno","PostalCode":"89502","StateProvinceCode":"NV","CountryCode":"US"}},"ShipTo":{"AttentionName":"Jane
         Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine":["1
         Richland Ave"],"City":"San Francisco","PostalCode":"94110","StateProvinceCode":"CA","CountryCode":"US","ResidentialAddressIndicator":"X"}},"ShipFrom":{"AttentionName":"Jane

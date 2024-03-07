@@ -5,7 +5,7 @@ http_interactions:
     uri: https://wwwcie.ups.com/api/rating/v2205/Shop
     body:
       encoding: UTF-8
-      string: '{"RateRequest":{"Request":{"RequestOption":"Shop","SubVersion":"v2205","TransactionReference":{"CustomerContext":null}},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"01"},"Shipment":{"Shipper":{"AttentionName":"Jane
+      string: '{"RateRequest":{"Request":{"TransactionReference":{"CustomerContext":null}},"PickupType":{"Code":"01"},"CustomerClassification":{"Code":"01"},"Shipment":{"Shipper":{"AttentionName":"Jane
         Doe","Name":"Company","ShipperNumber":"Y9319W","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
         Lovely Street","AddressLine2":"Suite 100","City":"Herndon","PostalCode":"27703","StateProvinceCode":"NC","CountryCode":"US","ResidentialAddressIndicator":"T"}},"ShipTo":{"AttentionName":"Jane
         Doe","Name":"Company","PhoneNumber":"555-555-0199","Address":{"AddressLine1":"11
