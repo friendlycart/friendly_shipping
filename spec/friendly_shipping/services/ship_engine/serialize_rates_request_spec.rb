@@ -103,4 +103,30 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
       )
     )
   end
+
+  context "with missing values" do
+    let(:shipment) { FactoryBot.build(:physical_shipment, packages: []) }
+    let(:options) do
+      FriendlyShipping::Services::ShipEngine::RatesOptions.new(
+        carriers: [carrier],
+        service_code: "usps_priority_mail"
+      )
+    end
+
+    it do
+      is_expected.to match(
+        shipment: hash_including(
+          address_residential_indicator: "unknown",
+          carrier_ids: ["se-123456"],
+          confirmation: "none",
+          service_code: "usps_priority_mail",
+          ship_date: Time.now.strftime("%Y-%m-%d")
+        ),
+        rate_options: {
+          carrier_ids: ["se-123456"],
+          service_codes: ["usps_priority_mail"]
+        }
+      )
+    end
+  end
 end

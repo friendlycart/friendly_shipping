@@ -17,7 +17,7 @@ module FriendlyShipping
                 packages: serialize_packages(shipment, options),
                 comparison_rate_type: options.comparison_rate_type,
                 confirmation: 'none'
-              }.merge(SerializeAddressResidentialIndicator.call(shipment.destination)),
+              }.merge(SerializeAddressResidentialIndicator.call(shipment.destination)).compact_blank,
               rate_options: {
                 carrier_ids: options.carrier_ids,
                 service_codes: [options.service_code],
@@ -37,6 +37,8 @@ module FriendlyShipping
           private
 
           def serialize_items(package)
+            return [] unless package&.items.present?
+
             package.items.group_by(&:sku).map do |sku, items|
               reference_item = items.first
               {
