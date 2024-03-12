@@ -17,6 +17,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
       carriers: [carrier],
       service_code: "usps_priority_mail",
       ship_date: ship_date,
+      comparison_rate_type: "retail",
       package_options: [
         FriendlyShipping::Services::ShipEngine::RatesPackageOptions.new(
           package_id: "package 1",
@@ -91,6 +92,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::SerializeRatesRequest do
               }
             }]
           }],
+          comparison_rate_type: "retail",
           confirmation: "none",
           address_residential_indicator: "unknown"
         },

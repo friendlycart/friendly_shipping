@@ -15,6 +15,7 @@ module FriendlyShipping
                 ship_from: serialize_address(shipment.origin),
                 items: serialize_items(shipment.packages.first),
                 packages: serialize_packages(shipment, options),
+                comparison_rate_type: options.comparison_rate_type,
                 confirmation: 'none'
               }.merge(SerializeAddressResidentialIndicator.call(shipment.destination)),
               rate_options: {
