@@ -4,7 +4,7 @@ module FriendlyShipping
   class Carrier
     attr_reader :id, :name, :code, :shipping_methods, :balance, :data
 
-    # @param [Integer] id The carrier's ID
+    # @param [Integer, String] id The carrier's ID
     # @param [String] name The carrier's name
     # @param [String] code The carrier's unique code
     # @param [Array] shipping_methods The shipping methods available on this carrier

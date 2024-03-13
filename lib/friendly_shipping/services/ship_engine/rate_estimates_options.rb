@@ -5,14 +5,19 @@ require 'friendly_shipping/shipment_options'
 module FriendlyShipping
   module Services
     class ShipEngine
-      # options for the rate estimates call
-      #
-      # @attribute carriers [Array<FriendlyShipping::Carrier] a list of the carriers we want to get IDs from.
-      # @attribute ship_date [#strftime] the date we want to ship on.
+      # Options for generating rate estimates for a shipment.
       class RateEstimatesOptions < ShipmentOptions
-        attr_reader :carriers,
-                    :ship_date
+        # @return [Array<Carrier>]
+        attr_reader :carriers
 
+        # @return [#strftime]
+        attr_reader :ship_date
+
+        # @param carriers [Array<Carrier>] the carriers for which we want to get rate estimates
+        # @param ship_date [#strftime] the date we want to ship on
+        # @param kwargs [Hash]
+        # @option kwargs [Enumerable<PackageOptions>] :package_options the options for packages in this shipment
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           carriers:,
           ship_date: Date.today,
@@ -23,6 +28,7 @@ module FriendlyShipping
           super(**kwargs)
         end
 
+        # @return [Array<String>]
         def carrier_ids
           carriers.map(&:id)
         end
