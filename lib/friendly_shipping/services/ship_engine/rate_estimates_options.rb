@@ -8,13 +8,14 @@ module FriendlyShipping
       # options for the rate estimates call
       #
       # @attribute carriers [Array<FriendlyShipping::Carrier] a list of the carriers we want to get IDs from.
+      # @attribute ship_date [#strftime] the date we want to ship on.
       class RateEstimatesOptions < ShipmentOptions
         attr_reader :carriers,
                     :ship_date
 
         def initialize(
           carriers:,
-          ship_date: Time.now,
+          ship_date: Date.today,
           **kwargs
         )
           @carriers = carriers

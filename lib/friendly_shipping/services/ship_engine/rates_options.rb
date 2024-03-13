@@ -9,7 +9,7 @@ module FriendlyShipping
       #
       # @attribute carriers [Array<FriendlyShipping::Carrier>] a list of the carriers we want to get IDs from.
       # @attribute service_code [String] The service code we want to get rates for.
-      # @attribute ship_date [Time] The date we want to ship on.
+      # @attribute ship_date [#strftime] The date we want to ship on.
       # @attribute comparison_rate_type [String] Set to "retail" for retail rates (UPS/USPS only).
       class RatesOptions < FriendlyShipping::ShipmentOptions
         attr_reader :carriers,
@@ -20,7 +20,7 @@ module FriendlyShipping
         def initialize(
           carriers:,
           service_code:,
-          ship_date: Time.now,
+          ship_date: Date.today,
           comparison_rate_type: nil,
           **kwargs
         )
