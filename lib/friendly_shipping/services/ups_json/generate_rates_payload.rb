@@ -11,10 +11,6 @@ module FriendlyShipping
           payload =
             {
               RateRequest: {
-                Request: {
-                  RequestOption: options.shipping_method.present? ? "Rate" : "Shop",
-                  SubVersion: options.sub_version
-                },
                 PickupType: {
                   Code: options.pickup_type_code
                 },

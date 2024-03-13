@@ -93,12 +93,13 @@ module FriendlyShipping
 
       # Get rates for a shipment
       # @param [Physical::Shipment] shipment The shipment we want to get rates for
-      # @param [FriendlyShipping::Services::UpsJson::RateOptions] options What options
-      #    to use for this rate request
+      # @param [FriendlyShipping::Services::UpsJson::RatesOptions] options What options
+      #    to use for this rates request
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
       def rates(shipment, options:, debug: false)
-        url = "#{base_url}/api/rating/v#{options.sub_version || '1'}/Shop"
+        rate_or_shop = options.shipping_method ? "Rate" : "Shop"
+        url = "#{base_url}/api/rating/v#{options.sub_version || '1'}/#{rate_or_shop}"
         headers = required_headers(access_token)
         rates_request_body = GenerateRatesPayload.call(shipment: shipment, options: options).to_json
 
