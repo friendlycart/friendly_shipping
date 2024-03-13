@@ -16,7 +16,7 @@ module FriendlyShipping
           # @param location [Physical::Location]
           # @return [String]
           def residential_indicator(location)
-            return "unknown" if location.address_type.nil?
+            return "unknown" if location&.address_type.nil?
 
             location.address_type == "residential" ? "yes" : "no"
           end
