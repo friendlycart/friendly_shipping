@@ -5,7 +5,11 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Parses the labels API response.
       class ParseLabelResponse
+        # @param request [Request] the request to attach to the API result
+        # @param response [Response] the response to parse
+        # @return [ApiResult<Array<Label>] the parsed labels (ShipEngine only returns one label at a time)
         def self.call(request:, response:)
           parsed_json = JSON.parse(response.body)
 

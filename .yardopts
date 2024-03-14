@@ -1,0 +1,6 @@
+--protected
+--no-private
+--readme README.md
+--markup markdown
+--exclude friendly_shipping/types
+'lib/**/*.rb' - '*.md'

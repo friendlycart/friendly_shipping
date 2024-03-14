@@ -5,10 +5,14 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngineLTL
+      # Parses the carriers API response.
       class ParseCarrierResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @return [Success<ApiResult<Array<Carrier>>>, Failure<ApiFailure<Array<String>>>] the parsed carriers or errors
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             carriers = parsed_json.fetch('carriers', []).map do |carrier_data|

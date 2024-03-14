@@ -20,13 +20,27 @@ require 'friendly_shipping/services/rl/item_options'
 
 module FriendlyShipping
   module Services
+    # API service class for R+L Carriers, a freight/LTL carrier.
+    # @see https://www.rlcarriers.com/freight/shipping-software/api R+L API docs
     class RL
       include Dry::Monads::Result::Mixin
 
-      attr_reader :api_key, :test, :client
+      # @return [String] the API key for this carrier
+      attr_reader :api_key
 
+      # @return [Boolean] whether to use test API endpoints
+      attr_reader :test
+
+      # @return [HttpClient] the HTTP client to use for requests
+      attr_reader :client
+
+      # The API base URL for production.
       LIVE_API_BASE = "https://api.rlc.com/"
+
+      # The API base URL for testing.
       TEST_API_BASE = "https://apisandbox.rlc.com/"
+
+      # This carrier's API paths. Used when constructing endpoint URLs.
       API_PATHS = {
         bill_of_lading: "BillOfLading",
         documents: "DocumentRetrieval",
@@ -36,9 +50,9 @@ module FriendlyShipping
         transit_times: "TransitTimes"
       }.freeze
 
-      # @param [String] api_key
-      # @param [Boolean] test
-      # @param [FriendlyShipping::HttpClient] client
+      # @param [String] api_key the API key for this carrier
+      # @param [Boolean] test whether to use test API endpoints
+      # @param [HttpClient] client the HTTP client to use for requests
       def initialize(api_key:, test: true, client: nil)
         @api_key = api_key
         @test = test
@@ -47,12 +61,11 @@ module FriendlyShipping
         @client = client || HttpClient.new(error_handler: error_handler)
       end
 
-      # Create an LTL BOL and schedule a pickup with R+L Carriers
+      # Create an LTL Bill of Lading (BOL) and schedule a pickup with R+L Carriers.
       #
-      # @param [Physical::Shipment] shipment The shipment for the BOL
-      # @param [FriendlyShipping::Services::RL::QuoteOptions] options The options for the BOL
-      #
-      # @return [Dry::Monads::Result<ApiResult<ShipmentInformation>>] The BOL from R+L Carriers
+      # @param shipment [Physical::Shipment] the shipment for the BOL
+      # @param options [BOLOptions] the options for the BOL
+      # @return [Success<ApiResult<ShipmentInformation>>, Failure<ApiFailure>] the BOL from R+L Carriers
       def create_bill_of_lading(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:bill_of_lading],
@@ -66,11 +79,11 @@ module FriendlyShipping
         end
       end
 
-      # Retrieve an existing binary BOL document for printing
+      # Retrieve an existing binary LTL Bill of Lading (BOL) document for printing. The BOL is appended
+      # to the {ShipmentInformation} object's documents array.
       #
-      # @param [FriendlyShipping::Services::RL::ShipmentInformation] shipment_info
-      #
-      # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary BOL document from R+L Carriers
+      # @param shipment_info [ShipmentInformation] the shipment for the BOL
+      # @return [Success<ApiResult<ShipmentDocument>>, Failure<ApiFailure>] the binary BOL document from R+L Carriers
       def print_bill_of_lading(shipment_info, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:print_bol] + "?ProNumber=#{shipment_info.pro_number}",
@@ -86,15 +99,15 @@ module FriendlyShipping
         end
       end
 
-      # Retrieve binary shipping labels for printing
+      # Retrieve binary LTL shipping label documents for printing. The label documents are appended
+      # to the {ShipmentInformation} object's documents array.
       #
-      # @param [FriendlyShipping::Services::RL::ShipmentInformation] shipment_info
-      # @param [Integer] style The R+L Carriers shipping label style (between 1 and 13)
+      # @param shipment_info [ShipmentInformation] the shipment for the labels
+      # @param style [Integer] the R+L Carriers shipping label style (between 1 and 13)
       # @see https://rl-cdn.com/docs/rlc/shipping-forms/shipping-label-select.pdf Shipping label styles
-      # @param [Integer] start_position The R+L Carriers start position for the first label (between 1 and 10)
-      # @param [Integer] num_labels Number of labels to print (between 1 and 100)
-      #
-      # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary shipping labels from R+L Carriers
+      # @param start_position [Integer] the R+L Carriers start position for the first label (between 1 and 10)
+      # @param num_labels [Integer] number of labels to print (between 1 and 100)
+      # @return [Success<ApiResult<ShipmentDocument>>, Failure<ApiFailure>] the binary shipping labels from R+L Carriers
       def print_shipping_labels(shipment_info, style: 1, start_position: 1, num_labels: 4, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:print_shipping_labels] +
@@ -114,12 +127,12 @@ module FriendlyShipping
         end
       end
 
-      # Request an LTL rate quote from R+L Carriers
+      # Request an LTL shipping rate quote from R+L Carriers.
       #
-      # @param [Physical::Shipment] shipment The shipment to quote
-      # @param [FriendlyShipping::Services::RL::QuoteOptions] options The options for the quote
+      # @param shipment [Physical::Shipment] the shipment to quote
+      # @param options [RateQuoteOptions] the options for the quote
       #
-      # @return [Dry::Monads::Result<ApiResult<Array<Rate>>>] The rate quote from R+L Carriers
+      # @return [Result<ApiResult<Array<Rate>>>] the rate quote from R+L Carriers
       def rate_quote(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: LIVE_API_BASE + API_PATHS[:rate_quote],
@@ -133,12 +146,12 @@ module FriendlyShipping
         end
       end
 
-      # Request an LTL transit timing from R+L Carriers
+      # Request an LTL shipment transit timing from R+L Carriers.
       #
-      # @param [Physical::Shipment] shipment The shipment we're timing
-      # @param [FriendlyShipping::Services::RL::QuoteOptions] options The options for the timing
+      # @param shipment [Physical::Shipment] the shipment we're timing
+      # @param options [RateQuoteOptions] the options for the timing
       #
-      # @return [Dry::Monads::Result<ApiResult<Array<Timing>>>] The transit timing from R+L Carriers
+      # @return [Result<ApiResult<Array<Timing>>>] the transit timing from R+L Carriers
       def transit_times(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: LIVE_API_BASE + API_PATHS[:transit_times],
@@ -156,7 +169,7 @@ module FriendlyShipping
       #
       # @param [String] pro_number The PRO number for the Invoice
       #
-      # @return [Dry::Monads::Result<ApiResult<ShipmentDocument>>] The binary Invoice document from R&L
+      # @return [Result<ApiResult<ShipmentDocument>>] The binary Invoice document from R&L
       def get_invoice(pro_number, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:documents] + "?ProNumber=#{pro_number}&DocumentTypes=Invoice&MediaType=PDF",
@@ -171,6 +184,7 @@ module FriendlyShipping
 
       private
 
+      # Returns the content type and API key as a headers hash.
       # @return [Hash]
       def request_headers
         {
@@ -179,6 +193,8 @@ module FriendlyShipping
         }
       end
 
+      # Returns the API base URL based on the {test} attribute's value.
+      # @return [String]
       def api_base
         test ? TEST_API_BASE : LIVE_API_BASE
       end

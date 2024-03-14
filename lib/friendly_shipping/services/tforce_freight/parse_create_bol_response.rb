@@ -7,12 +7,12 @@ require 'friendly_shipping/services/tforce_freight/shipping_methods'
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Parse a TForce Freight BOL response JSON into an ApiResult.
+      # Parses a Bill of Lading (BOL) response into an `ApiResult`.
       class ParseCreateBOLResponse
         class << self
           # @param request [Request] the original request
           # @param response [RestClient::Response] the response to parse
-          # @return [ApiResult<Hash>] the parsed result
+          # @return [ApiResult<ShipmentInformation>] the parsed result
           def call(request:, response:)
             json = JSON.parse(response.body)
 
@@ -74,6 +74,8 @@ module FriendlyShipping
 
           private
 
+          # @param rate_detail [Hash]
+          # @return [Hash]
           def build_cost_breakdown(rate_detail)
             {
               "Rates" => rate_detail["rate"].each_with_object({}) do |rate, hash|

@@ -1,12 +1,24 @@
 # frozen_string_literal: true
 
 module FriendlyShipping
+  # Wraps an API result (a response body, for example) along with the
+  # original request and response objects.
   class ApiResult
-    attr_reader :data, :original_request, :original_response
+    # @return [Object] the API result (typically the response body)
+    attr_reader :data
 
-    # @param [Object] data The API result
-    # @param [FriendlyShipping::Request] original_request The HTTP request
-    # @param [FriendlyShipping::Response] original_response The HTTP response
+    # @return [Request] the original API request (if debugging is enabled)
+    attr_reader :original_request
+
+    # @return [Response] the original API response (if debugging is enabled)
+    attr_reader :original_response
+
+    # Returns a new instance of `ApiResult`. The original request and response are only attached
+    # to this object if debugging is enabled. See {FriendlyShipping::Request#debug}
+    #
+    # @param data [Object] the API result (typically the response body)
+    # @param original_request [Request] the original API request
+    # @param original_response [Response] the original API response
     def initialize(data, original_request: nil, original_response: nil)
       @data = data
 

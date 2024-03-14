@@ -5,15 +5,16 @@ require 'friendly_shipping/api_error'
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Raised when an API error is returned.
       class ApiError < FriendlyShipping::ApiError
-        # @param [RestClient::Exception] cause
+        # @param cause [RestClient::Exception]
         def initialize(cause)
           super(cause, parse_message(cause))
         end
 
         private
 
-        # @param [RestClient::Exception] error
+        # @param error [RestClient::Exception]
         # @return [String]
         def parse_message(error)
           return error.message unless error.response

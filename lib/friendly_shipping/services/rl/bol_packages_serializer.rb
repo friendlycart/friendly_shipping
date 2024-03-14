@@ -3,10 +3,11 @@
 module FriendlyShipping
   module Services
     class RL
+      # Serializes packages for R+L BOL API requests.
       class BOLPackagesSerializer
-        # @param [Array<Physical::Package>] packages
-        # @param [FriendlyShipping::Services::RL::BOLOptions] options
-        # @return [Array<Hash>]
+        # @param packages [Array<Physical::Package>] packages to serialize
+        # @param options [BOLOptions] options for these packages
+        # @return [Array<Hash>] serialized packages
         def self.call(packages:, options:)
           packages.flat_map do |package|
             package_options = options.options_for_package(package)

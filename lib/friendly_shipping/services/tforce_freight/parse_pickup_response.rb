@@ -7,7 +7,7 @@ require 'friendly_shipping/services/tforce_freight/shipping_methods'
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Parse a TForce Freight pickup response JSON into an ApiResult.
+      # Parses a pickup response into an `ApiResult`.
       class ParsePickupResponse
         class << self
           # @param request [Request] the original request

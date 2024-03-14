@@ -92,7 +92,7 @@ module FriendlyShipping
 
           # @param [Nokogiri::XML::NodeSet] node The RateModifier node set from the source XML
           # @param [String] currency_code The currency code for the modifier amounts (i.e. 'USD')
-          # @param [Array<Hash>]
+          # @return [Array<Hash>]
           def extract_modifiers(node, currency_code:)
             node.map do |element|
               ParseModifierElement.call(element, currency_code: currency_code)

@@ -6,18 +6,27 @@ require 'friendly_shipping/services/rl/rate_quote_packages_serializer'
 module FriendlyShipping
   module Services
     class RL
+      # Rate quote options for serializing R+L API requests.
       class RateQuoteOptions < ShipmentOptions
-        attr_reader :pickup_date,
-                    :declared_value,
-                    :additional_service_codes,
-                    :packages_serializer
+        # @return [Time] the pickup date
+        attr_reader :pickup_date
 
-        # @param [Time] pickup_date
-        # @param [Numeric] declared_value
-        # @param [Array<String>] additional_service_codes
-        # @param [Callable] packages_serializer A callable that takes packages
-        #   and an options object to create an Array of item hashes per the R+L Carriers docs
-        # @param [Array<Object>] **kwargs
+        # @return [Numeric] the declared value of this shipment
+        attr_reader :declared_value
+
+        # @return [Array<String>] additional service codes
+        attr_reader :additional_service_codes
+
+        # @return [Callable] the serializer for this shipment's packages
+        attr_reader :packages_serializer
+
+        # @param pickup_date [Time] the pickup date
+        # @param declared_value [Numeric] the declared value of this shipment
+        # @param additional_service_codes [Array<String>] additional service codes
+        # @param packages_serializer [Callable] the serializer for this shipment's packages
+        # @param kwargs [Hash]
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this shipment
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           pickup_date:,
           declared_value: nil,
@@ -33,6 +42,7 @@ module FriendlyShipping
           super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
 
+        # Optional service codes that can be used for R+L shipments.
         ADDITIONAL_SERVICE_CODES = %w[
           InsideDelivery
           LimitedAccessPickup
@@ -49,6 +59,9 @@ module FriendlyShipping
 
         private
 
+        # Raises an exception if the additional service codes passed into the initializer
+        # don't correspond to valid codes from {ADDITIONAL_SERVICE_CODES}.
+        #
         # @raise [ArgumentError] invalid additional service codes
         # @return [nil]
         def validate_additional_service_codes!

@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Serializes customs items for international labels.
       class CustomsItemsSerializer
         class << self
+          # @param packages [Array<Physical::Package>] the packages to serialize
+          # @param options [LabelOptions] options for the packages
+          # @return [Array<Hash>] the serialized customs items
           def call(packages, options)
             packages.map do |package|
               package.items.group_by(&:sku).map do |sku, items|

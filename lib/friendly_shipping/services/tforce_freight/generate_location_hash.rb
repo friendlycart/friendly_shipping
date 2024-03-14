@@ -3,8 +3,11 @@
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Generates a location hash for JSON serialization.
       class GenerateLocationHash
         class << self
+          # @param location [Physical::Location] the location
+          # @return [Hash] location hash suitable for JSON request
           def call(location:)
             {
               address: {

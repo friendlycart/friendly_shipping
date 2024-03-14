@@ -3,11 +3,12 @@
 module FriendlyShipping
   module Services
     class RL
+      # Serializes an R+L API request to get a shipment transit timing estimate.
       class SerializeTransitTimesRequest
         class << self
-          # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::Services::RL::QuoteOptions] options
-          # @return [Hash]
+          # @param shipment [Physical::Shipment] the shipment for the request
+          # @param options [RateQuoteOptions] options for the request
+          # @return [Hash] the serialized request
           def call(shipment:, options:)
             {
               PickupDate: options.pickup_date.strftime('%m/%d/%Y'),
@@ -20,8 +21,8 @@ module FriendlyShipping
 
           private
 
-          # @param [Physical::Location] location
-          # @return [Hash]
+          # @param location [Physical::Location] the location to serialize
+          # @return [Hash] the serialized location
           def serialize_location(location)
             {
               City: location.city,

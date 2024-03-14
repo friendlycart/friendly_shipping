@@ -6,26 +6,44 @@ require 'friendly_shipping/services/rl/bol_packages_serializer'
 module FriendlyShipping
   module Services
     class RL
+      # Bill of Lading (BOL) options class. Used when serializing R+L API requests.
       class BOLOptions < ShipmentOptions
-        attr_reader :pickup_time_window,
-                    :pickup_instructions,
-                    :declared_value,
-                    :special_instructions,
-                    :reference_numbers,
-                    :additional_service_codes,
-                    :generate_universal_pro,
-                    :packages_serializer
+        # @return [Range] the pickup time window
+        attr_reader :pickup_time_window
 
-        # @param [Range] pickup_time_window
-        # @param [String] pickup_instructions
-        # @param [Numeric] declared_value
-        # @param [String] special_instructions
-        # @param [Hash] reference_numbers
-        # @param [Array<String>] additional_service_codes
-        # @param [Boolean] generate_universal_pro
-        # @param [Callable] packages_serializer A callable that takes packages
+        # @return [String] the pickup instructions
+        attr_reader :pickup_instructions
+
+        # @return [Numeric] the declared value of this shipment
+        attr_reader :declared_value
+
+        # @return [String] any special instructions
+        attr_reader :special_instructions
+
+        # @return [Hash] reference numbers for the shipment
+        attr_reader :reference_numbers
+
+        # @return [Array<String>] additional service codes
+        attr_reader :additional_service_codes
+
+        # @return [Boolean] whether to generate universal PRO number
+        attr_reader :generate_universal_pro
+
+        # @return [Callable] the packages serializer
+        attr_reader :packages_serializer
+
+        # @param pickup_time_window [Range]
+        # @param pickup_instructions [String]
+        # @param declared_value [Numeric]
+        # @param special_instructions [String]
+        # @param reference_numbers [Hash]
+        # @param additional_service_codes [Array<String>]
+        # @param generate_universal_pro [Boolean]
+        # @param packages_serializer [Callable] a callable that takes packages
         #   and an options object to create an Array of item hashes per the R+L Carriers docs
-        # @param [Array<Object>] **kwargs
+        # @param kwargs [Hash]
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this shipment
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           pickup_time_window:,
           pickup_instructions: nil,
@@ -49,6 +67,7 @@ module FriendlyShipping
           super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
 
+        # Optional service codes that can be used for R+L shipments.
         ADDITIONAL_SERVICE_CODES = %w[
           OriginLiftgate
           DestinationLiftgate
@@ -62,6 +81,9 @@ module FriendlyShipping
 
         private
 
+        # Raises an exception if the additional service codes passed into the initializer
+        # don't correspond to valid codes from {ADDITIONAL_SERVICE_CODES}.
+        #
         # @raise [ArgumentError] invalid additional service codes
         # @return [nil]
         def validate_additional_service_codes!

@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Generates a reference hash for JSON serialization.
       class GenerateReferenceHash
         class << self
           # @param reference_numbers [Array] reference numbers for the Bill of Lading

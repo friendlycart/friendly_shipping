@@ -24,7 +24,7 @@ module FriendlyShipping
 
           private
 
-          # RL does not support leading country codes in phone numbers.
+          # R+L does not support leading country codes in phone numbers.
           #
           # @param [String] phone
           # @return [String]

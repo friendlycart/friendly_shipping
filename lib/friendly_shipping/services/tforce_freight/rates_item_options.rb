@@ -3,14 +3,9 @@
 module FriendlyShipping
   module Services
     class TForceFreight
-      # Options for Items in a TForce Freight shipment
-      #
-      # @attribute [Symbol] packaging
-      # @attribute [String] freight_class
-      # @attribute [String] nmfc_primary_code
-      # @attribute [String] nmfc_sub_code
-      # @attribute [Boolean] hazardous
+      # Options for items in a shipment.
       class RatesItemOptions < FriendlyShipping::ItemOptions
+        # Maps friendly names to packaging types.
         PACKAGING_TYPES = {
           bag: { code: "BAG", description: "Bag" },
           bale: { code: "BAL", description: "Bale" },
@@ -51,13 +46,25 @@ module FriendlyShipping
           wrapped: { code: "WRP", description: "Wrapped" }
         }.freeze
 
-        attr_reader :packaging_code,
-                    :packaging_description,
-                    :freight_class,
-                    :nmfc_primary_code,
-                    :nmfc_sub_code,
-                    :hazardous
+        attr_reader :packaging_code
 
+        attr_reader :packaging_description
+
+        attr_reader :freight_class
+
+        attr_reader :nmfc_primary_code
+
+        attr_reader :nmfc_sub_code
+
+        attr_reader :hazardous
+
+        # @param packaging [Symbol] this item's packaging
+        # @param freight_class [String] the freight class
+        # @param nmfc_primary_code [String] the NMFC primary code
+        # @param nmfc_sub_code [String] the NMFC sub code
+        # @param hazardous [Boolean] whether or not the item is hazardous
+        # @param kwargs [Hash]
+        # @option kwargs [String] :item_id the ID for the item that belongs to these options
         def initialize(
           packaging: :carton,
           freight_class: nil,

@@ -5,10 +5,15 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Parses the rate estimates API response.
       class ParseRateEstimatesResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @param options [RateEstimatesOptions] the options to use when parsing
+          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>>] the parsed rate estimates or errors
           def call(response:, request:, options:)
             error_messages = []
             parsed_json = JSON.parse(response.body)
@@ -69,12 +74,16 @@ module FriendlyShipping
 
           private
 
+          # @param parsed_json [Hash] the parsed JSON
+          # @return [Boolean] whether the rate estimates are valid
           def valid_rates(parsed_json)
             parsed_json.map do |rate|
-              ["valid", "has_warnings", "unknown"].include? rate['validation_status']
+              %w[valid has_warnings unknown].include? rate['validation_status']
             end.any?
           end
 
+          # @param rate_hash [Hash] the rate hash
+          # @return [Hash<Symbol,Money>] the amounts in the hash
           def get_amounts(rate_hash)
             [:shipping, :other, :insurance, :confirmation].to_h do |name|
               currency = Money::Currency.new(rate_hash["#{name}_amount"]["currency"])

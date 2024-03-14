@@ -5,12 +5,12 @@ require 'friendly_shipping/shipment_options'
 module FriendlyShipping
   module Services
     class ShipEngine
-      # Options for generating rates for a shipment.
+      # Options for the rates API call.
       class RatesOptions < FriendlyShipping::ShipmentOptions
-        # @return [Array<Carrier>]
+        # @return [Array<Carrier>] the carriers from which to get rates
         attr_reader :carriers
 
-        # @return [String]
+        # @return [String] the service code for which to get rates
         attr_reader :service_code
 
         # @return [#strftime]
@@ -19,12 +19,12 @@ module FriendlyShipping
         # @return [String]
         attr_reader :comparison_rate_type
 
-        # @param carriers [Array<Carrier>] the carriers for which we want to get rates
-        # @param service_code [String] the service code for which we want to get rates
+        # @param carriers [Array<Carrier>] the carriers for these rates
+        # @param service_code [String] the service code to use when getting rates
         # @param ship_date [#strftime] the date we want to ship on
         # @param comparison_rate_type [String] set to "retail" for retail rates (UPS/USPS only)
         # @param kwargs [Hash]
-        # @option kwargs [Enumerable<PackageOptions>] :package_options the options for packages in this shipment
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this shipment
         # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           carriers:,
@@ -41,7 +41,7 @@ module FriendlyShipping
           super(**kwargs.reverse_merge(package_options_class: RatesPackageOptions))
         end
 
-        # @return [Array<String>]
+        # @return [Array<String>] the carrier IDs for these rates
         def carrier_ids
           carriers.map(&:id)
         end

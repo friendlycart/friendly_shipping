@@ -10,6 +10,9 @@ inherit_from:
 Metrics/BlockLength:
   Enabled: false
 
+Style/AccessorGrouping:
+  Enabled: false
+
 Style/HashEachMethods:
   Enabled: true
 

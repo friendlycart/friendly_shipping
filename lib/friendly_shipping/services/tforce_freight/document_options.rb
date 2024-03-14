@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Options for getting documents (BOLs, labels, etc.) from the API.
       class DocumentOptions
         # @return [Symbol] the document type (see {DOCUMENT_TYPES})
         attr_reader :type
@@ -19,16 +20,19 @@ module FriendlyShipping
         # @return [Integer] the number of stickers
         attr_reader :number_of_stickers
 
+        # Maps friendly names to document types.
         DOCUMENT_TYPES = {
           label: "30",
           tforce_bol: "20",
           vics_bol: "21"
         }.freeze
 
+        # Maps friendly names to document formats.
         DOCUMENT_FORMATS = {
           pdf: "01"
         }.freeze
 
+        # Maps booleans to thermal codes.
         THERMAL_CODE = {
           false => "01",
           true => "02"

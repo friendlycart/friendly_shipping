@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class ShipEngine
+      # Serializes a shipment and options for the rate estimates API request.
       class SerializeRateEstimateRequest
         class << self
+          # @param shipment [Physical::Shipment] the shipment to serialize
+          # @param options [LabelOptions] the options to serialize
+          # @return [Hash] the serialized request
           def call(shipment:, options:)
             {
               carrier_ids: options.carrier_ids,
@@ -26,6 +30,8 @@ module FriendlyShipping
 
           private
 
+          # @param packages [Array<Physical::Package>]
+          # @return [Hash]
           def dimensions(packages)
             length = packages.map { |p| p.length.convert_to(:inch).value.to_f }.sum.round(2)
             width = packages.map { |p| p.width.convert_to(:inch).value.to_f }.sum.round(2)

@@ -5,10 +5,14 @@ require 'json'
 module FriendlyShipping
   module Services
     class ShipEngineLTL
+      # Parses the rate quotes API response.
       class ParseQuoteResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
+          # @param request [Request] the request to attach to the API result
+          # @param response [Response] the response to parse
+          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>>] the parsed rates or errors
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             rates = build_rates(parsed_json)
@@ -34,6 +38,8 @@ module FriendlyShipping
 
           private
 
+          # @param parsed_json [Hash] the parsed JSON
+          # @return [Array<Rate>] the parsed rates
           def build_rates(parsed_json)
             total = build_total(parsed_json)
             return [] unless total.positive?
@@ -46,6 +52,8 @@ module FriendlyShipping
             ]
           end
 
+          # @param parsed_json [Hash] the parsed JSON
+          # @return [ShippingMethod] the parsed shipping method
           def build_shipping_method(parsed_json)
             description = parsed_json.dig("service", "carrier_description")
             code = parsed_json.dig("service", "code")
@@ -57,6 +65,8 @@ module FriendlyShipping
             )
           end
 
+          # @param parsed_json [Hash] the parsed JSON
+          # @return [Money] the parsed total charges
           def build_total(parsed_json)
             total_charges = parsed_json.fetch("charges", []).detect { |e| e['type'] == "total" }
             return 0 unless total_charges

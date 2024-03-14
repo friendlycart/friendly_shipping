@@ -3,27 +3,48 @@
 require 'friendly_shipping/types'
 
 module FriendlyShipping
+  # Base class for a shipping label returned by a carrier API.
   class Label
-    attr_reader :id,
-                :shipment_id,
-                :tracking_number,
-                :service_code,
-                :label_href,
-                :data,
-                :label_format,
-                :cost,
-                :shipment_cost,
-                :label_data
+    # @return [String] the label's unique ID
+    attr_reader :id
 
-    # @param [String] id The label's ID
-    # @param [String] shipment_id The label's shipment ID
-    # @param [String] tracking_number The label's tracking number
-    # @param [String] service_code The label's service code
-    # @param [String] label_href The URL for the label
-    # @param [String] label_format The label's format
-    # @param [String] label_data The raw label data
-    # @param [Money] shipment_cost The cost of the shipment
-    # @param [Hash] data Additional data related to the label
+    # @return [String] the label's shipment ID
+    attr_reader :shipment_id
+
+    # @return [String] the label's tracking number
+    attr_reader :tracking_number
+
+    # @return [String] the label's service code
+    attr_reader :service_code
+
+    # @return [String] the URL for the label
+    attr_reader :label_href
+
+    # @return [String] the label's format
+    attr_reader :label_format
+
+    # @return [String] the raw label data
+    attr_reader :label_data
+
+    # @return [Money] the label's cost
+    attr_reader :cost
+
+    # @return [Money] the overall cost of the shipment
+    attr_reader :shipment_cost
+
+    # @return [Hash] additional data related to the label
+    attr_reader :data
+
+    # @param id [String] the label's unique ID
+    # @param shipment_id [String] the label's shipment ID
+    # @param tracking_number [String] the label's tracking number
+    # @param service_code [String] the label's service code
+    # @param label_href [String] the URL for the label
+    # @param label_format [String] the label's format
+    # @param label_data [String] the raw label data
+    # @param cost [Money] the label's cost
+    # @param shipment_cost [Money] the overall cost of the shipment
+    # @param data [Hash] additional data related to the label
     def initialize(
       id: nil,
       shipment_id: nil,

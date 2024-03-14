@@ -7,8 +7,12 @@ require 'friendly_shipping/services/tforce_freight/shipping_methods'
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Parses a rates response into an `ApiResult`.
       class ParseRatesResponse
         class << self
+          # @param request [Request] the original request
+          # @param response [RestClient::Response] the response to parse
+          # @return [ApiResult<Array<Rate>>] the parsed result
           def call(request:, response:)
             json = JSON.parse(response.body)
             transaction_id = json.dig("summary", "transactionReference", "transactionId")

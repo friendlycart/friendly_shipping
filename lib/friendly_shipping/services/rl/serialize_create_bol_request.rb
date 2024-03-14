@@ -3,11 +3,12 @@
 module FriendlyShipping
   module Services
     class RL
+      # Serializes an R+L API request to create a Bill of Lading (BOL).
       class SerializeCreateBOLRequest
         class << self
-          # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::Services::RL::BOLOptions] options
-          # @return [Hash]
+          # @param shipment [Physical::Shipment] the shipment for the request
+          # @param options [BOLOptions] options for the request
+          # @return [Hash] the serialized request
           def call(shipment:, options:)
             {
               BillOfLading: {
@@ -28,8 +29,8 @@ module FriendlyShipping
 
           private
 
-          # @param [Numeric] declared_value
-          # @return [Hash, nil]
+          # @param declared_value [Numeric] the declared value to serialize
+          # @return [Hash, nil] the serialized declared value or nil if the value is blank
           def serialize_declared_value(declared_value)
             return if declared_value.blank?
 
@@ -39,8 +40,8 @@ module FriendlyShipping
             }
           end
 
-          # @param [Hash] reference_numbers
-          # @return [Hash, nil]
+          # @param reference_numbers [Hash] the reference numbers to serialize
+          # @return [Hash, nil] the serialized reference numbers or nil if the reference numbers are blank
           def serialize_reference_numbers(reference_numbers)
             return if reference_numbers.blank?
 
@@ -51,8 +52,8 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param [FriendlyShipping::Services::RL::BOLOptions] options
-          # @return [Hash, nil]
+          # @param options [BOLOptions] the options containing pickup information
+          # @return [Hash, nil] the serialized pickup request
           def serialize_pickup_request(options)
             pickup_time_window = options.pickup_time_window
             return if pickup_time_window.nil?

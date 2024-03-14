@@ -5,10 +5,12 @@ require 'friendly_shipping/services/tforce_freight/generate_location_hash'
 module FriendlyShipping
   module Services
     class TForceFreight
+      # Generates a rates request hash for JSON serialization.
       class GenerateRatesRequestHash
         class << self
-          # @param [Physical::Shipment] shipment The shipment for which we want to get rates
-          # @param [FriendlyShipping::Services::TForceFreight::RatesOptions] options Options for obtaining rates for this shipment
+          # @param shipment [Physical::Shipment] the shipment for which we want to get rates
+          # @param options [RatesOptions] options for obtaining rates for this shipment
+          # @return [Hash] rates request hash
           def call(shipment:, options:)
             {
               requestOptions: request_options(options),
@@ -22,6 +24,8 @@ module FriendlyShipping
 
           private
 
+          # @param options [RatesOptions]
+          # @return [Hash]
           def request_options(options)
             {
               serviceCode: options.shipping_method.service_code,
@@ -37,6 +41,8 @@ module FriendlyShipping
             }.compact
           end
 
+          # @param options [RatesOptions]
+          # @return [Hash]
           def payment(options)
             {
               payer: GenerateLocationHash.call(location: options.billing_address),
@@ -44,6 +50,8 @@ module FriendlyShipping
             }
           end
 
+          # @param options [RatesOptions]
+          # @return [Hash]
           def service_options(options)
             {
               pickup: options.pickup_options,
