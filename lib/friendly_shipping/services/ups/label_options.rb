@@ -9,7 +9,7 @@ module FriendlyShipping
     #
     # Required:
     #
-    # @param shipping_method [FriendlyShipping::ShippingMethod] The shipping method to use. We only need the
+    # @param shipping_method [ShippingMethod] The shipping method to use. We only need the
     #   service_code to be set.
     # @param shipper_number [String] account number for the shipper
     #

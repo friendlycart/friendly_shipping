@@ -21,7 +21,7 @@ module FriendlyShipping
     # @option pickup_date [Time] UPS pickup date/time. Default: nil
     # @option saturday_delivery [Boolean] should we request Saturday delivery?. Default: false
     # @option saturday_pickup [Boolean] should we request Saturday pickup?. Default: false
-    # @option shipping_method [FriendlyShipping::ShippingMethod] Request rates for a particular shipping method only?
+    # @option shipping_method [ShippingMethod] Request rates for a particular shipping method only?
     #   Default is `nil`, which translates to 'All shipping methods' (The "Shop" option in UPS parlance)
     # @option sub_version [String] The UPS API sub-version to use for requests. Default: 1707
     # @option with_time_in_transit [Boolean] Whether to request timing information alongside the rates

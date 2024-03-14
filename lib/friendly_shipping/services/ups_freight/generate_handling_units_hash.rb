@@ -6,7 +6,7 @@ module FriendlyShipping
       class GenerateHandlingUnitsHash
         class << self
           # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::ShipmentOptions] options
+          # @param [ShipmentOptions] options
           # @return [Hash]
           def call(shipment:, options:)
             handling_units(shipment, options).reduce(&:merge)
@@ -15,7 +15,7 @@ module FriendlyShipping
           private
 
           # @param [Physical::Shipment] shipment
-          # @param [FriendlyShipping::ShipmentOptions] options
+          # @param [ShipmentOptions] options
           # @return [Array<Hash>]
           def handling_units(shipment, options)
             all_package_options = shipment.packages.map { |package| options.options_for_package(package) }
@@ -24,7 +24,7 @@ module FriendlyShipping
             end.map { |package_options, quantity| handling_unit_hash(package_options, quantity) }
           end
 
-          # @param [FriendlyShipping::PackageOptions] package_options
+          # @param [PackageOptions] package_options
           # @param [Integer] quantity
           # @return [Hash]
           def handling_unit_hash(package_options, quantity)
