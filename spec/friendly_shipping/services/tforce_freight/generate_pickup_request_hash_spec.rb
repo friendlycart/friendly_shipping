@@ -78,7 +78,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GeneratePickupRequestH
 
     let(:item_one_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_one",
           packaging: :pallet
         )
