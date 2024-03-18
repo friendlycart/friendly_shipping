@@ -92,7 +92,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
 
     let(:package_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_one.id,
           item_options: item_one_options
         )

@@ -30,7 +30,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::PickupOptions do
   end
 
   it_behaves_like "overrideable package options class" do
-    let(:default_class) { FriendlyShipping::Services::TForceFreight::RatesPackageOptions }
+    let(:default_class) { FriendlyShipping::Services::TForceFreight::PackageOptions }
     let(:required_attrs) { {} }
   end
 
@@ -48,7 +48,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::PickupOptions do
 
     let(:package) { double(package_id: nil) }
 
-    it { is_expected.to be_a(FriendlyShipping::Services::TForceFreight::RatesPackageOptions) }
+    it { is_expected.to be_a(FriendlyShipping::Services::TForceFreight::PackageOptions) }
   end
 
   describe "service option validation" do

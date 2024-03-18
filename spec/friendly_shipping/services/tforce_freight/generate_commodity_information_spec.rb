@@ -55,7 +55,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCommodityInfor
         billing_address: billing_address,
         shipping_method: shipping_method,
         package_options: shipment.packages.map do |package|
-          FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+          FriendlyShipping::Services::TForceFreight::PackageOptions.new(
             package_id: package.id,
             item_options: package.items.map do |item|
               FriendlyShipping::Services::TForceFreight::ItemOptions.new(

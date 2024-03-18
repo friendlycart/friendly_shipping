@@ -144,7 +144,7 @@ module FriendlyShipping
           validate_pickup_options!
           validate_delivery_options!
 
-          super(**kwargs.reverse_merge(package_options_class: RatesPackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
 
         private

@@ -60,7 +60,7 @@ module FriendlyShipping
 
           validate_service_options!
 
-          super(**kwargs.reverse_merge(package_options_class: RatesPackageOptions))
+          super(**kwargs.reverse_merge(package_options_class: PackageOptions))
         end
 
         private
