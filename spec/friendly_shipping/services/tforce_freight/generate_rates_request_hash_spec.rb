@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 require 'friendly_shipping/services/tforce_freight/generate_rates_request_hash'
-require 'friendly_shipping/services/tforce_freight/rates_options'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateRatesRequestHash do
   describe ".call" do

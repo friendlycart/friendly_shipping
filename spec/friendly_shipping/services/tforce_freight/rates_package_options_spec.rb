@@ -5,6 +5,17 @@ require 'spec_helper'
 RSpec.describe FriendlyShipping::Services::TForceFreight::RatesPackageOptions do
   subject(:options) { described_class.new(package_id: "package") }
 
+  [
+    :packaging_code,
+    :packaging_description,
+    :freight_class,
+    :nmfc_primary_code,
+    :nmfc_sub_code,
+    :hazardous
+  ].each do |message|
+    it { is_expected.to respond_to(message) }
+  end
+
   it "has the right attributes" do
     expect(subject.handling_unit_code).to eq("PLT")
     expect(subject.handling_unit_description).to eq("Pallet")

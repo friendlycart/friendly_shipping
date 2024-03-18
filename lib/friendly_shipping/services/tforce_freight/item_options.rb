@@ -46,16 +46,22 @@ module FriendlyShipping
           wrapped: { code: "WRP", description: "Wrapped" }
         }.freeze
 
+        # @return [Symbol] the code for this item's packaging
         attr_reader :packaging_code
 
+        # @return [String] the description for this item's packaging
         attr_reader :packaging_description
 
+        # @return [String] the freight class
         attr_reader :freight_class
 
+        # @return [String] the NMFC primary code
         attr_reader :nmfc_primary_code
 
+        # @return [String] the NMFC sub code
         attr_reader :nmfc_sub_code
 
+        # @return [Boolean] whether or not the item is hazardous
         attr_reader :hazardous
 
         # @param packaging [Symbol] this item's packaging
