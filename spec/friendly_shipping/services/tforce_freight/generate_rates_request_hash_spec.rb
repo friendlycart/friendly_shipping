@@ -75,7 +75,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateRatesRequestHa
 
     let(:package_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_one.id,
           item_options: item_one_options
         )
@@ -84,7 +84,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateRatesRequestHa
 
     let(:item_one_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_one",
           packaging: commodity_packaging,
           freight_class: "92.5",

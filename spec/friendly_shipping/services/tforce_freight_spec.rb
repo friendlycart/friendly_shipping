@@ -157,11 +157,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:package_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_one.id,
           item_options: item_one_options
         ),
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_two.id,
           item_options: item_two_options
         )
@@ -170,7 +170,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:item_one_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_one",
           packaging: :carton,
           freight_class: "92.5",
@@ -182,7 +182,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:item_two_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_two",
           packaging: :pallet,
           freight_class: "92.5",
@@ -305,11 +305,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:package_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_one.id,
           item_options: item_one_options
         ),
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_two.id,
           item_options: item_two_options
         )
@@ -318,7 +318,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:item_one_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_one",
           packaging: :carton
         )
@@ -327,7 +327,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:item_two_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_two",
           packaging: :pallet
         )
@@ -461,11 +461,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:package_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_one.id,
           item_options: item_one_options
         ),
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: package_two.id,
           item_options: item_two_options
         )
@@ -474,7 +474,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:item_one_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_one",
           packaging: :carton,
           freight_class: "92.5",
@@ -486,7 +486,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:item_two_options) do
       [
-        FriendlyShipping::Services::TForceFreight::RatesItemOptions.new(
+        FriendlyShipping::Services::TForceFreight::ItemOptions.new(
           item_id: "item_two",
           packaging: :pallet,
           freight_class: "92.5",

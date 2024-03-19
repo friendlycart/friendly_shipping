@@ -12,7 +12,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::RatesPackageOptions do
   end
 
   it_behaves_like "overrideable item options class" do
-    let(:default_class) { FriendlyShipping::Services::TForceFreight::RatesItemOptions }
+    let(:default_class) { FriendlyShipping::Services::TForceFreight::ItemOptions }
   end
 
   context "with loose packaging" do

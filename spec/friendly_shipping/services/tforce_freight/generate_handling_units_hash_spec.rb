@@ -17,15 +17,15 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateHandlingUnitsH
       billing_address: billing_address,
       shipping_method: shipping_method,
       package_options: [
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: "pallet 1",
           handling_unit: :pallet
         ),
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: "pallet 2",
           handling_unit: :pallet
         ),
-        FriendlyShipping::Services::TForceFreight::RatesPackageOptions.new(
+        FriendlyShipping::Services::TForceFreight::PackageOptions.new(
           package_id: "other",
           handling_unit: :other
         )
