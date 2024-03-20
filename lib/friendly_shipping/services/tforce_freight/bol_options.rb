@@ -4,7 +4,7 @@ module FriendlyShipping
   module Services
     class TForceFreight
       # Options for creating a Bill of Lading (BOL).
-      class BOLOptions < FriendlyShipping::ShipmentOptions
+      class BOLOptions < ShipmentOptions
         # Maps friendly names to billing codes.
         BILLING_CODES = {
           prepaid: "10",

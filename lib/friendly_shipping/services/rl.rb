@@ -15,6 +15,7 @@ require 'friendly_shipping/services/rl/serialize_rate_quote_request'
 require 'friendly_shipping/services/rl/serialize_transit_times_request'
 require 'friendly_shipping/services/rl/rate_quote_options'
 require 'friendly_shipping/services/rl/bol_options'
+require 'friendly_shipping/services/rl/structure_options'
 require 'friendly_shipping/services/rl/package_options'
 require 'friendly_shipping/services/rl/item_options'
 

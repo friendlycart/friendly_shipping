@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/tforce_freight/rates_item_options'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight::RatesItemOptions do
   subject(:rates_item_options) do

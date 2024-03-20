@@ -4,7 +4,7 @@ module FriendlyShipping
   module Services
     class TForceFreight
       # Options for creating a pickup.
-      class PickupOptions < FriendlyShipping::ShipmentOptions
+      class PickupOptions < ShipmentOptions
         # Maps friendly names to service options.
         SERVICE_OPTIONS = {
           inside: "INPU",

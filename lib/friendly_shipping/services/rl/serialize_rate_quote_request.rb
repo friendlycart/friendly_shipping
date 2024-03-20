@@ -15,10 +15,10 @@ module FriendlyShipping
                 PickupDate: options.pickup_date.strftime('%m/%d/%Y'),
                 Origin: serialize_location(shipment.origin),
                 Destination: serialize_location(shipment.destination),
-                Items: options.packages_serializer.call(packages: shipment.packages, options: options),
+                Items: serialize_items(shipment, options),
                 DeclaredValue: options.declared_value,
                 AdditionalServices: options.additional_service_codes,
-                Pallets: serialize_pallets(shipment.pallets)
+                Pallets: serialize_pallets(shipment)
               }.compact
             }.compact
           end
@@ -36,26 +36,22 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param packages [Array<Physical::Package>] the items (as packages) to serialize
+          # @param shipment [Physical::Shipment]
           # @param options [RateQuoteOptions] options for the items
           # @return [Array<Hash>] the serialized items
-          def serialize_items(packages, options)
-            item_hashes = packages.flat_map do |package|
-              package_options = options.options_for_package(package)
-              package.items.map do |item|
-                item_options = package_options.options_for_item(item)
-                {
-                  Class: item_options.freight_class,
-                  Weight: item.weight.convert_to(:pounds)
-                }
-              end
+          def serialize_items(shipment, options)
+            if options.packages_serializer
+              warn "[DEPRECATION] `packages_serializer` is deprecated.  Please use `structures_serializer` instead."
+              options.packages_serializer.call(packages: shipment.packages, options: options)
+            else
+              options.structures_serializer.call(structures: shipment.structures, options: options)
             end
-            group_items(item_hashes)
           end
 
-          # @param pallets [Array<Physical::Pallet>] the pallets to serialize
+          # @param shipment [Physical::Shipment]
           # @return [Array<Hash>] the serialized pallets
-          def serialize_pallets(pallets)
+          def serialize_pallets(shipment)
+            pallets = shipment.pallets.any? ? shipment.pallets : shipment.structures
             pallets.group_by do |pallet|
               pallet.weight.convert_to(:pounds).value.ceil
             end.map do |weight, grouped_pallets|

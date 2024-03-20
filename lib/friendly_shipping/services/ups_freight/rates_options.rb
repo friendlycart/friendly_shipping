@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'friendly_shipping/services/ups_freight/shipment_options'
 require 'friendly_shipping/services/ups_freight/rates_package_options'
 require 'friendly_shipping/services/ups_freight/generate_commodity_information'
 
@@ -7,33 +8,42 @@ module FriendlyShipping
   module Services
     class UpsFreight
       # Options for generating UPS Freight rates for a shipment
-      #
-      # @attribute [Physical::Location] billing_address The billing address
-      # @attribute [String] shipper_number The shipper number associated with the shipper
-      # @attribute [String] customer_context A reference to match this request with an order or shipment
-      # @attribute [FriendlyShipping::ShippingMethod] shipping_method The shipping method to use
-      # @attribute [Callable] commodity_information_generator A callable that takes a shipment
-      #     and an options object to create an Array of commodity fields as per the UPS docs.
-      # @attribute [Symbol] billing One of the keys in the `BILLING_CODES` constant. How the shipment
-      #     would be billed.
-      # @attribute [Date] pickup_date Date of the Pickup
-      # @attribute [String] pickup_comments Additional pickup instructions
-      # @attribute [RatesPackageOptions] package_options Options for each of the packages/pallets in this shipment
-      class RatesOptions < FriendlyShipping::ShipmentOptions
+      class RatesOptions < ShipmentOptions
         BILLING_CODES = {
           prepaid: '10',
           third_party: '30',
           freight_collect: '40'
         }.freeze
 
-        attr_reader :shipper_number,
-                    :billing_address,
-                    :billing_code,
-                    :customer_context,
-                    :shipping_method,
-                    :pickup_request_options,
-                    :commodity_information_generator
+        # @return [String]
+        attr_reader :shipper_number
 
+        # @return [Physical::Location]
+        attr_reader :billing_address
+
+        # @return [Symbol]
+        attr_reader :billing_code
+
+        # @return [String]
+        attr_reader :customer_context
+
+        # @return [FriendlyShipping::ShippingMethod]
+        attr_reader :shipping_method
+
+        # @return [PickupRequestOptions]
+        attr_reader :pickup_request_options
+
+        # @return [Callable]
+        attr_reader :commodity_information_generator
+
+        # @param shipper_number [String] the shipper number associated with the shipper
+        # @param billing_address [Physical::Location] the billing address
+        # @param shipping_method [FriendlyShipping::ShippingMethod] the shipping method to use
+        # @param billing [Symbol] how the shipment is billed (see {BILLING_CODES})
+        # @param customer_context [String] a reference to match this request with an order or shipment
+        # @param pickup_request_options [PickupRequestOptions] options for the pickup request
+        # @param commodity_information_generator [Callable] a callable that takes a shipment
+        #     and an options object to create an Array of commodity fields as per the UPS docs
         def initialize(
           shipper_number:,
           billing_address:,

@@ -7,7 +7,7 @@ module FriendlyShipping
   module Services
     class TForceFreight
       # Options for getting rates for a shipment.
-      class RatesOptions < FriendlyShipping::ShipmentOptions
+      class RatesOptions < ShipmentOptions
         # Maps friendly names to billing codes.
         BILLING_CODES = {
           prepaid: "10",

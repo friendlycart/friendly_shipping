@@ -14,18 +14,30 @@ module FriendlyShipping
               shipment: {
                 service_code: options.service_code,
                 pickup_date: options.pickup_date.strftime('%Y-%m-%d'),
-                packages: options.packages_serializer_class.call(packages: shipment.packages, options: options),
+                packages: serialize_packages(shipment, options),
                 options: serialize_options(options),
                 ship_from: serialize_ship_address(shipment.origin),
                 ship_to: serialize_ship_address(shipment.destination),
                 bill_to: serialize_bill_address(shipment.origin),
                 requested_by: serialize_requested_by(shipment.origin),
               }.compact,
-              shipment_measurements: serialize_shipment_measurements(shipment.packages)
+              shipment_measurements: serialize_shipment_measurements(shipment, options)
             }
           end
 
           private
+
+          # @param shipment [Physical::Shipment]
+          # @param options [QuoteOptions]
+          # @return [Hash]
+          def serialize_packages(shipment, options)
+            if options.packages_serializer_class
+              warn "[DEPRECATION] `packages_serializer_class` is deprecated.  Please use `structures_serializer_class` instead."
+              options.packages_serializer_class.call(packages: shipment.packages, options: options)
+            else
+              options.structures_serializer_class.call(structures: shipment.structures, options: options)
+            end
+          end
 
           # @param options [QuoteOptions]
           # @return [Array<Hash>]
@@ -89,24 +101,37 @@ module FriendlyShipping
             }.compact
           end
 
-          # @param packages [Array<Physical::Package>]
+          # @param shipment [Physical::Shipment]
+          # @param options [QuoteOptions]
           # @return [Hash]
-          def serialize_shipment_measurements(packages)
+          def serialize_shipment_measurements(shipment, options)
+            if options.packages_serializer_class
+              warn "[DEPRECATION] `packages_serializer_class` is deprecated.  Please use `structures_serializer_class` instead."
+              total_length = shipment.packages.sum(&:length)
+              max_width = shipment.packages.map(&:width).max
+              max_height = shipment.packages.map(&:height).max
+              total_weight = shipment.packages.sum(&:weight)
+            else
+              total_length = shipment.structures.sum(&:length)
+              max_width = shipment.structures.map(&:width).max
+              max_height = shipment.structures.map(&:height).max
+              total_weight = shipment.structures.sum(&:weight)
+            end
             {
               total_linear_length: {
-                value: packages.sum(&:length).convert_to(:inches).value.ceil,
+                value: total_length.convert_to(:inches).value.ceil,
                 unit: "inches"
               },
               total_width: {
-                value: packages.map(&:width).max.convert_to(:inches).value.ceil,
+                value: max_width.convert_to(:inches).value.ceil,
                 unit: "inches"
               },
               total_height: {
-                value: packages.map(&:height).max.convert_to(:inches).value.ceil,
+                value: max_height.convert_to(:inches).value.ceil,
                 unit: "inches"
               },
               total_weight: {
-                value: +packages.sum(&:weight).convert_to(:pounds).value.ceil,
+                value: total_weight.convert_to(:pounds).value.ceil,
                 unit: "pounds"
               }
             }

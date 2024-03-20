@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
   subject { described_class.call(packages: packages, options: options) }
 
-  let(:packages) { [pallet_1, pallet_2] }
+  let(:packages) { [package_1, package_2] }
 
   let(:options) do
     FriendlyShipping::Services::ShipEngineLTL::QuoteOptions.new(
@@ -14,7 +14,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
       accessorial_service_codes: %w[LFTP IPU],
       package_options: [
         FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
-          package_id: "pallet 1",
+          package_id: "package 1",
           item_options: [
             FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
               item_id: "item 1",
@@ -25,7 +25,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
           ]
         ),
         FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
-          package_id: "pallet 2",
+          package_id: "package 2",
           item_options: [
             FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
               item_id: "item 2",
@@ -39,26 +39,20 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL::SerializePackages do
     )
   end
 
-  let(:pallet_1) do
+  let(:package_1) do
     FactoryBot.build(
       :physical_package,
-      id: "pallet 1",
-      items: [item_1],
-      container: container
+      id: "package 1",
+      items: [item_1]
     )
   end
 
-  let(:pallet_2) do
+  let(:package_2) do
     FactoryBot.build(
       :physical_package,
-      id: "pallet 2",
-      items: [item_2],
-      container: container
+      id: "package 2",
+      items: [item_2]
     )
-  end
-
-  let(:container) do
-    FactoryBot.build(:physical_pallet)
   end
 
   let(:item_1) do

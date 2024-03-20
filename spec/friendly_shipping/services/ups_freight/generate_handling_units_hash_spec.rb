@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# TODO write specs for structures
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateHandlingUnitsHash do
   subject { described_class.call(shipment: shipment, options: options) }
 

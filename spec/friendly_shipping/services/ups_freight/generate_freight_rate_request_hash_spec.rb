@@ -8,7 +8,7 @@ require 'friendly_shipping/services/ups_freight/pickup_request_options'
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateRequestHash do
   subject(:full_request) { JSON.parse(described_class.call(shipment: shipment, options: options).to_json) }
 
-  let(:shipment) { Physical::Shipment.new(packages: packages, origin: origin, destination: destination) }
+  let(:shipment) { Physical::Shipment.new(structures: structures, origin: origin, destination: destination) }
 
   let(:origin) do
     Physical::Location.new(
@@ -32,20 +32,24 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     )
   end
 
-  let(:packages) { [package_one] }
+  let(:structures) { [pallet_1] }
 
-  let(:package_one) do
-    Physical::Package.new(
-      id: 'my_package_1',
-      items: [item_one]
+  let(:pallet_1) do
+    Physical::Structure.new(
+      id: 'pallet 1',
+      packages: [package_1]
     )
   end
 
-  let(:item_one) do
-    Physical::Item.new(
-      id: 'item_one',
-      weight: Measured::Weight(500, :lbs),
-      description: 'Can of Socks'
+  let(:package_1) do
+    Physical::Package.new(
+      id: 'package 1',
+      description: 'Can of Socks',
+      items: [
+        Physical::Item.new(
+          weight: Measured::Weight(500, :lbs)
+        )
+      ]
     )
   end
 
@@ -55,7 +59,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
       shipper_number: 'xxx1234',
       billing_address: billing_location,
       customer_context: customer_context,
-      package_options: package_options
+      structure_options: structure_options
     )
   end
 
@@ -74,20 +78,20 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
     )
   end
 
-  let(:package_options) do
+  let(:structure_options) do
     [
-      FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
-        package_id: package_one.id,
+      FriendlyShipping::Services::UpsFreight::RatesStructureOptions.new(
+        structure_id: pallet_1.id,
         handling_unit: handling_unit,
-        item_options: item_one_options
+        package_options: package_1_options
       )
     ]
   end
 
-  let(:item_one_options) do
+  let(:package_1_options) do
     [
-      FriendlyShipping::Services::UpsFreight::RatesItemOptions.new(
-        item_id: 'item_one',
+      FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
+        package_id: 'package 1',
         packaging: commodity_packaging,
         freight_class: '92.5',
         nmfc_code: '16030 sub 1'
@@ -285,55 +289,63 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
       end
 
       context "two packages" do
-        let(:packages) { [package_one, package_two] }
+        let(:structures) { [pallet_1, pallet_2] }
 
-        let(:package_one) do
+        let(:pallet_1) do
+          Physical::Structure.new(
+            id: 'pallet 1',
+            packages: [package_1]
+          )
+        end
+
+        let(:pallet_2) do
+          Physical::Structure.new(
+            id: 'pallet 2',
+            packages: [package_2]
+          )
+        end
+
+        let(:package_1) do
           Physical::Package.new(
-            id: 'my_package_1',
-            items: [item_one]
+            id: 'package 1',
+            items: [
+              Physical::Item.new(
+                weight: Measured::Weight(500, :lbs)
+              )
+            ]
           )
         end
 
-        let(:package_two) do
+        let(:package_2) do
           Physical::Package.new(
-            id: 'my_package_2',
-            items: [item_two]
+            id: 'package 2',
+            items: [
+              Physical::Item.new(
+                weight: Measured::Weight(500, :lbs)
+              )
+            ]
           )
         end
 
-        let(:item_one) do
-          Physical::Item.new(
-            id: 'item_one',
-            weight: Measured::Weight(500, :lbs)
-          )
-        end
-
-        let(:item_two) do
-          Physical::Item.new(
-            id: 'item_two',
-            weight: Measured::Weight(500, :lbs)
-          )
-        end
-
-        let(:package_options) do
+        let(:structure_options) do
           [
-            FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
-              package_id: package_one.id,
+            FriendlyShipping::Services::UpsFreight::RatesStructureOptions.new(
+              structure_id: pallet_1.id,
               handling_unit: :pallet,
-              item_options: item_one_options
+              package_options: package_1_options
             ),
-            FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
-              package_id: package_two.id,
+            FriendlyShipping::Services::UpsFreight::RatesStructureOptions.new(
+              structure_id: pallet_2.id,
               handling_unit: :pallet,
-              item_options: item_two_options
+              package_options: package_2_options
             )
           ]
         end
 
-        let(:item_one_options) do
+        let(:package_1_options) do
           [
-            FriendlyShipping::Services::UpsFreight::RatesItemOptions.new(
-              item_id: 'item_one',
+            FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
+              package_id: 'package 1',
               packaging: :carton,
               freight_class: '92.5',
               nmfc_code: '16030 sub 1'
@@ -341,10 +353,10 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
           ]
         end
 
-        let(:item_two_options) do
+        let(:package_2_options) do
           [
-            FriendlyShipping::Services::UpsFreight::RatesItemOptions.new(
-              item_id: 'item_two',
+            FriendlyShipping::Services::UpsFreight::RatesPackageOptions.new(
+              package_id: 'package 2',
               packaging: :pallet,
               freight_class: '92.5',
               nmfc_code: '16030 sub 1'
@@ -367,12 +379,16 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
       context 'payload' do
         subject(:package_payload) { commodity.first }
 
-        let(:package) do
-          Physical::Package.new(
-            items: [
-              Physical::Item.new(
-                weight: Measured::Weight(500, :lbs),
-                description: 'Can of Socks'
+        let(:pallet) do
+          Physical::Pallet.new(
+            packages: [
+              Physical::Package.new(
+                description: 'Can of Socks',
+                items: [
+                  Physical::Item.new(
+                    weight: Measured::Weight(500, :lbs)
+                  )
+                ]
               )
             ]
           )
@@ -399,7 +415,7 @@ RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateReques
         shipper_number: 'xxx1234',
         billing_address: billing_location,
         customer_context: customer_context,
-        package_options: package_options,
+        structure_options: structure_options,
         pickup_request_options: FriendlyShipping::Services::UpsFreight::PickupRequestOptions.new(
           pickup_time_window: Time.new(2019, 11, 10, 17, 0)..Time.new(2019, 11, 10, 17, 0),
           comments: 'Bring pitch forks, there will be hay',

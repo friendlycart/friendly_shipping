@@ -103,6 +103,56 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
           properties: {
             account_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil)
           }
+        ),
+        structures: [pallet],
+        packages: nil
+      )
+    end
+
+    let(:pallet) do
+      FactoryBot.build(
+        :physical_structure,
+        id: "pallet",
+        packages: [package_1, package_2]
+      )
+    end
+
+    let(:package_1) do
+      FactoryBot.build(
+        :physical_package,
+        id: "package 1",
+        description: "Wicks",
+        items: [
+          Physical::Item.new(
+            weight: Measured::Weight(50, :g)
+          )
+        ],
+        container: Physical::Box.new(
+          dimensions: [
+            Measured::Length(1, :cm),
+            Measured::Length(2, :cm),
+            Measured::Length(3, :cm)
+          ]
+        )
+      )
+    end
+
+    let(:package_2) do
+      FactoryBot.build(
+        :physical_package,
+        id: "package 2",
+        description: "Tumblers",
+        items: [
+          Physical::Item.new(
+            weight: Measured::Weight(50, :g)
+          )
+        ],
+        container: Physical::Box.new(
+          dimensions: [
+            Measured::Length(1, :cm),
+            Measured::Length(2, :cm),
+            Measured::Length(3, :cm)
+          ]
         )
       )
     end
@@ -112,19 +162,20 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
         service_code: 'stnd',
         pickup_date: Time.now,
         accessorial_service_codes: %w[LFTP IPU],
-        package_options: shipment.packages.map do |package|
-          FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
-            package_id: package.id,
-            item_options: package.items.map do |item|
-              FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
-                item_id: item.id,
+        structure_options: shipment.structures.map do |structure|
+          FriendlyShipping::Services::ShipEngineLTL::StructureOptions.new(
+            structure_id: structure.id,
+            package_options: structure.packages.map do |package|
+              FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
+                package_id: package.id,
                 packaging_code: 'pkg',
                 freight_class: '92.5',
                 nmfc_code: '16030 sub 1'
               )
             end
           )
-        end
+        end,
+        packages_serializer_class: nil
       )
     end
 
@@ -148,6 +199,65 @@ RSpec.describe FriendlyShipping::Services::ShipEngineLTL do
       it { is_expected.to be_a Dry::Monads::Failure }
       it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::ApiError }
       it { expect(subject.failure.data.message).to include('Invalid carrier_id. bogus is not a valid carrier_id.') }
+    end
+
+    describe "deprecated packages behavior" do
+      # TODO: Remove when packages_serializer_class is removed
+
+      let(:shipment) do
+        FactoryBot.build(
+          :physical_shipment,
+          origin: FactoryBot.build(
+            :physical_location,
+            properties: {
+              account_number: ENV.fetch('UPS_SHIPPER_NUMBER', nil)
+            }
+          )
+        )
+      end
+
+      let(:options) do
+        FriendlyShipping::Services::ShipEngineLTL::QuoteOptions.new(
+          service_code: 'stnd',
+          pickup_date: Time.now,
+          accessorial_service_codes: %w[LFTP IPU],
+          package_options: shipment.packages.map do |package|
+            FriendlyShipping::Services::ShipEngineLTL::PackageOptions.new(
+              package_id: package.id,
+              item_options: package.items.map do |item|
+                FriendlyShipping::Services::ShipEngineLTL::ItemOptions.new(
+                  item_id: item.id,
+                  packaging_code: 'pkg',
+                  freight_class: '92.5',
+                  nmfc_code: '16030 sub 1'
+                )
+              end
+            )
+          end
+        )
+      end
+
+      context 'with a successful request', vcr: { cassette_name: 'shipengine_ltl/request_quote/success' } do
+        it { is_expected.to be_a Dry::Monads::Success }
+
+        it 'has all the right data' do
+          rates = subject.value!.data
+          expect(rates.length).to eq(1)
+          rate = rates.first
+          expect(rate).to be_a(FriendlyShipping::Rate)
+          expect(rate.total_amount).to eq(Money.new(307, 'USD'))
+          expect(rate.shipping_method.name).to eq('Standard')
+          expect(rate.shipping_method.service_code).to eq('stnd')
+        end
+      end
+
+      context 'with an unsuccessful request', vcr: { cassette_name: 'shipengine_ltl/request_quote/failure' } do
+        let(:carrier_id) { 'bogus' }
+
+        it { is_expected.to be_a Dry::Monads::Failure }
+        it { expect(subject.failure.data).to be_a FriendlyShipping::Services::ShipEngineLTL::ApiError }
+        it { expect(subject.failure.data.message).to include('Invalid carrier_id. bogus is not a valid carrier_id.') }
+      end
     end
   end
 end

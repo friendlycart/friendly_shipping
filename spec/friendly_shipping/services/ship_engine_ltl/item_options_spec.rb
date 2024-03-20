@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ship_engine_ltl/item_options'
 
 RSpec.describe FriendlyShipping::Services::ShipEngineLTL::ItemOptions do
   subject(:options) { described_class.new(item_id: "123") }

@@ -4,12 +4,15 @@ module FriendlyShipping
   module Services
     class ShipEngineLTL
       # Serializes packages for the rate quote API request.
+      # @deprecated Use {SerializeStructures} instead.
       class SerializePackages
         class << self
           # @param packages [Array<Physical::Package>]
           # @param options [QuoteOptions]
           # @return [Array<Hash>]
           def call(packages:, options:)
+            warn "[DEPRECATION] `SerializePackages` is deprecated.  Please use `SerializeStructures` instead."
+
             packages.flat_map do |package|
               package_options = options.options_for_package(package)
               package.items.map do |item|
