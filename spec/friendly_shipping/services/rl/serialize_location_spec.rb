@@ -56,4 +56,16 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeLocation do
       )
     end
   end
+
+  context "when city has period" do
+    let(:location) { FactoryBot.build(:physical_location, city: "  St. Augustine  ") }
+
+    it do
+      is_expected.to match(
+        hash_including(
+          City: "St Augustine"
+        )
+      )
+    end
+  end
 end
