@@ -13,7 +13,7 @@ module FriendlyShipping
               CompanyName: location.company_name.presence || location.name,
               AddressLine1: location.address1,
               AddressLine2: location.address2,
-              City: location.city,
+              City: clean_city(location.city),
               StateOrProvince: location.region.code,
               ZipOrPostalCode: location.zip,
               CountryCode: location.country.alpha_3_code,
@@ -23,6 +23,14 @@ module FriendlyShipping
           end
 
           private
+
+          # R+L does not support periods in city names.
+          #
+          # @param city [String]
+          # @return [String]
+          def clean_city(city)
+            city.delete(".").strip
+          end
 
           # R+L does not support leading country codes in phone numbers.
           #
