@@ -5,7 +5,7 @@ require 'friendly_shipping/services/ups_freight/rates_package_options'
 module FriendlyShipping
   module Services
     class UpsFreight
-      # Options for structures/pallets within a UPS Freight shipment
+      # Options for structures/pallets within a UPS Freight shipment.
       class RatesStructureOptions < FriendlyShipping::StructureOptions
         # Maps friendly names to handling unit types.
         HANDLING_UNIT_TYPES = {

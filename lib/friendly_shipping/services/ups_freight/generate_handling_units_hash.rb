@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates a handling units hash for JSON serialization.
       class GenerateHandlingUnitsHash
         class << self
           # @param shipment [Physical::Shipment]
