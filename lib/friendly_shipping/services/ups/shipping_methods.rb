@@ -4,7 +4,7 @@ module FriendlyShipping
   module Services
     class Ups
       EU_COUNTRIES = %w(
-        AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PO PT RO SE SI SK
+        AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK
       ).map { |country_code| Carmen::Country.coded(country_code) }
 
       class << self
