@@ -17,6 +17,10 @@ module FriendlyShipping
         # @return [Class] the class to use for serializing structures
         attr_reader :structures_serializer_class
 
+        # @return [Class] the class to use for serializing packages
+        # @deprecated Use {#structures_serializer_class} instead.
+        attr_reader :packages_serializer_class
+
         # @param service_code [String] the service code to use when getting rates
         # @param pickup_date [Time] the pickup date
         # @param accessorial_service_codes [Array<String>] the accessorial service codes (if any)
@@ -41,13 +45,6 @@ module FriendlyShipping
           @structures_serializer_class = structures_serializer_class
           @packages_serializer_class = packages_serializer_class
           super(**kwargs)
-        end
-
-        # @return [Class]
-        # @deprecated Use {#structures_serializer_class} instead.
-        def packages_serializer_class
-          warn "[DEPRECATION] `packages_serializer_class` is deprecated.  Please use `structures_serializer_class` instead."
-          @packages_serializer_class
         end
       end
     end

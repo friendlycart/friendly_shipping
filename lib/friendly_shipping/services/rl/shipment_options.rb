@@ -38,11 +38,12 @@ module FriendlyShipping
         attr_reader :structure_options_class
 
         # @return [Array<PackageOptions>]
-        # @deprecated Use {#structure_options} instead.
-        def package_options
-          warn "[DEPRECATION] `package_options` is deprecated.  Please use `structure_options` instead."
-          @package_options
-        end
+        # @deprecated Use {#structures_serializer} instead.
+        attr_reader :package_options
+
+        # @return [Class]
+        # @deprecated Use {#structures_serializer_class} instead.
+        attr_reader :package_options_class
       end
     end
   end

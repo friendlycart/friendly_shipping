@@ -21,6 +21,10 @@ module FriendlyShipping
         # @return [Callable] the serializer for this shipment's structures
         attr_reader :structures_serializer
 
+        # @return [Callable] the serializer for this shipment's packages
+        # @deprecated Use {#structures_serializer} instead.
+        attr_reader :packages_serializer
+
         # @param pickup_date [Time] the pickup date
         # @param declared_value [Numeric] the declared value of this shipment
         # @param additional_service_codes [Array<String>] additional service codes
@@ -62,13 +66,6 @@ module FriendlyShipping
           SortAndSegregate
           OverDimension
         ].freeze
-
-        # @return [Callable]
-        # @deprecated Use {#structures_serializer} instead.
-        def packages_serializer
-          warn "[DEPRECATION] `packages_serializer` is deprecated.  Please use `structures_serializer` instead."
-          @packages_serializer
-        end
 
         private
 
