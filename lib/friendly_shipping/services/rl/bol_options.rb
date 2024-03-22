@@ -33,6 +33,10 @@ module FriendlyShipping
         # @return [Callable] the structures serializer
         attr_reader :structures_serializer
 
+        # @return [Callable]
+        # @deprecated Use {#structures_serializer} instead.
+        attr_reader :packages_serializer
+
         # @param pickup_time_window [Range]
         # @param pickup_instructions [String]
         # @param declared_value [Numeric]
@@ -83,13 +87,6 @@ module FriendlyShipping
           Freezable
           DeliveryAppointment
         ].freeze
-
-        # @return [Callable]
-        # @deprecated Use {#structures_serializer} instead.
-        def packages_serializer
-          warn "[DEPRECATION] `packages_serializer` is deprecated.  Please use `structures_serializer` instead."
-          @packages_serializer
-        end
 
         private
 
