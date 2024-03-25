@@ -1,0 +1,133 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/shipments/v1/transittimes
+    body:
+      encoding: UTF-8
+      string: '{"originCountryCode":"US","originStateProvince":"NC","originCityName":"Raleigh","originPostalCode":"27615","destinationCountryCode":"US","destinationStateProvince":"CA","destinationCityName":"Los
+        Angeles","destinationPostalCode":"90210","residentialIndicator":"01","shipDate":"2024-03-22","shipmentContentsCurrencyCode":"USD","shipmentContentsValue":"0.0","weight":"0.55404","weightUnitOfMeasure":"LBS","billType":"02","numberOfPackages":"2"}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 arm64) ruby/3.2.3p157
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Transid:
+      - 5736119c-c099-4dd4-b5ff-a7e3abdcf76f
+      Transactionsrc:
+      - testing
+      Content-Length:
+      - '442'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 206
+      message: Partial Content
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - 5736119c-c099-4dd4-b5ff-a7e3abdcf76f
+      Apierrorcode:
+      - '1070'
+      Apierrormsg:
+      - "[DestinationCityName] Validation error DestinationCityName"
+      Content-Type:
+      - application/json
+      Errorcode:
+      - '1070'
+      Errordescription:
+      - "[DestinationCityName] Validation error DestinationCityName"
+      X-Request-Id:
+      - 16ef0ede-ce8a-4318-afc8-d65861dc0c53
+      Content-Length:
+      - '8322'
+      Expires:
+      - Fri, 22 Mar 2024 15:11:29 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Fri, 22 Mar 2024 15:11:29 GMT
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - ak_p; desc="1711120289347_1749460614_1497615685_38465_7744_47_43_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=33
+      - origin; dur=344
+      Ak-Grn-1:
+      - 0.86a64668.1711120289.5943cd45
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"validationList":{"invalidFieldList":["DestinationCityName"],"destinationAmbiguous":true,"originAmbiguous":false,"invalidFieldListCodes":["1070"]},"destinationPickList":[{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"TX","city":"LOS ANGELES","postalCode":"78014","postalCodeLow":"78014","postalCodeHigh":"78014"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90230","postalCodeLow":"90230","postalCodeHigh":"90230"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90090","postalCodeLow":"90090","postalCodeHigh":"90090"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90001","postalCodeLow":"90001","postalCodeHigh":"90001"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90002","postalCodeLow":"90002","postalCodeHigh":"90002"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90003","postalCodeLow":"90003","postalCodeHigh":"90003"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90004","postalCodeLow":"90004","postalCodeHigh":"90004"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90005","postalCodeLow":"90005","postalCodeHigh":"90005"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90006","postalCodeLow":"90006","postalCodeHigh":"90006"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90007","postalCodeLow":"90007","postalCodeHigh":"90007"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90008","postalCodeLow":"90008","postalCodeHigh":"90008"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90009","postalCodeLow":"90009","postalCodeHigh":"90009"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90010","postalCodeLow":"90010","postalCodeHigh":"90010"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90011","postalCodeLow":"90011","postalCodeHigh":"90011"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90012","postalCodeLow":"90012","postalCodeHigh":"90012"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90013","postalCodeLow":"90013","postalCodeHigh":"90013"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90014","postalCodeLow":"90014","postalCodeHigh":"90014"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90015","postalCodeLow":"90015","postalCodeHigh":"90015"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90016","postalCodeLow":"90016","postalCodeHigh":"90016"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90017","postalCodeLow":"90017","postalCodeHigh":"90017"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90018","postalCodeLow":"90018","postalCodeHigh":"90018"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90019","postalCodeLow":"90019","postalCodeHigh":"90019"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90020","postalCodeLow":"90020","postalCodeHigh":"90020"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90021","postalCodeLow":"90021","postalCodeHigh":"90021"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90022","postalCodeLow":"90022","postalCodeHigh":"90022"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90023","postalCodeLow":"90023","postalCodeHigh":"90023"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90024","postalCodeLow":"90024","postalCodeHigh":"90024"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90025","postalCodeLow":"90025","postalCodeHigh":"90025"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90026","postalCodeLow":"90026","postalCodeHigh":"90026"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90027","postalCodeLow":"90027","postalCodeHigh":"90027"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90028","postalCodeLow":"90028","postalCodeHigh":"90028"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90029","postalCodeLow":"90029","postalCodeHigh":"90029"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90030","postalCodeLow":"90030","postalCodeHigh":"90030"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90031","postalCodeLow":"90031","postalCodeHigh":"90031"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90032","postalCodeLow":"90032","postalCodeHigh":"90032"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90033","postalCodeLow":"90033","postalCodeHigh":"90033"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90034","postalCodeLow":"90034","postalCodeHigh":"90034"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90035","postalCodeLow":"90035","postalCodeHigh":"90035"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90036","postalCodeLow":"90036","postalCodeHigh":"90036"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90037","postalCodeLow":"90037","postalCodeHigh":"90037"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90038","postalCodeLow":"90038","postalCodeHigh":"90038"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90039","postalCodeLow":"90039","postalCodeHigh":"90039"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90040","postalCodeLow":"90040","postalCodeHigh":"90040"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90041","postalCodeLow":"90041","postalCodeHigh":"90041"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90042","postalCodeLow":"90042","postalCodeHigh":"90042"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90043","postalCodeLow":"90043","postalCodeHigh":"90043"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90044","postalCodeLow":"90044","postalCodeHigh":"90044"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90045","postalCodeLow":"90045","postalCodeHigh":"90045"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90046","postalCodeLow":"90046","postalCodeHigh":"90046"},{"countryName":"UNITED
+        STATES","countryCode":"US","stateProvince":"CA","city":"LOS ANGELES","postalCode":"90047","postalCodeLow":"90047","postalCodeHigh":"90047"}]}'
+  recorded_at: Fri, 22 Mar 2024 15:11:29 GMT
+recorded_with: VCR 6.1.0
