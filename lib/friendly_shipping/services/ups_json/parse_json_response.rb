@@ -11,7 +11,12 @@ module FriendlyShipping
           def call(request:, response:, expected_root_key:)
             response_body = JSON.parse(response.body)
 
-            if response_body.nil? || response_body.keys.first != expected_root_key
+            # UPS may return a 2xx status code on an unsuccessful request and include the error description in
+            # the response headers, which we will consider a failure
+            api_error_message = response.headers.try(:[], :errordescription)
+            if api_error_message.present?
+              wrap_failure(api_error_message, request, response)
+            elsif response_body.nil? || response_body.keys.first != expected_root_key
               wrap_failure('Empty or unexpected root key', request, response)
             else
               Success(response_body)
@@ -21,11 +26,6 @@ module FriendlyShipping
           end
 
           private
-
-          def error_message(response_body)
-            errors = response_body['errors']
-            errors&.join(", ").presence || 'UPS could not process the request.'
-          end
 
           def wrap_failure(failure, request, response)
             Failure(

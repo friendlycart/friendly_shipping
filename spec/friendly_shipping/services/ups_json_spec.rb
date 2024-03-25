@@ -237,6 +237,22 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       expect(subject.failure.to_s).to eq('{"code"=>"10004", "message"=>"The service is temporarily unavailable"}')
     end
 
+    context "fails with a helpful error" do
+      let(:destination) do
+        FactoryBot.build(
+          :physical_location,
+          address1: '701 Stone Canyon Rd',
+          city: 'Los Angeles',
+          region: 'CA',
+          zip: '90210'
+        )
+      end
+
+      it "when the city and zip mismatch", vcr: { cassette_name: 'ups_json/timings/city_zip_mismatch' } do
+        expect(subject.failure.to_s).to match(/DestinationCityName/)
+      end
+    end
+
     describe 'contents' do
       subject { timings.value!.data }
 
