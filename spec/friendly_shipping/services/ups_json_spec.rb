@@ -341,7 +341,8 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           shipping_method: shipping_method,
           shipper_number: shipper_number,
           negotiated_rates: true,
-          return_service: :ups_print_return_label
+          return_service: :ups_print_return_label,
+          validate_address: false
         )
       end
 
