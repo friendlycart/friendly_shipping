@@ -150,6 +150,8 @@ module FriendlyShipping
       #   `FriendlyShipping::ApiResult` object.
       def labels(shipment, options:, debug: false)
         url = "#{base_url}/api/shipments/v#{options.sub_version || '2205'}/ship"
+        # the RequestOption field in the payload is documented as doing city validation but it does not
+        url += "?additionaladdressvalidation=city" if options.validate_address
         headers = required_headers(access_token)
         body = GenerateLabelsPayload.call(shipment: shipment, options: options).to_json
         request = FriendlyShipping::Request.new(url: url, http_method: "POST", headers: headers, body: body, debug: debug)

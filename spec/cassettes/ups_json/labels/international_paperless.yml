@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://wwwcie.ups.com/api/shipments/v2205/ship
+    uri: https://wwwcie.ups.com/api/shipments/v2205/ship?additionaladdressvalidation=city
     body:
       encoding: UTF-8
       string: '{"ShipmentRequest":{"Request":{"RequestOption":"validate","SubVersion":"2205"},"Shipment":{"Description":"Earrings,
