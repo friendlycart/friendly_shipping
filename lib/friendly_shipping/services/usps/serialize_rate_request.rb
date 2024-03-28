@@ -23,7 +23,7 @@ module FriendlyShipping
                   package_options = options.options_for_package(package)
                   xml.Package('ID' => index) do
                     xml.Service(package_options.service_code)
-                    if package_options.first_class_mail_type
+                    if package_options.first_class_mail_type && package_options.first_class_mail_type_code
                       xml.FirstClassMailType(package_options.first_class_mail_type_code)
                     end
                     xml.ZipOrigination(shipment.origin.zip)

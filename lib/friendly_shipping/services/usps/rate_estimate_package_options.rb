@@ -42,8 +42,13 @@ module FriendlyShipping
           CONTAINERS.fetch(box_name)
         end
 
+        # @return [String, nil]
         def first_class_mail_type_code
-          FIRST_CLASS_MAIL_TYPES[first_class_mail_type]
+          if %i[parcel package_service package_service_retail].include?(first_class_mail_type)
+            warn "[DEPRECATION] First Class `:#{first_class_mail_type}` has been replaced by Ground Advantage."
+          else
+            FIRST_CLASS_MAIL_TYPES[first_class_mail_type]
+          end
         end
 
         def service_code
