@@ -23,10 +23,11 @@ module FriendlyShipping
       FIRST_CLASS_MAIL_TYPES = {
         letter: 'LETTER',
         flat: 'FLAT',
-        parcel: 'PARCEL',
+        parcel: 'PARCEL', # @deprecated
         post_card: 'POSTCARD',
-        package_service: 'PACKAGE SERVICE',
-        package_service_retail: 'PACKAGE SERVICE RETAIL'
+        large_post_card: 'LARGE POSTCARD',
+        package_service: 'PACKAGE SERVICE', # @deprecated
+        package_service_retail: 'PACKAGE SERVICE RETAIL' # @deprecated
       }.freeze
 
       CLASS_IDS = {

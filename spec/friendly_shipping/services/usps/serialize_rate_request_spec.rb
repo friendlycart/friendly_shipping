@@ -126,6 +126,19 @@ RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
     end
   end
 
+  context 'with deprecated first class mail type' do
+    let(:package_options) do
+      FriendlyShipping::Services::Usps::RateEstimatePackageOptions.new(
+        package_id: package.id,
+        first_class_mail_type: :parcel
+      )
+    end
+
+    it 'does not include first class mail type' do
+      expect(node.at_xpath('FirstClassMailType')).to be_nil
+    end
+  end
+
   context 'with large package' do
     # Package is considered large if any dimension exceeds 12 in
     let(:dimensions) { [35, 21.321539, 24].map { |e| Measured::Length(e, :cm) } }
