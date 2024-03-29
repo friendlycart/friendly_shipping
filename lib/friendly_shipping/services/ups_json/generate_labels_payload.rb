@@ -179,7 +179,8 @@ module FriendlyShipping
                 delivery_confirmation_code: delivery_confirmation_code,
                 shipper_release: package_options.shipper_release,
                 declared_value: package_options.declared_value,
-                package_flavor: 'labels'
+                package_flavor: 'labels',
+                reference_numbers: package_options.reference_numbers
               )
             end
           end
