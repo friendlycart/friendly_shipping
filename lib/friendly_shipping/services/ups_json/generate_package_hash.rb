@@ -10,7 +10,8 @@ module FriendlyShipping
                    shipper_release: false,
                    transmit_dimensions: true,
                    declared_value: false,
-                   package_flavor: nil)
+                   package_flavor: nil,
+                   reference_numbers: nil)
             # UPS consistency across apis is a bit of a mess
             packaging_type_key = package_flavor == "rates" ? "PackagingType" : "Packaging"
 
@@ -54,6 +55,15 @@ module FriendlyShipping
                 CurrencyCode: total_value.currency.iso_code,
                 MonetaryValue: total_value.to_s
               }
+            end
+
+            if reference_numbers.present?
+              package_hash[:ReferenceNumber] = reference_numbers.map do |code, value|
+                {
+                  Code: code.to_s,
+                  Value: value.to_s
+                }
+              end
             end
 
             package_hash[:PackageServiceOptions].compact_blank!
