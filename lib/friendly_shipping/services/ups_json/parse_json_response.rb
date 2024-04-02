@@ -9,11 +9,11 @@ module FriendlyShipping
 
         class << self
           def call(request:, response:, expected_root_key:)
+            api_error_message = response.headers.try(:[], :errordescription)
             response_body = JSON.parse(response.body)
 
             # UPS may return a 2xx status code on an unsuccessful request and include the error description in
             # the response headers, which we will consider a failure
-            api_error_message = response.headers.try(:[], :errordescription)
             if api_error_message.present?
               wrap_failure(api_error_message, request, response)
             elsif response_body.nil? || response_body.keys.first != expected_root_key
@@ -22,7 +22,8 @@ module FriendlyShipping
               Success(response_body)
             end
           rescue JSON::ParserError => e
-            wrap_failure(e, request, response)
+            # when the response is not valid JSON(?!), the error description in the header is more descriptive
+            wrap_failure(api_error_message || e, request, response)
           end
 
           private
