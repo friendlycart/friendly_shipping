@@ -1,0 +1,19 @@
+{
+  "totalBasePrice": 26.55,
+  "rates": [
+    {
+      "SKU": "DUXR0XXXXR05170",
+      "description": "USPS Ground Advantage Machinable Dimensional Rectangular",
+      "priceType": "RETAIL",
+      "price": 26.55,
+      "weight": 16.45,
+      "dimWeight": 0,
+      "fees": [],
+      "startDate": "2024-01-21",
+      "endDate": "",
+      "warnings": [],
+      "mailClass": "USPS_GROUND_ADVANTAGE",
+      "zone": "05"
+    }
+  ]
+}

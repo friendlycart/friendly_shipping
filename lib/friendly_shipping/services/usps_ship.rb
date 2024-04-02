@@ -6,6 +6,12 @@ require 'friendly_shipping/services/usps_ship/access_token'
 require 'friendly_shipping/services/usps_ship/api_error'
 require 'friendly_shipping/services/usps_ship/shipping_methods'
 
+require 'friendly_shipping/services/usps_ship/rate_estimate_options'
+
+require 'friendly_shipping/services/usps_ship/serialize_rate_estimates_request'
+
+require 'friendly_shipping/services/usps_ship/parse_rate_estimates_response'
+
 module FriendlyShipping
   module Services
     class USPSShip
@@ -33,7 +39,8 @@ module FriendlyShipping
 
       # The USPS Ship API endpoints
       RESOURCES = {
-        token: 'oauth2/v3/token'
+        token: 'oauth2/v3/token',
+        rates: 'prices/v3/base-rates/search'
       }.freeze
 
       # @param access_token [AccessToken] the access token
@@ -89,6 +96,42 @@ module FriendlyShipping
             original_response: response
           )
         end
+      end
+
+      # Get rate estimates.
+      # @see https://developer.usps.com/api/73#tag/Resources/operation/post-base-rates-search API documentation
+      #
+      # @param shipment [Physical::Shipment] the shipment for which we want to get rates
+      # @param options [RateEstimateOptions] options for obtaining rates for this shipment
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<Array<Rate>>>] the {Rate}s wrapped in an {ApiResult} object
+      def rate_estimates(shipment, options:, debug: false)
+        rate_request = SerializeRateEstimatesRequest.call(shipment: shipment, options: options)
+        request = build_request(api: :rates, payload: rate_request, debug: debug)
+
+        client.post(request).bind do |response|
+          ParseRateEstimatesResponse.call(response: response, request: request)
+        end
+      end
+
+      private
+
+      # @param api [Symbol]
+      # @param payload [Hash]
+      # @param debug [Boolean]
+      # @return [Request]
+      def build_request(api:, payload:, debug:)
+        FriendlyShipping::Request.new(
+          url: "#{BASE_URL}/#{RESOURCES[api]}",
+          http_method: "POST",
+          body: payload.to_json,
+          debug: debug,
+          headers: {
+            Content_Type: "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer #{access_token.raw_token}"
+          }
+        )
       end
     end
   end

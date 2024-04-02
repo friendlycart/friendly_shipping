@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.usps.com/prices/v3/base-rates/search
+    body:
+      encoding: UTF-8
+      string: '{"originZIPCode":"23224","destinationZIPCode":null,"weight":16.45,"length":6.91,"width":5.19,"height":4.72,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-03"}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.2.3p157
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Length:
+      - '284'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.usps.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Apr 2024 18:06:26 GMT
+      Server:
+      - ECAcc (chd/07A2)
+      Set-Cookie:
+      - TLTSID=d45fdca3b04e165b930700e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Config-Ver:
+      - '3.9'
+      Content-Length:
+      - '473'
+    body:
+      encoding: UTF-8
+      string: "\n            {\n                \"apiVersion\": \"/prices/v3\",\n
+        \               \"error\": {\n                    \"code\": \"400\",\n                    \"message\":
+        \"OASValidation OpenAPI-Spec-Validation-Domestic-Prices with resource oas://domestic-prices-v3.yaml:
+        failed with reason: [ERROR - [Path '/destinationZIPCode'] Instance type (null)
+        does not match any allowed primitive type (allowed: [string]): []]\",\n                    \"errors\":
+        []\n                }\n            }\n        "
+  recorded_at: Wed, 03 Apr 2024 18:06:26 GMT
+recorded_with: VCR 6.1.0
