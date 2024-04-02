@@ -185,4 +185,82 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
       it { expect(rate_estimates.failure.to_s).to eq("Missing or malformed access token.") }
     end
   end
+
+  describe "#timings" do
+    subject(:timings) { service.timings(shipment, options: options) }
+
+    let(:shipment) { FactoryBot.build(:physical_shipment, packages: [], origin: origin, destination: destination) }
+    let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
+    let(:destination) { FactoryBot.build(:physical_location, region: "FL", zip: '32821') }
+
+    let(:options) do
+      FriendlyShipping::Services::USPSShip::TimingOptions.new(
+        shipping_method: shipping_method,
+        mailing_date: Date.parse("2024-04-03")
+      )
+    end
+
+    context "with a valid request", vcr: { cassette_name: "usps_ship/timings/success" } do
+      it { is_expected.to be_success }
+
+      it "has all the right data" do
+        result = timings.value!.data
+        expect(result.length).to eq(2)
+        timing = result.first
+        expect(timing).to be_a(FriendlyShipping::Timing)
+        expect(timing.pickup).to eq(Time.parse("2024-04-03 08:00"))
+        expect(timing.delivery).to eq(Time.parse("2024-04-06 18:00"))
+        expect(timing.guaranteed).to be(false)
+        expect(timing.data).to eq(
+          notes: "WEIGHT_LESS_THAN_1_POUND",
+          service_standard: "3",
+          service_standard_message: "3 Days"
+        )
+      end
+    end
+
+    context "with an invalid destination zip code", vcr: { cassette_name: "usps_ship/timings/invalid_dest_zip" } do
+      let(:destination) { FactoryBot.build(:physical_location, zip: "00000") }
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(timings.failure.to_s).to eq("No timings were returned. Is the destination zip correct?")
+      end
+    end
+
+    context "with a missing destination zip code", vcr: { cassette_name: "usps_ship/timings/missing_dest_zip" } do
+      let(:destination) do
+        Physical::Location.new(
+          company_name: "Consignee Test 1",
+          city: "Allanton",
+          region: "MO",
+          country: "US"
+        )
+      end
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(timings.failure.to_s).to include(
+          "OASValidation OpenAPI-Spec-Validation-Service-Standards with resource oas://service-standards-3.0.0_swagger_resolved_non-flat.yaml: " \
+          "failed with reason: [ERROR - Parameter 'destinationZIPCode' is required but " \
+          "is missing.: []]"
+        )
+      end
+    end
+
+    context "with an invalid access token", vcr: { cassette_name: "usps_ship/timings/invalid_access_token" } do
+      let(:access_token) do
+        FriendlyShipping::Services::USPSShip::AccessToken.new(
+          token_type: "Bearer",
+          expires_in: 3599,
+          raw_token: "WRONG_TOKEN"
+        )
+      end
+
+      it { is_expected.to be_failure }
+      it { expect(timings.failure.to_s).to eq("Missing or malformed access token.") }
+    end
+  end
 end

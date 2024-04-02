@@ -7,10 +7,12 @@ require 'friendly_shipping/services/usps_ship/api_error'
 require 'friendly_shipping/services/usps_ship/shipping_methods'
 
 require 'friendly_shipping/services/usps_ship/rate_estimate_options'
+require 'friendly_shipping/services/usps_ship/timing_options'
 
 require 'friendly_shipping/services/usps_ship/serialize_rate_estimates_request'
 
 require 'friendly_shipping/services/usps_ship/parse_rate_estimates_response'
+require 'friendly_shipping/services/usps_ship/parse_timings_response'
 
 module FriendlyShipping
   module Services
@@ -40,7 +42,8 @@ module FriendlyShipping
       # The USPS Ship API endpoints
       RESOURCES = {
         token: 'oauth2/v3/token',
-        rates: 'prices/v3/base-rates/search'
+        rates: 'prices/v3/base-rates/search',
+        timings: 'service-standards/v3/estimates'
       }.freeze
 
       # @param access_token [AccessToken] the access token
@@ -111,6 +114,32 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseRateEstimatesResponse.call(response: response, request: request)
+        end
+      end
+
+      # Get timing estimates.
+      # @see https://developer.usps.com/api/85#tag/Resources/operation/get-estimates API documentation
+      #
+      # @param shipment [Physical::Shipment] the shipment for which we want to get timings
+      # @param options [TimingOptions] options for the timing estimate call
+      # @return [Result<ApiResult<Array<Timing>>>] the {Timing}s wrapped in an {ApiResult} object
+      def timings(shipment, options:, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: "#{BASE_URL}/#{RESOURCES[:timings]}?" \
+               "originZIPCode=#{shipment.origin.zip}&" \
+               "destinationZIPCode=#{shipment.destination.zip}&" \
+               "mailClass=#{options.shipping_method.service_code}&" \
+               "acceptanceDate=#{options.mailing_date.strftime('%Y-%m-%d')}",
+          http_method: "GET",
+          debug: debug,
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer #{access_token.raw_token}"
+          }
+        )
+
+        client.get(request).bind do |response|
+          ParseTimingsResponse.call(response: response, request: request)
         end
       end
 

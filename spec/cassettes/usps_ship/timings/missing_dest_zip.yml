@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-03&destinationZIPCode=&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.2.3p157
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.usps.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Apr 2024 18:06:26 GMT
+      Server:
+      - ECAcc (chd/0712)
+      Set-Cookie:
+      - TLTSID=d5a3b544b04e165b980b00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Config-Ver:
+      - '3.9'
+      Content-Length:
+      - '465'
+    body:
+      encoding: UTF-8
+      string: "\n            {\n                \"apiVersion\": \"/service-standards/v3/\",\n
+        \               \"error\": {\n                    \"code\": \"400\",\n                    \"message\":
+        \"OASValidation OpenAPI-Spec-Validation-Service-Standards with resource oas://service-standards-3.0.0_swagger_resolved_non-flat.yaml:
+        failed with reason: [ERROR - Parameter 'destinationZIPCode' is required but
+        is missing.: []]\",\n                    \"errors\": []\n                }\n
+        \           }\n        "
+  recorded_at: Wed, 03 Apr 2024 18:06:26 GMT
+recorded_with: VCR 6.1.0

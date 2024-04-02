@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-03&destinationZIPCode=32821&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.2.3p157
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.usps.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 03 Apr 2024 18:06:26 GMT
+      Server:
+      - ECAcc (chd/0787)
+      Set-Cookie:
+      - TLTSID=d4a04d70b04e165b960600e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Config-Ver:
+      - '3.9'
+      Content-Length:
+      - '416'
+    body:
+      encoding: UTF-8
+      string: "\n            {\n                \"apiVersion\": \"/service-standards/v3/\",\n
+        \               \"error\": {\n                    \"code\": \"401\",\n                    \"message\":
+        \"Missing or malformed access token.\",\n                    \"errors\": [{\"title\":\"invalid_token\",\"detail\":\"The
+        access token presented with the request is missing or malformed (not a JWT).\",\"source\":\"Access
+        Token\"}]\n                }\n            }\n        "
+  recorded_at: Wed, 03 Apr 2024 18:06:26 GMT
+recorded_with: VCR 6.1.0
