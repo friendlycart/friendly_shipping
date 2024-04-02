@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/shipments/v2205/ship?additionaladdressvalidation=city
+    body:
+      encoding: UTF-8
+      string: '{"ShipmentRequest":{"Request":{"RequestOption":"validate","SubVersion":"2205","TransactionReference":{"CustomerContext":"request-id-12345"}},"Shipment":{"Description":"","Service":{"Code":"03"},"Shipper":{"AttentionName":"John
+        Doe","Name":"Company","ShipperNumber":"%UPS_SHIPPER_NUMBER%","Phone":{"Number":"555-555-0199"},"Address":{"AddressLine":["10
+        Lovely Street"],"City":"Raleigh","PostalCode":"27615","StateProvinceCode":"NC","CountryCode":"US"}},"ShipTo":{"AttentionName":"Jane
+        Doe","Name":"Company","Phone":{"Number":"555-555-0199"},"Address":{"AddressLine":["2838
+        Wake Forest Rd","\bApartment 7"],"City":"Raleigh","PostalCode":"27609","StateProvinceCode":"NC","CountryCode":"US"}},"ShipmentDate":"20240401","PaymentInformation":{"ShipmentCharge":[{"Type":"01","BillShipper":{"AccountNumber":"%UPS_SHIPPER_NUMBER%"}}]},"ShipmentRatingOptions":{"NegotiatedRatesIndicator":"X"},"ShipmentServiceOptions":{"UPScarbonneutralIndicator":"X","LabelDelivery":{"LabelLinksIndicator":"X"}},"Package":[{"Packaging":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}},{"Packaging":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.874","Width":"5.906","Height":"11.811"}}]},"LabelSpecification":{"LabelImageFormat":{"Code":"ZPL"},"LabelStockSize":{"Width":"4","Height":"6"}}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 arm64) ruby/3.2.3p157
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1461'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - iewssoat2416CTHJYk4f8N
+      Apierrorcode:
+      - '1'
+      Apierrormsg:
+      - The request is not valid. Review for errors before re-submitting.
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '0'
+      Errorcode:
+      - '1'
+      Errordescription:
+      - The request is not valid. Review for errors before re-submitting.
+      X-Request-Id:
+      - 2899f52c-565e-45c0-ae84-51745339094a
+      Expires:
+      - Mon, 01 Apr 2024 17:28:15 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Mon, 01 Apr 2024 17:28:15 GMT
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - ak_p; desc="1711992495131_3088866573_19165504_26455_6401_104_97_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=34
+      - origin; dur=231
+      Ak-Grn-1:
+      - 0.0d5d1cb8.1711992495.1247140
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Mon, 01 Apr 2024 17:28:15 GMT
+recorded_with: VCR 6.1.0
