@@ -509,6 +509,25 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(subject.failure.to_s).to eq('{"code"=>"120202", "message"=>"Missing or invalid ship to address line 1"}')
       end
     end
+
+    context "special characters in the address" do
+      let(:destination) do
+        FactoryBot.build(
+          :physical_location,
+          address1: '2838 Wake Forest Rd',
+          address2: "\bApartment 7", # note the backspace character
+          address_type: 'commercial',
+          city: 'Raleigh',
+          region: 'NC',
+          zip: '27609'
+        )
+      end
+
+      it "returns the error description when UPS returns invalid json", vcr: { cassette_name: "ups_json/labels/malformed" } do
+        expect(subject).to be_failure
+        expect(subject.failure.to_s).to eq("The request is not valid. Review for errors before re-submitting.")
+      end
+    end
   end
 
   describe '#void' do
