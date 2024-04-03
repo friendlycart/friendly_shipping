@@ -13,7 +13,7 @@ module FriendlyShipping
                    package_flavor: nil,
                    reference_numbers: nil)
             # UPS consistency across apis is a bit of a mess
-            packaging_type_key = package_flavor == "rates" ? "PackagingType" : "Packaging"
+            packaging_type_key = package_flavor == "rates" ? :PackagingType : :Packaging
 
             package_hash = {
               packaging_type_key => {
@@ -34,9 +34,9 @@ module FriendlyShipping
                 UnitOfMeasurement: {
                   Code: "IN"
                 },
-                Length: package.length.convert_to(:inches).value.to_f.round(3).to_s,
-                Width: package.width.convert_to(:inches).value.to_f.round(3).to_s,
-                Height: package.height.convert_to(:inches).value.to_f.round(3).to_s
+                Length: package.length.convert_to(:inches).value.to_f.round(2).to_s,
+                Width: package.width.convert_to(:inches).value.to_f.round(2).to_s,
+                Height: package.height.convert_to(:inches).value.to_f.round(2).to_s
               }
             end
 
