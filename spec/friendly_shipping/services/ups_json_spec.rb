@@ -28,6 +28,16 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
+  describe "#create_access_token" do
+    subject { described_class.new(access_token: nil).create_access_token(client_id: ENV.fetch('UPS_CLIENT_ID', nil), client_secret: ENV.fetch('UPS_CLIENT_SECRET', nil), merchant_id: ENV.fetch('UPS_MERCHANT_ID', nil)) }
+
+    it "returns a valid access token wrapped in an ApiResult", vcr: { cassette_name: 'ups_json/access_token_success' } do
+      expect(subject).to be_success
+      expect(subject.value!.data).to be_a(described_class::AccessToken)
+      expect(subject.value!.data.raw_token).to eq("XXXXXXXXXXX")
+    end
+  end
+
   describe '#rates' do
     let(:destination) { FactoryBot.build(:physical_location, region: "FL", zip: '32821') }
     let(:origin) { FactoryBot.build(:physical_location, region: "NC", zip: '27703') }
