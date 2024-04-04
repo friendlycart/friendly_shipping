@@ -37,13 +37,16 @@ module FriendlyShipping
             }
 
           if options.customer_context.present?
-            payload[:RateRequest][:Request][:TransactionReference] = { CustomerContext: options.customer_context }
+            payload[:RateRequest][:Request] = { TransactionReference: { CustomerContext: options.customer_context } }
           end
 
           payload[:RateRequest][:Shipment][:Package] = shipment.packages.map do |package|
+            package_options = options.options_for_package(package)
+            transmit_dimensions = package_options.transmit_dimensions || false
             GeneratePackageHash.call(
               package: package,
-              package_flavor: 'rates'
+              package_flavor: 'rates',
+              transmit_dimensions: transmit_dimensions
             )
           end
 
@@ -52,7 +55,7 @@ module FriendlyShipping
               PackageBillType: "03", # Non-document
               Pickup: {
                 Date: options.pickup_date.strftime('%Y%m%d'),
-                Time: options
+                Time: options.pickup_date.strftime('%H%M%S')
               }
             }
           end
