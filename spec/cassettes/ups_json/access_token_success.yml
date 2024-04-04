@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/security/v1/oauth/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 arm64) ruby/3.2.3p157
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Merchant-Id:
+      - Y9319W
+      Content-Length:
+      - '29'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Max-Age:
+      - '600'
+      X-Request-Id:
+      - 5823ea3b-8ddc-4ac7-b879-30a3d90329ca
+      Content-Length:
+      - '1600'
+      Expires:
+      - Thu, 04 Apr 2024 15:24:49 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 04 Apr 2024 15:24:49 GMT
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - ak_p; desc="1712244288823_1751282333_612943532_45333_83059_108_108_-";dur=1
+      - cdn-cache; desc=MISS
+      - edge; dur=85
+      - origin; dur=369
+      Ak-Grn-1:
+      - 0.9d726268.1712244289.2488c6ac
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"token_type":"Bearer","issued_at":"1712244289410","client_id":"%UPS_CLIENT_ID%","access_token":"XXXXXXXXXXX","expires_in":"14399","status":"approved"}'
+  recorded_at: Thu, 04 Apr 2024 15:24:49 GMT
+recorded_with: VCR 6.1.0
