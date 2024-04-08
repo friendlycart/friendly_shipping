@@ -108,11 +108,17 @@
         }
       }
     ],
-    "pickup": {
-      "confirmationNumber": "WBU1234567",
-      "emailSent": "false",
-      "originIsRural": "true",
-      "destinationIsRural": "false"
+    "pickup":{
+      "responseStatus": {
+        "code": "1",
+        "description": "Success"
+      },
+      "transactionReference": {
+        "confirmationNumber": "WBU43159139",
+        "emailSent": "true",
+        "originIsRural": "false",
+        "destinationIsRural": "false"
+      }
     },
     "documents": {
       "image": [

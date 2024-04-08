@@ -18,6 +18,7 @@ module FriendlyShipping
 
             bol_id = json.dig("detail", "bolId")
             pro_number = json.dig("detail", "pro")
+            pickup_confirmation_number = json.dig("detail", "pickup", "transactionReference", "confirmationNumber")
 
             rate_detail = json.dig("detail", "rateDetail")&.first
             if rate_detail
@@ -41,9 +42,9 @@ module FriendlyShipping
             end
 
             origin_service_center = json.dig("detail", "originServiceCenter")
-            email_sent = json.dig("detail", "pickup", "emailSent") == "true"
-            origin_is_rural = json.dig("detail", "pickup", "originIsRural") == "true"
-            destination_is_rural = json.dig("detail", "pickup", "destinationIsRural") == "true"
+            email_sent = json.dig("detail", "pickup", "transactionReference", "emailSent") == "true"
+            origin_is_rural = json.dig("detail", "pickup", "transactionReference", "originIsRural") == "true"
+            destination_is_rural = json.dig("detail", "pickup", "transactionReference", "destinationIsRural") == "true"
 
             documents = json.dig("detail", "documents", "image")&.map do |image_data|
               ParseShipmentDocument.call(image_data: image_data)
@@ -53,6 +54,7 @@ module FriendlyShipping
               ShipmentInformation.new(
                 bol_id: bol_id,
                 pro_number: pro_number,
+                pickup_confirmation_number: pickup_confirmation_number,
                 origin_service_center: origin_service_center,
                 email_sent: email_sent,
                 origin_is_rural: origin_is_rural,

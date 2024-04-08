@@ -7,6 +7,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ShipmentInformation do
     described_class.new(
       pro_number: "1234",
       bol_id: "2345",
+      pickup_confirmation_number: "WBU123",
       documents: docs
     )
   end
@@ -16,6 +17,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ShipmentInformation do
   it "stores passed information" do
     expect(shipment_info.bol_id).to eq("2345")
     expect(shipment_info.pro_number).to eq("1234")
+    expect(shipment_info.pickup_confirmation_number).to eq("WBU123")
     expect(shipment_info.documents).to eq(docs)
   end
 end
