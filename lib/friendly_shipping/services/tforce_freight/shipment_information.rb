@@ -11,6 +11,9 @@ module FriendlyShipping
         # @return [String] the shipment's PRO number
         attr_reader :pro_number
 
+        # @return [String] the shipment's pickup confirmation number
+        attr_reader :pickup_confirmation_number
+
         # @return [String] the origin service center
         attr_reader :origin_service_center
 
@@ -49,6 +52,7 @@ module FriendlyShipping
 
         # @param bol_id [String] the shipment's BOL ID number
         # @param pro_number [String] the shipment's PRO number
+        # @param pickup_confirmation_number [String] the shipment's pickup confirmation number
         # @param origin_service_center [String] the origin service center
         # @param email_sent [Boolean] whether or not the email was sent
         # @param origin_is_rural [Boolean] whether or not the origin is rural
@@ -64,6 +68,7 @@ module FriendlyShipping
         def initialize(
           bol_id:,
           pro_number: nil,
+          pickup_confirmation_number: nil,
           origin_service_center: nil,
           email_sent: nil,
           origin_is_rural: nil,
@@ -79,6 +84,7 @@ module FriendlyShipping
         )
           @bol_id = bol_id
           @pro_number = pro_number
+          @pickup_confirmation_number = pickup_confirmation_number
           @origin_service_center = origin_service_center
           @email_sent = email_sent
           @origin_is_rural = origin_is_rural
