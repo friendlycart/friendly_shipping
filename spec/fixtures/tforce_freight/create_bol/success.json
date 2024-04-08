@@ -115,7 +115,7 @@
       },
       "transactionReference": {
         "confirmationNumber": "WBU43159139",
-        "emailSent": "false",
+        "emailSent": "true",
         "originIsRural": "false",
         "destinationIsRural": "false"
       }

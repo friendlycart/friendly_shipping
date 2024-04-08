@@ -16,7 +16,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ParseCreateBOLResponse
       expect(result.pro_number).to eq("020968290")
       expect(result.pickup_confirmation_number).to eq("WBU43159139")
       expect(result.origin_service_center).to eq("LOS")
-      expect(result.email_sent).to eq(false)
+      expect(result.email_sent).to eq(true)
       expect(result.origin_is_rural).to eq(false)
       expect(result.destination_is_rural).to eq(false)
 

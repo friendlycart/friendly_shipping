@@ -42,9 +42,9 @@ module FriendlyShipping
             end
 
             origin_service_center = json.dig("detail", "originServiceCenter")
-            email_sent = json.dig("detail", "pickup", "emailSent") == "true"
-            origin_is_rural = json.dig("detail", "pickup", "originIsRural") == "true"
-            destination_is_rural = json.dig("detail", "pickup", "destinationIsRural") == "true"
+            email_sent = json.dig("detail", "pickup", "transactionReference", "emailSent") == "true"
+            origin_is_rural = json.dig("detail", "pickup", "transactionReference", "originIsRural") == "true"
+            destination_is_rural = json.dig("detail", "pickup", "transactionReference", "destinationIsRural") == "true"
 
             documents = json.dig("detail", "documents", "image")&.map do |image_data|
               ParseShipmentDocument.call(image_data: image_data)
