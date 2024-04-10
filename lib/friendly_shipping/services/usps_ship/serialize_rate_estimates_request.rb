@@ -24,12 +24,29 @@ module FriendlyShipping
               width: width.convert_to(:in).value.to_f.round(2),
               height: height.convert_to(:in).value.to_f.round(2),
               mailClass: options.shipping_method.service_code,
-              processingCategory: package_options.processing_category,
+              processingCategory: processing_category(package, package_options),
               rateIndicator: package_options.rate_indicator,
               destinationEntryFacilityType: options.destination_entry_facility_type,
               priceType: package_options.price_type,
               mailingDate: options.mailing_date.strftime("%Y-%m-%d")
             }
+          end
+
+          private
+
+          # If the processing category is machinable (or non-machinable), we can programmatically
+          # verify if the package is actually machinable (or non-machinable). If the processing
+          # category was specified incorrectly, we return the correct value instead.
+          #
+          # @param package [Physical::Package]
+          # @param package_options [RateEstimatePackageOptions]
+          # @return [String]
+          def processing_category(package, package_options)
+            if %w[MACHINABLE NON_MACHINABLE].include?(package_options.processing_category)
+              MachinablePackage.new(package).machinable? ? "MACHINABLE" : "NON_MACHINABLE"
+            else
+              package_options.processing_category
+            end
           end
         end
       end

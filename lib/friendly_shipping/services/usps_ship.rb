@@ -11,6 +11,7 @@ require 'friendly_shipping/services/usps_ship/rate_estimate_package_options'
 require 'friendly_shipping/services/usps_ship/timing_options'
 
 require 'friendly_shipping/services/usps_ship/serialize_rate_estimates_request'
+require 'friendly_shipping/services/usps_ship/machinable_package'
 
 require 'friendly_shipping/services/usps_ship/parse_rate_estimates_response'
 require 'friendly_shipping/services/usps_ship/parse_timings_response'

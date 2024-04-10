@@ -62,4 +62,30 @@ RSpec.describe FriendlyShipping::Services::USPSShip::SerializeRateEstimatesReque
       mailingDate: "2024-04-01"
     )
   end
+
+  context "with the wrong processing category" do
+    let(:package_options) do
+      FriendlyShipping::Services::USPSShip::RateEstimatePackageOptions.new(
+        package_id: "package",
+        processing_category: :non_machinable
+      )
+    end
+
+    it "serializes the correct processing category" do
+      expect(call).to match(hash_including(processingCategory: "MACHINABLE"))
+    end
+  end
+
+  context "with a non-correctable processing category" do
+    let(:package_options) do
+      FriendlyShipping::Services::USPSShip::RateEstimatePackageOptions.new(
+        package_id: "package",
+        processing_category: :letters
+      )
+    end
+
+    it "does not change the processing category" do
+      expect(call).to match(hash_including(processingCategory: "LETTERS"))
+    end
+  end
 end
