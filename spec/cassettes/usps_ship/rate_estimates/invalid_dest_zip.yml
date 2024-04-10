@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.usps.com/prices/v3/base-rates/search
     body:
       encoding: UTF-8
-      string: '{"originZIPCode":"23224","destinationZIPCode":"00000","weight":16.45,"length":6.91,"width":5.19,"height":4.72,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-03"}'
+      string: '{"originZIPCode":"23224","destinationZIPCode":"00000","weight":10.52,"length":5.81,"width":3.91,"height":1.87,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"NON_MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-10"}'
     headers:
       Accept:
       - application/json
@@ -16,7 +16,7 @@ http_interactions:
       Authorization:
       - Bearer %ACCESS_TOKEN%
       Content-Length:
-      - '287'
+      - '291'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -29,17 +29,17 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 03 Apr 2024 18:06:25 GMT
+      - Wed, 10 Apr 2024 15:09:41 GMT
       Server:
       - istio-envoy
       Set-Cookie:
-      - TLTSID=d5a3b00eb04e165b980b00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      - TLTSID=ef28ecccb04e165b8b0d00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Config-Ver:
       - '3.9'
       X-Envoy-Upstream-Service-Time:
-      - '14'
+      - '9'
       Content-Length:
       - '289'
     body:
@@ -48,5 +48,5 @@ http_interactions:
         \               \"error\": {\n                    \"code\": \"400\",\n                    \"message\":
         \"Could not find zone from provided ZIPs, date, and mail class\",\n                    \"errors\":
         []\n                }\n            }\n        "
-  recorded_at: Wed, 03 Apr 2024 18:06:25 GMT
+  recorded_at: Wed, 10 Apr 2024 15:09:41 GMT
 recorded_with: VCR 6.1.0

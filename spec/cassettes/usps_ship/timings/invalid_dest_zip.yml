@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-03&destinationZIPCode=00000&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
+    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-10&destinationZIPCode=00000&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
     body:
       encoding: US-ASCII
       string: ''
@@ -39,11 +39,11 @@ http_interactions:
       Cteonnt-Length:
       - '703'
       Date:
-      - Wed, 03 Apr 2024 18:06:26 GMT
+      - Wed, 10 Apr 2024 15:09:42 GMT
       Server:
       - ECAcc (chd/0712)
       Set-Cookie:
-      - TLTSID=d4b91ffcb04e165b990800e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      - TLTSID=d4166d65b04e165b870300e0ed96a2ca; path=/; domain=.USPS.com; Secure;
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Config-Ver:
@@ -52,6 +52,6 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '[{"mailClass":"USPS_GROUND_ADVANTAGE","notes":"WEIGHT_LESS_THAN_1_POUND","destinationType":"STREET","acceptanceDateTime":"2024-04-03T08:00:00","effectiveAcceptanceDate":"2024-04-03","cutOffTime":"1700","serviceStandard":"","serviceStandardMessage":"","acceptanceLocations":{"streetAddress":"","city":"","state":"","ZIPCode":"","ZIPPlus4":""},"delivery":{"guaranteedDelivery":false}},{"mailClass":"USPS_GROUND_ADVANTAGE","notes":"WEIGHT_GREATER_THAN_OR_EQUAL_TO_1_POUND","destinationType":"STREET","acceptanceDateTime":"2024-04-03T08:00:00","effectiveAcceptanceDate":"2024-04-03","cutOffTime":"1700","serviceStandard":"","serviceStandardMessage":"","acceptanceLocations":{"streetAddress":"","city":"","state":"","ZIPCode":"","ZIPPlus4":""},"delivery":{"guaranteedDelivery":false}}]'
-  recorded_at: Wed, 03 Apr 2024 18:06:26 GMT
+      string: '[{"mailClass":"USPS_GROUND_ADVANTAGE","notes":"WEIGHT_LESS_THAN_1_POUND","destinationType":"STREET","acceptanceDateTime":"2024-04-10T08:00:00","effectiveAcceptanceDate":"2024-04-10","cutOffTime":"1700","serviceStandard":"","serviceStandardMessage":"","acceptanceLocations":{"streetAddress":"","city":"","state":"","ZIPCode":"","ZIPPlus4":""},"delivery":{"guaranteedDelivery":false}},{"mailClass":"USPS_GROUND_ADVANTAGE","notes":"WEIGHT_GREATER_THAN_OR_EQUAL_TO_1_POUND","destinationType":"STREET","acceptanceDateTime":"2024-04-10T08:00:00","effectiveAcceptanceDate":"2024-04-10","cutOffTime":"1700","serviceStandard":"","serviceStandardMessage":"","acceptanceLocations":{"streetAddress":"","city":"","state":"","ZIPCode":"","ZIPPlus4":""},"delivery":{"guaranteedDelivery":false}}]'
+  recorded_at: Wed, 10 Apr 2024 15:09:43 GMT
 recorded_with: VCR 6.1.0

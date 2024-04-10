@@ -93,9 +93,9 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
       )
     end
 
-    let(:packages) { [package_one, package_two] }
+    let(:packages) { [package_1, package_2] }
 
-    let(:package_one) do
+    let(:package_1) do
       Physical::Package.new(
         id: "my_package_1",
         weight: Measured::Weight(10.523, :lbs),
@@ -107,7 +107,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
       )
     end
 
-    let(:package_two) do
+    let(:package_2) do
       Physical::Package.new(
         id: "my_package_2",
         weight: Measured::Weight(5.928, :lbs),
@@ -119,10 +119,25 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
       )
     end
 
+    let(:package_1_options) do
+      FriendlyShipping::Services::USPSShip::RateEstimatePackageOptions.new(
+        package_id: "my_package_1",
+        processing_category: :non_machinable
+      )
+    end
+
+    let(:package_2_options) do
+      FriendlyShipping::Services::USPSShip::RateEstimatePackageOptions.new(
+        package_id: "my_package_2",
+        processing_category: :machinable
+      )
+    end
+
     let(:options) do
       FriendlyShipping::Services::USPSShip::RateEstimateOptions.new(
         shipping_method: shipping_method,
-        mailing_date: Date.parse("2024-04-03")
+        mailing_date: Date.parse("2024-04-10"),
+        package_options: [package_1_options, package_2_options]
       )
     end
 
@@ -134,10 +149,25 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
         expect(result.length).to eq(1)
         rate_estimate = result.first
         expect(rate_estimate).to be_a(FriendlyShipping::Rate)
-        expect(rate_estimate.total_amount).to eq(Money.new(2655, "USD"))
+        expect(rate_estimate.total_amount).to eq(Money.new(3570, "USD"))
         expect(rate_estimate.shipping_method.name).to eq("USPS Ground Advantage")
-        expect(rate_estimate.data[:description]).to eq("USPS Ground Advantage Machinable Dimensional Rectangular")
+        expect(rate_estimate.data[:description]).to eq("USPS Ground Advantage Nonmachinable Dimensional Rectangular")
         expect(rate_estimate.data[:zone]).to eq("05")
+      end
+    end
+
+    context "when the second package's request fails", vcr: { cassette_name: "usps_ship/rate_estimates/second_package_fails" } do
+      let(:package_2_options) do
+        FriendlyShipping::Services::USPSShip::RateEstimatePackageOptions.new(
+          package_id: "my_package_2",
+          processing_category: :letters # invalid processing category for this package
+        )
+      end
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(rate_estimates.failure.to_s).to eq("Provided dimensions exceed maximum allowed for First Class Letters.")
       end
     end
 
@@ -196,7 +226,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
     let(:options) do
       FriendlyShipping::Services::USPSShip::TimingOptions.new(
         shipping_method: shipping_method,
-        mailing_date: Date.parse("2024-04-03")
+        mailing_date: Date.parse("2024-04-10")
       )
     end
 
@@ -208,8 +238,8 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
         expect(result.length).to eq(2)
         timing = result.first
         expect(timing).to be_a(FriendlyShipping::Timing)
-        expect(timing.pickup).to eq(Time.parse("2024-04-03 08:00"))
-        expect(timing.delivery).to eq(Time.parse("2024-04-06 18:00"))
+        expect(timing.pickup).to eq(Time.parse("2024-04-10 08:00"))
+        expect(timing.delivery).to eq(Time.parse("2024-04-13 18:00"))
         expect(timing.guaranteed).to be(false)
         expect(timing.data).to eq(
           notes: "WEIGHT_LESS_THAN_1_POUND",

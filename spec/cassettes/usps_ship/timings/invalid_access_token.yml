@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-03&destinationZIPCode=32821&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
+    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-10&destinationZIPCode=32821&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
     body:
       encoding: US-ASCII
       string: ''
@@ -25,11 +25,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 03 Apr 2024 18:06:26 GMT
+      - Wed, 10 Apr 2024 15:09:43 GMT
       Server:
-      - ECAcc (chd/0787)
+      - ECAcc (chd/0712)
       Set-Cookie:
-      - TLTSID=d4a04d70b04e165b960600e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      - TLTSID=eed51123b04e165b800e00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Config-Ver:
@@ -43,5 +43,5 @@ http_interactions:
         \"Missing or malformed access token.\",\n                    \"errors\": [{\"title\":\"invalid_token\",\"detail\":\"The
         access token presented with the request is missing or malformed (not a JWT).\",\"source\":\"Access
         Token\"}]\n                }\n            }\n        "
-  recorded_at: Wed, 03 Apr 2024 18:06:26 GMT
+  recorded_at: Wed, 10 Apr 2024 15:09:43 GMT
 recorded_with: VCR 6.1.0

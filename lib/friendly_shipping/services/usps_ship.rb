@@ -7,6 +7,7 @@ require 'friendly_shipping/services/usps_ship/api_error'
 require 'friendly_shipping/services/usps_ship/shipping_methods'
 
 require 'friendly_shipping/services/usps_ship/rate_estimate_options'
+require 'friendly_shipping/services/usps_ship/rate_estimate_package_options'
 require 'friendly_shipping/services/usps_ship/timing_options'
 
 require 'friendly_shipping/services/usps_ship/serialize_rate_estimates_request'
@@ -18,6 +19,7 @@ module FriendlyShipping
   module Services
     class USPSShip
       include Dry::Monads::Result::Mixin
+      include Dry::Monads::Do.for(:rate_estimates)
 
       # @return [AccessToken] the access token
       attr_reader :access_token
@@ -104,17 +106,36 @@ module FriendlyShipping
       # Get rate estimates.
       # @see https://developer.usps.com/api/73#tag/Resources/operation/post-base-rates-search API documentation
       #
+      # NOTE: Since USPS Ship does not support returning multiple rates at the same time, we have to
+      # make multiple API calls for shipments with more than one package and sum the results.
+      #
       # @param shipment [Physical::Shipment] the shipment for which we want to get rates
       # @param options [RateEstimateOptions] options for obtaining rates for this shipment
       # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult<Array<Rate>>>] the {Rate}s wrapped in an {ApiResult} object
       def rate_estimates(shipment, options:, debug: false)
-        rate_request = SerializeRateEstimatesRequest.call(shipment: shipment, options: options)
-        request = build_request(api: :rates, payload: rate_request, debug: debug)
+        rates = shipment.packages.map do |package|
+          yield begin
+            rate_request = SerializeRateEstimatesRequest.call(shipment: shipment, package: package, options: options)
+            request = build_request(api: :rates, payload: rate_request, debug: debug)
 
-        client.post(request).bind do |response|
-          ParseRateEstimatesResponse.call(response: response, request: request)
-        end
+            client.post(request).bind do |response|
+              ParseRateEstimatesResponse.call(response: response, request: request)
+            end
+          end
+        end.flat_map(&:data)
+
+        Success(
+          ApiResult.new(
+            [
+              FriendlyShipping::Rate.new(
+                amounts: { total: rates.sum(&:total_amount) },
+                shipping_method: rates.first.shipping_method,
+                data: rates.first.data
+              )
+            ]
+          )
+        )
       end
 
       # Get timing estimates.

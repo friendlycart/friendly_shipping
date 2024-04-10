@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-03&destinationZIPCode=&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
+    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-10&destinationZIPCode=&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
     body:
       encoding: US-ASCII
       string: ''
@@ -25,11 +25,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 03 Apr 2024 18:06:26 GMT
+      - Wed, 10 Apr 2024 15:09:43 GMT
       Server:
-      - ECAcc (chd/0712)
+      - ECAcc (chd/0787)
       Set-Cookie:
-      - TLTSID=d5a3b544b04e165b980b00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      - TLTSID=ef2150a6b04e165b950c00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Config-Ver:
@@ -44,5 +44,5 @@ http_interactions:
         failed with reason: [ERROR - Parameter 'destinationZIPCode' is required but
         is missing.: []]\",\n                    \"errors\": []\n                }\n
         \           }\n        "
-  recorded_at: Wed, 03 Apr 2024 18:06:26 GMT
+  recorded_at: Wed, 10 Apr 2024 15:09:43 GMT
 recorded_with: VCR 6.1.0
