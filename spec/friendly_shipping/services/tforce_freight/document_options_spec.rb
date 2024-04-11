@@ -9,6 +9,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::DocumentOptions do
     expect(options.type).to eq(:label)
     expect(options.format).to eq(:pdf)
     expect(options.thermal).to be(false)
+    expect(options.label_type).to eq(:thermal_labels_4x6)
     expect(options.start_position).to eq(1)
     expect(options.number_of_stickers).to eq(1)
   end
@@ -17,5 +18,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::DocumentOptions do
     expect(options.format_code).to eq("01")
     expect(options.document_type_code).to eq("30")
     expect(options.thermal_code).to eq("01")
+    expect(options.label_type_code).to eq("07")
   end
 end

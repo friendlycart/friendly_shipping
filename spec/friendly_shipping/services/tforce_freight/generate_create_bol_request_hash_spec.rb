@@ -357,16 +357,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
               {
                 type: "20",
                 format: "01",
-                label: {
-                  type: "01",
-                  startPosition: 1,
-                  numberOfStickers: 1
-                }
               }, {
                 type: "30",
                 format: "01",
                 label: {
-                  type: "02",
+                  type: "07",
                   startPosition: 1,
                   numberOfStickers: 2
                 }
