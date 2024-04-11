@@ -25,6 +25,18 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ApiError do
       end
     end
 
+    # For some reason, TForce returns BOL creation errors in a different format
+    context "with create BOL error response" do
+      let(:fixture) { "create_bol/failure.json" }
+
+      it do
+        is_expected.to eq(
+          "ERROR: Body of the request does not conform to the definition which is associated with the content " \
+          "type application/json. Required properties are missing from object: name. Line: 1, Position: 441"
+        )
+      end
+    end
+
     context "with timeout error response" do
       let(:error) { RestClient::Exceptions::ReadTimeout.new("Timed out reading data from server") }
       it { is_expected.to eq("Timed out reading data from server") }
