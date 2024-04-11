@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'friendly_shipping/services/tforce_freight'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight do
-  subject(:service) { described_class.new(access_token: access_token, test: true) }
+  subject(:service) { described_class.new(access_token: access_token, test: false) }
 
   let(:access_token) do
     FriendlyShipping::Services::TForceFreight::AccessToken.new(
@@ -197,10 +197,10 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
       it "has all the right data" do
         result = rates.value!.data
-        expect(result.length).to eq(3)
+        expect(result.length).to eq(2)
         rate = result.first
         expect(rate).to be_a(FriendlyShipping::Rate)
-        expect(rate.total_amount).to eq(Money.new(157_356, "USD"))
+        expect(rate.total_amount).to eq(Money.new(88_357, "USD"))
         expect(rate.shipping_method.name).to eq("TForce Freight LTL")
         expect(rate.data[:days_in_transit]).to eq(3)
       end
@@ -219,7 +219,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       it { is_expected.to be_failure }
 
       it "has the correct error message" do
-        expect(rates.failure.to_s).to include("Invalid type. Expected String but got Null.")
+        expect(rates.failure.to_s).to include("Required properties are missing from object: postalCode.")
       end
     end
   end
@@ -293,8 +293,8 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     let(:options) do
       FriendlyShipping::Services::TForceFreight::PickupOptions.new(
-        pickup_time_window: Time.parse("2024-01-22 08:00:00")..Time.parse("2024-01-22 16:00:00"),
-        pickup_at: Time.parse("2024-01-22 12:30:00"),
+        pickup_time_window: Time.parse("2024-04-11 08:00:00")..Time.parse("2024-04-11 16:00:00"),
+        pickup_at: Time.parse("2024-04-11 12:30:00"),
         service_options: %w[INPU LIFO],
         pickup_instructions: "East Dock",
         handling_instructions: "Handle with care",
@@ -340,13 +340,13 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       it "has all the right data" do
         result = create_pickup.value!.data
         expect(result).to eq(
-          confirmation_number: "WBU5337790",
+          confirmation_number: "WBU43190847",
           destination_is_rural: "false",
           email_sent: "false",
           origin_is_rural: "false",
           response_status_code: "1",
           response_status_description: "Success",
-          transaction_id: "7acf9c09-55f0-41a4-9371-9caafd63d618"
+          transaction_id: "463aebe3-ce5c-4e87-acbe-9b42954b3b92"
         )
       end
     end
@@ -357,7 +357,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       it { is_expected.to be_failure }
 
       it "has the correct error message" do
-        expect(create_pickup.failure.to_s).to include("Invalid type. Expected String but got Null.")
+        expect(create_pickup.failure.to_s).to include("Required properties are missing from object: postalCode, country.")
       end
     end
   end
@@ -502,8 +502,8 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       it "has all the right data" do
         result = create_bol.value!.data
         expect(result).to be_a(FriendlyShipping::Services::TForceFreight::ShipmentInformation)
-        expect(result.bol_id).to eq(46_178_022)
-        expect(result.pro_number).to eq("090509075")
+        expect(result.bol_id).to eq(73_194_195)
+        expect(result.pro_number).to eq("905939123")
 
         expect(result.documents).to be_a(Array)
         expect(result.documents.size).to eq(2)
@@ -512,13 +512,13 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
         expect(document.document_type).to eq(:tforce_bol)
         expect(document.document_format).to eq(:pdf)
         expect(document.binary).to start_with("%PDF-")
-        expect(document.status).to eq("NFO")
+        expect(document.status).to eq("OK")
 
         document = result.documents[1]
         expect(document.document_type).to eq(:label)
         expect(document.document_format).to eq(:pdf)
         expect(document.binary).to start_with("%PDF-")
-        expect(document.status).to eq("NFO")
+        expect(document.status).to eq("OK")
       end
     end
 

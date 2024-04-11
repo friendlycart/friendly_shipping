@@ -2,21 +2,21 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.tforcefreight.com/rating/getRate?api-version=cie-v1
+    uri: https://api.tforcefreight.com/rating/getRate?api-version=v1
     body:
       encoding: UTF-8
-      string: '{"requestOptions":{"serviceCode":"308","pickupDate":"2023-12-06","type":"L","densityEligible":false,"gfpOptions":{"accessorialRate":false},"timeInTransit":true,"quoteNumber":false,"customerContext":"order-12345"},"shipFrom":{"address":{"city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"}},"shipTo":{"address":{"city":"Allanton","stateProvinceCode":"MO","postalCode":null,"country":"US"}},"payment":{"payer":{"address":{"city":"Durham","stateProvinceCode":"NC","postalCode":"27703","country":"US"}},"billingCode":"10"},"serviceOptions":{"pickup":["INPU","LIFO"],"delivery":["INDE","LIFD"]},"commodities":[{"class":"92.5","nmfc":{"prime":"16030","sub":"1"},"pieces":1,"weight":{"weight":500.0,"weightUnit":"LBS"},"packagingType":"CTN","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"inches"}},{"class":"92.5","nmfc":{"prime":"16030","sub":"1"},"pieces":1,"weight":{"weight":500.0,"weightUnit":"LBS"},"packagingType":"PLT","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"inches"}}]}'
+      string: '{"requestOptions":{"serviceCode":"308","pickupDate":"2024-04-11","type":"L","densityEligible":false,"gfpOptions":{"accessorialRate":false},"timeInTransit":true,"quoteNumber":false,"customerContext":"order-12345"},"shipFrom":{"address":{"city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"}},"shipTo":{"address":{"city":"Allanton","stateProvinceCode":"MO","country":"US"}},"payment":{"payer":{"address":{"city":"Durham","stateProvinceCode":"NC","postalCode":"27703","country":"US"}},"billingCode":"10"},"serviceOptions":{"pickup":[],"delivery":[]},"commodities":[{"description":"Commodities","class":"92.5","nmfc":{"prime":"16030","sub":"1"},"pieces":1,"weight":{"weight":500.0,"weightUnit":"LBS"},"packagingType":"CTN","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"IN"}},{"description":"Commodities","class":"92.5","nmfc":{"prime":"16030","sub":"1"},"pieces":1,"weight":{"weight":500.0,"weightUnit":"LBS"},"packagingType":"PLT","dangerousGoods":false,"dimensions":{"length":0.0,"width":0.0,"height":0.0,"unit":"IN"}}]}'
     headers:
       Accept:
       - application/json
       User-Agent:
-      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.2.3p157
       Content-Type:
       - application/json
       Authorization:
-      - Bearer secret-token
+      - Bearer %ACCESS_TOKEN%
       Content-Length:
-      - '1077'
+      - '1081'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -27,17 +27,18 @@ http_interactions:
       message: Bad Request
     headers:
       Content-Length:
-      - '217'
+      - '230'
       Content-Type:
       - application/json
       Request-Context:
       - appId=cid-v1:2851e6bf-1dfd-43fd-837a-37e3cd142cdd
       Date:
-      - Wed, 06 Dec 2023 21:25:15 GMT
+      - Thu, 11 Apr 2024 14:08:23 GMT
     body:
       encoding: UTF-8
       string: '{ "statusCode": 400, "message": "Body of the request does not conform
         to the definition which is associated with the content type application/json.
-        Invalid type. Expected String but got Null. Line: 1, Position: 398" }'
-  recorded_at: Wed, 06 Dec 2023 21:25:15 GMT
+        Required properties are missing from object: postalCode. Line: 1, Position:
+        396" }'
+  recorded_at: Thu, 11 Apr 2024 14:08:24 GMT
 recorded_with: VCR 6.1.0

@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.tforcefreight.com/pickup/request?api-version=cie-v1
+    uri: https://api.tforcefreight.com/pickup/request?api-version=v1
     body:
       encoding: UTF-8
-      string: '{"pickup":{"date":"2024-01-22","time":"12:30:00","openTime":"08:00:00","closeTime":"16:00:00"},"requester":{"companyName":"ACME
+      string: '{"pickup":{"date":"2024-04-11","time":"12:30:00","openTime":"08:00:00","closeTime":"16:00:00"},"requester":{"companyName":"ACME
         Inc","contactName":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"}},"origin":{"companyName":"ACME
         Inc","contactName":"John Smith","email":"john@acme.com","phone":{"number":"123-123-1234"},"address":{"address1":"123
         Maple St","address2":"Suite 456","city":"Richmond","stateProvinceCode":"VA","postalCode":"23224","country":"US"}},"destination":{"postalCode":"63025","country":"US"},"services":["INPU","LIFO"],"lineItems":[{"description":"Commodities","weight":500,"weightUnit":"LBS","pieces":1,"packagingType":"CTN","hazardous":false},{"description":"Commodities","weight":500,"weightUnit":"LBS","pieces":1,"packagingType":"PLT","hazardous":false}],"instructions":{"pickup":"East
@@ -14,11 +14,11 @@ http_interactions:
       Accept:
       - application/json
       User-Agent:
-      - rest-client/2.1.0 (darwin22 x86_64) ruby/3.2.2p53
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.2.3p157
       Content-Type:
       - application/json
       Authorization:
-      - Bearer secret_token
+      - Bearer %ACCESS_TOKEN%
       Content-Length:
       - '911'
       Accept-Encoding:
@@ -35,7 +35,7 @@ http_interactions:
       Pragma:
       - no-cache,no-cache
       Content-Length:
-      - '544'
+      - '545'
       Content-Type:
       - application/json
       X-Frame-Options:
@@ -45,11 +45,11 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff,nosniff
       X-Xss-Protection:
-      - 1; mode=block,1; mode=block
+      - 1;mode=block,1;mode=block
       Request-Context:
       - appId=cid-v1:2851e6bf-1dfd-43fd-837a-37e3cd142cdd
       Date:
-      - Fri, 19 Jan 2024 18:44:58 GMT
+      - Thu, 11 Apr 2024 14:12:25 GMT
     body:
       encoding: UTF-8
       string: |2-
@@ -60,12 +60,12 @@ http_interactions:
                                 "description": "Success"
                             },
                             "transactionReference": {
-                                "transactionId": "7acf9c09-55f0-41a4-9371-9caafd63d618",
-                                "confirmationNumber": "WBU5337790",
+                                "transactionId": "463aebe3-ce5c-4e87-acbe-9b42954b3b92",
+                                "confirmationNumber": "WBU43190847",
                                 "emailSent": "false",
                                 "originIsRural": "false",
                                 "destinationIsRural": "false"
                             }
                         }
-  recorded_at: Fri, 19 Jan 2024 18:44:59 GMT
+  recorded_at: Thu, 11 Apr 2024 14:12:25 GMT
 recorded_with: VCR 6.1.0
