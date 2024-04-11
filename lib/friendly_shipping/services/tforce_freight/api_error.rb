@@ -24,6 +24,9 @@ module FriendlyShipping
             status = parsed_json.dig("summary", "responseStatus", "code")
             message = parsed_json.dig("summary", "responseStatus", "message").presence ||
                       parsed_json.dig("summary", "responseStatus", "description")
+          elsif parsed_json['responseStatus'].present?
+            status = parsed_json.dig("responseStatus", "code")
+            message = parsed_json.dig("responseStatus", "description")
           else
             status = parsed_json['statusCode']
             message = parsed_json['message'].presence ||
