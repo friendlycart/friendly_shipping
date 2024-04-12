@@ -18,4 +18,5 @@
 # Gemfile.lock
 Gemfile.lock
 .env
+.env.test.local
 coverage

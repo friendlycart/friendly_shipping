@@ -11,7 +11,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       token_type: "Bearer",
       expires_in: 3599,
       ext_expires_in: 3599,
-      raw_token: "secret_token"
+      raw_token: ENV.fetch('ACCESS_TOKEN', nil)
     )
   end
 
