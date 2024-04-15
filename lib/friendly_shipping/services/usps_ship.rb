@@ -126,11 +126,18 @@ module FriendlyShipping
           end
         end.flat_map(&:data)
 
+        amounts = rates.each_with_object({}) do |rate, result|
+          rate.amounts.each do |name, amount|
+            result[name] ||= 0
+            result[name] += amount
+          end
+        end
+
         Success(
           ApiResult.new(
             [
               FriendlyShipping::Rate.new(
-                amounts: { total: rates.sum(&:total_amount) },
+                amounts: amounts,
                 shipping_method: rates.first.shipping_method,
                 data: rates.first.data
               )

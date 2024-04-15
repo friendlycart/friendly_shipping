@@ -16,9 +16,15 @@ module FriendlyShipping
           def call(request:, response:)
             rates = JSON.parse(response.body)['rates'].map do |rate|
               shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == rate['mailClass'] }
-              total = Money.new(rate['price'] * CURRENCY.subunit_to_unit, CURRENCY)
+              amounts = { price: money(rate['price']) }
+
+              # Add any additional fees to the amounts hash
+              rate['fees'].each_with_object(amounts) do |fee, result|
+                result[fee['name']] = money(fee['price'])
+              end
+
               FriendlyShipping::Rate.new(
-                amounts: { total: total },
+                amounts: amounts,
                 shipping_method: shipping_method,
                 data: {
                   description: rate['description'],
@@ -33,6 +39,12 @@ module FriendlyShipping
           end
 
           private
+
+          # @param value [Numeric]
+          # @return [Money]
+          def money(value)
+            Money.new(value * CURRENCY.subunit_to_unit, CURRENCY)
+          end
 
           # @param rates [Array<Rate>]
           # @param request [Request]

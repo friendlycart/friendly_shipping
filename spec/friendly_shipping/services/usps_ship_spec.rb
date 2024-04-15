@@ -9,7 +9,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
     FriendlyShipping::Services::USPSShip::AccessToken.new(
       token_type: "Bearer",
       expires_in: 3599,
-      raw_token: "secret_token"
+      raw_token: ENV.fetch('ACCESS_TOKEN', nil)
     )
   end
 
@@ -110,11 +110,11 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
     let(:package_2) do
       Physical::Package.new(
         id: "my_package_2",
-        weight: Measured::Weight(5.928, :lbs),
+        weight: Measured::Weight(42.67, :lbs),
         dimensions: [
-          Measured::Length(2.843, :in),
-          Measured::Length(5.193, :in),
-          Measured::Length(6.912, :in)
+          Measured::Length(18.86, :in),
+          Measured::Length(17.72, :in),
+          Measured::Length(13.66, :in)
         ]
       )
     end
@@ -149,7 +149,11 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
         expect(result.length).to eq(1)
         rate_estimate = result.first
         expect(rate_estimate).to be_a(FriendlyShipping::Rate)
-        expect(rate_estimate.total_amount).to eq(Money.new(3570, "USD"))
+        expect(rate_estimate.total_amount).to eq(Money.new(11_585, "USD"))
+        expect(rate_estimate.amounts).to eq(
+          price: Money.new(9785, "USD"),
+          "Nonstandard Volume > 2 cu ft" => Money.new(1800, "USD")
+        )
         expect(rate_estimate.shipping_method.name).to eq("USPS Ground Advantage")
         expect(rate_estimate.data[:description]).to eq("USPS Ground Advantage Nonmachinable Dimensional Rectangular")
         expect(rate_estimate.data[:zone]).to eq("05")

@@ -19,12 +19,15 @@ RSpec.describe FriendlyShipping::Services::USPSShip::ParseRateEstimatesResponse 
       expect(rates).to all(be_a(FriendlyShipping::Rate))
 
       rate = rates.first
-      expect(rate.total_amount).to eq(Money.new(2655, "USD"))
-      expect(rate.amounts).to eq(total: Money.new(2655, "USD"))
+      expect(rate.total_amount).to eq(Money.new(12_625, "USD"))
+      expect(rate.amounts).to eq(
+        :price => Money.new(10_825, "USD"),
+        "Nonstandard Volume > 2 cu ft" => Money.new(1800, "USD")
+      )
       expect(rate.shipping_method.name).to eq("USPS Ground Advantage")
       expect(rate.data).to eq(
-        description: "USPS Ground Advantage Machinable Dimensional Rectangular",
-        zone: "05"
+        description: "USPS Ground Advantage Nonmachinable Dimensional Rectangular",
+        zone: "07"
       )
     end
 

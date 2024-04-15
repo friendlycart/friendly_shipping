@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.usps.com/prices/v3/base-rates/search
     body:
       encoding: UTF-8
-      string: '{"originZIPCode":"23224","destinationZIPCode":"63025","weight":10.52,"length":5.81,"width":3.91,"height":1.87,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"NON_MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-10"}'
+      string: '{"originZIPCode":"23224","destinationZIPCode":"63025","weight":10.52,"length":5.81,"width":3.91,"height":1.87,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"NON_MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-15"}'
     headers:
       Accept:
       - application/json
@@ -39,11 +39,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 10 Apr 2024 15:09:39 GMT
+      - Mon, 15 Apr 2024 12:58:45 GMT
       Server:
-      - ECAcc (chd/07A2)
+      - ECAcc (chd/0735)
       Set-Cookie:
-      - TLTSID=ef28e53cb04e165b8b0d00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      - TLTSID=fe139964b04e165b930700e0ed96a2ca; path=/; domain=.USPS.com; Secure;
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Config-Ver:
@@ -56,13 +56,13 @@ http_interactions:
         [{\"SKU\":\"DUXR0XXXXR05110\",\"description\":\"USPS Ground Advantage Nonmachinable
         Dimensional Rectangular\",\"priceType\":\"RETAIL\",\"price\":20.35,\"weight\":10.52,\"dimWeight\":0,\"fees\":[],\"startDate\":\"2024-01-21\",\"endDate\":\"\",\"warnings\":[],\"mailClass\":\"USPS_GROUND_ADVANTAGE\",\"zone\":\"05\"}]\n
         \           }\n        "
-  recorded_at: Wed, 10 Apr 2024 15:09:39 GMT
+  recorded_at: Mon, 15 Apr 2024 12:58:45 GMT
 - request:
     method: post
     uri: https://api.usps.com/prices/v3/base-rates/search
     body:
       encoding: UTF-8
-      string: '{"originZIPCode":"23224","destinationZIPCode":"63025","weight":5.93,"length":6.91,"width":5.19,"height":2.84,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-10"}'
+      string: '{"originZIPCode":"23224","destinationZIPCode":"63025","weight":42.67,"length":18.86,"width":17.72,"height":13.66,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"NON_MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-15"}'
     headers:
       Accept:
       - application/json
@@ -73,7 +73,7 @@ http_interactions:
       Authorization:
       - Bearer %ACCESS_TOKEN%
       Content-Length:
-      - '286'
+      - '294'
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
@@ -96,22 +96,23 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 10 Apr 2024 15:09:40 GMT
+      - Mon, 15 Apr 2024 12:58:45 GMT
       Server:
-      - ECAcc (chd/0784)
+      - ECAcc (chd/073A)
       Set-Cookie:
-      - TLTSID=eeb38aa2b04e165b8e0a00e0ed96a2ca; path=/; domain=.USPS.com; Secure;
+      - TLTSID=e2836555b04e165b990400e0ed96a2ca; path=/; domain=.USPS.com; Secure;
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Config-Ver:
       - '3.9'
       Content-Length:
-      - '377'
+      - '454'
     body:
       encoding: UTF-8
-      string: "\n            {\n                \"totalBasePrice\": 15.35,\n                \"rates\":
-        [{\"SKU\":\"DUXR0XXXXR05060\",\"description\":\"USPS Ground Advantage Machinable
-        Dimensional Rectangular\",\"priceType\":\"RETAIL\",\"price\":15.35,\"weight\":5.93,\"dimWeight\":0,\"fees\":[],\"startDate\":\"2024-01-21\",\"endDate\":\"\",\"warnings\":[],\"mailClass\":\"USPS_GROUND_ADVANTAGE\",\"zone\":\"05\"}]\n
+      string: "\n            {\n                \"totalBasePrice\": 95.5,\n                \"rates\":
+        [{\"SKU\":\"DUXR0XXXXR05430\",\"description\":\"USPS Ground Advantage Nonmachinable
+        Dimensional Rectangular\",\"priceType\":\"RETAIL\",\"price\":77.5,\"weight\":42.67,\"dimWeight\":29,\"fees\":[{\"name\":\"Nonstandard
+        Volume > 2 cu ft\",\"SKU\":\"D813XUXXXXX0000\",\"price\":18}],\"startDate\":\"2024-01-21\",\"endDate\":\"\",\"warnings\":[],\"mailClass\":\"USPS_GROUND_ADVANTAGE\",\"zone\":\"05\"}]\n
         \           }\n        "
-  recorded_at: Wed, 10 Apr 2024 15:09:40 GMT
+  recorded_at: Mon, 15 Apr 2024 12:58:46 GMT
 recorded_with: VCR 6.1.0
