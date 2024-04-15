@@ -1,0 +1,10 @@
+{
+  "apiVersion": "/prices/v3",
+
+  "error": {
+    "code": "400",
+    "message": "OASValidation OpenAPI-Spec-Validation-Domestic-Prices with resource oas://domestic-prices-v3.yaml: failed with reason: [ERROR - [Path '/destinationZIPCode'] Instance type (null) does not match any allowed primitive type (allowed: [string]): []]",
+    "errors":
+    []
+  }
+}

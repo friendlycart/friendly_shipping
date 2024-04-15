@@ -27,6 +27,7 @@ require "friendly_shipping/services/ups_freight"
 require "friendly_shipping/services/ups_json"
 require "friendly_shipping/services/usps"
 require "friendly_shipping/services/usps_international"
+require "friendly_shipping/services/usps_ship"
 
 module FriendlyShipping
 end

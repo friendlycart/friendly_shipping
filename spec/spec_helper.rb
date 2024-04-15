@@ -16,7 +16,7 @@ require "physical/test_support"
 FactoryBot.definition_file_paths.concat(Physical::TestSupport.factory_paths)
 FactoryBot.reload
 
-Dotenv.load(".env", ".env.test")
+Dotenv.load(".env", ".env.test", ".env.test.local")
 
 Money.locale_backend = nil
 

@@ -1,0 +1,22 @@
+[
+  {
+    "mailClass": "USPS_GROUND_ADVANTAGE",
+    "notes": "WEIGHT_GREATER_THAN_OR_EQUAL_TO_1_POUND",
+    "destinationType": "STREET",
+    "acceptanceDateTime": "2024-04-03T11:31:00",
+    "effectiveAcceptanceDate": "2024-04-03",
+    "cutOffTime": "1700",
+    "serviceStandard": "",
+    "serviceStandardMessage": "",
+    "acceptanceLocations": {
+      "streetAddress": "",
+      "city": "",
+      "state": "",
+      "ZIPCode": "",
+      "ZIPPlus4": ""
+    },
+    "delivery": {
+      "guaranteedDelivery": false
+    }
+  }
+]
