@@ -12,15 +12,17 @@ module FriendlyShipping
           # @param options [BOLOptions] options for the BOL
           # @return [Hash] BOL request hash
           def call(shipment:, options:)
+            origin = shipment.origin
+            destination = shipment.destination
             {
               requestOptions: request_options(options),
-              shipFrom: location(shipment.origin),
-              shipTo: location(shipment.destination),
-              payment: payment(shipment.origin, options),
+              shipFrom: location(origin).merge(isResidential: origin.residential?),
+              shipTo: location(destination).merge(isResidential: destination.residential?),
+              payment: payment(origin, options),
               commodities: options.commodity_information_generator.call(shipment: shipment, options: options),
               instructions: instructions(options),
               serviceOptions: service_options(options),
-              pickupRequest: pickup_request(shipment.origin, options),
+              pickupRequest: pickup_request(origin, options),
               documents: { image: documents(options.document_options) }
             }.compact.
               merge(GenerateHandlingUnitsHash.call(shipment: shipment, options: options)).
@@ -44,19 +46,20 @@ module FriendlyShipping
           # @return [Hash]
           def location(location)
             {
-              name: location.company_name.presence || location.name,
-              contact: location.name,
-              email: location.email,
-              phone: { number: location.phone },
+              name: truncate(location.company_name.presence || location.name),
+              contact: truncate(location.name),
+              email: truncate(location.email, length: 50),
+              phone: {
+                number: truncate(location.phone, length: 15)
+              }.compact,
               address: {
-                addressLine: address_line(location),
+                addressLine: truncate(address_line(location)),
                 city: location.city,
                 stateProvinceCode: location.region&.code,
-                postalCode: location.zip,
+                postalCode: truncate(location.zip, length: 6),
                 country: location.country&.code
-              }.compact,
-              isResidential: location.residential?
-            }.compact
+              }.compact
+            }.compact_blank
           end
 
           # @param location [Physical::Location]
@@ -64,19 +67,7 @@ module FriendlyShipping
           # @return [Hash]
           def payment(location, options)
             {
-              payer: {
-                name: location.company_name.presence || location.name,
-                contact: location.name,
-                email: location.email,
-                phone: { number: location.phone }.compact,
-                address: {
-                  addressLine: address_line(location),
-                  city: location.city,
-                  stateProvinceCode: location.region&.code,
-                  postalCode: location.zip,
-                  country: location.country&.code
-                }.compact
-              }.compact_blank,
+              payer: location(location),
               billingCode: options.billing_code
             }
           end
@@ -136,10 +127,12 @@ module FriendlyShipping
           # @return [Hash]
           def requester(location)
             {
-              companyName: location.company_name.presence || location.name,
-              contactName: location.name,
-              email: location.email,
-              phone: { number: location.phone }.compact
+              companyName: truncate(location.company_name.presence || location.name),
+              contactName: truncate(location.name),
+              email: truncate(location.email, length: 50),
+              phone: {
+                number: truncate(location.phone, length: 15)
+              }.compact
             }.compact
           end
 
@@ -147,6 +140,13 @@ module FriendlyShipping
           # @return [Array<Hash>]
           def documents(document_options)
             document_options.map { GenerateDocumentOptionsHash.call(document_options: _1) }
+          end
+
+          # @param value [String]
+          # @param length [Integer]
+          # @return [String]
+          def truncate(value, length: 35)
+            value && value[0..(length - 1)].strip
           end
         end
       end
