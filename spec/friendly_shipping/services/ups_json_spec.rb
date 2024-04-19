@@ -86,7 +86,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       it 'returns a Failure with the correct error message' do
         aggregate_failures do
           is_expected.to be_failure
-          expect(subject.failure.to_s).to eq('{"code"=>"111285", "message"=>"The postal code 78756 is invalid for VA United States."}')
+          expect(subject.failure.to_s).to eq("The postal code 78756 is invalid for VA United States.")
         end
       end
     end
@@ -207,7 +207,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
       it 'returns failure with the error message' do
         expect(subject).to be_failure
-        expect(subject.failure.to_s).to eq('{"code"=>"9264030", "message"=>"The state is not supported in the Customer Integration Environment."}')
+        expect(subject.failure.to_s).to eq("The state is not supported in the Customer Integration Environment.")
       end
     end
   end
@@ -244,7 +244,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     it { is_expected.to be_success }
 
     it 'fails if the UPS api is down', vcr: { cassette_name: 'ups_json/timings/failure' } do
-      expect(subject.failure.to_s).to eq('{"code"=>"10004", "message"=>"The service is temporarily unavailable"}')
+      expect(subject.failure.to_s).to eq("The service is temporarily unavailable")
     end
 
     context "fails with a helpful error" do
@@ -324,7 +324,8 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         shipper_number: shipper_number,
         negotiated_rates: true,
         customer_context: 'request-id-12345',
-        label_format: 'ZPL'
+        label_format: 'ZPL',
+        validate_address: true
       )
     end
 
@@ -516,7 +517,24 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
       it "returns a failure with a good error message" do
         is_expected.to be_failure
-        expect(subject.failure.to_s).to eq('{"code"=>"120202", "message"=>"Missing or invalid ship to address line 1"}')
+        expect(subject.failure.to_s).to eq("Missing or invalid ship to address line 1")
+      end
+    end
+
+    context "if the address city name is spelled wrong", vcr: { cassette_name: "ups_json/labels/city_name" } do
+      let(:destination) do
+        FactoryBot.build(
+          :physical_location,
+          address1: "123 Disney World Dr",
+          city: 'Orlanod',
+          region: 'FL',
+          zip: '32821'
+        )
+      end
+
+      it "returns a failure with a good error message" do
+        is_expected.to be_failure
+        expect(subject.failure.to_s).to eq("Address Validation Error on ShipTo address")
       end
     end
 
@@ -564,7 +582,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
       it 'returns an error with a good message' do
         expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
-        expect(subject.failure.to_s).to eq('{"code"=>"190102", "message"=>"No shipment found within the allowed void period"}')
+        expect(subject.failure.to_s).to eq("No shipment found within the allowed void period")
       end
     end
   end

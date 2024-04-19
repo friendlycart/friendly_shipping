@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/shipments/v2205/ship?additionaladdressvalidation=city
+    body:
+      encoding: UTF-8
+      string: '{"ShipmentRequest":{"Request":{"RequestOption":"validate","SubVersion":"2205","TransactionReference":{"CustomerContext":"request-id-12345"}},"Shipment":{"Description":"","Service":{"Code":"03"},"Shipper":{"AttentionName":"John
+        Doe","Name":"Company","ShipperNumber":"%UPS_SHIPPER_NUMBER%","Phone":{"Number":"555-555-0199"},"Address":{"AddressLine":["10
+        Lovely Street"],"City":"Raleigh","PostalCode":"27615","StateProvinceCode":"NC","CountryCode":"US"}},"ShipTo":{"AttentionName":"Jane
+        Doe","Name":"Company","Phone":{"Number":"555-555-0199"},"Address":{"AddressLine":["123
+        Disney World Dr","Suite 100"],"City":"Orlanod","PostalCode":"32821","StateProvinceCode":"FL","CountryCode":"US","ResidentialAddressIndicator":"X"}},"ShipmentDate":"20240418","PaymentInformation":{"ShipmentCharge":[{"Type":"01","BillShipper":{"AccountNumber":"%UPS_SHIPPER_NUMBER%"}}]},"ShipmentRatingOptions":{"NegotiatedRatesIndicator":"X"},"ShipmentServiceOptions":{"UPScarbonneutralIndicator":"X","LabelDelivery":{"LabelLinksIndicator":"X"}},"Package":[{"Packaging":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.87","Width":"5.91","Height":"11.81"}},{"Packaging":{"Code":"02"},"PackageWeight":{"UnitOfMeasurement":{"Code":"LBS"},"Weight":"1"},"Dimensions":{"UnitOfMeasurement":{"Code":"IN"},"Length":"7.87","Width":"5.91","Height":"11.81"}}]},"LabelSpecification":{"LabelImageFormat":{"Code":"ZPL"},"LabelStockSize":{"Width":"4","Height":"6"}}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 arm64) ruby/3.2.3p157
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1494'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - onlinetools.ups.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - xwssoas274l5TdLs5yJgpV
+      Referrer-Policy:
+      - same-origin
+      Apierrorcode:
+      - '120802'
+      Apierrormsg:
+      - Address Validation Error on ShipTo address
+      Content-Type:
+      - application/json;charset=UTF-8
+      Errorcode:
+      - '120802'
+      Errordescription:
+      - Address Validation Error on ShipTo address
+      X-Request-Id:
+      - e71e1800-9b0c-433a-86ba-71520aa05798
+      X-Accel-Buffering:
+      - 'no'
+      Content-Length:
+      - '98'
+      Expires:
+      - Thu, 18 Apr 2024 15:57:40 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Thu, 18 Apr 2024 15:57:40 GMT
+      Connection:
+      - close
+      Ak-Grn-1:
+      - 0.17853417.1713455860.28cb9b8b
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"response":{"errors":[{"code":"120802","message":"Address Validation
+        Error on ShipTo address"}]}}'
+  recorded_at: Thu, 18 Apr 2024 15:57:40 GMT
+recorded_with: VCR 6.1.0
