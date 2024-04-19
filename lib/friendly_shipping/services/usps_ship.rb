@@ -115,7 +115,7 @@ module FriendlyShipping
       # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult<Array<Rate>>>] the {Rate}s wrapped in an {ApiResult} object
       def rate_estimates(shipment, options:, debug: false)
-        rates = shipment.packages.map do |package|
+        api_results = shipment.packages.map do |package|
           yield begin
             rate_request = SerializeRateEstimatesRequest.call(shipment: shipment, package: package, options: options)
             request = build_request(api: :rates, payload: rate_request, debug: debug)
@@ -124,8 +124,9 @@ module FriendlyShipping
               ParseRateEstimatesResponse.call(response: response, request: request)
             end
           end
-        end.flat_map(&:data)
+        end
 
+        rates = api_results.flat_map(&:data)
         amounts = rates.each_with_object({}) do |rate, result|
           rate.amounts.each do |name, amount|
             result[name] ||= 0
@@ -141,7 +142,9 @@ module FriendlyShipping
                 shipping_method: rates.first.shipping_method,
                 data: rates.first.data
               )
-            ]
+            ],
+            original_request: api_results.first.original_request,
+            original_response: api_results.first.original_response
           )
         )
       end
