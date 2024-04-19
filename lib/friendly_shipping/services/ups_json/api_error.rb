@@ -19,7 +19,7 @@ module FriendlyShipping
           return error.message unless error.response
 
           parsed_json = JSON.parse(error.response.body)
-          parsed_json.dig("response", "errors").join(", ")
+          parsed_json.dig("response", "errors")&.map { |response_error| response_error["message"] }&.join(", ")
         rescue JSON::ParserError, KeyError => _e
           nil
         end
