@@ -71,7 +71,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
   end
 
   describe "#rate_estimates" do
-    subject(:rate_estimates) { service.rate_estimates(shipment, options: options) }
+    subject(:rate_estimates) { service.rate_estimates(shipment, options: options, debug: true) }
 
     let(:shipment) { Physical::Shipment.new(packages: packages, origin: origin, destination: destination) }
 
@@ -145,18 +145,25 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
       it { is_expected.to be_success }
 
       it "has all the right data" do
-        result = rate_estimates.value!.data
-        expect(result.length).to eq(1)
-        rate_estimate = result.first
-        expect(rate_estimate).to be_a(FriendlyShipping::Rate)
-        expect(rate_estimate.total_amount).to eq(Money.new(11_585, "USD"))
-        expect(rate_estimate.amounts).to eq(
+        rates = rate_estimates.value!.data
+        expect(rates.length).to eq(1)
+
+        rate = rates.first
+        expect(rate).to be_a(FriendlyShipping::Rate)
+        expect(rate.total_amount).to eq(Money.new(11_585, "USD"))
+        expect(rate.amounts).to eq(
           price: Money.new(9785, "USD"),
           "Nonstandard Volume > 2 cu ft" => Money.new(1800, "USD")
         )
-        expect(rate_estimate.shipping_method.name).to eq("USPS Ground Advantage")
-        expect(rate_estimate.data[:description]).to eq("USPS Ground Advantage Nonmachinable Dimensional Rectangular")
-        expect(rate_estimate.data[:zone]).to eq("05")
+        expect(rate.shipping_method.name).to eq("USPS Ground Advantage")
+        expect(rate.data[:description]).to eq("USPS Ground Advantage Nonmachinable Dimensional Rectangular")
+        expect(rate.data[:zone]).to eq("05")
+      end
+
+      it "attaches request and response to API result" do
+        api_result = rate_estimates.value!
+        expect(api_result.original_request).to be_a(FriendlyShipping::Request)
+        expect(api_result.original_response).to be_a(FriendlyShipping::Response)
       end
     end
 
