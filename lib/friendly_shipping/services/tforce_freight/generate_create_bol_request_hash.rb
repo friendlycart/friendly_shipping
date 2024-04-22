@@ -46,7 +46,7 @@ module FriendlyShipping
           # @return [Hash]
           def location(location)
             {
-              name: truncate(location.company_name.presence || location.name),
+              name: clean_company_name(location.company_name.presence || location.name),
               contact: truncate(location.name),
               email: truncate(location.email, length: 50),
               phone: {
@@ -127,7 +127,7 @@ module FriendlyShipping
           # @return [Hash]
           def requester(location)
             {
-              companyName: truncate(location.company_name.presence || location.name),
+              companyName: clean_company_name(location.company_name.presence || location.name),
               contactName: truncate(location.name),
               email: truncate(location.email, length: 50),
               phone: {
@@ -147,6 +147,16 @@ module FriendlyShipping
           # @return [String]
           def truncate(value, length: 35)
             value && value[0..(length - 1)].strip
+          end
+
+          # TForce does not support special characters like &, <, or > in company names.
+          #
+          # @param name [String]
+          # @return [String]
+          def clean_company_name(name)
+            return if name.nil?
+
+            truncate(CGI.escapeHTML(name).strip)
           end
         end
       end
