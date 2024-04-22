@@ -171,11 +171,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
       context "with values that are too long" do
         let(:origin) do
           Physical::Location.new(
-            company_name: "This is the world's longest company name",
-            name: "This is the world's longest person name",
+            company_name: "This is the longest company name in the world",
+            name: "This is the longest person name in the world",
             email: "john@thisistheworldslongestdomainnameijusttgoesonandon.com",
             phone: "123-123-1234 x1234",
-            address1: "This is the world's longest street address",
+            address1: "This is the longest street address in the world",
             address2: "Suite 456",
             city: "Richmond",
             zip: "23224-1234",
@@ -187,14 +187,30 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
         it do
           is_expected.to match(
             hash_including(
-              name: "This is the world's longest company",
-              contact: "This is the world's longest person",
+              name: "This is the longest company name in",
+              contact: "This is the longest person name in",
               email: "john@thisistheworldslongestdomainnameijusttgoesona",
               phone: { number: "123-123-1234 x1" },
               address: hash_including(
-                addressLine: "This is the world's longest street",
+                addressLine: "This is the longest street address",
                 postalCode: "23224-"
               )
+            )
+          )
+        end
+      end
+
+      context "with special chars in company name" do
+        let(:origin) do
+          Physical::Location.new(
+            company_name: "A.> & \"F\" <Co.",
+          )
+        end
+
+        it do
+          is_expected.to match(
+            hash_including(
+              name: "A.&gt; &amp; &quot;F&quot; &lt;Co."
             )
           )
         end
@@ -226,11 +242,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
       context "with values that are too long" do
         let(:destination) do
           Physical::Location.new(
-            company_name: "This is the world's longest company name",
-            name: "This is the world's longest person name",
+            company_name: "This is the longest company name in the world",
+            name: "This is the longest person name in the world",
             email: "john@thisistheworldslongestdomainnameijusttgoesonandon.com",
             phone: "456-456-4567 x4567",
-            address1: "This is the world's longest street address",
+            address1: "This is the longest street address in the world",
             address2: "Suite 456",
             city: "Allanton",
             zip: "63025-1234",
@@ -242,14 +258,30 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
         it do
           is_expected.to match(
             hash_including(
-              name: "This is the world's longest company",
-              contact: "This is the world's longest person",
+              name: "This is the longest company name in",
+              contact: "This is the longest person name in",
               email: "john@thisistheworldslongestdomainnameijusttgoesona",
               phone: { number: "456-456-4567 x4" },
               address: hash_including(
-                addressLine: "This is the world's longest street",
+                addressLine: "This is the longest street address",
                 postalCode: "63025-"
               )
+            )
+          )
+        end
+      end
+
+      context "with special chars in company name" do
+        let(:destination) do
+          Physical::Location.new(
+            company_name: "A.> & \"F\" <Co.",
+          )
+        end
+
+        it do
+          is_expected.to match(
+            hash_including(
+              name: "A.&gt; &amp; &quot;F&quot; &lt;Co."
             )
           )
         end
@@ -296,11 +328,11 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
       context "with values that are too long" do
         let(:origin) do
           Physical::Location.new(
-            company_name: "This is the world's longest company name",
-            name: "This is the world's longest person name",
+            company_name: "This is the longest company name in the world",
+            name: "This is the longest person name in the world",
             email: "john@thisistheworldslongestdomainnameijusttgoesonandon.com",
             phone: "123-123-1234 x1234",
-            address1: "This is the world's longest street address",
+            address1: "This is the longest street address in the world",
             address2: "Suite 456",
             city: "Richmond",
             zip: "23224-1234",
@@ -313,12 +345,12 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
           is_expected.to match(
             hash_including(
               payer: hash_including(
-                name: "This is the world's longest company",
-                contact: "This is the world's longest person",
+                name: "This is the longest company name in",
+                contact: "This is the longest person name in",
                 email: "john@thisistheworldslongestdomainnameijusttgoesona",
                 phone: { number: "123-123-1234 x1" },
                 address: hash_including(
-                  addressLine: "This is the world's longest street",
+                  addressLine: "This is the longest street address",
                   postalCode: "23224-"
                 )
               )
@@ -447,8 +479,8 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
       context "with values that are too long" do
         let(:origin) do
           Physical::Location.new(
-            company_name: "This is the world's longest company name",
-            name: "This is the world's longest person name",
+            company_name: "This is the longest company name in the world",
+            name: "This is the longest person name in the world",
             email: "john@thisistheworldslongestdomainnameijusttgoesonandon.com",
             phone: "123-123-1234 x1234"
           )
@@ -458,13 +490,31 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
           is_expected.to match(
             hash_including(
               requester: {
-                companyName: "This is the world's longest company",
-                contactName: "This is the world's longest person",
+                companyName: "This is the longest company name in",
+                contactName: "This is the longest person name in",
                 email: "john@thisistheworldslongestdomainnameijusttgoesona",
                 phone: {
                   number: "123-123-1234 x1"
                 }
               }
+            )
+          )
+        end
+      end
+
+      context "with special chars in company name" do
+        let(:origin) do
+          Physical::Location.new(
+            company_name: "A.> & \"F\" <Co.",
+          )
+        end
+
+        it do
+          is_expected.to match(
+            hash_including(
+              requester: hash_including(
+                companyName: "A.&gt; &amp; &quot;F&quot; &lt;Co."
+              )
             )
           )
         end
