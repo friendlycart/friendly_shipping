@@ -56,7 +56,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip::SerializeRateEstimatesReque
       height: 3.94,
       mailClass: "USPS_GROUND_ADVANTAGE",
       processingCategory: "MACHINABLE",
-      rateIndicator: "DR",
+      rateIndicator: "SP",
       destinationEntryFacilityType: "NONE",
       priceType: "RETAIL",
       mailingDate: "2024-04-01"

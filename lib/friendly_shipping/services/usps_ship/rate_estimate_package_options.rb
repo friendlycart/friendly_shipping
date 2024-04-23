@@ -109,7 +109,7 @@ module FriendlyShipping
         # @option [Class] :item_options_class the class to use for item options when none are provided
         def initialize(
           processing_category: :machinable,
-          rate_indicator: :dimensional_rectangular,
+          rate_indicator: :single_piece,
           price_type: :retail,
           **kwargs
         )
