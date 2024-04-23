@@ -11,7 +11,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip::RateEstimatePackageOptions 
 
   it "sets reasonable defaults" do
     expect(options.processing_category).to eq("MACHINABLE")
-    expect(options.rate_indicator).to eq("DR")
+    expect(options.rate_indicator).to eq("SP")
     expect(options.price_type).to eq("RETAIL")
   end
 end
