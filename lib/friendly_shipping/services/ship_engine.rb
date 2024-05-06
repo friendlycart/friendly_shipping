@@ -113,13 +113,15 @@ module FriendlyShipping
       #   Note: Some ShipEngine carriers, notably USPS, only support one package per shipment, and that's
       #   all that the integration supports at this point.
       # @param options [LabelOptions] the options for getting labels (see object description)
+      # @param debug [Boolean] whether to attach debugging information to the response
       # @return [ApiResult<Array<Label>>, Failure<ApiFailure>] the shipping labels
-      def labels(shipment, options:)
+      def labels(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
           http_method: "POST",
           body: SerializeLabelShipment.call(shipment: shipment, options: options, test: test).to_json,
-          headers: request_headers
+          headers: request_headers,
+          debug: debug
         )
         client.post(request).fmap do |response|
           ParseLabelResponse.call(request: request, response: response)

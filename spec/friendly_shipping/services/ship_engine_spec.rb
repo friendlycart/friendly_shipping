@@ -211,6 +211,20 @@ RSpec.describe FriendlyShipping::Services::ShipEngine do
           expect(label.label_format).to eq(:pdf)
         end
       end
+
+      context 'with debug set to true' do
+        subject(:labels) { service.labels(shipment, options: options, debug: true) }
+
+        it 'returns original request and response along with the data' do
+          aggregate_failures do
+            is_expected.to be_success
+            expect(subject.value!.data).to be_a(Array)
+            expect(subject.value!.data.first).to be_a(FriendlyShipping::Label)
+            expect(subject.value!.original_request).to be_present
+            expect(subject.value!.original_response).to be_present
+          end
+        end
+      end
     end
 
     context 'when requesting an inline label', vcr: { cassette_name: 'shipengine/labels/success_inline_label' } do
