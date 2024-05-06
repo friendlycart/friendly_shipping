@@ -7,7 +7,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip::MachinablePackage do
   let(:package) { Physical::Package.new(weight: weight, dimensions: dimensions) }
 
   describe "#machinable?" do
-    let(:weight) { Measured::Weight(3, :ounces) }
+    let(:weight) { Measured::Weight(8, :ounces) }
     let(:dimensions) { [8, 4, 2].map { |e| Measured::Length(e, :inches) } }
 
     it { is_expected.to be_machinable }
@@ -32,6 +32,12 @@ RSpec.describe FriendlyShipping::Services::USPSShip::MachinablePackage do
 
     context "with overweight package" do
       let(:weight) { Measured::Weight(50, :pounds) }
+
+      it { is_expected.to_not be_machinable }
+    end
+
+    context "with underweight package" do
+      let(:weight) { Measured::Weight(2, :ounces) }
 
       it { is_expected.to_not be_machinable }
     end

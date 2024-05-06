@@ -15,10 +15,11 @@ module FriendlyShipping
         MIN_WIDTH = Measured::Length(3, :inches)
         MIN_HEIGHT = Measured::Length(0.25, :inches)
 
-        MAX_LENGTH = Measured::Length(27, :inches)
-        MAX_WIDTH = Measured::Length(17, :inches)
-        MAX_HEIGHT = Measured::Length(17, :inches)
+        MAX_LENGTH = Measured::Length(22, :inches)
+        MAX_WIDTH = Measured::Length(18, :inches)
+        MAX_HEIGHT = Measured::Length(15, :inches)
 
+        MIN_WEIGHT = Measured::Weight(6, :ounces)
         MAX_WEIGHT = Measured::Weight(25, :pounds)
 
         # @param package [Physical::Package]
@@ -37,7 +38,8 @@ module FriendlyShipping
         def at_least_minimum
           package.length >= MIN_LENGTH &&
             package.width >= MIN_WIDTH &&
-            package.height >= MIN_HEIGHT
+            package.height >= MIN_HEIGHT &&
+            package.weight >= MIN_WEIGHT
         end
 
         # @return [Boolean]
