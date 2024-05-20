@@ -68,4 +68,23 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeLocation do
       )
     end
   end
+
+  context "when address lines are too long" do
+    let(:location) do
+      FactoryBot.build(
+        :physical_location,
+        address1: "This is the longest street address",
+        address2: "This is another very long street address"
+      )
+    end
+
+    it do
+      is_expected.to match(
+        hash_including(
+          AddressLine1: "This is the longest street add",
+          AddressLine2: "This is another very long stre"
+        )
+      )
+    end
+  end
 end
