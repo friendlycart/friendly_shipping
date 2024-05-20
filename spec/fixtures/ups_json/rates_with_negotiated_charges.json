@@ -1,0 +1,634 @@
+{
+  "RateResponse" : {
+    "RatedShipment" : [
+      {
+        "BaseServiceCharge" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "BillingWeight" : {
+          "UnitOfMeasurement" : {
+            "Code" : "LBS",
+            "Description" : "Pounds"
+          },
+          "Weight" : "11.0"
+        },
+        "GuaranteedDelivery" : {
+          "BusinessDaysInTransit" : "1"
+        },
+        "NegotiatedRateCharges" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "41.35"
+          }
+        },
+        "RatedPackage" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "95.59"
+          },
+          "BillingWeight" : {
+            "UnitOfMeasurement" : {
+              "Code" : "LBS",
+              "Description" : "Pounds"
+            },
+            "Weight" : "11.0"
+          },
+          "ItemizedCharges" : [
+            {
+              "Code" : "376",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "4.90",
+              "SubType" : "Rural Extended"
+            },
+            {
+              "Code" : "375",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "16.58"
+            }
+          ],
+          "NegotiatedCharges" : {
+            "BaseServiceCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "30.59"
+            },
+            "ItemizedCharges" : [
+              {
+                "Code" : "376",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "4.90",
+                "SubType" : "Rural Extended"
+              },
+              {
+                "Code" : "375",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "5.86"
+              }
+            ],
+            "ServiceOptionsCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "0.00"
+            },
+            "TotalCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "41.35"
+            },
+            "TransportationCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "41.35"
+            }
+          },
+          "ServiceOptionsCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "117.07"
+          },
+          "TransportationCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "117.07"
+          },
+          "Weight" : "10.2"
+        },
+        "RatedShipmentAlert" : [
+          {
+            "Code" : "110971",
+            "Description" : "Your invoice may vary from the displayed reference rates"
+          },
+          {
+            "Code" : "110920",
+            "Description" : "Ship To Address Classification is changed from Residential to Commercial"
+          }
+        ],
+        "Service" : {
+          "Code" : "01",
+          "Description" : ""
+        },
+        "ServiceOptionsCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "TotalCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "117.07"
+        },
+        "TransportationCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "117.07"
+        }
+      },
+      {
+        "BaseServiceCharge" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "BillingWeight" : {
+          "UnitOfMeasurement" : {
+            "Code" : "LBS",
+            "Description" : "Pounds"
+          },
+          "Weight" : "11.0"
+        },
+        "GuaranteedDelivery" : {
+          "BusinessDaysInTransit" : "2"
+        },
+        "NegotiatedRateCharges" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "24.27"
+          }
+        },
+        "RatedPackage" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "41.92"
+          },
+          "BillingWeight" : {
+            "UnitOfMeasurement" : {
+              "Code" : "LBS",
+              "Description" : "Pounds"
+            },
+            "Weight" : "11.0"
+          },
+          "ItemizedCharges" : [
+            {
+              "Code" : "376",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "4.90",
+              "SubType" : "Rural Extended"
+            },
+            {
+              "Code" : "375",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "7.73"
+            }
+          ],
+          "NegotiatedCharges" : {
+            "BaseServiceCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "15.93"
+            },
+            "ItemizedCharges" : [
+              {
+                "Code" : "376",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "4.90",
+                "SubType" : "Rural Extended"
+              },
+              {
+                "Code" : "375",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "3.44"
+              }
+            ],
+            "ServiceOptionsCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "0.00"
+            },
+            "TotalCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "24.27"
+            },
+            "TransportationCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "24.27"
+            }
+          },
+          "ServiceOptionsCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "54.55"
+          },
+          "TransportationCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "54.55"
+          },
+          "Weight" : "10.2"
+        },
+        "RatedShipmentAlert" : [
+          {
+            "Code" : "110971",
+            "Description" : "Your invoice may vary from the displayed reference rates"
+          },
+          {
+            "Code" : "110920",
+            "Description" : "Ship To Address Classification is changed from Residential to Commercial"
+          }
+        ],
+        "Service" : {
+          "Code" : "02",
+          "Description" : ""
+        },
+        "ServiceOptionsCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "TotalCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "54.55"
+        },
+        "TransportationCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "54.55"
+        }
+      },
+      {
+        "BaseServiceCharge" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "BillingWeight" : {
+          "UnitOfMeasurement" : {
+            "Code" : "LBS",
+            "Description" : "Pounds"
+          },
+          "Weight" : "11.0"
+        },
+        "NegotiatedRateCharges" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "14.62"
+          }
+        },
+        "RatedPackage" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "15.64"
+          },
+          "BillingWeight" : {
+            "UnitOfMeasurement" : {
+              "Code" : "LBS",
+              "Description" : "Pounds"
+            },
+            "Weight" : "11.0"
+          },
+          "ItemizedCharges" : [
+            {
+              "Code" : "376",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "4.90",
+              "SubType" : "Rural Extended"
+            },
+            {
+              "Code" : "375",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "3.24"
+            }
+          ],
+          "NegotiatedCharges" : {
+            "BaseServiceCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "9.20"
+            },
+            "ItemizedCharges" : [
+              {
+                "Code" : "376",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "3.43",
+                "SubType" : "Rural Extended"
+              },
+              {
+                "Code" : "375",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "1.99"
+              }
+            ],
+            "ServiceOptionsCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "0.00"
+            },
+            "TotalCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "14.62"
+            },
+            "TransportationCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "14.62"
+            }
+          },
+          "ServiceOptionsCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "23.78"
+          },
+          "TransportationCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "23.78"
+          },
+          "Weight" : "10.2"
+        },
+        "RatedShipmentAlert" : [
+          {
+            "Code" : "110971",
+            "Description" : "Your invoice may vary from the displayed reference rates"
+          },
+          {
+            "Code" : "110920",
+            "Description" : "Ship To Address Classification is changed from Residential to Commercial"
+          }
+        ],
+        "Service" : {
+          "Code" : "03",
+          "Description" : ""
+        },
+        "ServiceOptionsCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "TotalCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "23.78"
+        },
+        "TransportationCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "23.78"
+        }
+      },
+      {
+        "BaseServiceCharge" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "BillingWeight" : {
+          "UnitOfMeasurement" : {
+            "Code" : "LBS",
+            "Description" : "Pounds"
+          },
+          "Weight" : "11.0"
+        },
+        "GuaranteedDelivery" : {
+          "BusinessDaysInTransit" : "3"
+        },
+        "NegotiatedRateCharges" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "21.97"
+          }
+        },
+        "RatedPackage" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "32.46"
+          },
+          "BillingWeight" : {
+            "UnitOfMeasurement" : {
+              "Code" : "LBS",
+              "Description" : "Pounds"
+            },
+            "Weight" : "11.0"
+          },
+          "ItemizedCharges" : [
+            {
+              "Code" : "376",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "4.90",
+              "SubType" : "Rural Extended"
+            },
+            {
+              "Code" : "375",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "6.16"
+            }
+          ],
+          "NegotiatedCharges" : {
+            "BaseServiceCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "13.96"
+            },
+            "ItemizedCharges" : [
+              {
+                "Code" : "376",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "4.90",
+                "SubType" : "Rural Extended"
+              },
+              {
+                "Code" : "375",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "3.11"
+              }
+            ],
+            "ServiceOptionsCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "0.00"
+            },
+            "TotalCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "21.97"
+            },
+            "TransportationCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "21.97"
+            }
+          },
+          "ServiceOptionsCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "43.52"
+          },
+          "TransportationCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "43.52"
+          },
+          "Weight" : "10.2"
+        },
+        "RatedShipmentAlert" : [
+          {
+            "Code" : "110971",
+            "Description" : "Your invoice may vary from the displayed reference rates"
+          },
+          {
+            "Code" : "110920",
+            "Description" : "Ship To Address Classification is changed from Residential to Commercial"
+          }
+        ],
+        "Service" : {
+          "Code" : "12",
+          "Description" : ""
+        },
+        "ServiceOptionsCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "TotalCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "43.52"
+        },
+        "TransportationCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "43.52"
+        }
+      },
+      {
+        "BaseServiceCharge" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "BillingWeight" : {
+          "UnitOfMeasurement" : {
+            "Code" : "LBS",
+            "Description" : "Pounds"
+          },
+          "Weight" : "11.0"
+        },
+        "GuaranteedDelivery" : {
+          "BusinessDaysInTransit" : "1",
+          "DeliveryByTime" : "2:00 P.M."
+        },
+        "NegotiatedRateCharges" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "152.02"
+          }
+        },
+        "RatedPackage" : {
+          "BaseServiceCharge" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "125.59"
+          },
+          "BillingWeight" : {
+            "UnitOfMeasurement" : {
+              "Code" : "LBS",
+              "Description" : "Pounds"
+            },
+            "Weight" : "11.0"
+          },
+          "ItemizedCharges" : [
+            {
+              "Code" : "376",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "4.90",
+              "SubType" : "Rural Extended"
+            },
+            {
+              "Code" : "375",
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "21.53"
+            }
+          ],
+          "NegotiatedCharges" : {
+            "BaseServiceCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "125.59"
+            },
+            "ItemizedCharges" : [
+              {
+                "Code" : "376",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "4.90",
+                "SubType" : "Rural Extended"
+              },
+              {
+                "Code" : "375",
+                "CurrencyCode" : "USD",
+                "MonetaryValue" : "21.53"
+              }
+            ],
+            "ServiceOptionsCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "0.00"
+            },
+            "TotalCharge" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "152.02"
+            },
+            "TransportationCharges" : {
+              "CurrencyCode" : "USD",
+              "MonetaryValue" : "152.02"
+            }
+          },
+          "ServiceOptionsCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "0.00"
+          },
+          "TotalCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "152.02"
+          },
+          "TransportationCharges" : {
+            "CurrencyCode" : "USD",
+            "MonetaryValue" : "152.02"
+          },
+          "Weight" : "10.2"
+        },
+        "RatedShipmentAlert" : [
+          {
+            "Code" : "110971",
+            "Description" : "Your invoice may vary from the displayed reference rates"
+          },
+          {
+            "Code" : "110920",
+            "Description" : "Ship To Address Classification is changed from Residential to Commercial"
+          }
+        ],
+        "Service" : {
+          "Code" : "14",
+          "Description" : ""
+        },
+        "ServiceOptionsCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "0.00"
+        },
+        "TotalCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "152.02"
+        },
+        "TransportationCharges" : {
+          "CurrencyCode" : "USD",
+          "MonetaryValue" : "152.02"
+        }
+      }
+    ],
+    "Response" : {
+      "Alert" : [
+        {
+          "Code" : "110971",
+          "Description" : "Your invoice may vary from the displayed reference rates"
+        },
+        {
+          "Code" : "110920",
+          "Description" : "Ship To Address Classification is changed from Residential to Commercial"
+        }
+      ],
+      "ResponseStatus" : {
+        "Code" : "1",
+        "Description" : "Success"
+      },
+      "TransactionReference" : {
+        "CustomerContext" : "testing",
+        "TransactionIdentifier" : "xwssoat275n7l3jVpV9NLB"
+      }
+    }
+  }
+}
