@@ -11,8 +11,8 @@ module FriendlyShipping
           def call(location)
             {
               CompanyName: location.company_name.presence || location.name,
-              AddressLine1: location.address1,
-              AddressLine2: location.address2,
+              AddressLine1: truncate(location.address1),
+              AddressLine2: truncate(location.address2),
               City: clean_city(location.city),
               StateOrProvince: location.region.code,
               ZipOrPostalCode: location.zip,
@@ -38,6 +38,13 @@ module FriendlyShipping
           # @return [String]
           def clean_phone(phone)
             phone.gsub(/^1-/, "").strip
+          end
+
+          # @param value [String]
+          # @param length [Integer]
+          # @return [String]
+          def truncate(value, length: 30)
+            value && value[0..(length - 1)].strip
           end
         end
       end
