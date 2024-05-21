@@ -6,7 +6,7 @@ module FriendlyShipping
       class ParseRateModifierHash
         # @param [Hash] hash the RateModifier hash from the source JSON
         # @param [String] currency_code The currency code for this modifier's amount (i.e. 'USD')
-        # @return [Hash]
+        # @return [Array] The label and the amount of the rate modifier
         def self.call(rate_modifier, currency_code:)
           return unless rate_modifier
 
@@ -20,7 +20,7 @@ module FriendlyShipping
           modifier_description = rate_modifier['ModifierDesc']
           label = "#{modifier_type} (#{modifier_description})"
 
-          { label => amount }
+          [label, amount]
         end
       end
     end
