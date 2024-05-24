@@ -1,0 +1,76 @@
+{
+  "ShipmentResponse": {
+    "Response": {
+      "ResponseStatus": {
+        "Code": "1",
+        "Description": "Success"
+      },
+      "TransactionReference": ""
+    },
+    "ShipmentResults": {
+      "ShipmentCharges": {
+        "TransportationCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "14.51"
+        },
+        "ItemizedCharges": {
+          "Code": "250",
+          "CurrencyCode": "USD",
+          "MonetaryValue": "1.05"
+        },
+        "ServiceOptionsCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "1.05"
+        },
+        "TotalCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "15.56"
+        }
+      },
+      "NegotiatedRateCharges": {
+        "TotalCharge": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "14.36"
+        }
+      },
+      "BillingWeight": {
+        "UnitOfMeasurement": {
+          "Code": "LBS",
+          "Description": "Pounds"
+        },
+        "Weight": "5.0"
+      },
+      "ShipmentIdentificationNumber": "1ZXXXXXXXXXXXXXXXX",
+      "PackageResults": {
+        "TrackingNumber": "1ZXXXXXXXXXXXXXXXX",
+        "BaseServiceCharge": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "12.56"
+        },
+        "ServiceOptionsCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "1.05"
+        },
+        "ShippingLabel": {
+          "ImageFormat": {
+            "Code": "GIF",
+            "Description": "GIF"
+          },
+          "GraphicImage": "Cl5YQQ0KXkxSTg0K=="
+        },
+        "ShippingReceipt": {
+          "ImageFormat": {
+            "Code": "HTML",
+            "Description": "HTML"
+          },
+          "GraphicImage": "Cl5YQQ0KXkxSTg0K=="
+        },
+        "ItemizedCharges": {
+          "Code": "375",
+          "CurrencyCode": "USD",
+          "MonetaryValue": "1.95"
+        }
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ module FriendlyShipping
           amount = Money.new(monetary_value * currency.subunit_to_unit, currency)
 
           surcharge_code = money_hash['Code']
-          label = surcharge_code ? UPS_SURCHARGE_CODES[surcharge_code] : key_name
+          label = UPS_SURCHARGE_CODES[surcharge_code] || surcharge_code || key_name
 
           [label, amount]
         end

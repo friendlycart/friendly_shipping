@@ -33,7 +33,7 @@ module FriendlyShipping
                 usps_tracking_number: package["USPSPICNumber"],
                 label_data: Base64.decode64(package["ShippingLabel"]["GraphicImage"]),
                 label_format: package["ShippingLabel"]["ImageFormat"]["Code"],
-                label_href: package["LabelURL"],
+                label_href: package["LabelURL"] || shipment_result["LabelURL"],
                 cost: package_cost,
                 shipment_cost: get_shipment_cost(shipment_result),
                 data: {
@@ -47,9 +47,9 @@ module FriendlyShipping
 
           def build_cost_breakdown(package)
             costs = [
-              package["BaseServiceCharge"],
-              Array.wrap(package["ServiceOptionsCharges"]),
-              Array.wrap(package["ItemizedCharges"])
+              package["BaseServiceCharge"]&.merge("Code" => "BaseServiceCharge"),
+              package["ServiceOptionsCharges"],
+              package["ItemizedCharges"]
             ].flatten
 
             costs.map { |cost| ParseMoneyHash.call(cost, "UnknownSurcharge") }.compact.to_h
