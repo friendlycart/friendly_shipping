@@ -1,0 +1,97 @@
+{
+  "ShipmentResponse": {
+    "Response": {
+      "ResponseStatus": {
+        "Code": "1",
+        "Description": "Success"
+      },
+      "TransactionReference": ""
+    },
+    "ShipmentResults": {
+      "ShipmentCharges": {
+        "TransportationCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "56.99"
+        },
+        "ItemizedCharges": {
+          "Code": "270",
+          "CurrencyCode": "USD",
+          "MonetaryValue": "11.30"
+        },
+        "ServiceOptionsCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "0.00"
+        },
+        "TotalCharges": {
+          "CurrencyCode": "USD",
+          "MonetaryValue": "56.99"
+        }
+      },
+      "BillingWeight": {
+        "UnitOfMeasurement": {
+          "Code": "LBS",
+          "Description": "Pounds"
+        },
+        "Weight": "30.0"
+      },
+      "ShipmentIdentificationNumber": "1ZXXXXXXXXXXXXXXXX",
+      "PackageResults": [
+        {
+          "TrackingNumber": "1ZXXXXXXXXXXXXXXXX",
+          "BaseServiceCharge": {
+            "CurrencyCode": "USD",
+            "MonetaryValue": "25.79"
+          },
+          "ServiceOptionsCharges": {
+            "CurrencyCode": "USD",
+            "MonetaryValue": "0.00"
+          },
+          "ShippingLabel": {
+            "ImageFormat": {
+              "Code": "ZPL",
+              "Description": "ZPL"
+            },
+            "GraphicImage": "Cl5YQQ0KXkxSTg0K=="
+          },
+          "ItemizedCharges": {
+            "Code": "375",
+            "CurrencyCode": "USD",
+            "MonetaryValue": "4.95"
+          }
+        },
+        {
+          "TrackingNumber": "1ZXXXXXXXXXXXXXXXX",
+          "BaseServiceCharge": {
+            "CurrencyCode": "USD",
+            "MonetaryValue": "12.15"
+          },
+          "ServiceOptionsCharges": {
+            "CurrencyCode": "USD",
+            "MonetaryValue": "0.00"
+          },
+          "ShippingLabel": {
+            "ImageFormat": {
+              "Code": "ZPL",
+              "Description": "ZPL"
+            },
+            "GraphicImage": "Cl5YQQ0KXkxSTg0K=="
+          },
+          "ItemizedCharges": [
+            {
+              "Code": "430",
+              "CurrencyCode": "USD",
+              "MonetaryValue": "1.00",
+              "SubType": "EVS"
+            },
+            {
+              "Code": "375",
+              "CurrencyCode": "USD",
+              "MonetaryValue": "1.80"
+            }
+          ]
+        }
+      ],
+      "LabelURL": "https://www.ups.com/uel/llp/1ZY9319W0399389763/link/labelAll/XSA/fq3Gmu0fyI6kwlDU5kQBgjKtuyD1mNfat76UjFtChj8e/en_US?loc=en_US&cie=true&pdr=false"
+    }
+  }
+}

@@ -355,7 +355,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(first_label.tracking_number).to be_present
         expect(first_label.label_data.first(5)).to eq("GIF89")
         expect(first_label.label_format).to eq("GIF")
-        expect(first_label.cost).to eq(Money.new(252, 'USD'))
+        expect(first_label.cost).to eq(Money.new(1846, 'USD'))
         expect(first_label.shipment_cost).to eq(Money.new(1846, 'USD'))
         expect(first_label.data[:negotiated_rate]).to eq(Money.new(1823, 'USD'))
         expect(first_label.data[:customer_context]).to eq('request-id-12345')
@@ -394,7 +394,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(first_label.tracking_number).to be_present
         expect(first_label.label_data.first(5)).to eq("GIF89")
         expect(first_label.label_format).to eq("GIF")
-        expect(first_label.cost).to eq(Money.new(300, 'USD'))
+        expect(first_label.cost).to eq(Money.new(1556, 'USD'))
         expect(first_label.shipment_cost).to eq(Money.new(1556, 'USD'))
         expect(first_label.data[:negotiated_rate]).to eq(Money.new(1436, 'USD'))
       end
@@ -425,7 +425,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(first_label.tracking_number).to be_present
         expect(first_label.label_data.first(5)).to eq("GIF89")
         expect(first_label.label_format).to eq("GIF")
-        expect(first_label.cost).to eq(Money.new(201, 'USD'))
+        expect(first_label.cost).to eq(Money.new(1436, 'USD'))
         expect(first_label.shipment_cost).to eq(Money.new(2862, 'USD'))
       end
     end
