@@ -13,6 +13,9 @@ Metrics/BlockLength:
 Style/AccessorGrouping:
   Enabled: false
 
+Style/ArgumentsForwarding:
+  Enabled: false
+
 Style/HashEachMethods:
   Enabled: true
 
