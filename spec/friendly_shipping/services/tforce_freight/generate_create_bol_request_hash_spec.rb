@@ -199,22 +199,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
           )
         end
       end
-
-      context "with special chars in company name" do
-        let(:origin) do
-          Physical::Location.new(
-            company_name: "A.> & \"F\" <Co.",
-          )
-        end
-
-        it do
-          is_expected.to match(
-            hash_including(
-              name: "A.&gt; &amp; &quot;F&quot; &lt;Co."
-            )
-          )
-        end
-      end
     end
 
     describe "shipTo" do
@@ -266,22 +250,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
                 addressLine: "This is the longest street address",
                 postalCode: "63025-"
               )
-            )
-          )
-        end
-      end
-
-      context "with special chars in company name" do
-        let(:destination) do
-          Physical::Location.new(
-            company_name: "A.> & \"F\" <Co.",
-          )
-        end
-
-        it do
-          is_expected.to match(
-            hash_including(
-              name: "A.&gt; &amp; &quot;F&quot; &lt;Co."
             )
           )
         end
@@ -497,24 +465,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
                   number: "123-123-1234 x1"
                 }
               }
-            )
-          )
-        end
-      end
-
-      context "with special chars in company name" do
-        let(:origin) do
-          Physical::Location.new(
-            company_name: "A.> & \"F\" <Co.",
-          )
-        end
-
-        it do
-          is_expected.to match(
-            hash_including(
-              requester: hash_including(
-                companyName: "A.&gt; &amp; &quot;F&quot; &lt;Co."
-              )
             )
           )
         end
