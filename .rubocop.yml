@@ -13,6 +13,9 @@ Metrics/BlockLength:
 Style/AccessorGrouping:
   Enabled: false
 
+Style/ArgumentsForwarding:
+  Enabled: false
+
 Style/HashEachMethods:
   Enabled: true
 
@@ -24,6 +27,9 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Style/SuperArguments:
+  Enabled: false
 
 Naming/VariableNumber:
   Enabled: false
