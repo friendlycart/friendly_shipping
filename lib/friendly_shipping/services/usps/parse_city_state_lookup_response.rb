@@ -7,9 +7,9 @@ module FriendlyShipping
         class << self
           # Parse a response from USPS' city/state lookup API
           #
-          # @param [FriendlyShipping::Request] request The request that was used to obtain this Response
-          # @param [FriendlyShipping::Response] response The response that USPS returned
-          # @return [Result<FriendlyShipping::AddressValidationResult>]
+          # @param [Request] request The request that was used to obtain this Response
+          # @param [Response] response The response that USPS returned
+          # @return [Result<AddressValidationResult>]
           def call(request:, response:)
             # Filter out error responses and directly return a failure
             parsing_result = ParseXMLResponse.call(

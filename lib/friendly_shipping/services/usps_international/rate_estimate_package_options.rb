@@ -12,7 +12,7 @@ module FriendlyShipping
     # @param [Symbol] container_code Indicate the type of container of the package.
     # @param [Symbol] mail_type Indicate the type of mail to estimate rates.
     # @param [Boolean] rectangular Indicate whether the package is rectangular.
-    # @param [FriendlyShipping::ShippingMethod] shipping_method Describe the requested shipping method.
+    # @param [ShippingMethod] shipping_method Describe the requested shipping method.
     # @param [Symbol] transmit_dimensions Indicate whether the request should include the package dimensionals.
     class UspsInternational
       class RateEstimatePackageOptions < FriendlyShipping::PackageOptions
