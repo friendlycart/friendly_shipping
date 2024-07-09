@@ -79,7 +79,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::GenerateRatesPayload do
       }
 
       it 'returns a hash with the required fields' do
-        expect(subject[:RateRequest][:Shipment][:NegotiatedRatesIndicator]).to be true
+        expect(subject[:RateRequest][:Shipment][:ShipmentRatingOptions][:NegotiatedRatesIndicator]).to eq "X"
       end
     end
   end
