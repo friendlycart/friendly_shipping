@@ -18,6 +18,7 @@ module FriendlyShipping
                   Code: options.customer_classification_code
                 },
                 Shipment: {
+                  ShipmentRatingOptions: {},
                   Shipper: GenerateAddressHash.call(location: options.shipper || shipment.origin, international: international?(shipment), shipper_number: options.shipper_number),
                   ShipTo: GenerateAddressHash.call(location: shipment.destination, international: international?(shipment)),
                   ShipFrom: GenerateAddressHash.call(location: shipment.origin),
@@ -71,7 +72,7 @@ module FriendlyShipping
           }.compact
 
           if options.negotiated_rates
-            payload[:RateRequest][:Shipment][:NegotiatedRatesIndicator] = options.negotiated_rates
+            payload[:RateRequest][:Shipment][:ShipmentRatingOptions][:NegotiatedRatesIndicator] = "X"
           end
 
           payload
