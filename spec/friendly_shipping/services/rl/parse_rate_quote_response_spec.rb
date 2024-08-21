@@ -25,7 +25,42 @@ RSpec.describe FriendlyShipping::Services::RL::ParseRateQuoteResponse do
       expect(rate.shipping_method.service_code).to eq("STD")
       expect(rate.warnings).to be_empty
       expect(rate.errors).to be_empty
-      expect(rate.data).to eq({})
+      expect(rate.data).to eq(
+        cost_breakdown: [
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$1,690.72", "Description" => "Minimum Charge", "Type" => "MINIMUM" },
+          { "Amount" => "$1,487.83", "Description" => "R+L Discount Saves This Much", "Rate" => "88%", "Type" => "DISCNT" },
+          { "Amount" => "$202.89", "Description" => "Discounted Freight Charge", "Type" => "DISCNF" },
+          { "Amount" => "$71.62", "Description" => "Fuel Surcharge", "Rate" => "35.3%", "Type" => "FUEL" },
+          { "Amount" => "$110.90", "Description" => "Manhattan Arbitrary Charge", "Type" => "ARBMH" },
+          { "Amount" => "$51.30", "Description" => "Hazmat Fee", "Rate" => "$51.30", "Type" => "HAZM" },
+          { "Amount" => "$436.71", "Description" => "Net Charge", "Type" => "NET" }
+        ]
+      )
+    end
+
+    it "adds non-standard service level charges to cost breakdowns" do
+      non_standard_rates = api_result.data.reject { |rate| rate.shipping_method.service_code == "STD" }
+      expect(non_standard_rates.size).to eq(1)
+      expect(non_standard_rates.first.data[:cost_breakdown]).to eq(
+        [
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$11.25", "Description" => "Class: 92.5", "Rate" => "$1,124.72", "Weight" => "1" },
+          { "Amount" => "$1,690.72", "Description" => "Minimum Charge", "Type" => "MINIMUM" },
+          { "Amount" => "$1,487.83", "Description" => "R+L Discount Saves This Much", "Rate" => "88%", "Type" => "DISCNT" },
+          { "Amount" => "$202.89", "Description" => "Discounted Freight Charge", "Type" => "DISCNF" },
+          { "Amount" => "$71.62", "Description" => "Fuel Surcharge", "Rate" => "35.3%", "Type" => "FUEL" },
+          { "Amount" => "$110.90", "Description" => "Manhattan Arbitrary Charge", "Type" => "ARBMH" },
+          { "Amount" => "$51.30", "Description" => "Hazmat Fee", "Rate" => "$51.30", "Type" => "HAZM" },
+          { "Amount" => "$436.71", "Description" => "Net Charge", "Type" => "NET" },
+          { "Amount" => "$51.30", "Description" => "Guaranteed Service", "Type" => "GSDS" }
+        ]
+      )
     end
   end
 
