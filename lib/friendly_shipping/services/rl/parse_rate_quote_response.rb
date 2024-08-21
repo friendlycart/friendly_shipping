@@ -53,11 +53,38 @@ module FriendlyShipping
             service_levels.map do |service_level|
               shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == service_level['Code'] }
               total = Money.new(service_level['NetCharge'].delete('$,.'), CURRENCY)
+
+              charges = parsed_json.dig('RateQuote', 'Charges')
+              cost_breakdown = build_cost_breakdown(charges, service_level)
+
               FriendlyShipping::Rate.new(
                 shipping_method: shipping_method,
-                amounts: { total: total }
+                amounts: { total: total },
+                data: {
+                  cost_breakdown: cost_breakdown
+                }
               )
             end
+          end
+
+          def build_cost_breakdown(charges, service_level)
+            result = charges.map do |charge|
+              {
+                "Type" => charge['Type'].presence,
+                "Description" => charge['Title'],
+                "Weight" => charge['Weight'].presence,
+                "Rate" => charge['Rate'].presence,
+                "Amount" => charge['Amount'].presence
+              }.compact
+            end
+            if service_level['Code'] != 'STD'
+              result << {
+                "Type" => service_level['Code'],
+                "Description" => service_level['Name'],
+                "Amount" => service_level['Charge']
+              }
+            end
+            result
           end
         end
       end
