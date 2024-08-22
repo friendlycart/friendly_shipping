@@ -67,6 +67,9 @@ module FriendlyShipping
             end
           end
 
+          # @param [Array<Hash>] charges
+          # @param [Hash] service_level
+          # @return [Array<Hash>]
           def build_cost_breakdown(charges, service_level)
             result = charges.map do |charge|
               {
