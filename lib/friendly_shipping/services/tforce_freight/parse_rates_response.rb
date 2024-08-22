@@ -25,15 +25,11 @@ module FriendlyShipping
               total_currency = detail.dig("shipmentCharges", "total", "currency")
               total = Money.new(total_amount.to_f * 100, total_currency)
 
-              rates = detail['rate']
-              data = rates.each_with_object({}) do |rate, result|
-                result[rate['code'].downcase.to_sym] = rate['value'].to_f
-              end
-
-              data.merge(
+              data = {
                 customer_context: transaction_id,
-                commodities: Array.wrap(json['commodities'])
-              )
+                commodities: Array.wrap(json['commodities']),
+                cost_breakdown: detail['rate'].map { |rate| rate.slice(*%w[code description value unit]) }
+              }
 
               days_in_transit = detail.dig("timeInTransit", "timeInTransit")
               data[:days_in_transit] = days_in_transit.to_i if days_in_transit
