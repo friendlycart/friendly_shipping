@@ -22,6 +22,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::GenerateRatesPayload do
     expect(subject[:RateRequest][:Shipment][:ShipTo][:Address][:AddressLine]).to eq(["11 Lovely Street", "Suite 100"])
     expect(subject[:RateRequest][:Shipment][:ShipFrom][:Address][:AddressLine]).to eq(["2 Main St"])
     expect(subject[:RateRequest][:Shipment][:PaymentDetails][:ShipmentCharge]).to eq([{ BillShipper: { AccountNumber: "123456" }, Type: "01" }])
+    expect(subject[:RateRequest][:Shipment][:ShipmentRatingOptions]).to be_nil
   end
 
   context "with additional options" do
