@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "physical", "~> 0.5", ">= 0.5.1"
   spec.add_dependency "rest-client", "~> 2.0"
 
-  spec.required_ruby_version = '>= 3.0'
+  spec.required_ruby_version = '>= 3.1'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
