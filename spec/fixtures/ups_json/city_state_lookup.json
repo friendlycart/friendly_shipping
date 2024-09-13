@@ -1,0 +1,76 @@
+{
+  "XAVResponse": {
+    "Response": {
+      "ResponseStatus": {
+        "Code": "1",
+        "Description": "Success"
+      }
+    },
+    "AmbiguousAddressIndicator": "",
+    "Candidate": [
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "NEW YORK",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "NEW YORK NY 10017",
+          "CountryCode": "US"
+        }
+      },
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "GRAND CENTRAL",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "GRAND CENTRAL NY 10017",
+          "CountryCode": "US"
+        }
+      },
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "NYC",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "NYC NY 10017",
+          "CountryCode": "US"
+        }
+      },
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "MANHATTAN",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "MANHATTAN NY 10017",
+          "CountryCode": "US"
+        }
+      },
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "NY",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "NY NY 10017",
+          "CountryCode": "US"
+        }
+      },
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "NEW YORK CITY",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "NEW YORK CITY NY 10017",
+          "CountryCode": "US"
+        }
+      },
+      {
+        "AddressKeyFormat": {
+          "PoliticalDivision2": "NY CITY",
+          "PoliticalDivision1": "NY",
+          "PostcodePrimaryLow": "10017",
+          "Region": "NY CITY NY 10017",
+          "CountryCode": "US"
+        }
+      }
+    ]
+  }
+}

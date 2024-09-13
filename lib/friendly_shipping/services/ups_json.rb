@@ -5,12 +5,14 @@ require 'friendly_shipping/http_client'
 require 'friendly_shipping/services/ups_json/access_token'
 require 'friendly_shipping/services/ups_json/api_error'
 require 'friendly_shipping/services/ups_json/generate_address_classification_payload'
+require 'friendly_shipping/services/ups_json/generate_city_state_lookup_payload'
 require 'friendly_shipping/services/ups_json/generate_labels_payload'
 require 'friendly_shipping/services/ups_json/generate_rates_payload'
 require 'friendly_shipping/services/ups_json/generate_timings_payload'
 require 'friendly_shipping/services/ups_json/label'
 require 'friendly_shipping/services/ups_json/label_options'
 require 'friendly_shipping/services/ups_json/parse_address_classification_response'
+require 'friendly_shipping/services/ups_json/parse_city_state_lookup_response'
 require 'friendly_shipping/services/ups_json/parse_json_response'
 require 'friendly_shipping/services/ups_json/parse_labels_response'
 require 'friendly_shipping/services/ups_json/parse_money_hash'
@@ -179,6 +181,28 @@ module FriendlyShipping
 
         client.post(request).bind do |response|
           ParseAddressClassificationResponse.call(response: response, request: request)
+        end
+      end
+
+      # Find city and state for a given ZIP code
+      # @param [Physical::Location] location A location object with country and ZIP code set
+      # @return [Result<ApiResult<Array<Physical::Location>>>] The response data from UPS encoded in a
+      #   `Physical::Location` object. Country, City and ZIP code will be set, everything else nil.
+      def city_state_lookup(location, debug: false)
+        url = "#{base_url}/api/addressvalidation/v2/1"
+        headers = required_headers(access_token)
+        body = GenerateCityStateLookupPayload.call(location: location).to_json
+
+        request = FriendlyShipping::Request.new(
+          url: url,
+          http_method: "POST",
+          headers: headers,
+          body: body,
+          debug: debug
+        )
+
+        client.post(request).bind do |response|
+          ParseCityStateLookupResponse.call(response: response, request: request)
         end
       end
 
