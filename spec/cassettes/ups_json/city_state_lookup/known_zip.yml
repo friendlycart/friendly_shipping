@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://wwwcie.ups.com/api/addressvalidation/v2/1
+    body:
+      encoding: UTF-8
+      string: '{"XAVRequest":{"RegionalRequestIndicator":"1","AddressKeyFormat":[{"PostcodePrimaryLow":"10017","CountryCode":"US"}]}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin23 x86_64) ruby/3.3.5p100
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '118'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - wwwcie.ups.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Max-Age:
+      - '600'
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Bkndtransid:
+      - '0000000009f5mP6k0v5GzR'
+      Referrer-Policy:
+      - same-origin
+      - same-origin
+      Content-Type:
+      - application/json;charset=UTF-8
+      X-Request-Id:
+      - 4abbc421-04e7-469f-836e-d08781b7e624
+      Content-Length:
+      - '1270'
+      Expires:
+      - Fri, 13 Sep 2024 14:55:43 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Fri, 13 Sep 2024 14:55:43 GMT
+      Connection:
+      - keep-alive
+      Ak-Grn-1:
+      - 0.66c83017.1726239343.80a98199
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"XAVResponse":{"Response":{"ResponseStatus":{"Code":"1", "Description":"Success"}},
+        "AmbiguousAddressIndicator":"", "Candidate":[{"AddressKeyFormat":{"PoliticalDivision2":"NEW
+        YORK", "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"NEW
+        YORK NY 10017", "CountryCode":"US"}}, {"AddressKeyFormat":{"PoliticalDivision2":"GRAND
+        CENTRAL", "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"GRAND
+        CENTRAL NY 10017", "CountryCode":"US"}}, {"AddressKeyFormat":{"PoliticalDivision2":"NYC",
+        "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"NYC NY
+        10017", "CountryCode":"US"}}, {"AddressKeyFormat":{"PoliticalDivision2":"MANHATTAN",
+        "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"MANHATTAN
+        NY 10017", "CountryCode":"US"}}, {"AddressKeyFormat":{"PoliticalDivision2":"NY",
+        "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"NY NY 10017",
+        "CountryCode":"US"}}, {"AddressKeyFormat":{"PoliticalDivision2":"NEW YORK
+        CITY", "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"NEW
+        YORK CITY NY 10017", "CountryCode":"US"}}, {"AddressKeyFormat":{"PoliticalDivision2":"NY
+        CITY", "PoliticalDivision1":"NY", "PostcodePrimaryLow":"10017", "Region":"NY
+        CITY NY 10017", "CountryCode":"US"}}]}}'
+  recorded_at: Fri, 13 Sep 2024 14:55:43 GMT
+recorded_with: VCR 6.1.0

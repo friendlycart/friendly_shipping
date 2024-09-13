@@ -212,6 +212,36 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
     end
   end
 
+  describe '#city_state_lookup' do
+    subject { service.city_state_lookup(address) }
+
+    context 'with a known zip code', vcr: { cassette_name: 'ups_json/city_state_lookup/known_zip' } do
+      let(:address) { FactoryBot.build(:physical_location, zip: "10017") }
+
+      it 'returns the city and state' do
+        expect(subject).to be_success
+        expect(subject.value!).to be_a(FriendlyShipping::ApiResult)
+
+        location = subject.value!.data
+        expect(location).to be_a(Physical::Location)
+        expect(location.city).to eq("NEW YORK")
+        expect(location.region).to eq(location.country.subregions.coded("NY"))
+        expect(location.zip).to eq("10017")
+        expect(location.country).to eq(Carmen::Country.coded("US"))
+      end
+    end
+
+    context 'with an unknown zip code', vcr: { cassette_name: 'ups_json/city_state_lookup/unknown_zip' } do
+      let(:address) { FactoryBot.build(:physical_location, zip: "00000") }
+
+      it 'returns failure with the error message' do
+        expect(subject).to be_failure
+        expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(subject.failure.data).to eq("No candidates found.")
+      end
+    end
+  end
+
   describe '#timings', vcr: { cassette_name: 'ups_json/timings/success', decode_compressed_response: true } do
     let(:origin) do
       FactoryBot.build(
