@@ -17,6 +17,7 @@ require "friendly_shipping/label"
 require "friendly_shipping/rate"
 require "friendly_shipping/api_result"
 require "friendly_shipping/api_failure"
+require "friendly_shipping/access_token"
 
 require 'friendly_shipping/services/rl'
 require "friendly_shipping/services/ship_engine"
