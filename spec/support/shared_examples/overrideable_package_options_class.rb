@@ -9,7 +9,8 @@ RSpec.shared_examples "overrideable package options class" do
     context "when a custom class is passed" do
       let(:options) do
         described_class.new(
-          **required_attrs.merge(package_options_class: FriendlyShipping::PackageOptions)
+          package_options_class: FriendlyShipping::PackageOptions,
+          **required_attrs
         )
       end
 

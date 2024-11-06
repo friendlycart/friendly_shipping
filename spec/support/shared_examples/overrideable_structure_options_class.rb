@@ -9,7 +9,8 @@ RSpec.shared_examples "overrideable structure options class" do
     context "when a custom class is passed" do
       let(:options) do
         described_class.new(
-          **required_attrs.merge(structure_options_class: FriendlyShipping::StructureOptions)
+          structure_options_class: FriendlyShipping::StructureOptions,
+          **required_attrs
         )
       end
 

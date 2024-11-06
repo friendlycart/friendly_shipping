@@ -6,9 +6,8 @@ require 'friendly_shipping/services/usps/rate_estimate_package_options'
 RSpec.describe FriendlyShipping::Services::Usps::RateEstimatePackageOptions do
   subject(:options) do
     described_class.new(
-      **kwargs.merge(
-        package_id: package_id
-      )
+      package_id: package_id,
+      **kwargs
     )
   end
 
