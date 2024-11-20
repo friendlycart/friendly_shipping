@@ -13,11 +13,11 @@ module FriendlyShipping
         class << self
           # Parse a response from USPS' rating API
           #
-          # @param [FriendlyShipping::Request] request The request that was used to obtain this Response
-          # @param [FriendlyShipping::Response] response The response that USPS returned
+          # @param [Request] request The request that was used to obtain this Response
+          # @param [Response] response The response that USPS returned
           # @param [Physical::Shipment] shipment The shipment object we're trying to get results for
-          # @param [FriendlyShipping::Services::Usps::RateEstimateOptions] options The options we sent with this request
-          # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
+          # @param [RateEstimateOptions] options The options we sent with this request
+          # @return [Result<ApiResult<Array<Rate>>>] When successfully parsing, an array of rates in a Success Monad.
           def call(request:, response:, shipment:, options:)
             # Filter out error responses and directly return a failure
             parsing_result = ParseXMLResponse.call(
@@ -68,7 +68,7 @@ module FriendlyShipping
           # @param [Nokogiri::XML::Node] xml The XML document containing packages and rates
           # @param [Physical::Shipment] shipment The shipment we're trying to get rates for
           #
-          # @return [Hash<Physical::Package => Array<FriendlyShipping::Rate>>]
+          # @return [Hash<Physical::Package => Array<Rate>>]
           def rates_from_response_node(xml, shipment, options)
             xml.xpath(PACKAGE_NODE_XPATH).each_with_object({}) do |package_node, result|
               package_id = package_node['ID']

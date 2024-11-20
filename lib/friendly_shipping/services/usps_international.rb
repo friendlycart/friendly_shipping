@@ -46,10 +46,10 @@ module FriendlyShipping
       # Get rate estimates from USPS International
       #
       # @param [Physical::Shipment] shipment
-      # @param [FriendlyShipping::Services::UspsInternational::RateEstimateOptions] options What options
+      # @param [RateEstimateOptions] options What options
       #    to use for this rate estimate call
       #
-      # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
+      # @return [Result<Array<Rate>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options: RateEstimateOptions.new, debug: false)

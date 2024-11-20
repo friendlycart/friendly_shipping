@@ -50,10 +50,10 @@ module FriendlyShipping
       # Get rate estimates from USPS
       #
       # @param [Physical::Shipment] shipment
-      # @param [FriendlyShipping::Services::Usps::RateEstimateOptions] options What options
+      # @param [RateEstimateOptions] options What options
       #    to use for this rate estimate call
       #
-      # @return [Result<Array<FriendlyShipping::Rate>>] When successfully parsing, an array of rates in a Success Monad.
+      # @return [Result<Array<Rate>>] When successfully parsing, an array of rates in a Success Monad.
       #   When the parsing is not successful or USPS can't give us rates, a Failure monad containing something that
       #   can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options: RateEstimateOptions.new, debug: false)
@@ -68,7 +68,7 @@ module FriendlyShipping
       # Get timing estimates from USPS
       #
       # @param [Physical::Shipment] shipment The shipment we want to estimate. Only destination zip and origin zip are used.
-      # @param [FriendlyShipping::Services::Usps::TimingOptions] options Options for the timing estimate call
+      # @param [TimingOptions] options Options for the timing estimate call
       def timings(shipment, options:, debug: false)
         timings_request_xml = SerializeTimeInTransitRequest.call(shipment: shipment, options: options, login: login)
         request = build_request(api: :timings, xml: timings_request_xml, debug: debug)
