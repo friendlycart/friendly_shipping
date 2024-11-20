@@ -44,6 +44,11 @@ module FriendlyShipping
         # @param pickup_request_options [PickupRequestOptions] options for the pickup request
         # @param commodity_information_generator [Callable] a callable that takes a shipment
         #     and an options object to create an Array of commodity fields as per the UPS docs
+        # @param kwargs [Hash]
+        # @option kwargs [Array<StructureOptions>] :structure_options
+        # @option kwargs [Class] :structure_options_class
+        # @option kwargs [Array<PackageOptions>] :package_options
+        # @option kwargs [Class] :package_options_class
         def initialize(
           shipper_number:,
           billing_address:,

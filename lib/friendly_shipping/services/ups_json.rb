@@ -29,7 +29,7 @@ require 'friendly_shipping/services/ups_json/timings_options'
 module FriendlyShipping
   module Services
     class UpsJson
-      include Dry::Monads[:result]
+      include Dry::Monads::Result::Mixin
 
       attr_reader :access_token, :test, :client
 
