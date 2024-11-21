@@ -40,7 +40,6 @@ RSpec.describe FriendlyShipping::Services::USPSShip::ParseTimingsResponse do
 
   # USPS returns a successful response (with a blank delivery estimate) even if the destination
   # zip code is invalid. We handle this response as a failure in the parser.
-  #
   context "with invalid destination zip code response" do
     let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "usps_ship", "timings", "invalid_dest_zip.json")) }
 
@@ -49,7 +48,8 @@ RSpec.describe FriendlyShipping::Services::USPSShip::ParseTimingsResponse do
     it "returns failure" do
       failure = call.failure
       expect(failure).to be_a(FriendlyShipping::ApiFailure)
-      expect(failure.data).to eq("No timings were returned. Is the destination zip correct?")
+      expect(failure.data).to be_a(FriendlyShipping::ApiError)
+      expect(failure.data.message).to eq("No timings were returned. Is the destination zip correct?")
       expect(failure.original_request).to eq(request)
       expect(failure.original_response).to eq(response)
     end
@@ -63,7 +63,8 @@ RSpec.describe FriendlyShipping::Services::USPSShip::ParseTimingsResponse do
     it "returns failure" do
       failure = call.failure
       expect(failure).to be_a(FriendlyShipping::ApiFailure)
-      expect(failure.data).to eq("unexpected token at 'malformed json'")
+      expect(failure.data).to be_a(JSON::ParserError)
+      expect(failure.data.message).to eq("unexpected token at 'malformed json'")
       expect(failure.original_request).to eq(request)
       expect(failure.original_response).to eq(response)
     end
