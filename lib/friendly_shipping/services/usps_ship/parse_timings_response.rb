@@ -36,15 +36,13 @@ module FriendlyShipping
             end.compact
 
             if timings.empty?
-              failure("No timings were returned. Is the destination zip correct?", request, response)
+              failure(api_error("No timings were returned. Is the destination zip correct?"), request, response)
             else
               success(timings, request, response)
             end
           rescue JSON::ParserError => e
-            failure(e.message, request, response)
+            failure(e, request, response)
           end
-
-          private
 
           # @param timings [Array<Timing>]
           # @param request [Request]
@@ -60,18 +58,24 @@ module FriendlyShipping
             )
           end
 
-          # @param message [String]
+          # @param error [JSON::ParserError, FriendlyShipping::ApiError]
           # @param request [Request]
           # @param response [Response]
-          # @return [Failure<ApiFailure<String>>]
-          def failure(message, request, response)
+          # @return [Failure<ApiFailure>]
+          def failure(error, request, response)
             Failure(
               ApiFailure.new(
-                message,
+                error,
                 original_request: request,
                 original_response: response
               )
             )
+          end
+
+          private
+
+          def api_error(message)
+            FriendlyShipping::ApiError.new(nil, message)
           end
         end
       end
