@@ -27,7 +27,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
   it { is_expected.to be_failure }
 
   it 'has the correct error message' do
-    expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+    expect(subject.failure).to be_a(FriendlyShipping::ApiResult)
     expect(subject.failure.data).to eq('0: Something went wrong')
     expect(subject.failure.original_request).to eq(request)
     expect(subject.failure.original_response).to eq(response)
@@ -55,7 +55,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
       it { is_expected.to be_failure }
 
       it 'has the correct error message' do
-        expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(subject.failure).to be_a(FriendlyShipping::ApiResult)
         expect(subject.failure.data).to eq('Invalid document')
         expect(subject.failure.original_request).to eq(request)
         expect(subject.failure.original_response).to eq(response)
@@ -69,7 +69,7 @@ RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
     it { is_expected.to be_failure }
 
     it 'has the correct error' do
-      expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+      expect(subject.failure).to be_a(FriendlyShipping::ApiResult)
       expect(subject.failure.data).to be_a(Nokogiri::XML::SyntaxError)
       expect(subject.failure.data.message).to match(/Start tag expected/)
     end

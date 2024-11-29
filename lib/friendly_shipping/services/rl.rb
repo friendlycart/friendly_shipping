@@ -66,7 +66,7 @@ module FriendlyShipping
       #
       # @param shipment [Physical::Shipment] the shipment for the BOL
       # @param options [BOLOptions] the options for the BOL
-      # @return [Success<ApiResult<ShipmentInformation>>, Failure<ApiFailure>] the BOL from R+L Carriers
+      # @return [Success<ApiResult<ShipmentInformation>>, Failure<ApiResult>] the BOL from R+L Carriers
       def create_bill_of_lading(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:bill_of_lading],
@@ -84,7 +84,7 @@ module FriendlyShipping
       # to the {ShipmentInformation} object's documents array.
       #
       # @param shipment_info [ShipmentInformation] the shipment for the BOL
-      # @return [Success<ApiResult<ShipmentDocument>>, Failure<ApiFailure>] the binary BOL document from R+L Carriers
+      # @return [Success<ApiResult<ShipmentDocument>>, Failure<ApiResult>] the binary BOL document from R+L Carriers
       def print_bill_of_lading(shipment_info, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:print_bol] + "?ProNumber=#{shipment_info.pro_number}",
@@ -108,7 +108,7 @@ module FriendlyShipping
       # @see https://rl-cdn.com/docs/rlc/shipping-forms/shipping-label-select.pdf Shipping label styles
       # @param start_position [Integer] the R+L Carriers start position for the first label (between 1 and 10)
       # @param num_labels [Integer] number of labels to print (between 1 and 100)
-      # @return [Success<ApiResult<ShipmentDocument>>, Failure<ApiFailure>] the binary shipping labels from R+L Carriers
+      # @return [Success<ApiResult<ShipmentDocument>>, Failure<ApiResult>] the binary shipping labels from R+L Carriers
       def print_shipping_labels(shipment_info, style: 1, start_position: 1, num_labels: 4, debug: false)
         request = FriendlyShipping::Request.new(
           url: api_base + API_PATHS[:print_shipping_labels] +

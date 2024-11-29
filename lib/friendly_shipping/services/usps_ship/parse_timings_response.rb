@@ -13,7 +13,7 @@ module FriendlyShipping
           #
           # @param request [Request] the request that was used to obtain this response
           # @param response [Response] the response that USPS returned
-          # @return [Success<ApiResult<Array<Timing>>>, Failure<ApiFailure<String>>]
+          # @return [Success<ApiResult<Array<Timing>>>, Failure<ApiResult<String>>]
           def call(request:, response:)
             timings = JSON.parse(response.body).map do |timing|
               shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == timing['mailClass'] }
@@ -61,10 +61,10 @@ module FriendlyShipping
           # @param error [JSON::ParserError, FriendlyShipping::ApiError]
           # @param request [Request]
           # @param response [Response]
-          # @return [Failure<ApiFailure>]
+          # @return [Failure<ApiResult>]
           def failure(error, request, response)
             Failure(
-              ApiFailure.new(
+              ApiResult.new(
                 error,
                 original_request: request,
                 original_response: response

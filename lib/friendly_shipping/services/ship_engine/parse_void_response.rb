@@ -9,7 +9,7 @@ module FriendlyShipping
 
         # @param request [Request] the request to attach to the API result
         # @param response [Response] the response to parse
-        # @return [Success<ApiResult<String>>, Failure<ApiFailure<String>>] the success or failure message
+        # @return [Success<ApiResult<String>>, Failure<ApiResult<String>>] the success or failure message
         def self.call(request:, response:)
           parsed_json = JSON.parse(response.body)
           approved, message = parsed_json["approved"], parsed_json["message"]
@@ -19,7 +19,7 @@ module FriendlyShipping
             )
           else
             Failure(
-              ApiFailure.new(message, original_request: request, original_response: response)
+              ApiResult.new(message, original_request: request, original_response: response)
             )
           end
         end

@@ -49,7 +49,7 @@ module FriendlyShipping
       # Get configured carriers.
       #
       # @param debug [Boolean] whether to attach debugging information to the response
-      # @return [ApiResult<Array<Carrier>>, Failure<ApiFailure>] carriers configured in your account
+      # @return [ApiResult<Array<Carrier>>, Failure<ApiResult>] carriers configured in your account
       def carriers(debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:carriers],
@@ -67,7 +67,7 @@ module FriendlyShipping
       # @param shipment [Physical::Shipment] the shipment for which we're getting rates
       # @param options [RatesOptions] the options for getting rates (see object description)
       #
-      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>] When successfully parsing, an
+      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult<Array<String>>] When successfully parsing, an
       #   array of rates in a Success Monad. When the parsing is not successful or ShipEngine can't give us rates,
       #   a Failure monad containing something that can be serialized into an error message using `to_s`.
       def rates(shipment, options:, debug: false)
@@ -88,7 +88,7 @@ module FriendlyShipping
       # @param shipment [Physical::Shipment] the shipment for which we're getting rate estimates
       # @param options [RateEstimatesOptions] the options for getting rate estimates (see object description)
       #
-      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>>] When successfully parsing, an
+      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult<Array<String>>>] When successfully parsing, an
       #   array of rates in a Success Monad. When the parsing is not successful or ShipEngine can't give us rates,
       #   a Failure monad containing something that can be serialized into an error message using `to_s`.
       def rate_estimates(shipment, options: FriendlyShipping::Services::ShipEngine::RateEstimatesOptions.new, debug: false)
@@ -114,7 +114,7 @@ module FriendlyShipping
       #   all that the integration supports at this point.
       # @param options [LabelOptions] the options for getting labels (see object description)
       # @param debug [Boolean] whether to attach debugging information to the response
-      # @return [ApiResult<Array<Label>>, Failure<ApiFailure>] the shipping labels
+      # @return [ApiResult<Array<Label>>, Failure<ApiResult>] the shipping labels
       def labels(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:labels],
@@ -132,7 +132,7 @@ module FriendlyShipping
       #
       # @param label [Label] the label to void
       # @param debug [Boolean] whether to include debugging information in the result
-      # @return [Success<ApiResult<String>>, Failure<ApiFailure<String>>] the success or failure message
+      # @return [Success<ApiResult<String>>, Failure<ApiResult<String>>] the success or failure message
       def void(label, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}labels/#{label.id}/void",
@@ -149,7 +149,7 @@ module FriendlyShipping
       # Validate an address using ShipEngine
       #
       # @param location [Physical::Location] the address to validate
-      # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiFailure>]
+      # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiResult>]
       def validate_address(location, debug: false)
         request = FriendlyShipping::Request.new(
           url: "#{API_BASE}addresses/validate",

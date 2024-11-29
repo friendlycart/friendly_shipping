@@ -22,7 +22,7 @@ module FriendlyShipping
 
     # Makes a GET request and handles the response.
     # @param request [Request] the request to GET
-    # @return [Success<Response>, Failure<ApiFailure>]
+    # @return [Success<Response>, Failure<ApiResult>]
     def get(request)
       http_response = ::RestClient.get(
         request.url, request.headers
@@ -35,7 +35,7 @@ module FriendlyShipping
 
     # Makes a DELETE request and handles the response.
     # @param request [Request] the request to DELETE
-    # @return [Success<Response>, Failure<ApiFailure>]
+    # @return [Success<Response>, Failure<ApiResult>]
     def delete(request)
       http_response = ::RestClient.delete(request.url, request.headers)
 
@@ -46,7 +46,7 @@ module FriendlyShipping
 
     # Makes a POST request and handles the response.
     # @param request [Request] the request to POST
-    # @return [Success<Response>, Failure<ApiFailure>]
+    # @return [Success<Response>, Failure<ApiResult>]
     def post(request)
       http_response = ::RestClient.post(
         request.url,
@@ -61,7 +61,7 @@ module FriendlyShipping
 
     # Makes a PUT request and handles the response.
     # @param request [Request] the request to PUT
-    # @return [Success<Response>, Failure<ApiFailure>]
+    # @return [Success<Response>, Failure<ApiResult>]
     def put(request)
       http_response = ::RestClient.put(
         request.url,

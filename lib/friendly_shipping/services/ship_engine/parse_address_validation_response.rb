@@ -11,13 +11,13 @@ module FriendlyShipping
         class << self
           # @param [FriendlyShipping::Request] request
           # @param [FriendlyShipping::Response] response
-          # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiFailure>]
+          # @return [Success<ApiResult<Array<Physical::Location>>>, Failure<ApiResult>]
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             if parsed_json.first['status'] == "error"
               errors = parsed_json.first['messages'].map { |message| message['message'] }.join(", ")
               Failure(
-                ApiFailure.new(
+                ApiResult.new(
                   errors,
                   original_request: request,
                   original_response: response
@@ -51,7 +51,7 @@ module FriendlyShipping
             end
           rescue JSON::ParserError => e
             Failure(
-              FriendlyShipping::ApiFailure.new(
+              FriendlyShipping::ApiResult.new(
                 e,
                 original_request: request,
                 original_response: response

@@ -12,7 +12,7 @@ module FriendlyShipping
           #
           # @param request [Request] the request that was used to obtain this response
           # @param response [Response] the response that USPS returned
-          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<String>>]
+          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult<String>>]
           def call(request:, response:)
             rates = JSON.parse(response.body)['rates'].map do |rate|
               shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == rate['mailClass'] }
@@ -63,10 +63,10 @@ module FriendlyShipping
           # @param message [String]
           # @param request [Request]
           # @param response [Response]
-          # @return [Failure<ApiFailure<String>>]
+          # @return [Failure<ApiResult<String>>]
           def failure(message, request, response)
             Failure(
-              ApiFailure.new(
+              ApiResult.new(
                 message,
                 original_request: request,
                 original_response: response

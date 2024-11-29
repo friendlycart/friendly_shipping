@@ -40,7 +40,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseAddressValidationRes
     it "contains correct data" do
       result = call
       expect(result).to be_failure
-      expect(result.failure).to be_a(FriendlyShipping::ApiFailure)
+      expect(result.failure).to be_a(FriendlyShipping::ApiResult)
       expect(result.failure.data).to eq("Address not found")
       expect(subject.failure.original_request).to eq(request)
       expect(subject.failure.original_response).to eq(response)
@@ -53,7 +53,7 @@ RSpec.describe FriendlyShipping::Services::ShipEngine::ParseAddressValidationRes
     it "contains correct data" do
       result = call
       expect(result).to be_failure
-      expect(result.failure).to be_a(FriendlyShipping::ApiFailure)
+      expect(result.failure).to be_a(FriendlyShipping::ApiResult)
       expect(result.failure.data).to be_a(JSON::ParserError)
       expect(subject.failure.original_request).to eq(request)
       expect(subject.failure.original_response).to eq(response)

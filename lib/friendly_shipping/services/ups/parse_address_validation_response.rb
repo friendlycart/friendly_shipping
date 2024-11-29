@@ -15,7 +15,7 @@ module FriendlyShipping
           parsing_result.bind do |xml|
             if xml.at('NoCandidatesIndicator')
               Failure(
-                FriendlyShipping::ApiFailure.new(
+                FriendlyShipping::ApiResult.new(
                   'Address is probably invalid. No similar valid addresses found.',
                   original_request: request,
                   original_response: response

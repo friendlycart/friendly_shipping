@@ -4,8 +4,8 @@ require 'friendly_shipping/api_error'
 
 module FriendlyShipping
   # Handles API errors by wrapping them in an API error class ({ApiError} by default) which
-  # is then wrapped in an {ApiFailure} (along with the original API request and response).
-  # Finally, the {ApiFailure} is then wrapped in a `Dry::Monads::Failure`.
+  # is then wrapped in an {ApiResult} (along with the original API request and response).
+  # Finally, the {ApiResult} is then wrapped in a `Dry::Monads::Failure`.
   class ApiErrorHandler
     include Dry::Monads::Result::Mixin
 
@@ -20,10 +20,10 @@ module FriendlyShipping
     # @param error [StandardError] the error to handle
     # @param original_request [Request] the API request which triggered the error
     # @param original_response [RestClient::Response] the API response containing the error
-    # @return [Failure<ApiFailure>]
+    # @return [Failure<ApiResult>]
     def call(error, original_request: nil, original_response: nil)
       Failure(
-        ApiFailure.new(
+        ApiResult.new(
           api_error_class.new(error),
           original_request: original_request,
           original_response: Response.new_from_rest_client_response(original_response)

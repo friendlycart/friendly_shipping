@@ -9,7 +9,7 @@ module FriendlyShipping
 
     # @!attribute [r] data
     #   The API failure (typically an exception). This is here to maintain
-    #   backwards compatibility with the old {ApiFailure} class.
+    #   backwards compatibility with the deprecated {ApiResult} class.
     alias_method :failure, :data
 
     # @return [Request] the original API request (if debugging is enabled)
