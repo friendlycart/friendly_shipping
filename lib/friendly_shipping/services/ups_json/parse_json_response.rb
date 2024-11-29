@@ -37,7 +37,7 @@ module FriendlyShipping
 
           def wrap_failure(error, request, response)
             Failure(
-              FriendlyShipping::ApiFailure.new(
+              FriendlyShipping::ApiResult.new(
                 error,
                 original_request: request,
                 original_response: response

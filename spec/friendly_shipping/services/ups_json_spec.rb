@@ -236,7 +236,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
       it 'returns failure with the error message' do
         expect(subject).to be_failure
-        expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(subject.failure).to be_a(FriendlyShipping::ApiResult)
         expect(subject.failure.data).to eq("No candidates found.")
       end
     end
@@ -611,7 +611,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       it { is_expected.to be_failure }
 
       it 'returns an error with a good message' do
-        expect(subject.failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(subject.failure).to be_a(FriendlyShipping::ApiResult)
         expect(subject.failure.to_s).to eq("No shipment found within the allowed void period")
       end
     end

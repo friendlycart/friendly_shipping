@@ -12,7 +12,7 @@ module FriendlyShipping
         class << self
           # @param request [Request] the request to attach to the API result
           # @param response [Response] the response to parse
-          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<Array<String>>>] the parsed rates or errors
+          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult<Array<String>>>] the parsed rates or errors
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
             rates = build_rates(parsed_json)

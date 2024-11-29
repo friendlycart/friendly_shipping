@@ -13,7 +13,7 @@ module FriendlyShipping
           # @param request [Request] the request to attach to the API result
           # @param response [Response] the response to parse
           # @param options [RatesOptions] the options to use when parsing
-          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiFailure<String>>] the parsed rates or error
+          # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult<String>>] the parsed rates or error
           def call(request:, response:, options:)
             parsed_json = JSON.parse(response.body)
             rates = build_rates(parsed_json, options)
@@ -28,7 +28,7 @@ module FriendlyShipping
             else
               error = parsed_json.dig("rate_response", "errors", 0, "message") || "Unknown error"
               Failure(
-                ApiFailure.new(
+                ApiResult.new(
                   error,
                   original_request: request,
                   original_response: response

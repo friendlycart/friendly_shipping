@@ -15,7 +15,7 @@ module FriendlyShipping
           parsed_response.bind do |city_state_lookup_response|
             if city_state_lookup_response['XAVResponse'].keys.include?('NoCandidatesIndicator')
               Failure(
-                FriendlyShipping::ApiFailure.new(
+                FriendlyShipping::ApiResult.new(
                   "No candidates found.",
                   original_request: request,
                   original_response: response

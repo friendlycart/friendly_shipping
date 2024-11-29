@@ -7,6 +7,11 @@ module FriendlyShipping
     # @return [Object] the API result (typically the response body)
     attr_reader :data
 
+    # @!attribute [r] data
+    #   The API failure (typically an exception). This is here to maintain
+    #   backwards compatibility with the deprecated {ApiResult} class.
+    alias_method :failure, :data
+
     # @return [Request] the original API request (if debugging is enabled)
     attr_reader :original_request
 
@@ -27,6 +32,11 @@ module FriendlyShipping
 
       @original_request = original_request
       @original_response = original_response
+    end
+
+    # @return [#to_s] a string representation of the data
+    def to_s
+      data.to_s
     end
   end
 end

@@ -25,7 +25,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::ParseJsonResponse do
 
       it "returns failure" do
         failure = call.failure
-        expect(failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(failure).to be_a(FriendlyShipping::ApiResult)
         expect(failure.data).to be_a(FriendlyShipping::ApiError)
         expect(failure.data.message).to eq(described_class::UNEXPECTED_ROOT_KEY_STRING)
         expect(failure.original_request).to eq(request)
@@ -40,7 +40,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::ParseJsonResponse do
 
       it "returns failure" do
         failure = call.failure
-        expect(failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(failure).to be_a(FriendlyShipping::ApiResult)
         expect(failure.data).to be_a(FriendlyShipping::ApiError)
         expect(failure.data.message).to eq("Some error")
         expect(failure.original_request).to eq(request)
@@ -56,7 +56,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::ParseJsonResponse do
 
       it "returns failure with the errordescription" do
         failure = call.failure
-        expect(failure).to be_a(FriendlyShipping::ApiFailure)
+        expect(failure).to be_a(FriendlyShipping::ApiResult)
         expect(failure.data).to be_a(FriendlyShipping::ApiError)
         expect(failure.data.message).to eq( "It almost worked")
         expect(failure.original_request).to eq(request)
@@ -73,7 +73,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson::ParseJsonResponse do
 
     it "returns failure" do
       failure = call.failure
-      expect(failure).to be_a(FriendlyShipping::ApiFailure)
+      expect(failure).to be_a(FriendlyShipping::ApiResult)
       expect(failure.data).to be_a(FriendlyShipping::ApiError)
       expect(failure.data.message).to eq("Some error")
       expect(failure.original_request).to eq(request)

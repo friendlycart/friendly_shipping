@@ -45,7 +45,7 @@ module FriendlyShipping
       # Get configured LTL carriers.
       #
       # @param debug [Boolean] whether to attach debugging information to the response
-      # @return [Success<ApiResult<Array<Carrier>>>, Failure<ApiFailure<Array<String>>>] On success,
+      # @return [Success<ApiResult<Array<Carrier>>>, Failure<ApiResult<Array<String>>>] On success,
       #   LTL carriers configured in your account. On failure, a list of error messages.
       def carriers(debug: false)
         request = FriendlyShipping::Request.new(
@@ -64,7 +64,7 @@ module FriendlyShipping
       # @param scac [String] Standard Carrier Alpha Code
       # @see https://nmfta.org/scac/ SCAC
       # @param debug [Boolean] whether to attach debugging information to the response
-      # @return [Success<ApiResult<Hash>>, Failure<ApiFailure<String>>] the carrier or error message
+      # @return [Success<ApiResult<Hash>>, Failure<ApiResult<String>>] the carrier or error message
       def connect_carrier(credentials, scac, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:connections] + "/#{scac}",
@@ -90,7 +90,7 @@ module FriendlyShipping
       # @see https://nmfta.org/scac/ SCAC
       # @param carrier_id [String] the ID for the carrier you want to update
       # @param debug [Boolean] whether to attach debugging information to the response
-      # @return [Success<ApiResult<Hash>>, Failure<ApiFailure<String>>] the carrier or error message
+      # @return [Success<ApiResult<Hash>>, Failure<ApiResult<String>>] the carrier or error message
       def update_carrier(credentials, scac, carrier_id, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:connections] + "/#{scac}/#{carrier_id}",
@@ -115,7 +115,7 @@ module FriendlyShipping
       # @param shipment [Physical::Shipment] the shipment to quote
       # @param options [QuoteOptions] the options for the quote
       # @param debug [Boolean] whether to attach debugging information to the response
-      # @return [Success<ApiResult<Hash>>, Failure<ApiFailure<String>>] the quote or error message
+      # @return [Success<ApiResult<Hash>>, Failure<ApiResult<String>>] the quote or error message
       def request_quote(carrier_id, shipment, options, debug: false)
         request = FriendlyShipping::Request.new(
           url: API_BASE + API_PATHS[:quotes] + "/#{carrier_id}",

@@ -8,6 +8,14 @@ RSpec.describe FriendlyShipping::ApiResult do
 
   subject { described_class.new(data, original_request: original_request, original_response: original_response) }
 
+  it 'aliases #failure to #data' do
+    expect(subject.failure).to eq(:data)
+  end
+
+  it 'serializes the data when to_s is called' do
+    expect(subject.to_s).to eq('data')
+  end
+
   it 'stores the data but no debugging info' do
     expect(subject.data).to eq(:data)
     expect(subject.original_request).to be nil
