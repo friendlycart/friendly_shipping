@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/usps/parse_time_in_transit_response'
 
 RSpec.describe FriendlyShipping::Services::Usps::ParseTimeInTransitResponse do
   let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'usps', 'time_in_transit_response.xml')) }

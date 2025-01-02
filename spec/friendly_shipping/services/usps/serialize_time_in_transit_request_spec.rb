@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/usps/serialize_time_in_transit_request'
-require 'friendly_shipping/services/usps/timing_options'
 
 RSpec.describe FriendlyShipping::Services::Usps::SerializeTimeInTransitRequest do
   let(:pickup_date) { Time.parse('2017-01-01 00:15:00 UTC') }

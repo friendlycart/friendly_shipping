@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/parse_freight_rate_response'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightRateResponse do
   let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'rate_estimates', 'success.json')) }

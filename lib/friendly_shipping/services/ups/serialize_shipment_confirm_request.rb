@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups/serialize_shipment_address_snippet'
-require 'friendly_shipping/services/ups/serialize_package_node'
-
 module FriendlyShipping
   module Services
     class Ups

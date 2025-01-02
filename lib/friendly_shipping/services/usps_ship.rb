@@ -1,20 +1,6 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/http_client'
-
-require 'friendly_shipping/services/usps_ship/access_token'
-require 'friendly_shipping/services/usps_ship/api_error'
-require 'friendly_shipping/services/usps_ship/shipping_methods'
-
-require 'friendly_shipping/services/usps_ship/rate_estimate_options'
-require 'friendly_shipping/services/usps_ship/rate_estimate_package_options'
-require 'friendly_shipping/services/usps_ship/timing_options'
-
-require 'friendly_shipping/services/usps_ship/serialize_rate_estimates_request'
-require 'friendly_shipping/services/usps_ship/machinable_package'
-
-require 'friendly_shipping/services/usps_ship/parse_rate_estimates_response'
-require 'friendly_shipping/services/usps_ship/parse_timings_response'
+require 'nokogiri'
 
 module FriendlyShipping
   module Services

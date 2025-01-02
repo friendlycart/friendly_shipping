@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/api_error'
-
 module FriendlyShipping
   # Handles API errors by wrapping them in an API error class ({ApiError} by default) which
   # is then wrapped in an {ApiResult} (along with the original API request and response).

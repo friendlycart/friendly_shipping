@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/shipment_options'
-require 'friendly_shipping/services/ship_engine/label_customs_options'
-require 'friendly_shipping/services/ship_engine/customs_items_serializer'
-
 module FriendlyShipping
   module Services
     class ShipEngine

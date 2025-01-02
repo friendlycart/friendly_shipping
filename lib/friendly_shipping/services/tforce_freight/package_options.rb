@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/tforce_freight/rates_item_options'
-
 module FriendlyShipping
   module Services
     class TForceFreight

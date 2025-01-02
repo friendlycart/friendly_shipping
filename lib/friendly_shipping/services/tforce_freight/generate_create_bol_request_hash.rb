@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/tforce_freight/generate_location_hash'
-
 module FriendlyShipping
   module Services
     class TForceFreight

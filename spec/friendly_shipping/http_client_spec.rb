@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/http_client'
 
 RSpec.describe FriendlyShipping::HttpClient do
   let(:response) { double }

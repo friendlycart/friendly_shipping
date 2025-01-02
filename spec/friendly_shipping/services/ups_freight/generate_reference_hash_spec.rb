@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/generate_reference_hash'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateReferenceHash do
   let(:reference_numbers) do

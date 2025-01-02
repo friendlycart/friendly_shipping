@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/rate'
-require 'friendly_shipping/api_result'
-require 'friendly_shipping/services/ups_freight/shipping_methods'
-
 module FriendlyShipping
   module Services
     class UpsFreight

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/serialize_void_shipment_request'
 
 RSpec.describe FriendlyShipping::Services::Ups::SerializeVoidShipmentRequest do
   let(:label) { FriendlyShipping::Label.new(tracking_number: '1ZTRACKING') }

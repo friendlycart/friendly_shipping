@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/usps_international/rate_estimate_package_options'
 
 RSpec.describe FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions do
   subject { described_class.new(package_id: package_id) }

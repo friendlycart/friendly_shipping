@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'friendly_shipping/services/ups/parse_money_element'
-
 module FriendlyShipping
   module Services
     class Ups

@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/rl/shipment_options'
-require 'friendly_shipping/services/rl/bol_structures_serializer'
-require 'friendly_shipping/services/rl/bol_packages_serializer'
-
 module FriendlyShipping
   module Services
     class RL

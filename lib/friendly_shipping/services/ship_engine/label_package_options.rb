@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/package_options'
-require 'friendly_shipping/services/ship_engine/label_item_options'
-
 module FriendlyShipping
   module Services
     class ShipEngine

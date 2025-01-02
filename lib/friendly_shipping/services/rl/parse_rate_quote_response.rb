@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'friendly_shipping/services/rl/shipping_methods'
-
 module FriendlyShipping
   module Services
     class RL

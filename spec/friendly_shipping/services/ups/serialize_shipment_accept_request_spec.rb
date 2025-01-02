@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/serialize_shipment_accept_request'
 
 RSpec.describe FriendlyShipping::Services::Ups::SerializeShipmentAcceptRequest do
   let(:options) do

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/parse_time_in_transit_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseTimeInTransitResponse do
   include Dry::Monads[:result]

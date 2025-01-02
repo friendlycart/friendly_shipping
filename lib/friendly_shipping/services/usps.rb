@@ -1,17 +1,6 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/usps/shipping_methods'
-require 'friendly_shipping/services/usps/serialize_address_validation_request'
-require 'friendly_shipping/services/usps/serialize_city_state_lookup_request'
-require 'friendly_shipping/services/usps/serialize_rate_request'
-require 'friendly_shipping/services/usps/serialize_time_in_transit_request'
-require 'friendly_shipping/services/usps/parse_address_validation_response'
-require 'friendly_shipping/services/usps/parse_city_state_lookup_response'
-require 'friendly_shipping/services/usps/parse_rate_response'
-require 'friendly_shipping/services/usps/parse_time_in_transit_response'
-require 'friendly_shipping/services/usps/timing_options'
-require 'friendly_shipping/services/usps/rate_estimate_options'
+require 'nokogiri'
 
 module FriendlyShipping
   module Services

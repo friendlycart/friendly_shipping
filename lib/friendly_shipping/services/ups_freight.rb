@@ -1,26 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/ups_freight/shipping_methods'
-require 'friendly_shipping/services/ups_freight/rates_options'
-require 'friendly_shipping/services/ups_freight/label_options'
-require 'friendly_shipping/services/ups_freight/rates_structure_options'
-require 'friendly_shipping/services/ups_freight/rates_package_options'
-require 'friendly_shipping/services/ups_freight/rates_item_options'
-require 'friendly_shipping/services/ups_freight/label_structure_options'
-require 'friendly_shipping/services/ups_freight/label_package_options'
-require 'friendly_shipping/services/ups_freight/label_item_options'
-require 'friendly_shipping/services/ups_freight/label_document_options'
-require 'friendly_shipping/services/ups_freight/label_email_options'
-require 'friendly_shipping/services/ups_freight/label_pickup_options'
-require 'friendly_shipping/services/ups_freight/label_delivery_options'
-require 'friendly_shipping/services/ups_freight/pickup_request_options'
-require 'friendly_shipping/services/ups_freight/parse_freight_label_response'
-require 'friendly_shipping/services/ups_freight/parse_freight_rate_response'
-require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
-require 'friendly_shipping/services/ups_freight/generate_freight_ship_request_hash'
-require 'friendly_shipping/services/ups_freight/api_error'
+require "json"
 
 module FriendlyShipping
   module Services

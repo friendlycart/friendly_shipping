@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/generate_freight_rate_request_hash'
-require 'friendly_shipping/services/ups_freight/rates_options'
-require 'friendly_shipping/services/ups_freight/pickup_request_options'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateFreightRateRequestHash do
   subject(:full_request) { JSON.parse(described_class.call(shipment: shipment, options: options).to_json) }

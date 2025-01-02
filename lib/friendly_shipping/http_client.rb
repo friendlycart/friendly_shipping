@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'rest-client'
-
-require 'friendly_shipping/api_failure'
-require 'friendly_shipping/api_error_handler'
-
 module FriendlyShipping
   # A façade for `RestClient` which constructs requests, wraps responses in `Dry::Monad`
   # results, and calls the API error handler with failures.

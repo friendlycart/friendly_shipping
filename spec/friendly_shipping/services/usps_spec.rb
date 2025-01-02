@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/usps/timing_options'
 
 RSpec.describe FriendlyShipping::Services::Usps do
   subject(:service) { described_class.new(login: ENV.fetch('USPS_LOGIN', nil)) }

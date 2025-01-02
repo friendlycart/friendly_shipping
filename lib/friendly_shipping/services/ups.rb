@@ -1,28 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/ups/serialize_access_request'
-require 'friendly_shipping/services/ups/serialize_city_state_lookup_request'
-require 'friendly_shipping/services/ups/serialize_address_validation_request'
-require 'friendly_shipping/services/ups/serialize_rating_service_selection_request'
-require 'friendly_shipping/services/ups/serialize_shipment_accept_request'
-require 'friendly_shipping/services/ups/serialize_shipment_confirm_request'
-require 'friendly_shipping/services/ups/serialize_time_in_transit_request'
-require 'friendly_shipping/services/ups/serialize_void_shipment_request'
-require 'friendly_shipping/services/ups/parse_address_validation_response'
-require 'friendly_shipping/services/ups/parse_address_classification_response'
-require 'friendly_shipping/services/ups/parse_city_state_lookup_response'
-require 'friendly_shipping/services/ups/parse_rate_response'
-require 'friendly_shipping/services/ups/parse_shipment_confirm_response'
-require 'friendly_shipping/services/ups/parse_shipment_accept_response'
-require 'friendly_shipping/services/ups/parse_time_in_transit_response'
-require 'friendly_shipping/services/ups/parse_void_shipment_response'
-require 'friendly_shipping/services/ups/shipping_methods'
-require 'friendly_shipping/services/ups/label'
-require 'friendly_shipping/services/ups/label_options'
-require 'friendly_shipping/services/ups/rate_estimate_options'
-require 'friendly_shipping/services/ups/timing_options'
+require 'nokogiri'
 
 module FriendlyShipping
   module Services

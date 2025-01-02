@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/package_options'
 
 RSpec.describe FriendlyShipping::PackageOptions do
   subject { described_class.new(package_id: 'my_package_id') }

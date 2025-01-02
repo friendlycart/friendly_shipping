@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/timing'
 
 RSpec.describe FriendlyShipping::Timing do
   subject do

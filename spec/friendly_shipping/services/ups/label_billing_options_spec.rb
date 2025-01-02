@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/label_billing_options'
 
 RSpec.describe FriendlyShipping::Services::Ups::LabelBillingOptions do
   subject { described_class.new }

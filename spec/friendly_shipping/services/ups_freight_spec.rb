@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight do
   let(:service) { described_class.new(login: ENV.fetch('UPS_LOGIN', nil), password: ENV.fetch('UPS_PASSWORD', nil), key: ENV.fetch('UPS_KEY', nil)) }

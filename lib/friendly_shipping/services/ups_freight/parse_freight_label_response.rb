@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups_freight/parse_shipment_document'
-require 'friendly_shipping/services/ups_freight/shipment_information'
-
 module FriendlyShipping
   module Services
     class UpsFreight

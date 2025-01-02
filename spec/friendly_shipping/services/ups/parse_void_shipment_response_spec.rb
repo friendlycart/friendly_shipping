@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/parse_void_shipment_response'
 
 RSpec.describe FriendlyShipping::Services::Ups::ParseVoidShipmentResponse do
   include Dry::Monads[:result]

@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'nokogiri'
-require 'friendly_shipping/services/ups/serialize_address_snippet'
-require 'friendly_shipping/services/ups/serialize_package_node'
-
 module FriendlyShipping
   module Services
     class Ups

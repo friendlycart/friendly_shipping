@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/label_pickup_options'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::LabelPickupOptions do
   subject { described_class.new }

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_json/rates_options'
-require 'friendly_shipping/services/ups_json/rates_item_options'
 
 RSpec.describe FriendlyShipping::Services::UpsJson::RatesOptions do
   subject(:options) { described_class.new(shipper_number: 'SECRET') }

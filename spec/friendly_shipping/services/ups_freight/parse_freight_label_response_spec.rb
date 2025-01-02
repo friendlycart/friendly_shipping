@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/parse_freight_label_response'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::ParseFreightLabelResponse do
   let(:response_body) { File.read(File.join(gem_root, 'spec', 'fixtures', 'ups_freight', 'labels', 'success.json')) }
