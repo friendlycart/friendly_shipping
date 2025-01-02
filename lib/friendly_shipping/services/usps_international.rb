@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/usps_international/shipping_methods'
-require 'friendly_shipping/services/usps_international/serialize_rate_request'
-require 'friendly_shipping/services/usps_international/parse_rate_response'
-require 'friendly_shipping/services/usps_international/rate_estimate_options'
+require 'nokogiri'
 
 module FriendlyShipping
   module Services

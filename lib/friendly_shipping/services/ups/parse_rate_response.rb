@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups/parse_xml_response'
-require 'friendly_shipping/services/ups/parse_money_element'
-require 'friendly_shipping/services/ups/parse_modifier_element'
-
 module FriendlyShipping
   module Services
     class Ups

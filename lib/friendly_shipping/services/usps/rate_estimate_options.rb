@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/usps/rate_estimate_package_options'
-
 module FriendlyShipping
   module Services
     # Option container for rating a shipment via USPS

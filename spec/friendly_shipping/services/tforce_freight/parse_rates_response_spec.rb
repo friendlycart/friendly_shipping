@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/tforce_freight/parse_rates_response'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight::ParseRatesResponse do
   describe ".call" do

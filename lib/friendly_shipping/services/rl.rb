@@ -1,23 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/rl/api_error'
-require 'friendly_shipping/services/rl/parse_create_bol_response'
-require 'friendly_shipping/services/rl/parse_invoice_response'
-require 'friendly_shipping/services/rl/parse_print_bol_response'
-require 'friendly_shipping/services/rl/parse_print_shipping_labels_response'
-require 'friendly_shipping/services/rl/parse_rate_quote_response'
-require 'friendly_shipping/services/rl/parse_transit_times_response'
-require 'friendly_shipping/services/rl/serialize_create_bol_request'
-require 'friendly_shipping/services/rl/serialize_location'
-require 'friendly_shipping/services/rl/serialize_rate_quote_request'
-require 'friendly_shipping/services/rl/serialize_transit_times_request'
-require 'friendly_shipping/services/rl/rate_quote_options'
-require 'friendly_shipping/services/rl/bol_options'
-require 'friendly_shipping/services/rl/structure_options'
-require 'friendly_shipping/services/rl/package_options'
-require 'friendly_shipping/services/rl/item_options'
+require "json"
 
 module FriendlyShipping
   module Services

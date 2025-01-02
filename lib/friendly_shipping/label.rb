@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/types'
-
 module FriendlyShipping
   # Base class for a shipping label returned by a carrier API.
   class Label

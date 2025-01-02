@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/usps/rate_estimate_options'
 
 RSpec.describe FriendlyShipping::Services::Usps::SerializeRateRequest do
   let(:dimensions) { [10, 21.321539, 24].map { |e| Measured::Length(e, :cm) } }

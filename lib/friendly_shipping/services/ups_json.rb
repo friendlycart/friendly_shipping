@@ -1,30 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/ups_json/access_token'
-require 'friendly_shipping/services/ups_json/api_error'
-require 'friendly_shipping/services/ups_json/generate_address_classification_payload'
-require 'friendly_shipping/services/ups_json/generate_city_state_lookup_payload'
-require 'friendly_shipping/services/ups_json/generate_labels_payload'
-require 'friendly_shipping/services/ups_json/generate_rates_payload'
-require 'friendly_shipping/services/ups_json/generate_timings_payload'
-require 'friendly_shipping/services/ups_json/label'
-require 'friendly_shipping/services/ups_json/label_options'
-require 'friendly_shipping/services/ups_json/parse_address_classification_response'
-require 'friendly_shipping/services/ups_json/parse_city_state_lookup_response'
-require 'friendly_shipping/services/ups_json/parse_json_response'
-require 'friendly_shipping/services/ups_json/parse_labels_response'
-require 'friendly_shipping/services/ups_json/parse_money_hash'
-require 'friendly_shipping/services/ups_json/parse_rate_modifier_hash'
-require 'friendly_shipping/services/ups_json/parse_rates_response'
-require 'friendly_shipping/services/ups_json/parse_timings_response'
-require 'friendly_shipping/services/ups_json/parse_void_response'
-require 'friendly_shipping/services/ups_json/rates_item_options'
-require 'friendly_shipping/services/ups_json/rates_package_options'
-require 'friendly_shipping/services/ups_json/rates_options'
-require 'friendly_shipping/services/ups_json/shipping_methods'
-require 'friendly_shipping/services/ups_json/timings_options'
+require "json"
 
 module FriendlyShipping
   module Services

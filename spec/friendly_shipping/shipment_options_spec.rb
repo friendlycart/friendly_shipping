@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/shipment_options'
 
 RSpec.describe FriendlyShipping::ShipmentOptions do
   describe 'Package options' do

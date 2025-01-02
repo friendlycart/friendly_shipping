@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/serialize_time_in_transit_request'
-require 'friendly_shipping/services/ups/timing_options'
 
 RSpec.describe FriendlyShipping::Services::Ups::SerializeTimeInTransitRequest do
   let(:origin) do

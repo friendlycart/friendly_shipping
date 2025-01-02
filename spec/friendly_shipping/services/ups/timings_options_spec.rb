@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/timing_options'
 
 RSpec.describe FriendlyShipping::Services::Ups::TimingOptions do
   subject { described_class.new }

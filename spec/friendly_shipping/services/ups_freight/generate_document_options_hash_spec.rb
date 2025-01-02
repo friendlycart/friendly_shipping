@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/label_document_options'
-require 'friendly_shipping/services/ups_freight/generate_document_options_hash'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateDocumentOptionsHash do
   let(:document_options) { FriendlyShipping::Services::UpsFreight::LabelDocumentOptions.new }

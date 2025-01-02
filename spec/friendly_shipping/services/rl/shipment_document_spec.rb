@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/rl/shipment_document'
 
 RSpec.describe FriendlyShipping::Services::RL::ShipmentDocument do
   subject(:shipment_document) do

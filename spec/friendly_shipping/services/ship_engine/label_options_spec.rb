@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ship_engine/label_options'
-require 'friendly_shipping/services/ship_engine/label_customs_options'
 
 RSpec.describe FriendlyShipping::Services::ShipEngine::LabelOptions do
   subject(:options) { described_class.new(shipping_method: double) }

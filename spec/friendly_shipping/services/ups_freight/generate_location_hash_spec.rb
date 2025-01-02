@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/generate_location_hash'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::GenerateLocationHash do
   let(:location) do

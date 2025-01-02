@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/tforce_freight/generate_location_hash'
 
 RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateLocationHash do
   describe ".call" do

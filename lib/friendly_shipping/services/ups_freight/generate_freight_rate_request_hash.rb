@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups_freight/generate_location_hash'
-require 'friendly_shipping/services/ups_freight/generate_pickup_request_hash'
-require 'friendly_shipping/services/ups_freight/generate_handling_units_hash'
-
 module FriendlyShipping
   module Services
     class UpsFreight

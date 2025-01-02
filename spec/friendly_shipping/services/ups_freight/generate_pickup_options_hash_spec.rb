@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/generate_pickup_options_hash'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::GeneratePickupOptionsHash do
   subject { described_class.call(pickup_options: pickup_options) }

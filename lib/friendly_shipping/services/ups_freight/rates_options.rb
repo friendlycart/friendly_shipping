@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups_freight/shipment_options'
-require 'friendly_shipping/services/ups_freight/rates_package_options'
-require 'friendly_shipping/services/ups_freight/generate_commodity_information'
-
 module FriendlyShipping
   module Services
     class UpsFreight

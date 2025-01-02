@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/rates_item_options'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::RatesItemOptions do
   subject(:rates_item_options) { described_class.new(item_id: nil) }

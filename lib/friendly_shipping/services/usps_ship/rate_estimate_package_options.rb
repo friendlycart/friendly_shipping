@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups/rate_estimate_package_options'
-
 module FriendlyShipping
   module Services
     class USPSShip

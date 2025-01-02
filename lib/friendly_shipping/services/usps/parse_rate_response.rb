@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/usps/parse_xml_response'
-require 'friendly_shipping/services/usps/parse_package_rate'
-require 'friendly_shipping/services/usps/choose_package_rate'
-
 module FriendlyShipping
   module Services
     class Usps

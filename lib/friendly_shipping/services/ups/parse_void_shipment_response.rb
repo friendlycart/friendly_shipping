@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-
 module FriendlyShipping
   module Services
     class Ups

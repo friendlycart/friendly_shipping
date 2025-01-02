@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/label_options'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::LabelOptions do
   subject(:label_options) do

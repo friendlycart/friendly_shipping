@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/shipment_information'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::ShipmentInformation do
   let(:docs) { double }

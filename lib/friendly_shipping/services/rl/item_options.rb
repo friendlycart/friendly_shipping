@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/item_options'
-
 module FriendlyShipping
   module Services
     class RL

@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups_json/generate_address_hash'
-require 'friendly_shipping/services/ups_json/generate_package_hash'
-
 module FriendlyShipping
   module Services
     class UpsJson

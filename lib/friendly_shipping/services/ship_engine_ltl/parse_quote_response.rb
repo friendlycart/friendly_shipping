@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'json'
-
 module FriendlyShipping
   module Services
     class ShipEngineLTL

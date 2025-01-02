@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/usps/machinable_package'
-
 module FriendlyShipping
   module Services
     class UspsInternational

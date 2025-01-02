@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups_freight/pickup_request_options'
 
 RSpec.describe FriendlyShipping::Services::UpsFreight::PickupRequestOptions do
   subject do

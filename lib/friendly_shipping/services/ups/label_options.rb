@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'friendly_shipping/services/ups/label_package_options'
-require 'friendly_shipping/services/ups/label_billing_options'
-
 module FriendlyShipping
   module Services
     # Option container for a generating UPS labels for a shipment

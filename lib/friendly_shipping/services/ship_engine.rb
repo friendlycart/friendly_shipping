@@ -1,25 +1,6 @@
 # frozen_string_literal: true
 
-require 'dry/monads'
-require 'friendly_shipping/http_client'
-require 'friendly_shipping/services/ship_engine/api_error'
-require 'friendly_shipping/services/ship_engine/parse_carrier_response'
-require 'friendly_shipping/services/ship_engine/serialize_address_validation_request'
-require 'friendly_shipping/services/ship_engine/serialize_label_shipment'
-require 'friendly_shipping/services/ship_engine/serialize_rate_estimate_request'
-require 'friendly_shipping/services/ship_engine/serialize_rates_request'
-require 'friendly_shipping/services/ship_engine/serialize_address_residential_indicator'
-require 'friendly_shipping/services/ship_engine/parse_address_validation_response'
-require 'friendly_shipping/services/ship_engine/parse_label_response'
-require 'friendly_shipping/services/ship_engine/parse_void_response'
-require 'friendly_shipping/services/ship_engine/parse_rate_estimates_response'
-require 'friendly_shipping/services/ship_engine/parse_rates_response'
-require 'friendly_shipping/services/ship_engine/rate_estimates_options'
-require 'friendly_shipping/services/ship_engine/rates_item_options'
-require 'friendly_shipping/services/ship_engine/rates_package_options'
-require 'friendly_shipping/services/ship_engine/rates_options'
-require 'friendly_shipping/services/ship_engine/label_options'
-require 'friendly_shipping/services/ship_engine/label_package_options'
+require "json"
 
 module FriendlyShipping
   module Services

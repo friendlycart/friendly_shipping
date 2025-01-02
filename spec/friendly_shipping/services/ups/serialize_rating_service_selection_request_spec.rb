@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'friendly_shipping/services/ups/rate_estimate_options'
 
 RSpec.describe FriendlyShipping::Services::Ups::SerializeRatingServiceSelectionRequest do
   let(:origin) { FactoryBot.build(:physical_location) }
