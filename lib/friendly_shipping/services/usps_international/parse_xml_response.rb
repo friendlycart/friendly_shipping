@@ -2,7 +2,7 @@
 
 module FriendlyShipping
   module Services
-    class Usps
+    class UspsInternational
       class ParseXMLResponse
         extend Dry::Monads::Result::Mixin
         ERROR_TAG = 'Error'

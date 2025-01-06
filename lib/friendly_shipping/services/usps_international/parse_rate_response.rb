@@ -16,7 +16,7 @@ module FriendlyShipping
           # @return [Result<ApiResult<Array<FriendlyShipping::Rate>>>] When successfully parsing, an array of rates in a Success Monad.
           def call(request:, response:, shipment:, options:)
             # Filter out error responses and directly return a failure
-            parsing_result = FriendlyShipping::Services::Usps::ParseXMLResponse.call(
+            parsing_result = ParseXMLResponse.call(
               request: request,
               response: response,
               expected_root_tag: 'IntlRateV2Response'

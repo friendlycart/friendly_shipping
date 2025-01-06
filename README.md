@@ -23,7 +23,7 @@ Or install it yourself as:
 The entry point for using FriendlyShipping are the `service` objects that each represent an API provider. Currently, there are three services:
 
 1. `FriendlyShipping::Services::UpsJson`
-2. `FriendlyShipping::Services::Usps`
+2. `FriendlyShipping::Services::USPSShip`
 3. `FriendlyShipping::Services::ShipEngine`
 4. `FriendlyShipping::Services::UpsFreight`
 
@@ -76,11 +76,11 @@ The following methods are supported:
 
 #### USPS (United States Postal Service)
 
-The service class for USPS is `FriendlyShipping::Services::Usps`. Initialize like so:
+The service class for USPS is `FriendlyShipping::Services::USPSShip`. Initialize like so:
 
 ```rb
-service = FriendlyShipping::Services::Usps.new(
-  login: ENV['USPS_API_LOGIN'],
+service = FriendlyShipping::Services::USPSShip.new(
+  access_token: ENV['USPS_ACCESS_TOKEN'],
   test: true
 )
 ```
@@ -88,9 +88,9 @@ service = FriendlyShipping::Services::Usps.new(
 The following methods are supported:
 
 - `#carriers` - List all configured carriers (always returns USPS)
-- `#rate_estimates(physical_shipment)` - Get rate estimates for a shipment
-- `#address_validation(physical_location)` - Perform a detailed address validation and determine whether an address is commercial or residential.
-- `#city_state_lookup(physical_location)` - Lookup City and State for a given ZIP code.
+- `#create_access_token(client_id:, client_secret:)` - Create a new API access token
+- `#rate_estimates(physical_shipment, options:)` - Get rate estimates for a shipment
+- `#timings(physical_location, options:)` - Get transit timings for a shipment
 
 #### UPS Freight
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe FriendlyShipping::Services::Usps::ParseXMLResponse do
+RSpec.describe FriendlyShipping::Services::UspsInternational::ParseXMLResponse do
   let(:body) do
     Nokogiri::XML::Builder.new do |xml|
       xml.Error do

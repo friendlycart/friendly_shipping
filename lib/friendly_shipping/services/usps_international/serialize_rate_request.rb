@@ -50,7 +50,7 @@ module FriendlyShipping
           private
 
           def machinable(package)
-            FriendlyShipping::Services::Usps::MachinablePackage.new(package).machinable? ? 'true' : 'false'
+            FriendlyShipping::Services::USPSShip::MachinablePackage.new(package).machinable? ? 'true' : 'false'
           end
 
           def ounces_for(package)
