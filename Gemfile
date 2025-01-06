@@ -11,6 +11,7 @@ group :development do
   gem "bundler", ">= 2.1.4", "< 3"
   gem "dotenv", "~> 3.0"
   gem "factory_bot", "~> 6.2"
+  gem "observer", "~> 0.1.2"
   gem "pry", "~> 0.12"
   gem "rack"
   gem "rake", ">= 12.3.3"
