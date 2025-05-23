@@ -35,7 +35,7 @@ module FriendlyShipping
 
             success(rates, request, response)
           rescue JSON::ParserError, KeyError => e
-            failure(e.message, request, response)
+            failure(e, request, response)
           end
 
           private

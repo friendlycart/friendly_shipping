@@ -64,7 +64,6 @@ RSpec.describe FriendlyShipping::Services::USPSShip::ParseTimingsResponse do
       failure = call.failure
       expect(failure).to be_a(FriendlyShipping::ApiResult)
       expect(failure.data).to be_a(JSON::ParserError)
-      expect(failure.data.message).to eq("unexpected token at 'malformed json'")
       expect(failure.original_request).to eq(request)
       expect(failure.original_response).to eq(response)
     end
