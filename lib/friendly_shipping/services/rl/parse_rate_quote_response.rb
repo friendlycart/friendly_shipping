@@ -34,10 +34,10 @@ module FriendlyShipping
             end
           end
 
-          private
-
           # The currency to use when parsing the rate quotes.
-          CURRENCY = Money::Currency.new('USD').freeze
+          CURRENCY = Money::Currency.new('USD')
+
+          private
 
           # Builds {Rate} instances from the parsed JSON.
           #

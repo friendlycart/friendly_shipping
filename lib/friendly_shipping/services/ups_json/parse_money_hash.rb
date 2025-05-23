@@ -105,6 +105,7 @@ module FriendlyShipping
           "470" => "COMMITTED DELIVERY WINDOW",
           "480" => "SECURITY SURCHARGE",
           "492" => "CUSTOMER TRANSACTION FEE",
+          "495" => "EXTENDED AREA SURCHARGE",
           "500" => "SHIPMENT COD",
           "510" => "LIFT GATE FOR PICKUP",
           "511" => "LIFT GATE FOR DELIVERY",
