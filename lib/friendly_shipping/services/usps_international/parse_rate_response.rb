@@ -51,10 +51,10 @@ module FriendlyShipping
             end
           end
 
-          private
-
           PACKAGE_NODE_XPATH = '//Package'
           SERVICE_NODE_NAME = 'Service'
+
+          private
 
           # Iterate over all packages and parse the rates for each package
           #
