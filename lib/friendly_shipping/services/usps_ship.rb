@@ -32,7 +32,8 @@ module FriendlyShipping
       RESOURCES = {
         token: 'oauth2/v3/token',
         rates: 'prices/v3/base-rates/search',
-        timings: 'service-standards/v3/estimates'
+        timings: 'service-standards/v3/estimates',
+        city_state: 'addresses/v3/city-state'
       }.freeze
 
       # @param access_token [AccessToken] the access token
@@ -160,6 +161,31 @@ module FriendlyShipping
           ParseTimingsResponse.call(response: response, request: request)
         end
       end
+
+      # Get city and state for given ZIP code.
+      # @see https://developer.usps.com/addressesv3#tag/Resources/operation/get-city-state API documentation
+      #
+      # @param location [Physical::Location] the location with ZIP code we want to complete
+      # @return [Result<ApiResult<Array<Timing>>>] the {Timing}s wrapped in an {ApiResult} object
+      # @return [Result<ApiResult<Physical::Location>>] The response data from USPS encoded in a
+      #   `Physical::Location` object. Country, City and ZIP code will be set, everything else nil.
+      def city_state(location, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: "#{BASE_URL}/#{RESOURCES[:city_state]}?ZIPCode=#{location.zip}",
+          http_method: "GET",
+          debug: debug,
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer #{access_token.raw_token}"
+          }
+        )
+
+        client.get(request).bind do |response|
+          ParseCityStateResponse.call(response: response, request: request)
+        end
+      end
+
+      alias_method :city_state_lookup, :city_state
 
       private
 

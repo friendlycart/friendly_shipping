@@ -304,4 +304,64 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
       it { expect(timings.failure.to_s).to eq("Missing or malformed access token.") }
     end
   end
+
+  describe "#city_state" do
+    subject(:city_state) { service.city_state(location) }
+    let(:location) { FactoryBot.build(:physical_location, region: "NC", zip: "27703") }
+
+    context "with a valid request", vcr: { cassette_name: "usps_ship/city_state/success" } do
+      it { is_expected.to be_success }
+
+      it "has all the right data" do
+        result = city_state.value!.data
+        expect(result).to be_a(Physical::Location)
+        expect(result.city).to eq("DURHAM")
+        expect(result.region).to eq(Carmen::Country.coded("USA").subregions.coded("NC"))
+        expect(result.zip).to eq("27703")
+        expect(result.country).to eq(Carmen::Country.coded("USA"))
+      end
+    end
+
+    context "with an invalid zip code", vcr: { cassette_name: "usps_ship/city_state/invalid_zip" } do
+      let(:location) { FactoryBot.build(:physical_location, zip: "00000") }
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(city_state.failure.to_s).to eq("Invalid Zip Code.")
+      end
+    end
+
+    context "with a missing zip code", vcr: { cassette_name: "usps_ship/city_state/missing_zip" } do
+      let(:location) do
+        Physical::Location.new(
+          city: "Allanton",
+          region: "MO",
+          country: "US"
+        )
+      end
+
+      it { is_expected.to be_failure }
+
+      it "has the correct error message" do
+        expect(city_state.failure.to_s).to include(
+          "OASValidation OpenAPI-Spec-Validation-Addresses-Request with resource oas://addresses_v3.yaml: " \
+          "failed with reason: [ERROR - Parameter 'ZIPCode' is required but is missing.: []]"
+        )
+      end
+    end
+
+    context "with an invalid access token", vcr: { cassette_name: "usps_ship/city_state/invalid_access_token" } do
+      let(:access_token) do
+        FriendlyShipping::Services::USPSShip::AccessToken.new(
+          token_type: "Bearer",
+          expires_in: 3599,
+          raw_token: "WRONG_TOKEN"
+        )
+      end
+
+      it { is_expected.to be_failure }
+      it { expect(city_state.failure.to_s).to eq("Missing or malformed access token.") }
+    end
+  end
 end

@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.usps.com/addresses/v3/city-state?ZIPCode=27703
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin24 arm64) ruby/3.4.3p32
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.usps.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=UTF-8
+      X-Backside-Transport:
+      - OK OK
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Global-Transaction-Id:
+      - 8ac205fb68371047ae49bbed
+      Access-Control-Allow-Origin:
+      - "*"
+      Ntcoent-Length:
+      - '170'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Accept, Content-Type, Authorization
+      Access-Control-Max-Age:
+      - '3628800'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      Vary:
+      - Accept-Encoding
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 28 May 2025 13:31:51 GMT
+      Content-Length:
+      - '48'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - TLTSID=56b6c8c2d78016639a0300e0ed96ae55; path=/; domain=.USPS.com; Secure;
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains ; preload
+      Akamai-Grn:
+      - 0.0fc0ce17.1748439110.5450154f
+    body:
+      encoding: UTF-8
+      string: '{"city":"DURHAM","state":"NC","ZIPCode":"27703"}'
+  recorded_at: Wed, 28 May 2025 13:31:51 GMT
+recorded_with: VCR 6.3.1

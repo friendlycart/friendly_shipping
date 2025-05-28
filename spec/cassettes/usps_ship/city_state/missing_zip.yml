@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.usps.com/addresses/v3/city-state?ZIPCode=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin24 arm64) ruby/3.4.3p32
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.usps.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '544'
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 28 May 2025 13:31:51 GMT
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - TLTSID=7bb89ce8d78016638f0a00e0ed96ae55; path=/; domain=.USPS.com; Secure;
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains ; preload
+      Akamai-Grn:
+      - 0.0fc0ce17.1748439111.545016ca
+    body:
+      encoding: UTF-8
+      string: "\n            {\n                \"apiVersion\": \"/addresses/v3/\",\n
+        \               \"error\": {\n                    \"code\": \"400\",\n                    \"message\":
+        \"OASValidation OpenAPI-Spec-Validation-Addresses-Request with resource oas://addresses_v3.yaml:
+        failed with reason: [ERROR - Parameter 'ZIPCode' is required but is missing.:
+        []]\",\n                    \"errors\": [{\"title\":\"openapi_validation_error\",\"detail\":\"The
+        API request or response does not validate against the specification.\",\"source\":\"API\"}]\n
+        \               }\n            }\n        "
+  recorded_at: Wed, 28 May 2025 13:31:51 GMT
+recorded_with: VCR 6.3.1
