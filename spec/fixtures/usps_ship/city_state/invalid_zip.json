@@ -1,0 +1,14 @@
+{
+  "apiVersion": "/addresses/v3/",
+  "error": {
+    "code": "400",
+    "message": "Invalid Zip Code.",
+    "errors": [
+      {
+        "title": "Bad request",
+        "detail": "Invalid Zip Code.",
+        "source": "API"
+      }
+    ]
+  }
+}

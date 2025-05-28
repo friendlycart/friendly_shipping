@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.usps.com/addresses/v3/city-state?ZIPCode=00000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin24 arm64) ruby/3.4.3p32
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.usps.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '317'
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 28 May 2025 13:31:51 GMT
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - TLTSID=80b4470bd7801663920500e0ed96ae55; path=/; domain=.USPS.com; Secure;
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains ; preload
+      Akamai-Grn:
+      - 0.0fc0ce17.1748439111.54501633
+    body:
+      encoding: UTF-8
+      string: "\n            {\n                \"apiVersion\": \"/addresses/v3/\",\n
+        \               \"error\": {\n                    \"code\": \"400\",\n                    \"message\":
+        \"Invalid Zip Code.\",\n                    \"errors\": [{\"title\":\"Bad
+        request\",\"detail\":\"Invalid Zip Code.\",\"source\":\"API\"}]\n                }\n
+        \           }\n        "
+  recorded_at: Wed, 28 May 2025 13:31:51 GMT
+recorded_with: VCR 6.3.1
