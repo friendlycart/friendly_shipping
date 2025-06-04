@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.10.3] - 2025
+- Add USPS Ship city/state lookup request (#279)
+
+## [0.10.2] - 2025
+- Remove legacy UPS integration (#275)
+- Add observer gem to Gemfile (#276)
+- Remove legacy USPS integration (#277)
+- Add UPS surcharge code 495 to money hash parser (#278)
+
+## [0.10.1] - 2025-01-03
+- Remove Inflections file (#274)
+
+## [0.10.0] - 2025-01-03
+- Bump version to 0.9.0 and log changes (#257)
+- USPS Ship: Fix machinable criteria (#258)
+- Add debug param to ShipEngine labels method (#259)
+- Truncate R+L BOL address lines to 30 chars (#260)
+- Fix UPS json rate details, add specs (#261)
+- Fix ups label cost breakdown (#262)
+- Remove TForce company name sanitization (#263)
+- Update payload location of NegotiatedRatesIndicator within UPS JSON (#264)
+- Attach cost breakdown to R+L rates data (#265)
+- Expand TForce cost breakdown detail (#266)
+- Never send empty UPS ShipmentRatingOptions (#267)
+- Bump required Ruby version to 3.1 or greater (#269)
+- Add city/state lookup endpoint for UPS JSON API (#268)
+- Extract AccessToken parent class (#270)
+- Return errors in ApiFailures for USPS timings, UPS json parsing (#271)
+- Deprecate ApiFailure class (#272)
+- Use Zeitwerk to load FriendlyShipping (#273)
+
 ## [0.9.0] - 2024-05-02
 - Implement R&L service with rates and timings (#177)
 - Add R&L Freight API call to create BOL and schedule pickup (#178)
