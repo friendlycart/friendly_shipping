@@ -29,13 +29,13 @@ module FriendlyShipping
 
         # @return [Boolean]
         def machinable?
-          at_least_minimum && at_most_maximum
+          at_least_minimum? && at_most_maximum?
         end
 
         private
 
         # @return [Boolean]
-        def at_least_minimum
+        def at_least_minimum?
           package.length >= MIN_LENGTH &&
             package.width >= MIN_WIDTH &&
             package.height >= MIN_HEIGHT &&
@@ -43,7 +43,7 @@ module FriendlyShipping
         end
 
         # @return [Boolean]
-        def at_most_maximum
+        def at_most_maximum?
           package.length <= MAX_LENGTH &&
             package.width <= MAX_WIDTH &&
             package.height <= MAX_HEIGHT &&
