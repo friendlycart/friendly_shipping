@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "jwt", ">= 2.7", "< 4.0"
   spec.add_dependency "money", "~> 6.0"
   spec.add_dependency "nokogiri", "~> 1.6"
-  spec.add_dependency "physical", "~> 0.5", ">= 0.5.1"
+  spec.add_dependency "physical", "~> 0.6"
   spec.add_dependency "rest-client", "~> 2.0"
 
   spec.required_ruby_version = '>= 3.1'
