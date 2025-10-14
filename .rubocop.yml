@@ -7,7 +7,16 @@ inherit_from:
   - .rubocop_todo.yml
   - .rubocop-relaxed.yml
 
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: false
+
 Metrics/BlockLength:
+  Enabled: false
+
+Naming/PredicateMethod:
+  Enabled: false
+
+Naming/VariableNumber:
   Enabled: false
 
 Style/AccessorGrouping:
@@ -29,7 +38,4 @@ Style/HashTransformValues:
   Enabled: true
 
 Style/SuperArguments:
-  Enabled: false
-
-Naming/VariableNumber:
   Enabled: false

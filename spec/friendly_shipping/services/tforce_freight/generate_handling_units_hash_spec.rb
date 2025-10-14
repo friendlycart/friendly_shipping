@@ -8,9 +8,32 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateHandlingUnitsH
   let(:shipment) { Physical::Shipment.new(structures: pallets) }
   let(:pallets) { [pallet_1, pallet_2, other] }
 
-  let(:pallet_1) { Physical::Structure.new(id: "pallet 1") }
-  let(:pallet_2) { Physical::Structure.new(id: "pallet 2") }
-  let(:other) { Physical::Structure.new(id: "other") }
+  let(:pallet_1) do
+    Physical::Structure.new(
+      id: "pallet 1",
+      dimensions: [
+        Measured::Length(48, :in),
+        Measured::Length(40, :in),
+        Measured::Length(54, :in)
+      ]
+    )
+  end
+
+  let(:pallet_2) do
+    # Intentionally leaving dimensions blank
+    Physical::Structure.new(id: "pallet 2")
+  end
+
+  let(:other) do
+    Physical::Structure.new(
+      id: "other",
+      dimensions: [
+        Measured::Length(50, :in),
+        Measured::Length(45, :in),
+        Measured::Length(37, :in)
+      ]
+    )
+  end
 
   let(:options) do
     FriendlyShipping::Services::TForceFreight::RatesOptions.new(
@@ -45,7 +68,31 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateHandlingUnitsH
       handlingUnitTwo: {
         quantity: 1,
         typeCode: "OTH"
-      }
+      },
+      handlingUnits: [
+        {
+          pieces: 1,
+          packagingType: "PLT",
+          dangerousGoods: false,
+          dimensions: {
+            length: 48,
+            width: 40,
+            height: 54,
+            units: "IN"
+          }
+        },
+        {
+          pieces: 1,
+          packagingType: "OTH",
+          dangerousGoods: false,
+          dimensions: {
+            length: 50,
+            width: 45,
+            height: 37,
+            units: "IN"
+          }
+        }
+      ]
     )
   end
 

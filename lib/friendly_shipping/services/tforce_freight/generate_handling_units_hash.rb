@@ -27,9 +27,10 @@ module FriendlyShipping
               end.map { |package_options, quantity| handling_unit_hash(package_options, quantity) }
             else
               all_structure_options = shipment.structures.map { |structure| options.options_for_structure(structure) }
-              all_structure_options.group_by(&:handling_unit_code).map do |_handling_unit_code, options_group|
+              handling_units = all_structure_options.group_by(&:handling_unit_code).map do |_handling_unit_code, options_group|
                 [options_group.first, options_group.length]
               end.map { |structure_options, quantity| handling_unit_hash(structure_options, quantity) }
+              handling_units << { handlingUnits: handling_units_array(shipment.structures, options) }
             end
           end
 
@@ -43,6 +44,30 @@ module FriendlyShipping
                 typeCode: options.handling_unit_code
               }
             }
+          end
+
+          # @param structures [Structures]
+          # @param options [StructureOptions]
+          # @return [Array<Hash>]
+          def handling_units_array(structures, options)
+            structures.map do |structure|
+              # Skip this structure if it doesn't have valid dimensions
+              next if structure.dimensions.map(&:value).any? { |e| e.zero? || e.infinite? }
+
+              structure_options = options.options_for_structure(structure)
+              all_package_options = structure.packages.map { |package| options.options_for_package(package) }
+              {
+                pieces: 1,
+                packagingType: structure_options.handling_unit_code,
+                dangerousGoods: all_package_options.any?(&:hazardous),
+                dimensions: {
+                  length: structure.length.convert_to(:inches).value.to_f.round(2),
+                  width: structure.width.convert_to(:inches).value.to_f.round(2),
+                  height: structure.height.convert_to(:inches).value.to_f.round(2),
+                  units: "IN"
+                }
+              }
+            end.compact
           end
         end
       end
