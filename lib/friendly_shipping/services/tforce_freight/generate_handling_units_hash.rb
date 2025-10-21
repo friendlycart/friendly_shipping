@@ -64,7 +64,7 @@ module FriendlyShipping
                   length: structure.length.convert_to(:inches).value.to_f.round(2),
                   width: structure.width.convert_to(:inches).value.to_f.round(2),
                   height: structure.height.convert_to(:inches).value.to_f.round(2),
-                  units: "IN"
+                  unit: "IN"
                 }
               }
             end.compact

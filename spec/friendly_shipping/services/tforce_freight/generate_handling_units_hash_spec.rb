@@ -78,7 +78,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateHandlingUnitsH
             length: 48,
             width: 40,
             height: 54,
-            units: "IN"
+            unit: "IN"
           }
         },
         {
@@ -89,7 +89,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateHandlingUnitsH
             length: 50,
             width: 45,
             height: 37,
-            units: "IN"
+            unit: "IN"
           }
         }
       ]
