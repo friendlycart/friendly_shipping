@@ -8,6 +8,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::BOLOptions do
       service_code: "308",
       pickup_at: Time.parse("2024-01-22 12:30:00"),
       pickup_time_window: Time.parse("2024-01-22 08:00:00")..Time.parse("2024-01-22 16:00:00"),
+      density_eligible: true,
       preview_rate: true,
       time_in_transit: true,
       billing: :prepaid,
@@ -34,6 +35,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::BOLOptions do
     expect(options.service_code).to eq("308")
     expect(options.pickup_at).to eq(Time.parse("2024-01-22 12:30:00"))
     expect(options.pickup_time_window).to eq(Time.parse("2024-01-22 08:00:00")..Time.parse("2024-01-22 16:00:00"))
+    expect(options.density_eligible).to be(true)
     expect(options.preview_rate).to be(true)
     expect(options.time_in_transit).to be(true)
     expect(options.billing_code).to eq("10")

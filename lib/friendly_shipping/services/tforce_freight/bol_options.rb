@@ -59,6 +59,9 @@ module FriendlyShipping
         # @return [Range] time window for pickup
         attr_reader :pickup_time_window
 
+        # @return [Boolean] whether the rate is density based
+        attr_reader :density_eligible
+
         # @return [Boolean] whether to preview rates in the response
         attr_reader :preview_rate
 
@@ -95,6 +98,7 @@ module FriendlyShipping
         # @param service_code [String] the service code to use
         # @param pickup_at [Time] date/time of pickup (defaults to now)
         # @param pickup_time_window [Range] time window for pickup (defaults to start/end of today)
+        # @param density_eligible [Boolean] whether the rate is density based
         # @param preview_rate [Boolean] whether to preview rates in the response
         # @param time_in_transit [Boolean] whether to include time in transit in the response
         # @param billing [Symbol] how to bill this shipment (see {BILLING_CODES})
@@ -113,6 +117,7 @@ module FriendlyShipping
           service_code: FriendlyShipping::Services::TForceFreight::SHIPPING_METHODS.first.service_code,
           pickup_at: Time.now,
           pickup_time_window: Time.now.beginning_of_day..Time.now.end_of_day,
+          density_eligible: false,
           preview_rate: false,
           time_in_transit: false,
           billing: :prepaid,
@@ -129,6 +134,7 @@ module FriendlyShipping
           @service_code = service_code
           @pickup_at = pickup_at
           @pickup_time_window = pickup_time_window
+          @density_eligible = density_eligible
           @preview_rate = preview_rate
           @time_in_transit = time_in_transit
           @billing_code = BILLING_CODES.fetch(billing)
