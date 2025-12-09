@@ -12,6 +12,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ParseRatesResponse do
     it "has the right data" do
       rates = call.data
       expect(rates.length).to eq(3)
+
       rate = rates.first
       expect(rate).to be_a(FriendlyShipping::Rate)
       expect(rate.total_amount).to eq(Money.new(157_356, "USD"))
@@ -31,6 +32,26 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ParseRatesResponse do
           { "code" => "LND_GROSS", "description" => "LND_GROSS", "unit" => "USD", "value" => "2649.40" },
           { "code" => "AFTR_DSCNT", "description" => "AFTR_DSCNT", "unit" => "USD", "value" => "662.35" }
         ]
+      )
+
+      rate = rates.second
+      expect(rate).to be_a(FriendlyShipping::Rate)
+      expect(rate.total_amount).to eq(Money.new(0, "USD"))
+      expect(rate.shipping_method.name).to eq("TForce Freight LTL - Guaranteed")
+      expect(rate.data).to eq(
+        customer_context: "140fdff5-3df5-419e-bc3f-84b781f55cc9",
+        commodities: [],
+        cost_breakdown: []
+      )
+
+      rate = rates.third
+      expect(rate).to be_a(FriendlyShipping::Rate)
+      expect(rate.total_amount).to eq(Money.new(0, "USD"))
+      expect(rate.shipping_method.name).to eq("TForce Freight LTL - Guaranteed A.M.")
+      expect(rate.data).to eq(
+        customer_context: "140fdff5-3df5-419e-bc3f-84b781f55cc9",
+        commodities: [],
+        cost_breakdown: []
       )
     end
   end

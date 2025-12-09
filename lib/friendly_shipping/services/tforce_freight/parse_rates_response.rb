@@ -19,7 +19,7 @@ module FriendlyShipping
 
               total_amount = detail.dig("shipmentCharges", "total", "value")
               total_currency = detail.dig("shipmentCharges", "total", "currency")
-              total = Money.new(total_amount.to_f * 100, total_currency)
+              total = Money.new(total_amount.to_f * 100, total_currency || "USD")
 
               data = {
                 customer_context: transaction_id,
