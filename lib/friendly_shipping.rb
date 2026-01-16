@@ -19,6 +19,7 @@ loader.inflector.inflect(
   "bol_structures_serializer" => "BOLStructuresSerializer",
   "bol_packages_serializer" => "BOLPackagesSerializer",
   "bol_options" => "BOLOptions",
+  "g2mint" => "G2Mint",
   "ship_engine_ltl" => "ShipEngineLTL",
   "tforce_freight" => "TForceFreight",
   "generate_create_bol_request_hash" => "GenerateCreateBOLRequestHash",

@@ -24,6 +24,9 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.filter_sensitive_data('%G2MINT_API_KEY%') { ENV.fetch('G2MINT_API_KEY', nil) }
+  c.filter_sensitive_data('%G2MINT_ACCOUNT_ID%') { ENV.fetch('G2MINT_ACCOUNT_ID', nil) }
+  c.filter_sensitive_data('%G2MINT_OWNER_TENANT_ID%') { ENV.fetch('G2MINT_OWNER_TENANT_ID', nil) }
   c.filter_sensitive_data('%RL_API_KEY%') { ENV.fetch('RL_API_KEY', nil) }
   c.filter_sensitive_data('%SHIPENGINE_API_KEY%') { ENV.fetch('SHIPENGINE_API_KEY', nil) }
   c.filter_sensitive_data('%SHIPENGINE_CARRIER_ID%') { ENV.fetch('SHIPENGINE_CARRIER_ID', nil) }
