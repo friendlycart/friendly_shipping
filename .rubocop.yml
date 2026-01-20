@@ -7,13 +7,16 @@ inherit_from:
   - .rubocop_todo.yml
   - .rubocop-relaxed.yml
 
-Layout/EmptyLinesAfterModuleInclusion:
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
   Enabled: false
 
 Metrics/BlockLength:
   Enabled: false
 
-Naming/PredicateMethod:
+Naming/PredicateName:
   Enabled: false
 
 Naming/VariableNumber:
