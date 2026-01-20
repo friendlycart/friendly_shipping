@@ -1,0 +1,196 @@
+[
+  {
+    "requestId": "17cfde26-276d-4153-a393-f4352f88c32a",
+    "statusCode": 200,
+    "scac": "RNLO",
+    "totalVolume": 0,
+    "currency": "USD",
+    "createdOn": "2026-01-16 15:25:34.40107598 +0000 UTC m=+47989.413635970",
+    "pickUpDate": "2026-01-15T00:00:00.000Z",
+    "rateList": [
+      {
+        "id": "c5f9b2f4-fc9d-43f5-98ac-d6f63fa7dad9",
+        "agreementID": "2110430f-8978-4192-843f-9dfd2e95220f",
+        "agreementName": "Test Agreement",
+        "rateplanName": "LTL",
+        "customerId": "88e7aecb-dd0a-4ae0-831b-09392f5915fb",
+        "accountId": "b1e77505-86b3-43d7-98fe-4a923c19ac2e",
+        "carrierID": "fc32bdc0-c7f0-4041-8067-073dc2da4cb2",
+        "carrierCode": "RNLO",
+        "carrierName": "R+L Carriers",
+        "deliveryDate": "2026-01-20",
+        "serviceLevel": "Standard",
+        "estimatedTransitTime": 2,
+        "status": "RATED",
+        "mode": "LTL",
+        "description": "Fixed Amount Total Cost @ $25.00",
+        "pricing": {
+          "subtotal": 25,
+          "discountPercentage": 91.4,
+          "discountAmount": 5371.53,
+          "totalPrice": 681.04,
+          "lineHaul": 524.68,
+          "fuelSurcharge": 156.36,
+          "accessorialTotal": 0,
+          "linehaulGross": 5876.95
+        },
+        "handlingUnits": [
+          {
+            "id": "#1",
+            "length": 48,
+            "width": 48,
+            "height": 48,
+            "weight": 500,
+            "pieceCount": 1,
+            "type": "PALLET"
+          }
+        ],
+        "commodities": [
+          {
+            "handlingUnitId": "#1",
+            "charge": {
+              "amount": 5876.95,
+              "calcMethod": {
+                "perUnitRate": 1175.39
+              }
+            },
+            "freightClass": "250",
+            "isHazmat": false,
+            "rate": 1175.39,
+            "weight": 500
+          }
+        ],
+        "rateType": "BILLABLE",
+        "quoteNumber": "6185341",
+        "disclaimers": [
+          {
+            "type": "Carrier API",
+            "message": "Quote is valid for 7 days."
+          }
+        ],
+        "source": "WEB_SERVICE",
+        "freightTerms": "THIRD_PARTY"
+      },
+      {
+        "id": "9fb8f299-ebb4-477a-8bc6-3c5257cdf95e",
+        "agreementID": "2110430f-8978-4192-843f-9dfd2e95220f",
+        "agreementName": "Test Agreement",
+        "rateplanName": "LTL",
+        "customerId": "88e7aecb-dd0a-4ae0-831b-09392f5915fb",
+        "accountId": "b1e77505-86b3-43d7-98fe-4a923c19ac2e",
+        "carrierID": "fc32bdc0-c7f0-4041-8067-073dc2da4cb2",
+        "carrierCode": "RNLO",
+        "carrierName": "R+L Carriers",
+        "deliveryDate": "2026-01-20",
+        "serviceLevel": "Guaranteed",
+        "estimatedTransitTime": 2,
+        "status": "RATED",
+        "mode": "LTL",
+        "description": "Fixed Amount Total Cost @ $25.00",
+        "pricing": {
+          "subtotal": 25,
+          "discountPercentage": 91.4,
+          "discountAmount": 5371.53,
+          "totalPrice": 782.12,
+          "lineHaul": 522.11,
+          "fuelSurcharge": 155.59,
+          "accessorialTotal": 104.42,
+          "linehaulGross": 5876.95
+        },
+        "accessorials": [
+          {
+            "code": "GUARANTEE",
+            "name": "Guaranteed Service",
+            "cost": 104.42
+          }
+        ],
+        "handlingUnits": [
+          {
+            "id": "#1",
+            "length": 48,
+            "width": 48,
+            "height": 48,
+            "weight": 500,
+            "pieceCount": 1,
+            "type": "PALLET"
+          }
+        ],
+        "commodities": [
+          {
+            "handlingUnitId": "#1",
+            "charge": {
+              "amount": 5876.95,
+              "calcMethod": {
+                "perUnitRate": 1175.39
+              }
+            },
+            "freightClass": "250",
+            "isHazmat": false,
+            "rate": 1175.39,
+            "weight": 500
+          }
+        ],
+        "rateType": "BILLABLE",
+        "quoteNumber": "24815010",
+        "disclaimers": [
+          {
+            "type": "Carrier API",
+            "message": "Quote is valid for 7 days."
+          }
+        ],
+        "source": "WEB_SERVICE",
+        "freightTerms": "THIRD_PARTY"
+      }
+    ],
+    "appliedMarkup": 25,
+    "markupChargeType": "FIXED_AMOUNT"
+  },
+  {
+    "requestId": "17cfde26-276d-4153-a393-f4352f88c32a",
+    "statusCode": 200,
+    "scac": "TFXF",
+    "totalVolume": 0,
+    "isRatingCompleted": true,
+    "currency": "USD",
+    "createdOn": "2026-01-16T15:25:34.505+00:00",
+    "pickUpDate": "2026-01-15T00:00:00.000Z",
+    "rateList": [
+      {
+        "id": "5c01929f-2011-46df-b259-b5dfa0511dd5",
+        "customerId": "88e7aecb-dd0a-4ae0-831b-09392f5915fb",
+        "carrierID": "e355e376-3daa-4041-ad32-c5bd70286d27",
+        "carrierCode": "TFXF",
+        "carrierName": "TForce Freight",
+        "serviceLevel": "TForce Freight LTL",
+        "status": "RATED",
+        "mode": "LTL",
+        "pricing": {
+          "subtotal": 4613.24,
+          "discountPercentage": 90,
+          "discountAmount": 4028.72,
+          "totalPrice": 584.52,
+          "lineHaul": 447.63,
+          "fuelSurcharge": 136.89,
+          "accessorialTotal": 0
+        },
+        "commodities": [
+          {
+            "description": "MISC",
+            "weight": 500,
+            "weightUOM": "LB"
+          }
+        ],
+        "rateType": "BILLABLE",
+        "quoteNumber": "701659509",
+        "disclaimers": [
+          {
+            "type": "Carrier API",
+            "message": "Rate quote valid for 7 days."
+          }
+        ],
+        "source": "WEB_SERVICE",
+        "freightTerms": "PREPAID"
+      }
+    ]
+  }
+]

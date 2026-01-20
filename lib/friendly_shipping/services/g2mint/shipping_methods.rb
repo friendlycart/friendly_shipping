@@ -3,8 +3,9 @@
 module FriendlyShipping
   module Services
     class G2Mint
-      ORIGIN_COUNTRIES = %w(US)
-        .map { |country_code| Carmen::Country.coded(country_code) }.freeze
+      ORIGIN_COUNTRIES = %w(US).map do |country_code|
+        Carmen::Country.coded(country_code)
+      end.freeze
 
       # G2Mint is a TMS/broker platform that returns rates from multiple carriers
       # with varying service levels. Shipping methods are created dynamically

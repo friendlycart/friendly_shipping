@@ -32,7 +32,9 @@ module FriendlyShipping
       TEST_API_BASE = "https://sdg-api.g2mint.com"
 
       # This carrier's API paths. Used when constructing endpoint URLs.
-      RESOURCES = {}.freeze
+      RESOURCES = {
+        rates: "/rateapi/rates"
+      }.freeze
 
       # @param api_key [String] the API key for this carrier
       # @param test [Boolean] whether to use test API endpoints
@@ -48,6 +50,22 @@ module FriendlyShipping
       # @return [Success<Array<Carrier>>]
       def carriers
         Success([CARRIER])
+      end
+
+      # Get rates for a shipment
+      # @see https://developers.g2mint.com/#tag/Rating/paths/~1rates/post API documentation
+      #
+      # @param shipment [Physical::Shipment] the shipment to get rates for
+      # @param options [REST::RatesOptions] options for obtaining rates for this shipment
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<Array<Rate>>>] the rates from G2Mint
+      def rates(shipment, options:, debug: false)
+        request_hash = REST::GenerateRatesRequestHash.call(shipment: shipment, options: options)
+        request = build_request(:rates, request_hash, debug)
+
+        client.post(request).fmap do |response|
+          REST::ParseRatesResponse.call(response: response, request: request)
+        end
       end
 
       private

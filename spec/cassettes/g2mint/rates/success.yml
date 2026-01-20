@@ -1,0 +1,106 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sdg-api.g2mint.com/rateapi/rates
+    body:
+      encoding: UTF-8
+      string: '{"requestId":"test-request-123","isSync":true,"consolidateSaving":false,"requestIdType":"SHIPMENT","transportationModes":[],"accessorials":[],"stops":[{"address":{"address1":"123
+        Maple St","address2":"Suite 100","city":"New York","stateProvince":"NY","postalCode":"10001","country":"US"},"expectedStart":{"date":"2026-01-15T00:00:00.000Z","time":""},"expectedEnd":{"date":"2026-01-15T00:00:00.000Z","time":""},"type":"PICKUP","accessorials":[],"contact":{"firstName":"","lastName":"","phoneNumber":null,"email":""},"sequence":1,"note":""},{"address":{"address1":"456
+        Oak St","address2":"Suite 200","city":"Boulder","stateProvince":"CO","postalCode":"80301","country":"US"},"expectedStart":{"date":"","time":""},"expectedEnd":{"date":"","time":""},"type":"DELIVERY","accessorials":[],"contact":{"firstName":"","lastName":"","phoneNumber":null,"email":""},"sequence":2}],"packagingUnits":[{"id":"pkg-1","quantity":1,"weight":500,"length":24,"width":18,"height":12}],"handlingUnits":[{"id":"structure-1","units":1,"unitType":"PALLET","weight":500,"length":48,"width":48,"height":48}],"commodities":[{"handlingUnitId":"structure-1","packageUnitId":"pkg-1","isHazmat":false,"freightClass":"250","weight":500,"units":1}],"uom":{"length":"IN","weight":"LB"},"direction":"OUTBOUND","accountID":"%G2MINT_ACCOUNT_ID%","ownerTenant":"%G2MINT_OWNER_TENANT_ID%","billTo":{"location":{"name":"Test
+        Billing"},"address":{"address1":"789 Pine St","address2":"Suite 100","city":"Chicago","stateProvince":"IL","postalCode":"60601","country":"US"},"contact":{"firstName":"John","lastName":"Doe","phoneNumber":"555-1234","email":"john@example.com"}}}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin25 arm64) ruby/3.4.8p72
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Length:
+      - '1658'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.g2mint.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 20 Jan 2026 11:54:49 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '8238'
+      Connection:
+      - keep-alive
+      Apigw-Requestid:
+      - Xe34_iBzIAMEasw=
+    body:
+      encoding: UTF-8
+      string: '[{"requestId":"test-request-123","statusCode":200,"scac":"RNLO","totalVolume":0,"currency":"USD","createdOn":"2026-01-20
+        11:54:48.602510389 +0000 UTC m=+176188.860155612","pickUpDate":"2026-01-15T00:00:00.000Z","rateList":[{"id":"d82b617e-7cec-4b40-be52-7cbc4efa60c8","agreementID":"2110430f-8978-4192-843f-9dfd2e95220f","agreementName":"Candlescience
+        Markup","rateplanName":"LTL","customerId":"%G2MINT_ACCOUNT_ID%","accountId":"%G2MINT_OWNER_TENANT_ID%","carrierID":"fc32bdc0-c7f0-4041-8067-073dc2da4cb2","carrierCode":"RNLO","carrierName":"R+L
+        Carriers","deliveryDate":"2026-01-26","serviceLevel":"Standard","estimatedTransitTime":6,"status":"RATED","mode":"LTL","description":"
+        Fixed Amount Total Cost @ $25.00","pricing":{"subtotal":25,"discountPercentage":90.5,"discountAmount":11865.64,"totalPrice":1788.74,"lineHaul":1263.22,"fuelSurcharge":376.44,"accessorialTotal":149.08,"linehaulGross":13111.2},"accessorials":[{"code":"ARMCF","name":"MANHATTAN
+        CONGESTION FEE","cost":149.08}],"handlingUnits":[{"id":"structure-1","length":48,"width":48,"height":48,"weight":500,"pieceCount":1,"type":"PALLET"}],"commodities":[{"handlingUnitId":"structure-1","charge":{"amount":13111.2,"calcMethod":{"perUnitRate":2622.24}},"freightClass":"250","isHazmat":false,"rate":2622.24,"weight":500}],"rateType":"BILLABLE","quoteNumber":"7133416","disclaimers":[{"type":"Carrier
+        API","message":"* Not to exceed 20,000lbs or 20''. Shipments over 10,000lbs
+        or over 10'' may be delayed for pickup or experience service delays due to
+        current capacity limitations.   Please contact your Service Center for more
+        information by calling 800.543.5589. Note: Some residential deliveries may
+        require additional days of service. * This quote is based on information you
+        provide. The actual charges shall be determined by actual shipment characteristics,
+        and any accessorial charges that are applicable to the shipment at time of
+        shipment. For classes higher than 300, contact the Rate department at 800-535-1983.
+        Please note that a sufferance and in-bond storage charges accumulated in the
+        customs process are the responsibility of the debtor of the freight charges.
+        This rate is not applicable to tradeshows. Please contact our Rate Specialist
+        at 800-535-1983 for more information."},{"type":"Calculated Value","message":"Estimated
+        Delivery Date not provided by carrier. This date is an estimate calculated
+        based on the Transit days supplied by the carrier."}],"source":"WEB_SERVICE","freightTerms":"THIRD_PARTY"},{"id":"e4e66e0c-337a-40c9-9699-bf942cae52e7","agreementID":"2110430f-8978-4192-843f-9dfd2e95220f","agreementName":"Candlescience
+        Markup","rateplanName":"LTL","customerId":"%G2MINT_ACCOUNT_ID%","accountId":"%G2MINT_OWNER_TENANT_ID%","carrierID":"fc32bdc0-c7f0-4041-8067-073dc2da4cb2","carrierCode":"RNLO","carrierName":"R+L
+        Carriers","deliveryDate":"2026-01-26","serviceLevel":"Guaranteed","estimatedTransitTime":6,"status":"RATED","mode":"LTL","description":"
+        Fixed Amount Total Cost @ $25.00","pricing":{"subtotal":25,"discountPercentage":90.5,"discountAmount":11865.64,"totalPrice":2037.85,"lineHaul":1261.03,"fuelSurcharge":375.79,"accessorialTotal":401.03,"linehaulGross":13111.2},"accessorials":[{"code":"ARMCF","name":"MANHATTAN
+        CONGESTION FEE","cost":148.83},{"code":"GUARANTEE","name":"Guaranteed Service","cost":252.2}],"handlingUnits":[{"id":"structure-1","length":48,"width":48,"height":48,"weight":500,"pieceCount":1,"type":"PALLET"}],"commodities":[{"handlingUnitId":"structure-1","charge":{"amount":13111.2,"calcMethod":{"perUnitRate":2622.24}},"freightClass":"250","isHazmat":false,"rate":2622.24,"weight":500}],"rateType":"BILLABLE","quoteNumber":"25672911","disclaimers":[{"type":"Carrier
+        API","message":"* Not to exceed 20,000lbs or 20''. Shipments over 10,000lbs
+        or over 10'' may be delayed for pickup or experience service delays due to
+        current capacity limitations.   Please contact your Service Center for more
+        information by calling 800.543.5589. Note: Some residential deliveries may
+        require additional days of service. * This quote is based on information you
+        provide. The actual charges shall be determined by actual shipment characteristics,
+        and any accessorial charges that are applicable to the shipment at time of
+        shipment. For classes higher than 300, contact the Rate department at 800-535-1983.
+        Please note that a sufferance and in-bond storage charges accumulated in the
+        customs process are the responsibility of the debtor of the freight charges.
+        This rate is not applicable to tradeshows. Please contact our Rate Specialist
+        at 800-535-1983 for more information."},{"type":"Calculated Value","message":"Estimated
+        Delivery Date not provided by carrier. This date is an estimate calculated
+        based on the Transit days supplied by the carrier."}],"source":"WEB_SERVICE","freightTerms":"THIRD_PARTY"},{"id":"861a0929-8b26-4b69-acd2-05eaf37f3838","agreementID":"2110430f-8978-4192-843f-9dfd2e95220f","agreementName":"Candlescience
+        Markup","rateplanName":"LTL","customerId":"%G2MINT_ACCOUNT_ID%","accountId":"%G2MINT_OWNER_TENANT_ID%","carrierID":"fc32bdc0-c7f0-4041-8067-073dc2da4cb2","carrierCode":"RNLO","carrierName":"R+L
+        Carriers","deliveryDate":"2026-01-26","serviceLevel":"Guaranteed AM","estimatedTransitTime":6,"status":"RATED","mode":"LTL","description":"
+        Fixed Amount Total Cost @ $25.00","pricing":{"subtotal":25,"discountPercentage":90.5,"discountAmount":11865.64,"totalPrice":2162.4,"lineHaul":1260.13,"fuelSurcharge":375.52,"accessorialTotal":526.75,"linehaulGross":13111.2},"accessorials":[{"code":"ARMCF","name":"MANHATTAN
+        CONGESTION FEE","cost":148.72},{"code":"GUARANTEE","name":"Guaranteed Service","cost":378.03}],"handlingUnits":[{"id":"structure-1","length":48,"width":48,"height":48,"weight":500,"pieceCount":1,"type":"PALLET"}],"commodities":[{"handlingUnitId":"structure-1","charge":{"amount":13111.2,"calcMethod":{"perUnitRate":2622.24}},"freightClass":"250","isHazmat":false,"rate":2622.24,"weight":500}],"rateType":"BILLABLE","quoteNumber":"33896818","disclaimers":[{"type":"Carrier
+        API","message":"* Not to exceed 20,000lbs or 20''. Shipments over 10,000lbs
+        or over 10'' may be delayed for pickup or experience service delays due to
+        current capacity limitations.   Please contact your Service Center for more
+        information by calling 800.543.5589. Note: Some residential deliveries may
+        require additional days of service. * This quote is based on information you
+        provide. The actual charges shall be determined by actual shipment characteristics,
+        and any accessorial charges that are applicable to the shipment at time of
+        shipment. For classes higher than 300, contact the Rate department at 800-535-1983.
+        Please note that a sufferance and in-bond storage charges accumulated in the
+        customs process are the responsibility of the debtor of the freight charges.
+        This rate is not applicable to tradeshows. Please contact our Rate Specialist
+        at 800-535-1983 for more information."},{"type":"Calculated Value","message":"Estimated
+        Delivery Date not provided by carrier. This date is an estimate calculated
+        based on the Transit days supplied by the carrier."}],"source":"WEB_SERVICE","freightTerms":"THIRD_PARTY"}],"appliedMarkup":25,"markupChargeType":"FIXED_AMOUNT"},{"requestId":"test-request-123","statusCode":200,"scac":"TFXF","totalVolume":0,"isRatingCompleted":true,"currency":"USD","createdOn":"2026-01-20T11:54:49.284+00:00","pickUpDate":"2026-01-15T00:00:00.000Z","rateList":[{"id":"fadafa13-1da6-4469-9b89-8d7ee6c4938f","customerId":"%G2MINT_ACCOUNT_ID%","carrierID":"e355e376-3daa-4041-ad32-c5bd70286d27","carrierCode":"TFXF","carrierName":"TForce
+        Freight","serviceLevel":"TForce Freight LTL","status":"RATED","mode":"LTL","pricing":{"subtotal":11349.12,"discountPercentage":75,"discountAmount":7907.33,"totalPrice":3441.79,"lineHaul":2635.77,"fuelSurcharge":806.02,"accessorialTotal":0},"commodities":[{"description":"MISC","weight":500,"weightUOM":"LB"}],"rateType":"BILLABLE","quoteNumber":"702593937","disclaimers":[{"type":"Carrier
+        API","message":"FBR630: CHANGES TO THE DISPLAYED BILL/INQUIRY (CLS, WGT, ETC)
+        REQUIRE A RERATE"}],"source":"WEB_SERVICE","freightTerms":"THIRD_PARTY"}]}]
+
+        '
+  recorded_at: Tue, 20 Jan 2026 11:54:49 GMT
+recorded_with: VCR 6.3.1

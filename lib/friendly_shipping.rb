@@ -13,6 +13,7 @@ require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect(
   "rl" => "RL",
+  "rest" => "REST",
   "parse_create_bol_response" => "ParseCreateBOLResponse",
   "parse_print_bol_response" => "ParsePrintBOLResponse",
   "serialize_create_bol_request" => "SerializeCreateBOLRequest",
