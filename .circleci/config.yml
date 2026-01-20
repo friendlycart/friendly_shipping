@@ -25,38 +25,57 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "friendly_shipping.gemspec" }}-<< parameters.ruby-version >>
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v2-dependencies-{{ checksum "friendly_shipping.gemspec" }}-<< parameters.ruby-version >>
+            # fallback to using the latest cache if no exact match is found
+            - v2-dependencies-
 
       - run:
           name: install dependencies
           command: |
-            gem install bundler -v 2.6.9
-            bundle config set path vendor/bundle && \
-            bundle install --jobs=4 --retry=3
+            # Install newest Bundler 2.x (satisfies >= 2.1.4, < 3)
+            gem install bundler -v "< 3" --no-document
+
+            # Compute newest installed Bundler < 3 and persist it for later steps
+            export CI_BUNDLER_VERSION="$(
+              ruby -e 'require "rubygems";
+                       v = Gem::Specification.find_all_by_name("bundler")
+                             .map(&:version)
+                             .select { |x| x < Gem::Version.new("3") }
+                             .max
+                       abort("No bundler < 3 installed") unless v
+                       puts v'
+            )"
+            echo "export CI_BUNDLER_VERSION=${CI_BUNDLER_VERSION}" >> "$BASH_ENV"
+
+            # Use the compatible Bundler explicitly
+            bundle _${CI_BUNDLER_VERSION}_ --version
+            bundle _${CI_BUNDLER_VERSION}_ config set path vendor/bundle
+            bundle _${CI_BUNDLER_VERSION}_ install --jobs=4 --retry=3
 
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-<< parameters.ruby-version >>
+          key: v2-dependencies-{{ checksum "friendly_shipping.gemspec" }}-<< parameters.ruby-version >>
 
       - run:
           name: run Rubocop
-          command: bundle exec rubocop
+          command: |
+            source "$BASH_ENV"
+            bundle _${CI_BUNDLER_VERSION}_ exec rubocop
 
       # run tests!
       - run:
           name: run tests
           command: |
+            source "$BASH_ENV"
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            $TEST_FILES
+            
+            bundle _${CI_BUNDLER_VERSION}_ exec rspec \
+              --format progress \
+              --format RspecJunitFormatter \
+              --out /tmp/test-results/rspec.xml \
+              $TEST_FILES
 
       # collect reports
       - store_test_results:
