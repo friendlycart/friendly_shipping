@@ -20,13 +20,13 @@ module FriendlyShipping
 
                   {
                     handlingUnitId: structure.id,
-                    packageType: package_options.packaging_unit_type,
+                    # packageType: package_options.packaging_unit_type, old/legacy
                     packageUnitId: package.id,
                     productCode: package_options.product_code,
                     isHazmat: package_options.is_hazmat,
                     freightClass: package_options.freight_class,
-                    nmfc: package_options.nmfc,
-                    weight: package.weight.convert_to(:lbs).value.to_f.round,
+                    nmfc: package_options.nmfc,  # no validation
+                    weight: package.weight.convert_to(:lbs).value.to_f.round, # total weight
                     units: 1
                   }.compact
                 end

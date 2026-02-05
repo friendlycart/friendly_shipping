@@ -14,7 +14,7 @@ module FriendlyShipping
               {
                 requestId: options.request_id,
                 isSync: true,
-                consolidateSaving: false,
+                # consolidateSaving: false, ignore
                 requestIdType: "SHIPMENT",
                 transportationModes: options.transportation_modes,
                 accessorials: options.accessorials,
