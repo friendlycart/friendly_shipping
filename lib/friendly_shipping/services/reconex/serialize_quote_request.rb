@@ -12,8 +12,8 @@ module FriendlyShipping
           def call(shipment:, options:)
             {
               mustArriveByDate: options.must_arrive_by_date&.iso8601,
-              originLocation: serialize_location(shipment.origin, options),
-              destinationLocation: serialize_location(shipment.destination, options),
+              originLocation: serialize_location(shipment.origin, dock_type: options.dock_type),
+              destinationLocation: serialize_location(shipment.destination, dock_type: options.destination_dock_type),
               items: serialize_items(shipment, options),
               totalDetail: {
                 quantity: options.total_quantity,
@@ -28,14 +28,14 @@ module FriendlyShipping
           # @param location [Physical::Location] the location to serialize
           # @param options [QuoteOptions] the quote options
           # @return [Hash]
-          def serialize_location(location, options)
+          def serialize_location(location, dock_type:)
             {
               street: location.address1,
               city: location.city,
               state: location.region.code,
               postalCode: location.zip,
               country: location.country.code,
-              dockType: options.dock_type
+              dockType: dock_type
             }
           end
 
@@ -53,6 +53,7 @@ module FriendlyShipping
                   freightClass: package_options.freight_class,
                   weight: package.weight.convert_to(:lb).value.to_f.round(2).to_s,
                   nmfCnumber: package_options.nmfc_code,
+                  subClass: package_options.sub_class,
                   description: package_options.description,
                   itemDimensions: {
                     length: package.length.convert_to(:in).value.to_f.round.to_i,

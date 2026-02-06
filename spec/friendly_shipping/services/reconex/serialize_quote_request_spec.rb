@@ -84,6 +84,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
         package_id: "package_1",
         freight_class: "70",
         nmfc_code: "199620",
+        sub_class: "01",
         packaging: "Pallets",
         description: "Golden Brands 464 Soy Wax"
       )
@@ -130,6 +131,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
       expect(item[:freightClass]).to eq("70")
       expect(item[:weight]).to eq("46.5")
       expect(item[:nmfCnumber]).to eq("199620")
+      expect(item[:subClass]).to eq("01")
       expect(item[:description]).to eq("Golden Brands 464 Soy Wax")
     end
 
@@ -168,6 +170,24 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
 
     it "serializes mustArriveByDate as nil" do
       expect(call[:mustArriveByDate]).to be_nil
+    end
+  end
+
+  context "with different origin and destination dock types" do
+    let(:options) do
+      FriendlyShipping::Services::Reconex::QuoteOptions.new(
+        dock_type: "BusinessWithDock",
+        destination_dock_type: "Residence",
+        structure_options: structure_options
+      )
+    end
+
+    it "uses dock_type for origin" do
+      expect(call[:originLocation][:dockType]).to eq("BusinessWithDock")
+    end
+
+    it "uses destination_dock_type for destination" do
+      expect(call[:destinationLocation][:dockType]).to eq("Residence")
     end
   end
 end
