@@ -5,6 +5,7 @@ module FriendlyShipping
     class USPSShip
       class ParseRateEstimatesResponse
         extend Dry::Monads::Result::Mixin
+
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self

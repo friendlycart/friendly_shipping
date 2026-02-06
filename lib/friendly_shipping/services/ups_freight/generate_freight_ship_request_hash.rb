@@ -26,8 +26,8 @@ module FriendlyShipping
                   DeliveryInstructions: options.delivery_instructions,
                   PickupRequest: GeneratePickupRequestHash.call(pickup_request_options: options.pickup_request_options),
                 }.compact.
-                  merge(GenerateHandlingUnitsHash.call(shipment: shipment, options: options)).
-                  merge(GenerateReferenceHash.call(reference_numbers: options.reference_numbers))
+                 merge(GenerateHandlingUnitsHash.call(shipment: shipment, options: options)).
+                 merge(GenerateReferenceHash.call(reference_numbers: options.reference_numbers))
               }
             }
           end

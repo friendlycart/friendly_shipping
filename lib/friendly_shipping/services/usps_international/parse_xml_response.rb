@@ -5,6 +5,7 @@ module FriendlyShipping
     class UspsInternational
       class ParseXMLResponse
         extend Dry::Monads::Result::Mixin
+
         ERROR_TAG = 'Error'
 
         class << self
