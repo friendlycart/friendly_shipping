@@ -5,6 +5,7 @@ module FriendlyShipping
     class UpsJson
       class ParseJsonResponse
         extend Dry::Monads::Result::Mixin
+
         SUCCESSFUL_RESPONSE_STATUS_CODE = '1'
         UNEXPECTED_ROOT_KEY_STRING = 'Empty or unexpected root key'
 

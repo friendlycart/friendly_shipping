@@ -5,6 +5,7 @@ module FriendlyShipping
     class USPSShip
       class ParseCityStateResponse
         extend Dry::Monads::Result::Mixin
+
         USA = Carmen::Country.coded("USA")
 
         class << self

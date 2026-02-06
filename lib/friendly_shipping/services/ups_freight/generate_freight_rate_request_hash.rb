@@ -20,7 +20,7 @@ module FriendlyShipping
                 TimeInTransitIndicator: 'true',
                 PickupRequest: GeneratePickupRequestHash.call(pickup_request_options: options.pickup_request_options),
               }.compact.
-                merge(GenerateHandlingUnitsHash.call(shipment: shipment, options: options))
+               merge(GenerateHandlingUnitsHash.call(shipment: shipment, options: options))
             }
           end
 

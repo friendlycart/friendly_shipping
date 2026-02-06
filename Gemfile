@@ -17,7 +17,7 @@ group :development do
   gem "rake", ">= 12.3.3"
   gem "rspec", "~> 3.0"
   gem "rspec_junit_formatter", "~> 0.4"
-  gem "rubocop"
+  gem "rubocop", "1.84.1"
   gem "simplecov", "~> 0.17"
   gem "vcr", "~> 6.0"
   gem "webmock", "~> 3.6"
