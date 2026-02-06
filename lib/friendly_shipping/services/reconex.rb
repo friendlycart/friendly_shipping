@@ -47,6 +47,25 @@ module FriendlyShipping
         @client = client || HttpClient.new(error_handler: error_handler)
       end
 
+      # Get rate quotes for a shipment.
+      #
+      # @param shipment [Physical::Shipment] the shipment to quote
+      # @param options [QuoteOptions] the quote options
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult>]
+      def rate_quote(shipment, options:, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: api_base + API_PATHS[:get_quote],
+          http_method: "POST",
+          body: SerializeQuoteRequest.call(shipment: shipment, options: options).to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        client.post(request).bind do |response|
+          ParseQuoteResponse.call(request: request, response: response)
+        end
+      end
+
       private
 
       # Returns the content type and API key as a headers hash.
