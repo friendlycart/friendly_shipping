@@ -1,0 +1,22 @@
+{
+  "information": {
+    "resultCode": "1",
+    "resultDescription": "Validation failed",
+    "originPostalCode": null,
+    "destinationPostalCode": null,
+    "loadID": null,
+    "customerLoadID": null,
+    "proNumber": null
+  },
+  "quotes": [],
+  "warnings": [],
+  "errors": [
+    {
+      "description": "Origin postal code is required"
+    },
+    {
+      "description": "Destination postal code is required"
+    }
+  ],
+  "notifications": null
+}
