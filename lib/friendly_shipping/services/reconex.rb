@@ -23,6 +23,9 @@ module FriendlyShipping
       # @return [HttpClient] the HTTP client to use for requests
       attr_reader :client
 
+      # @return [Logger, nil] the logger for debug output
+      attr_reader :logger
+
       # This carrier's API paths. Used when constructing endpoint URLs.
       API_PATHS = {
         get_quote: "/api/v1/IntegrationApi/GetQuote",
@@ -37,11 +40,13 @@ module FriendlyShipping
       # @param test_api_base [String] the API base URL for test requests
       # @param test [Boolean] whether to use test API endpoints
       # @param client [HttpClient] optional HTTP client to use for requests
-      def initialize(api_key:, live_api_base:, test_api_base:, test: true, client: nil)
+      # @param logger [Logger, nil] optional logger for debug output
+      def initialize(api_key:, live_api_base:, test_api_base:, test: true, client: nil, logger: nil)
         @api_key = api_key
         @live_api_base = live_api_base
         @test_api_base = test_api_base
         @test = test
+        @logger = logger
 
         error_handler = ApiErrorHandler.new(api_error_class: Reconex::ApiError)
         @client = client || HttpClient.new(error_handler: error_handler)
@@ -61,7 +66,9 @@ module FriendlyShipping
           headers: request_headers,
           debug: debug
         )
+        logger&.debug { "[Reconex] REQUEST: #{JSON.pretty_generate(JSON.parse(request.body))}" }
         client.post(request).bind do |response|
+          logger&.debug { "[Reconex] RESPONSE: #{JSON.pretty_generate(JSON.parse(response.body))}" }
           ParseQuoteResponse.call(request: request, response: response)
         end
       end
