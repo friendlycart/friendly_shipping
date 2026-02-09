@@ -5,6 +5,7 @@ module FriendlyShipping
     class Reconex
       # Options for each package in a Reconex quote request.
       class PackageOptions < FriendlyShipping::PackageOptions
+        # Valid packaging types for the Reconex API.
         PACKAGING_TYPES = %w[
           Bags Bales Barrels Baskets Boxes Buckets Bulkheads Bundles
           Carboys Cartons Cases Chests Coils Crates Cylinders Drums
@@ -16,6 +17,7 @@ module FriendlyShipping
           Skins Jambs BasePlate Carts Eaches
         ].freeze
 
+        # Valid NMFC freight classes.
         FREIGHT_CLASSES = %w[
           50 55 60 65 70 77.5 85 92.5 100 110 125 150 175 200 250 300 400 500
         ].freeze

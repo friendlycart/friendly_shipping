@@ -5,12 +5,14 @@ module FriendlyShipping
     class Reconex
       # Options for a Reconex quote request.
       class QuoteOptions < FriendlyShipping::ShipmentOptions
+        # Valid dock types for origin and destination locations.
         DOCK_TYPES = %w[
           BusinessWithDock BusinessWithOutDock Residence OtherLimitedAccess
           Construction Church Military StorageFacility School Farm Mine
           Prison Government Nuclear Hotel GroceryWarehouse
         ].freeze
 
+        # Valid accessorial service keys (snake_case, serialized to camelCase).
         ACCESSORIALS = %w[
           do_not_freeze over_length sort_and_segregate blind_shipment
           white_glove_delivery expedite insurance_required falvey_ins_value
