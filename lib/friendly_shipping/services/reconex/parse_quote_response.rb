@@ -65,11 +65,8 @@ module FriendlyShipping
           # @param json [Hash] the parsed response JSON
           # @return [Array<String>] error messages
           def parse_errors(json)
-            errors = []
-
-            # Check top-level errors array
-            json.fetch("errors", []).each do |error|
-              errors << (error.is_a?(Hash) ? error["description"] : error.to_s)
+            errors = json.fetch("errors", []).map do |error|
+              error.is_a?(Hash) ? error["description"] : error.to_s
             end
 
             # Check information result code
