@@ -1,0 +1,60 @@
+{
+  "information": {
+    "resultCode": "0",
+    "resultDescription": null,
+    "originPostalCode": "89502",
+    "destinationPostalCode": "80501",
+    "loadID": "No LoadID Provided",
+    "customerLoadID": null,
+    "proNumber": null
+  },
+  "quotes": [
+    {
+      "carrier": "R&L Carriers",
+      "scac": "RLCA",
+      "customerCharge": "438.00",
+      "freightCharge": "438.00",
+      "transitTime": "2",
+      "indirect": false,
+      "notes": "",
+      "pricingOwnershipID": 1140,
+      "access": 130.0,
+      "base": 275.0,
+      "fsc": 33.0,
+      "totalCharge": 438.0,
+      "serviceLevel": null,
+      "tenantPricing": false,
+      "insuranceFee": 0.0,
+      "mode": "LTL",
+      "success": true,
+      "errorMessage": null,
+      "performance": "92.4",
+      "smartSelect": "626.7"
+    },
+    {
+      "carrier": "TForce Freight",
+      "scac": "UPGF",
+      "customerCharge": "735.19",
+      "freightCharge": "735.19",
+      "transitTime": "3",
+      "indirect": false,
+      "notes": "Contract Note: Please email citysupslc@tforcefreight.com to dispatch.",
+      "pricingOwnershipID": 1140,
+      "access": 425.0,
+      "base": 234.99,
+      "fsc": 75.2,
+      "totalCharge": 735.19,
+      "serviceLevel": null,
+      "tenantPricing": false,
+      "insuranceFee": 0.0,
+      "mode": "LTL",
+      "success": true,
+      "errorMessage": null,
+      "performance": "84.3",
+      "smartSelect": "373.3"
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "notifications": null
+}
