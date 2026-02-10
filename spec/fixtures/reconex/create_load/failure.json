@@ -1,0 +1,13 @@
+{
+  "information": null,
+  "messages": [
+    {
+      "description": "Origin postal code is required",
+      "type": "Error"
+    },
+    {
+      "description": "Destination postal code is required",
+      "type": "Error"
+    }
+  ]
+}

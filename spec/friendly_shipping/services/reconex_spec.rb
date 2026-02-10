@@ -179,6 +179,149 @@ RSpec.describe FriendlyShipping::Services::Reconex do
     end
   end
 
+  describe "#create_load" do
+    subject(:create_load) { service.create_load(shipment, options: options) }
+
+    let(:shipment) { Physical::Shipment.new(structures: structures, origin: origin, destination: destination) }
+
+    let(:origin) do
+      Physical::Location.new(
+        company_name: "Widgets Inc.",
+        name: "The Shipping Department",
+        address1: "1910 S McCarran Blvd",
+        city: "Reno",
+        zip: "89502",
+        region: "NV",
+        country: "US",
+        phone: "888-973-0223",
+        email: "support@widgets.com"
+      )
+    end
+
+    let(:destination) do
+      Physical::Location.new(
+        company_name: "ACME Inc.",
+        name: "John Smith",
+        address1: "813 Kincross Dr",
+        city: "Boulder",
+        zip: "80501",
+        region: "CO",
+        country: "US",
+        phone: "3366682999",
+        email: "john@acme.com"
+      )
+    end
+
+    let(:structures) { [structure] }
+
+    let(:structure) do
+      Physical::Structure.new(
+        id: "structure_1",
+        packages: [package]
+      )
+    end
+
+    let(:package) do
+      Physical::Package.new(
+        id: "package_1",
+        items: [item],
+        dimensions: [
+          Measured::Length(16, :in),
+          Measured::Length(14, :in),
+          Measured::Length(13, :in)
+        ]
+      )
+    end
+
+    let(:item) do
+      Physical::Item.new(
+        id: "item_1",
+        weight: Measured::Weight(46.5, :lb)
+      )
+    end
+
+    let(:options) do
+      FriendlyShipping::Services::Reconex::LoadOptions.new(
+        account_id: 1140,
+        scac: "UPGF",
+        rate: true,
+        pro_number_requested: true,
+        dispatch: true,
+        structure_options: [
+          FriendlyShipping::Services::Reconex::StructureOptions.new(
+            structure_id: "structure_1",
+            package_options: [
+              FriendlyShipping::Services::Reconex::PackageOptions.new(
+                package_id: "package_1",
+                freight_class: "70",
+                nmfc_code: "199620",
+                packaging: "Pallets",
+                description: "Golden Brands 464 Soy Wax"
+              )
+            ]
+          )
+        ]
+      )
+    end
+
+    context "with a successful response" do
+      let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "reconex", "create_load", "success.json")) }
+
+      let(:response) do
+        instance_double(
+          RestClient::Response,
+          code: 200,
+          body: response_body,
+          headers: {}
+        )
+      end
+
+      before do
+        expect(RestClient).to receive(:post).and_return(response)
+      end
+
+      it { is_expected.to be_success }
+
+      it "returns a ShipmentInformation" do
+        info = create_load.value!.data
+        expect(info).to be_a(FriendlyShipping::Services::Reconex::ShipmentInformation)
+      end
+
+      it "has the correct load_id" do
+        info = create_load.value!.data
+        expect(info.load_id).to eq("3310514")
+      end
+
+      it "has the correct billing_id" do
+        info = create_load.value!.data
+        expect(info.billing_id).to eq("2223606199")
+      end
+    end
+
+    context "with an error response" do
+      let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "reconex", "create_load", "failure.json")) }
+
+      let(:response) do
+        instance_double(
+          RestClient::Response,
+          code: 200,
+          body: response_body,
+          headers: {}
+        )
+      end
+
+      before do
+        expect(RestClient).to receive(:post).and_return(response)
+      end
+
+      it { is_expected.to be_failure }
+
+      it "returns error messages" do
+        expect(create_load.failure.data).to include("Origin postal code is required")
+      end
+    end
+  end
+
   describe "test mode" do
     context "when test is true (default)" do
       it "uses the test API base URL" do
