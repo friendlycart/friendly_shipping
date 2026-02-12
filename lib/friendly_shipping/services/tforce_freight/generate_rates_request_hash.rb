@@ -29,7 +29,7 @@ module FriendlyShipping
               serviceCode: options.shipping_method.service_code,
               pickupDate: options.pickup_date.strftime('%Y-%m-%d'),
               type: options.type_code,
-              densityEligible: options.density_eligible,
+              densityEligible: options.density_eligible || nil,
               gfpOptions: {
                 accessorialRate: options.accessorial_rate,
               },

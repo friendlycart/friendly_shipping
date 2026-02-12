@@ -144,7 +144,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateRatesRequestHa
               serviceCode: "308",
               pickupDate: "2024-01-05",
               type: "L",
-              densityEligible: false,
               gfpOptions: {
                 accessorialRate: false
               },

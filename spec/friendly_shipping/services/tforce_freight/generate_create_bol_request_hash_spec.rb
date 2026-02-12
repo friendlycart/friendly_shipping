@@ -140,7 +140,6 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateCreateBOLReque
         is_expected.to eq(
           pickupDate: "2023-05-18",
           serviceCode: "308",
-          densityEligible: false,
           previewRate: false,
           timeInTransit: false
         )
