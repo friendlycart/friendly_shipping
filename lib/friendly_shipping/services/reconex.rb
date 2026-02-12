@@ -94,6 +94,26 @@ module FriendlyShipping
         end
       end
 
+      # Get load information by ID, reference, or status.
+      #
+      # @param options [LoadInfoOptions] the load info options
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Success<ApiResult<Array<LoadInfo>>>, Failure<ApiResult>]
+      def get_load_info(options:, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: api_base + API_PATHS[:get_load_info],
+          http_method: "POST",
+          body: SerializeLoadInfoRequest.call(options: options).to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        logger&.debug { "[Reconex] REQUEST: #{JSON.pretty_generate(JSON.parse(request.body))}" }
+        client.post(request).bind do |response|
+          logger&.debug { "[Reconex] RESPONSE: #{JSON.pretty_generate(JSON.parse(response.body))}" }
+          ParseLoadInfoResponse.call(request: request, response: response)
+        end
+      end
+
       private
 
       # Returns the content type and API key as a headers hash.

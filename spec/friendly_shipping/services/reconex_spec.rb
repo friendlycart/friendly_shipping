@@ -322,6 +322,80 @@ RSpec.describe FriendlyShipping::Services::Reconex do
     end
   end
 
+  describe "#get_load_info" do
+    subject(:get_load_info) { service.get_load_info(options: options) }
+
+    let(:options) do
+      FriendlyShipping::Services::Reconex::LoadInfoOptions.new(
+        load_ids: [3_310_514]
+      )
+    end
+
+    context "with a successful response" do
+      let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "reconex", "load_info", "success.json")) }
+
+      let(:response) do
+        instance_double(
+          RestClient::Response,
+          code: 200,
+          body: response_body,
+          headers: {}
+        )
+      end
+
+      before do
+        expect(RestClient).to receive(:post).and_return(response)
+      end
+
+      it { is_expected.to be_success }
+
+      it "returns an array of LoadInfo" do
+        data = get_load_info.value!.data
+        expect(data).to be_an(Array)
+        expect(data.first).to be_a(FriendlyShipping::Services::Reconex::LoadInfo)
+      end
+
+      it "has the correct load_id" do
+        info = get_load_info.value!.data.first
+        expect(info.load_id).to eq(2_763_982)
+      end
+
+      it "has the correct carrier_booked" do
+        info = get_load_info.value!.data.first
+        expect(info.carrier_booked).to eq("SAIA")
+      end
+
+      it "includes parsed documents" do
+        info = get_load_info.value!.data.first
+        expect(info.documents.length).to eq(2)
+        expect(info.documents.map(&:document_type)).to contain_exactly(:bol, :label)
+      end
+    end
+
+    context "with an error response" do
+      let(:response_body) { File.read(File.join(gem_root, "spec", "fixtures", "reconex", "load_info", "failure.json")) }
+
+      let(:response) do
+        instance_double(
+          RestClient::Response,
+          code: 200,
+          body: response_body,
+          headers: {}
+        )
+      end
+
+      before do
+        expect(RestClient).to receive(:post).and_return(response)
+      end
+
+      it { is_expected.to be_failure }
+
+      it "returns error messages" do
+        expect(get_load_info.failure.data).to include("Load not found")
+      end
+    end
+  end
+
   describe "test mode" do
     context "when test is true (default)" do
       it "uses the test API base URL" do
