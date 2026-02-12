@@ -35,7 +35,7 @@ module FriendlyShipping
             {
               serviceCode: options.service_code,
               pickupDate: options.pickup_at&.strftime("%Y-%m-%d"),
-              densityEligible: options.density_eligible,
+              densityEligible: options.density_eligible || nil,
               previewRate: options.preview_rate,
               timeInTransit: options.time_in_transit
             }.compact
