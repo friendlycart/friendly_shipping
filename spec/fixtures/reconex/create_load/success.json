@@ -1,0 +1,16 @@
+{
+  "information": {
+    "loadId": "3310514",
+    "proNumber": "",
+    "billingId": "2223606199",
+    "customId": "0001181699",
+    "poNumber": "13504399",
+    "customerBilling": ",2223441299"
+  },
+  "messages": [
+    {
+      "description": "The load was created successfully",
+      "type": "Success"
+    }
+  ]
+}
