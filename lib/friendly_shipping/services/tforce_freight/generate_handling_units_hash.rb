@@ -30,7 +30,8 @@ module FriendlyShipping
               handling_units = all_structure_options.group_by(&:handling_unit_code).map do |_handling_unit_code, options_group|
                 [options_group.first, options_group.length]
               end.map { |structure_options, quantity| handling_unit_hash(structure_options, quantity) }
-              handling_units << { handlingUnits: handling_units_array(shipment.structures, options) }
+              handling_units << { handlingUnits: handling_units_array(shipment.structures, options) } if options.density_eligible
+              handling_units
             end
           end
 

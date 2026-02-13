@@ -68,32 +68,69 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::GenerateHandlingUnitsH
       handlingUnitTwo: {
         quantity: 1,
         typeCode: "OTH"
-      },
-      handlingUnits: [
-        {
-          pieces: 1,
-          packagingType: "PLT",
-          dangerousGoods: false,
-          dimensions: {
-            length: 48,
-            width: 40,
-            height: 54,
-            unit: "IN"
-          }
-        },
-        {
-          pieces: 1,
-          packagingType: "OTH",
-          dangerousGoods: false,
-          dimensions: {
-            length: 50,
-            width: 45,
-            height: 37,
-            unit: "IN"
-          }
-        }
-      ]
+      }
     )
+  end
+
+  context "when density_eligible is true" do
+    let(:options) do
+      FriendlyShipping::Services::TForceFreight::RatesOptions.new(
+        billing_address: billing_address,
+        shipping_method: shipping_method,
+        density_eligible: true,
+        structure_options: [
+          FriendlyShipping::Services::TForceFreight::StructureOptions.new(
+            structure_id: "pallet 1",
+            handling_unit: :pallet
+          ),
+          FriendlyShipping::Services::TForceFreight::StructureOptions.new(
+            structure_id: "pallet 2",
+            handling_unit: :pallet
+          ),
+          FriendlyShipping::Services::TForceFreight::StructureOptions.new(
+            structure_id: "other",
+            handling_unit: :other
+          )
+        ]
+      )
+    end
+
+    it do
+      is_expected.to eq(
+        handlingUnitOne: {
+          quantity: 2,
+          typeCode: "PLT"
+        },
+        handlingUnitTwo: {
+          quantity: 1,
+          typeCode: "OTH"
+        },
+        handlingUnits: [
+          {
+            pieces: 1,
+            packagingType: "PLT",
+            dangerousGoods: false,
+            dimensions: {
+              length: 48,
+              width: 40,
+              height: 54,
+              unit: "IN"
+            }
+          },
+          {
+            pieces: 1,
+            packagingType: "OTH",
+            dangerousGoods: false,
+            dimensions: {
+              length: 50,
+              width: 45,
+              height: 37,
+              unit: "IN"
+            }
+          }
+        ]
+      )
+    end
   end
 
   describe "deprecated packages behavior" do
