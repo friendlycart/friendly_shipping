@@ -125,11 +125,11 @@ RSpec.describe FriendlyShipping::Services::UpsJson::ParseRatesResponse do
         rates = subject.value!.data
         expect(rates.first.data[:packages]).to eq(
           [
-            itemized_charges: {},
-            negotiated_charges: {},
-            rate_modifiers: {},
-            weight: 10.2,
-            billing_weight: 0
+            { itemized_charges: {},
+              negotiated_charges: {},
+              rate_modifiers: {},
+              weight: 10.2,
+              billing_weight: 0 }
           ]
         )
       end
