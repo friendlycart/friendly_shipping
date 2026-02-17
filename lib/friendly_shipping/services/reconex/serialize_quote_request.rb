@@ -48,7 +48,7 @@ module FriendlyShipping
               structure.packages.map do |package|
                 package_options = structure_options.options_for_package(package)
                 {
-                  qty: package.items.count.to_s,
+                  qty: "1",
                   packaging: package_options.packaging,
                   freightClass: package_options.freight_class,
                   weight: package.weight.convert_to(:lb).value.to_f.round(2).to_s,
