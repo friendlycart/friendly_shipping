@@ -1,0 +1,77 @@
+{
+  "loadDetails": [
+    {
+      "loadID": 2763982,
+      "shipDate": "2021-09-03T00:00:00",
+      "carrierBooked": "SAIA",
+      "proNumber": "10237787450",
+      "confirmationNumber": "41567552",
+      "trackingLink": "http://www.saia.com/Tracing/AjaxProstatusByPro.aspx?nh=N&Pro=10237787450",
+      "loadStatusDetail": "Delivered",
+      "billingID": "",
+      "poNumber": "",
+      "customID": "",
+      "customerBilling": "",
+      "originInfo": {
+        "name": "Logan Clutch",
+        "street1": "28855 Ranney Parkway",
+        "street2": "",
+        "city": "Westlake",
+        "state": "OH",
+        "postalCode": "44145",
+        "country": "USA",
+        "countryId": 1
+      },
+      "destinationInfo": {
+        "name": "TIC MARINE AND HEAVY CIVIL",
+        "street1": "1818 WEST GWINNETT STREET",
+        "street2": "",
+        "city": "Savannah",
+        "state": "GA",
+        "postalCode": "31415",
+        "country": "USA",
+        "countryId": 1
+      },
+      "totalWeight": 1300,
+      "totalShippingQty": 1,
+      "shippingUnit": "Pallets",
+      "specialInstructions": "",
+      "notes": "Emailed by Logan clutch, scheduled and sent a BOL",
+      "loadStatusId": "Delivered",
+      "ship": "2021-09-03T00:00:00",
+      "deliveryDate": "2021-09-08T00:00:00",
+      "custCharge": 386.51,
+      "freightCharge": 386.51,
+      "access": 0,
+      "base": 0,
+      "fsc": 0,
+      "insuranceFee": 0,
+      "billOfLadingDocument": {
+        "fileName": "NewBillOfLading",
+        "extension": "pdf",
+        "fileContent": "JVBERi0xLjcKMSAwIG9iago="
+      },
+      "shippingLabelDocument": {
+        "fileName": "ShipLabel11x8Page4x1",
+        "extension": "pdf",
+        "fileContent": "JVBERi0xLjcKMiAwIG9iago="
+      },
+      "rateConfirmationDocument": null,
+      "carrieDocsFile": null,
+      "mileage": 175,
+      "trackingStatus": [
+        {
+          "time": "2021-09-08T15:00:00",
+          "status": "Delivered",
+          "message": "Delivered",
+          "weight": 624,
+          "cost": 6,
+          "carrierETA": "",
+          "updateOn": "2021-09-08T05:00:10"
+        }
+      ]
+    }
+  ],
+  "warnings": [],
+  "errors": []
+}
