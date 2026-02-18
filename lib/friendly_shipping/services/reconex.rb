@@ -11,14 +11,8 @@ module FriendlyShipping
       # @return [String] the API key
       attr_reader :api_key
 
-      # @return [Boolean] whether to use test API endpoints
-      attr_reader :test
-
-      # @return [String] the API base URL for live/production requests
-      attr_reader :live_api_base
-
-      # @return [String] the API base URL for test requests
-      attr_reader :test_api_base
+      # @return [String] the API base URL
+      attr_reader :api_base_url
 
       # @return [HttpClient] the HTTP client to use for requests
       attr_reader :client
@@ -36,16 +30,12 @@ module FriendlyShipping
       }.freeze
 
       # @param api_key [String] the API key
-      # @param live_api_base [String] the API base URL for live/production requests
-      # @param test_api_base [String] the API base URL for test requests
-      # @param test [Boolean] whether to use test API endpoints
+      # @param api_base_url [String] the API base URL
       # @param client [HttpClient] optional HTTP client to use for requests
       # @param logger [Logger, nil] optional logger for debug output
-      def initialize(api_key:, live_api_base:, test_api_base:, test: true, client: nil, logger: nil)
+      def initialize(api_key:, api_base_url:, client: nil, logger: nil)
         @api_key = api_key
-        @live_api_base = live_api_base
-        @test_api_base = test_api_base
-        @test = test
+        @api_base_url = api_base_url
         @logger = logger
 
         error_handler = ApiErrorHandler.new(api_error_class: Reconex::ApiError)
@@ -60,7 +50,7 @@ module FriendlyShipping
       # @return [Success<ApiResult<Array<Rate>>>, Failure<ApiResult>]
       def rate_quote(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
-          url: api_base + API_PATHS[:get_quote],
+          url: api_base_url + API_PATHS[:get_quote],
           http_method: "POST",
           body: SerializeQuoteRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
@@ -81,7 +71,7 @@ module FriendlyShipping
       # @return [Success<ApiResult<ShipmentInformation>>, Failure<ApiResult>]
       def create_load(shipment, options:, debug: false)
         request = FriendlyShipping::Request.new(
-          url: api_base + API_PATHS[:create_load],
+          url: api_base_url + API_PATHS[:create_load],
           http_method: "POST",
           body: SerializeCreateLoadRequest.call(shipment: shipment, options: options).to_json,
           headers: request_headers,
@@ -101,7 +91,7 @@ module FriendlyShipping
       # @return [Success<ApiResult<Array<LoadInfo>>>, Failure<ApiResult>]
       def get_load_info(options:, debug: false)
         request = FriendlyShipping::Request.new(
-          url: api_base + API_PATHS[:get_load_info],
+          url: api_base_url + API_PATHS[:get_load_info],
           http_method: "POST",
           body: SerializeLoadInfoRequest.call(options: options).to_json,
           headers: request_headers,
@@ -124,12 +114,6 @@ module FriendlyShipping
           Accept: "application/json",
           ApiKey: api_key
         }
-      end
-
-      # Returns the API base URL based on the {test} attribute's value.
-      # @return [String]
-      def api_base
-        test ? test_api_base : live_api_base
       end
     end
   end

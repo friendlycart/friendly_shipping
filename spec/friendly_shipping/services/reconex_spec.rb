@@ -6,16 +6,13 @@ RSpec.describe FriendlyShipping::Services::Reconex do
   subject(:service) do
     described_class.new(
       api_key: "test-api-key",
-      live_api_base: "https://live.example.com",
-      test_api_base: "https://test.example.com"
+      api_base_url: "https://test.example.com"
     )
   end
 
   describe "initialization" do
     it { is_expected.to respond_to :api_key }
-    it { is_expected.to respond_to :test }
-    it { is_expected.to respond_to :live_api_base }
-    it { is_expected.to respond_to :test_api_base }
+    it { is_expected.to respond_to :api_base_url }
     it { is_expected.to respond_to :client }
   end
 
@@ -396,26 +393,9 @@ RSpec.describe FriendlyShipping::Services::Reconex do
     end
   end
 
-  describe "test mode" do
-    context "when test is true (default)" do
-      it "uses the test API base URL" do
-        expect(service.send(:api_base)).to eq("https://test.example.com")
-      end
-    end
-
-    context "when test is false" do
-      subject(:service) do
-        described_class.new(
-          api_key: "test-api-key",
-          live_api_base: "https://live.example.com",
-          test_api_base: "https://test.example.com",
-          test: false
-        )
-      end
-
-      it "uses the live API base URL" do
-        expect(service.send(:api_base)).to eq("https://live.example.com")
-      end
+  describe "api_base_url" do
+    it "uses the provided API base URL" do
+      expect(service.api_base_url).to eq("https://test.example.com")
     end
   end
 end
