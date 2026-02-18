@@ -53,7 +53,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadInfoOptions do
         status_filters: %w[Pending Booked],
         get_bill_of_lading: true,
         get_shipping_label: true,
-        shipping_label_report_type_id: 900,
+        shipping_label_report_type_id: 801,
         get_rate_confirmation: true,
         get_carrier_docs_file: true,
         get_freight_snap_documents: true
@@ -66,7 +66,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadInfoOptions do
       expect(options.status_filters).to eq(%w[Pending Booked])
       expect(options.get_bill_of_lading).to be true
       expect(options.get_shipping_label).to be true
-      expect(options.shipping_label_report_type_id).to eq(900)
+      expect(options.shipping_label_report_type_id).to eq(801)
       expect(options.get_rate_confirmation).to be true
       expect(options.get_carrier_docs_file).to be true
       expect(options.get_freight_snap_documents).to be true
@@ -89,10 +89,34 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadInfoOptions do
     end
   end
 
+  describe "shipping_label_report_type_id validation" do
+    context "with valid report type ID" do
+      let(:attributes) { { shipping_label_report_type_id: 802 } }
+
+      it { expect { options }.not_to raise_error }
+    end
+
+    context "with invalid report type ID" do
+      let(:attributes) { { shipping_label_report_type_id: 999 } }
+
+      it "raises ArgumentError" do
+        expect { options }.to raise_error(ArgumentError, "Invalid shipping label report type ID: 999")
+      end
+    end
+  end
+
   describe "STATUSES" do
     it "includes all valid statuses" do
       expect(described_class::STATUSES).to eq(
         %w[Pending Quoted Booked Dispatched InTransit Delivered Canceled]
+      )
+    end
+  end
+
+  describe "SHIPPING_LABEL_REPORT_TYPES" do
+    it "includes all valid report type IDs" do
+      expect(described_class::SHIPPING_LABEL_REPORT_TYPES.keys).to eq(
+        [800, 801, 802, 803, 804, 805, 806, 807, 808, 809, 813, 814, 815, 816]
       )
     end
   end
