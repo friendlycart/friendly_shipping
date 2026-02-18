@@ -8,6 +8,24 @@ module FriendlyShipping
         # Valid load statuses for filtering.
         STATUSES = %w[Pending Quoted Booked Dispatched InTransit Delivered Canceled].freeze
 
+        # Valid shipping label report type IDs. Controls PDF format for printing.
+        SHIPPING_LABEL_REPORT_TYPES = {
+          800 => "6x4, 1 Label/sheet, 4 per skid (Zebra Printer)",
+          801 => "8.5x11, 1 Label/sheet, 1 per skid (Standard)",
+          802 => "11x8.5, 4 Labels/sheet, 4 per skid (Avery 5168)",
+          803 => "6x4, 1 Label/sheet, 1 per skid (Zebra Printer)",
+          804 => "4x6, 1 Label/sheet, 4 per skid (Zebra Printer)",
+          805 => "4x6, 1 Label/sheet, 2 per skid (Zebra Printer)",
+          806 => "4x3.34, 1 Label/sheet, 4 per skid (Zebra Printer)",
+          807 => "4x2.7, 1 Label/sheet, 4 per skid (Zebra Printer)",
+          808 => "8.25x4, 1 Label/sheet, 1 per skid (Zebra Printer)",
+          809 => "11x8.5, 1 Label/sheet, 1 per skid (Standard)",
+          813 => "4x6, 1 Label/sheet, 1 per skid (Zebra Printer)",
+          814 => "2x4, 1 Label/sheet, 2 per skid (Zebra Printer)",
+          815 => "4x4, 1 Label/sheet, 4 per skid (Zebra Printer)",
+          816 => "4x6.75, 1 Label/sheet, 1 per skid (Zebra Printer)"
+        }.freeze
+
         # @return [Array<Integer>] load IDs to query
         attr_reader :load_ids
 
@@ -65,6 +83,7 @@ module FriendlyShipping
           @get_carrier_docs_file = get_carrier_docs_file
           @get_freight_snap_documents = get_freight_snap_documents
           validate_status_filters!
+          validate_shipping_label_report_type_id!
         end
 
         private
@@ -75,6 +94,13 @@ module FriendlyShipping
           return if invalid.empty?
 
           raise ArgumentError, "Invalid status filter(s): #{invalid.join(', ')}"
+        end
+
+        # @raise [ArgumentError] invalid shipping label report type ID
+        def validate_shipping_label_report_type_id!
+          return if SHIPPING_LABEL_REPORT_TYPES.key?(shipping_label_report_type_id)
+
+          raise ArgumentError, "Invalid shipping label report type ID: #{shipping_label_report_type_id}"
         end
       end
     end

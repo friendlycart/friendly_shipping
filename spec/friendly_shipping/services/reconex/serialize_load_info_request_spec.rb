@@ -18,7 +18,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeLoadInfoRequest do
       status_filters: %w[Pending Booked],
       get_bill_of_lading: true,
       get_shipping_label: true,
-      shipping_label_report_type_id: 900,
+      shipping_label_report_type_id: 801,
       get_rate_confirmation: true,
       get_carrier_docs_file: true,
       get_freight_snap_documents: true
@@ -79,7 +79,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeLoadInfoRequest do
     it "serializes getShippingLabelDocument" do
       expect(documents[:getShippingLabelDocument]).to eq(
         isRequiered: true,
-        reportTypeId: 900
+        reportTypeId: 801
       )
     end
 
