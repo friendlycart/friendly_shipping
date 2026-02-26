@@ -84,6 +84,27 @@ module FriendlyShipping
         end
       end
 
+      # Update an existing load (BOL).
+      #
+      # @param shipment [Physical::Shipment] the shipment to update
+      # @param options [UpdateLoadOptions] the update load options
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Success<ApiResult<ShipmentInformation>>, Failure<ApiResult>]
+      def update_load(shipment, options:, debug: false)
+        request = FriendlyShipping::Request.new(
+          url: api_base_url + API_PATHS[:update_load],
+          http_method: "POST",
+          body: SerializeUpdateLoadRequest.call(shipment: shipment, options: options).to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        logger&.debug { "[Reconex] REQUEST: #{JSON.pretty_generate(JSON.parse(request.body))}" }
+        client.post(request).bind do |response|
+          logger&.debug { "[Reconex] RESPONSE: #{JSON.pretty_generate(JSON.parse(response.body))}" }
+          ParseCreateLoadResponse.call(request: request, response: response)
+        end
+      end
+
       # Get load information by ID, reference, or status.
       #
       # @param options [LoadInfoOptions] the load info options
