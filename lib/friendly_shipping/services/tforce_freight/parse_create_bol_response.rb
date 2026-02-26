@@ -21,8 +21,8 @@ module FriendlyShipping
               service_code = rate_detail.dig("service", "code")
               shipping_method = SHIPPING_METHODS.detect { |sm| sm.service_code == service_code }
 
-              rates = rate_detail["rate"].each_with_object({}) do |rate, result|
-                result[rate["code"].downcase.to_sym] = rate["value"].to_f
+              rates = rate_detail["rate"].to_h do |rate|
+                [rate["code"].downcase.to_sym, rate["value"].to_f]
               end
 
               total_charges_value = rate_detail.dig("shipmentCharges", "total", "value")
@@ -76,9 +76,9 @@ module FriendlyShipping
           # @return [Hash]
           def build_cost_breakdown(rate_detail)
             {
-              "Rates" => rate_detail["rate"].each_with_object({}) do |rate, hash|
-                hash[rate["code"]] = rate["value"]
-              end,
+              "Rates" => rate_detail["rate"].to_h do |rate|
+                           [rate["code"], rate["value"]]
+                         end,
               "TotalShipmentCharge" => rate_detail.dig("shipmentCharges", "total", "value"),
               "BillableShipmentWeight" => rate_detail.dig("shipmentWeights", "billable", "value")
             }.compact

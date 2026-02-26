@@ -59,9 +59,9 @@ module FriendlyShipping
 
           def build_cost_breakdown(shipment_results)
             {
-              "Rates" => shipment_results.fetch("Rate", []).each_with_object({}) do |rate, hash|
-                hash[rate.dig("Type", "Code")] = rate.dig("Factor", "Value")
-              end,
+              "Rates" => shipment_results.fetch("Rate", []).to_h do |rate|
+                           [rate.dig("Type", "Code"), rate.dig("Factor", "Value")]
+                         end,
               "TotalShipmentCharge" => shipment_results.dig("TotalShipmentCharge", "MonetaryValue"),
               "BillableShipmentWeight" => shipment_results.dig("BillableShipmentWeight", "Value")
             }.compact
