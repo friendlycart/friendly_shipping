@@ -8,7 +8,7 @@ module FriendlyShipping
         # @return [Integer] the account ID
         attr_reader :account_id
 
-        # @return [String] the SCAC code for the carrier to book
+        # @return [String] the SCAC (Standard Carrier Alpha Code) for the carrier to book
         attr_reader :scac
 
         # @return [Boolean] whether to rate the load
