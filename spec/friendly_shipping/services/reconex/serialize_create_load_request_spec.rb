@@ -293,7 +293,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       it "groups them into one item with incremented quantity" do
         expect(items.length).to eq(1)
         expect(items.first[:qty]).to eq("2")
-        expect(items.first[:weight]).to eq("46.5")
+        expect(items.first[:weight]).to eq("93.0")
       end
 
       it "increments shipQuantity" do

@@ -142,7 +142,7 @@ module FriendlyShipping
             group_items(items)
           end
 
-          # Groups items with matching commodity attributes, incrementing quantities.
+          # Groups items with matching commodity attributes, summing quantities and weights.
           # @param items [Array<Hash>] the serialized items
           # @return [Array<Hash>] the grouped items
           def group_items(items)
@@ -150,6 +150,7 @@ module FriendlyShipping
               qty = group.size
               group.first.merge(
                 qty: qty.to_s,
+                weight: group.sum { |item| item[:weight].to_f }.round(2).to_s,
                 itemDimensions: group.first[:itemDimensions].merge(shipQuantity: qty)
               )
             end
