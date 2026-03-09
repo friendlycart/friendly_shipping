@@ -248,6 +248,111 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       expect(dimensions[:width]).to eq(14)
       expect(dimensions[:shipQuantity]).to eq(1)
     end
+
+    context "with multiple identical packages" do
+      let(:package_2) do
+        Physical::Package.new(
+          id: "package_2",
+          items: [item],
+          dimensions: [
+            Measured::Length(16, :in),
+            Measured::Length(14, :in),
+            Measured::Length(13, :in)
+          ]
+        )
+      end
+
+      let(:structure) do
+        Physical::Structure.new(
+          id: "structure_1",
+          packages: [package, package_2]
+        )
+      end
+
+      let(:package_options) do
+        [
+          FriendlyShipping::Services::Reconex::PackageOptions.new(
+            package_id: "package_1",
+            freight_class: "70",
+            nmfc_code: "199620",
+            sub_class: "01",
+            packaging: "Pallets",
+            description: "Golden Brands 464 Soy Wax"
+          ),
+          FriendlyShipping::Services::Reconex::PackageOptions.new(
+            package_id: "package_2",
+            freight_class: "70",
+            nmfc_code: "199620",
+            sub_class: "01",
+            packaging: "Pallets",
+            description: "Golden Brands 464 Soy Wax"
+          )
+        ]
+      end
+
+      it "groups them into one item with incremented quantity" do
+        expect(items.length).to eq(1)
+        expect(items.first[:qty]).to eq("2")
+        expect(items.first[:weight]).to eq("93.0")
+      end
+
+      it "increments shipQuantity" do
+        expect(items.first[:itemDimensions][:shipQuantity]).to eq(2)
+      end
+    end
+
+    context "with different packages" do
+      let(:package_2) do
+        Physical::Package.new(
+          id: "package_2",
+          items: [Physical::Item.new(id: "item_2", weight: Measured::Weight(30, :lb))],
+          dimensions: [
+            Measured::Length(20, :in),
+            Measured::Length(18, :in),
+            Measured::Length(12, :in)
+          ]
+        )
+      end
+
+      let(:structure) do
+        Physical::Structure.new(
+          id: "structure_1",
+          packages: [package, package_2]
+        )
+      end
+
+      let(:package_options) do
+        [
+          FriendlyShipping::Services::Reconex::PackageOptions.new(
+            package_id: "package_1",
+            freight_class: "70",
+            nmfc_code: "199620",
+            sub_class: "01",
+            packaging: "Pallets",
+            description: "Golden Brands 464 Soy Wax"
+          ),
+          FriendlyShipping::Services::Reconex::PackageOptions.new(
+            package_id: "package_2",
+            freight_class: "85",
+            nmfc_code: "123456",
+            sub_class: "02",
+            packaging: "Boxes",
+            description: "Other Product"
+          )
+        ]
+      end
+
+      it "keeps them as separate items" do
+        expect(items.length).to eq(2)
+        expect(items.first[:qty]).to eq("1")
+        expect(items.last[:qty]).to eq("1")
+      end
+
+      it "keeps shipQuantity at 1 for each" do
+        expect(items.first[:itemDimensions][:shipQuantity]).to eq(1)
+        expect(items.last[:itemDimensions][:shipQuantity]).to eq(1)
+      end
+    end
   end
 
   describe "additionalLoadInfo" do

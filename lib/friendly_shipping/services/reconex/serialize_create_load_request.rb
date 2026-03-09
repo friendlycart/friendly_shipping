@@ -117,7 +117,7 @@ module FriendlyShipping
           # @param options [LoadOptions]
           # @return [Array<Hash>]
           def serialize_items(shipment, options)
-            shipment.structures.flat_map do |structure|
+            items = shipment.structures.flat_map do |structure|
               structure_options = options.options_for_structure(structure)
               structure.packages.map do |package|
                 package_options = structure_options.options_for_package(package)
@@ -139,6 +139,38 @@ module FriendlyShipping
                 }
               end
             end
+            group_items(items)
+          end
+
+          # Groups items with matching commodity attributes, summing quantities and weights.
+          # @param items [Array<Hash>] the serialized items
+          # @return [Array<Hash>] the grouped items
+          def group_items(items)
+            items.group_by { |item| commodity_key(item) }.map do |_key, group|
+              qty = group.size
+              group.first.merge(
+                qty: qty.to_s,
+                weight: group.sum { |item| item[:weight].to_f }.round(2).to_s,
+                itemDimensions: group.first[:itemDimensions].merge(shipQuantity: qty)
+              )
+            end
+          end
+
+          # Returns a grouping key for a commodity item based on its non-quantity attributes.
+          # @param item [Hash] a serialized commodity item
+          # @return [Array] the grouping key
+          def commodity_key(item)
+            dims = item[:itemDimensions]
+            [
+              item[:packaging],
+              item[:freightClass],
+              item[:nmfCnumber],
+              item[:subClass],
+              item[:description],
+              dims[:length],
+              dims[:height],
+              dims[:width]
+            ]
           end
 
           # @param options [LoadOptions]
