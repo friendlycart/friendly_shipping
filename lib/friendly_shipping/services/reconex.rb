@@ -5,6 +5,23 @@ require "json"
 module FriendlyShipping
   module Services
     # API service class for Reconex, a freight management company.
+    #
+    # ## Error handling
+    #
+    # All methods return `Dry::Monads::Result` objects. Failures are always wrapped
+    # in `Failure<ApiResult>` where `ApiResult#data` contains the error details.
+    # There are two failure scenarios:
+    #
+    # 1. **HTTP errors** (4xx/5xx, timeouts, connection failures): `ApiResult#data`
+    #    is a {Reconex::ApiError} with a parsed error message and the original
+    #    exception as `#cause`. Handled by {ApiErrorHandler}.
+    #
+    # 2. **API-level errors** (HTTP 200 but error content in the response body):
+    #    `ApiResult#data` is a `String` of joined error messages. Handled by
+    #    the response parser for each endpoint.
+    #
+    # In both cases, `ApiResult#original_request` and `ApiResult#original_response`
+    # are available when `debug: true` is passed.
     class Reconex
       include Dry::Monads::Result::Mixin
 
