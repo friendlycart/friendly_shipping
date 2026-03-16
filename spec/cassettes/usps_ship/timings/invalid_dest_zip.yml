@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-10&destinationZIPCode=00000&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
+    uri: https://apis.usps.com/service-standards/v3/estimates?acceptanceDate=2024-04-10&destinationZIPCode=00000&mailClass=USPS_GROUND_ADVANTAGE&originZIPCode=27703
     body:
       encoding: US-ASCII
       string: ''
@@ -16,7 +16,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
-      - api.usps.com
+      - apis.usps.com
   response:
     status:
       code: 200

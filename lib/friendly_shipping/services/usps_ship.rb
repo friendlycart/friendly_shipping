@@ -26,7 +26,7 @@ module FriendlyShipping
       )
 
       # The base URL for USPS Ship requests
-      BASE_URL = 'https://api.usps.com'
+      BASE_URL = 'https://apis.usps.com'
 
       # The USPS Ship API endpoints
       RESOURCES = {
