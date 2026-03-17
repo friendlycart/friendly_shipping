@@ -51,7 +51,7 @@ RSpec.describe FriendlyShipping::Services::USPSShip do
 
     before do
       expect(RestClient).to receive(:post).with(
-        "https://api.usps.com/oauth2/v3/token",
+        "https://apis.usps.com/oauth2/v3/token",
         "client_id=client-id&client_secret=client-secret&grant_type=client_credentials",
         { Accept: "application/json", Content_Type: "application/x-www-form-urlencoded" }
       ).and_return(response)

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.usps.com/prices/v3/base-rates/search
+    uri: https://apis.usps.com/prices/v3/base-rates/search
     body:
       encoding: UTF-8
       string: '{"originZIPCode":"23224","destinationZIPCode":null,"weight":10.52,"length":5.81,"width":3.91,"height":1.87,"mailClass":"USPS_GROUND_ADVANTAGE","processingCategory":"NON_MACHINABLE","rateIndicator":"DR","destinationEntryFacilityType":"NONE","priceType":"RETAIL","mailingDate":"2024-04-15"}'
@@ -20,7 +20,7 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Host:
-      - api.usps.com
+      - apis.usps.com
   response:
     status:
       code: 400
