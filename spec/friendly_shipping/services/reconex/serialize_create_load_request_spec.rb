@@ -367,7 +367,40 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(asn: { isASNNeeded: true }) }
 
     it "serializes pickup date" do
-      expect(additional_info[:pickedUpDate]).to eq("2025-07-25T13:58:30Z")
+      expect(additional_info[:pickupDate]).to eq("2025-07-25T13:58:30Z")
+    end
+
+    context "when pickup_date is nil" do
+      let(:options) do
+        FriendlyShipping::Services::Reconex::LoadOptions.new(
+          account_id: 1140,
+          scac: "UPGF",
+          structure_options: structure_options
+        )
+      end
+
+      it "omits pickup date" do
+        expect(additional_info).not_to have_key(:pickupDate)
+      end
+    end
+
+    it "omits picked up date when nil" do
+      expect(additional_info).not_to have_key(:pickedUpDate)
+    end
+
+    context "when picked_up_date is set" do
+      let(:options) do
+        FriendlyShipping::Services::Reconex::LoadOptions.new(
+          account_id: 1140,
+          scac: "UPGF",
+          picked_up_date: Time.parse("2025-07-26T10:00:00Z"),
+          structure_options: structure_options
+        )
+      end
+
+      it "serializes picked up date" do
+        expect(additional_info[:pickedUpDate]).to eq("2025-07-26T10:00:00Z")
+      end
     end
 
     it "omits must arrive by date when nil" do
