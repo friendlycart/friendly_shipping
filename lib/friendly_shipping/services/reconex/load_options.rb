@@ -71,10 +71,7 @@ module FriendlyShipping
         # @return [Hash] boolean flags for accessorial services
         attr_reader :accessorials
 
-        # @return [Time, nil] the scheduled pickup date
-        attr_reader :pickup_date
-
-        # @return [Time, nil] the actual picked-up date
+        # @return [Time, nil] the pickup date
         attr_reader :picked_up_date
 
         # @return [Time, nil] the must-arrive-by date
@@ -124,7 +121,6 @@ module FriendlyShipping
           destination_dock_close: nil,
           destination_appointment: false,
           accessorials: {},
-          pickup_date: nil,
           picked_up_date: nil,
           must_arrive_by_date: nil,
           special_instructions: nil,
@@ -160,7 +156,6 @@ module FriendlyShipping
           @destination_dock_close = destination_dock_close
           @destination_appointment = destination_appointment
           @accessorials = accessorials
-          @pickup_date = pickup_date
           @picked_up_date = picked_up_date
           @must_arrive_by_date = must_arrive_by_date
           @special_instructions = special_instructions

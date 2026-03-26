@@ -177,7 +177,6 @@ module FriendlyShipping
           # @return [Hash]
           def serialize_additional_load_info(options)
             {
-              pickupDate: options.pickup_date&.iso8601,
               pickedUpDate: options.picked_up_date&.iso8601,
               mustArriveByDate: options.must_arrive_by_date&.iso8601,
               specialInstructions: options.special_instructions,
