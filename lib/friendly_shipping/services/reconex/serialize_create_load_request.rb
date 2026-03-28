@@ -144,6 +144,9 @@ module FriendlyShipping
           end
 
           # Groups items with matching commodity attributes, summing quantities and weights.
+          # qty is the total number of packages, while shipQuantity is the number of
+          # pallets (structures) those packages span. For example, 84 identical cases
+          # across 4 pallets yields qty: 84, shipQuantity: 4.
           # @param items [Array<Hash>] the serialized items
           # @return [Array<Hash>] the grouped items
           def group_items(items)
