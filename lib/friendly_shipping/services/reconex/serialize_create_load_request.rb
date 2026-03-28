@@ -135,7 +135,8 @@ module FriendlyShipping
                     height: package.height.convert_to(:in).value.to_f.round.to_i,
                     width: package.width.convert_to(:in).value.to_f.round.to_i,
                     shipQuantity: 1
-                  }
+                  },
+                  _structure_id: structure.id
                 }
               end
             end
@@ -143,15 +144,18 @@ module FriendlyShipping
           end
 
           # Groups items with matching commodity attributes, summing quantities and weights.
+          # qty is the total number of packages, while shipQuantity is the number of
+          # pallets (structures) those packages span. For example, 84 identical cases
+          # across 4 pallets yields qty: 84, shipQuantity: 4.
           # @param items [Array<Hash>] the serialized items
           # @return [Array<Hash>] the grouped items
           def group_items(items)
             items.group_by { |item| commodity_key(item) }.map do |_key, group|
-              qty = group.size
-              group.first.merge(
-                qty: qty.to_s,
+              ship_qty = group.map { |item| item[:_structure_id] }.uniq.size
+              group.first.except(:_structure_id).merge(
+                qty: group.size.to_s,
                 weight: group.sum { |item| item[:weight].to_f }.round(2).to_s,
-                itemDimensions: group.first[:itemDimensions].merge(shipQuantity: qty)
+                itemDimensions: group.first[:itemDimensions].merge(shipQuantity: ship_qty)
               )
             end
           end

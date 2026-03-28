@@ -241,6 +241,10 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       expect(items.first[:hazMat]).to eq(isHazMat: false)
     end
 
+    it "does not include internal tracking fields" do
+      expect(items.first).not_to have_key(:_structure_id)
+    end
+
     it "serializes item dimensions with shipQuantity" do
       dimensions = items.first[:itemDimensions]
       expect(dimensions[:length]).to eq(16)
@@ -296,7 +300,71 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
         expect(items.first[:weight]).to eq("93.0")
       end
 
-      it "increments shipQuantity" do
+      it "sets shipQuantity to number of structures (pallets)" do
+        expect(items.first[:itemDimensions][:shipQuantity]).to eq(1)
+      end
+    end
+
+    context "with identical packages across multiple structures" do
+      let(:package_2) do
+        Physical::Package.new(
+          id: "package_2",
+          items: [item],
+          dimensions: [
+            Measured::Length(16, :in),
+            Measured::Length(14, :in),
+            Measured::Length(13, :in)
+          ]
+        )
+      end
+
+      let(:structure_2) do
+        Physical::Structure.new(
+          id: "structure_2",
+          packages: [package_2]
+        )
+      end
+
+      let(:structures) { [structure, structure_2] }
+
+      let(:structure_options) do
+        [
+          FriendlyShipping::Services::Reconex::StructureOptions.new(
+            structure_id: "structure_1",
+            package_options: [
+              FriendlyShipping::Services::Reconex::PackageOptions.new(
+                package_id: "package_1",
+                freight_class: "70",
+                nmfc_code: "199620",
+                sub_class: "01",
+                packaging: "Pallets",
+                description: "Golden Brands 464 Soy Wax"
+              )
+            ]
+          ),
+          FriendlyShipping::Services::Reconex::StructureOptions.new(
+            structure_id: "structure_2",
+            package_options: [
+              FriendlyShipping::Services::Reconex::PackageOptions.new(
+                package_id: "package_2",
+                freight_class: "70",
+                nmfc_code: "199620",
+                sub_class: "01",
+                packaging: "Pallets",
+                description: "Golden Brands 464 Soy Wax"
+              )
+            ]
+          )
+        ]
+      end
+
+      it "groups them into one item" do
+        expect(items.length).to eq(1)
+        expect(items.first[:qty]).to eq("2")
+        expect(items.first[:weight]).to eq("93.0")
+      end
+
+      it "sets shipQuantity to number of structures (pallets)" do
         expect(items.first[:itemDimensions][:shipQuantity]).to eq(2)
       end
     end
