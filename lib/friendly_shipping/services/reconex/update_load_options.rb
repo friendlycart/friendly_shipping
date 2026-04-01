@@ -35,6 +35,7 @@ module FriendlyShipping
           email_subject: nil,
           email_body: nil,
           scac: nil,
+          dock_type: nil,
           **kwargs
         )
           @load_id = load_id
@@ -45,7 +46,7 @@ module FriendlyShipping
           @email_subject = email_subject
           @email_body = email_body
           validate_load_id!
-          super(scac: scac, **kwargs)
+          super(scac: scac, dock_type:, **kwargs)
         end
 
         private
@@ -58,6 +59,13 @@ module FriendlyShipping
         # Override to allow nil scac for updates (not re-booking).
         def validate_scac!
           return if scac.nil?
+
+          super
+        end
+
+        # Override to allow nil dock_type for updates.
+        def validate_dock_type!
+          return if dock_type.nil?
 
           super
         end

@@ -8,8 +8,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
   let(:attributes) do
     {
       load_id: 3_310_514,
-      account_id: 1140,
-      dock_type: "BusinessWithDock"
+      account_id: 1140
     }
   end
 
@@ -21,6 +20,10 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
   describe "default values" do
     it "defaults scac to nil" do
       expect(options.scac).to be_nil
+    end
+
+    it "defaults dock_type to nil" do
+      expect(options.dock_type).to be_nil
     end
 
     it "defaults billing_id to nil" do
@@ -45,7 +48,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
 
   describe "load_id validation" do
     context "when load_id is nil" do
-      let(:attributes) { { load_id: nil, account_id: 1140, dock_type: "BusinessWithDock" } }
+      let(:attributes) { { load_id: nil, account_id: 1140 } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "load_id is required")
@@ -55,7 +58,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
 
   describe "scac validation" do
     context "when scac is nil" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock", scac: nil } }
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, scac: nil } }
 
       it "does not raise" do
         expect { options }.not_to raise_error
@@ -63,7 +66,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
     end
 
     context "when scac is provided" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock", scac: "UPGF" } }
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, scac: "UPGF" } }
 
       it "accepts a valid scac" do
         expect(options.scac).to eq("UPGF")
@@ -71,10 +74,36 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
     end
 
     context "when scac is empty" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock", scac: "" } }
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, scac: "" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "scac is required")
+      end
+    end
+  end
+
+  describe "dock_type validation" do
+    context "when dock_type is nil" do
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: nil } }
+
+      it "does not raise" do
+        expect { options }.not_to raise_error
+      end
+    end
+
+    context "when dock_type is provided" do
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock" } }
+
+      it "accepts a valid dock_type" do
+        expect(options.dock_type).to eq("BusinessWithDock")
+      end
+    end
+
+    context "when dock_type is invalid" do
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "InvalidType" } }
+
+      it "raises ArgumentError" do
+        expect { options }.to raise_error(ArgumentError, /Invalid dock type/)
       end
     end
   end
@@ -84,7 +113,6 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
       {
         load_id: 3_310_514,
         account_id: 1140,
-        dock_type: "BusinessWithDock",
         billing_id: "2223606199",
         pro_number: "123456789",
         email_from: "shipping@widgets.com",
