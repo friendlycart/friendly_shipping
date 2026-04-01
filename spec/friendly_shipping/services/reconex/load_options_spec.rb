@@ -30,12 +30,12 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       expect(options.dispatch).to be false
     end
 
-    it "defaults dock_type to BusinessWithDock" do
-      expect(options.dock_type).to eq("BusinessWithDock")
+    it "defaults dock_type to nil" do
+      expect(options.dock_type).to be_nil
     end
 
-    it "defaults destination_dock_type to dock_type" do
-      expect(options.destination_dock_type).to eq("BusinessWithDock")
+    it "defaults destination_dock_type to nil" do
+      expect(options.destination_dock_type).to be_nil
     end
 
     it "defaults origin_appointment to false" do
@@ -50,8 +50,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       expect(options.accessorials).to eq({})
     end
 
-    it "defaults shipping_quantity to 1" do
-      expect(options.shipping_quantity).to eq(1)
+    it "defaults shipping_quantity to nil" do
+      expect(options.shipping_quantity).to be_nil
     end
 
     it "defaults all_stackable to false" do

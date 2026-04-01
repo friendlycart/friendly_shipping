@@ -35,10 +35,10 @@ module FriendlyShipping
         # @return [Physical::Location] the billing location
         attr_reader :billing_location
 
-        # @return [String] the origin dock type
+        # @return [String, nil] the origin dock type
         attr_reader :dock_type
 
-        # @return [String] the destination dock type
+        # @return [String, nil] the destination dock type
         attr_reader :destination_dock_type
 
         # @return [String, nil] notes for origin location
@@ -80,7 +80,7 @@ module FriendlyShipping
         # @return [String, nil] special instructions
         attr_reader :special_instructions
 
-        # @return [Integer] shipping quantity
+        # @return [Integer, nil] shipping quantity
         attr_reader :shipping_quantity
 
         # @return [String, nil] load equipment type
@@ -109,7 +109,7 @@ module FriendlyShipping
           custom_id: nil,
           customer_billing: nil,
           billing_location: nil,
-          dock_type: "BusinessWithDock",
+          dock_type: nil,
           destination_dock_type: nil,
           origin_notes: nil,
           origin_dock_open: nil,
@@ -124,7 +124,7 @@ module FriendlyShipping
           picked_up_date: nil,
           must_arrive_by_date: nil,
           special_instructions: nil,
-          shipping_quantity: 1,
+          shipping_quantity: nil,
           load_equipment_type: nil,
           shipping_units: nil,
           all_stackable: false,
@@ -203,6 +203,8 @@ module FriendlyShipping
         # @raise [ArgumentError] invalid dock type
         def validate_dock_type!
           [dock_type, destination_dock_type].each do |type|
+            next if type.nil?
+
             raise ArgumentError, "Invalid dock type: #{type}" unless QuoteOptions::DOCK_TYPES.include?(type)
           end
         end
