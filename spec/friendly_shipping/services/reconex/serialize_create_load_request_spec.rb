@@ -98,7 +98,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
         destination_liftgate: true,
         origin_inside_pickup: true
       },
-      picked_up_date: Time.parse("2025-07-25T13:58:30Z"),
+      picked_up_date: Date.parse("2025-07-25"),
       special_instructions: "Special instructions",
       shipping_quantity: 1,
       load_equipment_type: "VanStandardTrailer",
@@ -179,15 +179,15 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(appointment: false) }
 
     it "serializes dock open time" do
-      expect(origin_location[:dockOpen]).to eq("2025-07-25T15:00:00Z")
+      expect(origin_location[:dockOpen]).to eq("2025-07-25T15:00:00")
     end
 
     it "serializes dock close time" do
-      expect(origin_location[:dockClose]).to eq("2025-07-25T16:30:00Z")
+      expect(origin_location[:dockClose]).to eq("2025-07-25T16:30:00")
     end
 
     it "serializes freight ready time" do
-      expect(origin_location[:freightReadyTime]).to eq("2025-07-25T15:00:00Z")
+      expect(origin_location[:freightReadyTime]).to eq("2025-07-25T15:00:00")
     end
   end
 
@@ -435,7 +435,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(asn: { isASNNeeded: true }) }
 
     it "serializes picked up date" do
-      expect(additional_info[:pickedUpDate]).to eq("2025-07-25T13:58:30Z")
+      expect(additional_info[:pickedUpDate]).to eq("2025-07-25")
     end
 
     context "when picked_up_date is nil" do
