@@ -101,6 +101,7 @@ module FriendlyShipping
         def initialize(
           account_id:,
           scac:,
+          dock_type:,
           rate: false,
           pro_number_requested: false,
           dispatch: false,
@@ -109,7 +110,6 @@ module FriendlyShipping
           custom_id: nil,
           customer_billing: nil,
           billing_location: nil,
-          dock_type:,
           destination_dock_type: nil,
           origin_notes: nil,
           origin_dock_open: nil,
