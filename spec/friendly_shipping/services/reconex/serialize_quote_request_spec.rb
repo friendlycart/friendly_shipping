@@ -92,7 +92,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
   end
 
   it "serializes the must arrive by date" do
-    expect(call[:mustArriveByDate]).to eq("2025-07-25T13:58:30Z")
+    expect(call[:mustArriveByDate]).to eq("2025-07-25T13:58:30")
   end
 
   describe "originLocation" do

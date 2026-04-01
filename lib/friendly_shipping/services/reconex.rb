@@ -25,6 +25,9 @@ module FriendlyShipping
     class Reconex
       include Dry::Monads::Result::Mixin
 
+      # Format string for sending times without timezone offsets.
+      DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
       # @return [String] the API key
       attr_reader :api_key
 
