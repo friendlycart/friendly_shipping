@@ -80,7 +80,7 @@ module FriendlyShipping
         # @return [String, nil] special instructions
         attr_reader :special_instructions
 
-        # @return [Integer] shipping quantity
+        # @return [Integer, nil] shipping quantity
         attr_reader :shipping_quantity
 
         # @return [String, nil] load equipment type
@@ -101,6 +101,7 @@ module FriendlyShipping
         def initialize(
           account_id:,
           scac:,
+          dock_type:,
           rate: false,
           pro_number_requested: false,
           dispatch: false,
@@ -109,7 +110,6 @@ module FriendlyShipping
           custom_id: nil,
           customer_billing: nil,
           billing_location: nil,
-          dock_type: "BusinessWithDock",
           destination_dock_type: nil,
           origin_notes: nil,
           origin_dock_open: nil,
@@ -124,7 +124,7 @@ module FriendlyShipping
           picked_up_date: nil,
           must_arrive_by_date: nil,
           special_instructions: nil,
-          shipping_quantity: 1,
+          shipping_quantity: nil,
           load_equipment_type: nil,
           shipping_units: nil,
           all_stackable: false,

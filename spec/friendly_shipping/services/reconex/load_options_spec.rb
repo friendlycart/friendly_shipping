@@ -8,13 +8,15 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
   let(:attributes) do
     {
       account_id: 1140,
-      scac: "UPGF"
+      scac: "UPGF",
+      dock_type: "BusinessWithDock"
     }
   end
 
   it "creates options with required attributes" do
     expect(options.account_id).to eq(1140)
     expect(options.scac).to eq("UPGF")
+    expect(options.dock_type).to eq("BusinessWithDock")
   end
 
   describe "default values" do
@@ -28,10 +30,6 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
     it "defaults dispatch to false" do
       expect(options.dispatch).to be false
-    end
-
-    it "defaults dock_type to BusinessWithDock" do
-      expect(options.dock_type).to eq("BusinessWithDock")
     end
 
     it "defaults destination_dock_type to dock_type" do
@@ -50,8 +48,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       expect(options.accessorials).to eq({})
     end
 
-    it "defaults shipping_quantity to 1" do
-      expect(options.shipping_quantity).to eq(1)
+    it "defaults shipping_quantity to nil" do
+      expect(options.shipping_quantity).to be_nil
     end
 
     it "defaults all_stackable to false" do
@@ -65,7 +63,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "account_id validation" do
     context "when account_id is nil" do
-      let(:attributes) { { account_id: nil, scac: "UPGF" } }
+      let(:attributes) { { account_id: nil, scac: "UPGF", dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "account_id is required")
@@ -75,7 +73,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "scac validation" do
     context "when scac is nil" do
-      let(:attributes) { { account_id: 1140, scac: nil } }
+      let(:attributes) { { account_id: 1140, scac: nil, dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "scac is required")
@@ -83,7 +81,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
     end
 
     context "when scac is empty" do
-      let(:attributes) { { account_id: 1140, scac: "" } }
+      let(:attributes) { { account_id: 1140, scac: "", dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "scac is required")
@@ -92,6 +90,14 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
   end
 
   describe "dock_type validation" do
+    context "when dock_type is missing" do
+      let(:attributes) { { account_id: 1140, scac: "UPGF" } }
+
+      it "raises ArgumentError" do
+        expect { options }.to raise_error(ArgumentError)
+      end
+    end
+
     context "with valid dock_type" do
       let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "Residence" } }
 
@@ -107,7 +113,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
     end
 
     context "with invalid destination_dock_type" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", destination_dock_type: "InvalidDock" } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", destination_dock_type: "InvalidDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid dock type: InvalidDock")
@@ -117,13 +123,13 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "accessorials validation" do
     context "with valid accessorials" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", accessorials: { destination_liftgate: true } } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", accessorials: { destination_liftgate: true } } }
 
       it { expect { options }.not_to raise_error }
     end
 
     context "with invalid accessorial key" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", accessorials: { invalid_key: true } } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", accessorials: { invalid_key: true } } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid accessorial(s): invalid_key")
@@ -138,7 +144,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       ]
     end
 
-    let(:attributes) { { account_id: 1140, scac: "UPGF", structure_options: structure_options } }
+    let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", structure_options: structure_options } }
 
     let(:structure) { double(id: "struct_1") }
     let(:unknown_structure) { double(id: "unknown") }
