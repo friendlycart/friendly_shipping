@@ -443,6 +443,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
         FriendlyShipping::Services::Reconex::LoadOptions.new(
           account_id: 1140,
           scac: "UPGF",
+          dock_type: "BusinessWithDock",
           structure_options: structure_options
         )
       end
@@ -462,6 +463,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       FriendlyShipping::Services::Reconex::LoadOptions.new(
         account_id: 1140,
         scac: "UPGF",
+        dock_type: "BusinessWithDock",
         structure_options: structure_options
       )
     end

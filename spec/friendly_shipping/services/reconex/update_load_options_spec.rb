@@ -8,7 +8,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
   let(:attributes) do
     {
       load_id: 3_310_514,
-      account_id: 1140
+      account_id: 1140,
+      dock_type: "BusinessWithDock"
     }
   end
 
@@ -44,7 +45,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
 
   describe "load_id validation" do
     context "when load_id is nil" do
-      let(:attributes) { { load_id: nil, account_id: 1140 } }
+      let(:attributes) { { load_id: nil, account_id: 1140, dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "load_id is required")
@@ -54,7 +55,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
 
   describe "scac validation" do
     context "when scac is nil" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, scac: nil } }
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock", scac: nil } }
 
       it "does not raise" do
         expect { options }.not_to raise_error
@@ -62,7 +63,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
     end
 
     context "when scac is provided" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, scac: "UPGF" } }
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock", scac: "UPGF" } }
 
       it "accepts a valid scac" do
         expect(options.scac).to eq("UPGF")
@@ -70,7 +71,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
     end
 
     context "when scac is empty" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, scac: "" } }
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock", scac: "" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "scac is required")
@@ -83,6 +84,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
       {
         load_id: 3_310_514,
         account_id: 1140,
+        dock_type: "BusinessWithDock",
         billing_id: "2223606199",
         pro_number: "123456789",
         email_from: "shipping@widgets.com",
