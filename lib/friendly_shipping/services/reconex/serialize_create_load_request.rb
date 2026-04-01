@@ -78,10 +78,10 @@ module FriendlyShipping
               email: location.email,
               dockType: options.dock_type,
               notes: options.origin_notes,
-              dockOpen: options.origin_dock_open&.strftime("%Y-%m-%dT%H:%M:%S"),
-              dockClose: options.origin_dock_close&.strftime("%Y-%m-%dT%H:%M:%S"),
+              dockOpen: options.origin_dock_open&.strftime(DATETIME_FORMAT),
+              dockClose: options.origin_dock_close&.strftime(DATETIME_FORMAT),
               appointment: options.origin_appointment,
-              freightReadyTime: options.origin_freight_ready_time&.strftime("%Y-%m-%dT%H:%M:%S")
+              freightReadyTime: options.origin_freight_ready_time&.strftime(DATETIME_FORMAT)
             }
           end
 
@@ -101,8 +101,8 @@ module FriendlyShipping
               email: location.email,
               dockType: options.destination_dock_type,
               notes: options.destination_notes,
-              dockOpen: options.destination_dock_open&.strftime("%Y-%m-%dT%H:%M:%S"),
-              dockClose: options.destination_dock_close&.strftime("%Y-%m-%dT%H:%M:%S"),
+              dockOpen: options.destination_dock_open&.strftime(DATETIME_FORMAT),
+              dockClose: options.destination_dock_close&.strftime(DATETIME_FORMAT),
               appointment: options.destination_appointment
             }
           end
