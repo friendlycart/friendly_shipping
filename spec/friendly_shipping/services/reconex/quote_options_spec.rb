@@ -8,7 +8,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
   let(:attributes) do
     {
       must_arrive_by_date: Time.parse("2025-07-25T12:00:00Z"),
-      dock_type: "BusinessWithDock",
+      origin_dock_type: "BusinessWithDock",
       destination_dock_type: "Residence",
       total_quantity: "2",
       total_units: "Pallets",
@@ -18,7 +18,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
 
   it "creates options with valid attributes" do
     expect(options.must_arrive_by_date).to eq(Time.parse("2025-07-25T12:00:00Z"))
-    expect(options.dock_type).to eq("BusinessWithDock")
+    expect(options.origin_dock_type).to eq("BusinessWithDock")
     expect(options.destination_dock_type).to eq("Residence")
     expect(options.total_quantity).to eq("2")
     expect(options.total_units).to eq("Pallets")
@@ -28,8 +28,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
   describe "default values" do
     let(:attributes) { {} }
 
-    it "defaults dock_type to BusinessWithDock" do
-      expect(options.dock_type).to eq("BusinessWithDock")
+    it "defaults origin_dock_type to BusinessWithDock" do
+      expect(options.origin_dock_type).to eq("BusinessWithDock")
     end
 
     it "defaults destination_dock_type to nil" do
@@ -51,33 +51,33 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
 
   describe "destination_dock_type" do
     context "when not specified" do
-      let(:attributes) { { dock_type: "Residence" } }
+      let(:attributes) { { origin_dock_type: "Residence" } }
 
-      it "does not default to dock_type" do
-        expect(options.dock_type).to eq("Residence")
+      it "does not default to origin_dock_type" do
+        expect(options.origin_dock_type).to eq("Residence")
         expect(options.destination_dock_type).to be_nil
       end
     end
 
     context "when explicitly specified" do
-      let(:attributes) { { dock_type: "BusinessWithDock", destination_dock_type: "Residence" } }
+      let(:attributes) { { origin_dock_type: "BusinessWithDock", destination_dock_type: "Residence" } }
 
       it "uses the specified value" do
-        expect(options.dock_type).to eq("BusinessWithDock")
+        expect(options.origin_dock_type).to eq("BusinessWithDock")
         expect(options.destination_dock_type).to eq("Residence")
       end
     end
   end
 
-  describe "dock_type validation" do
-    context "with valid dock_type" do
-      let(:attributes) { { dock_type: "Residence" } }
+  describe "origin_dock_type validation" do
+    context "with valid origin_dock_type" do
+      let(:attributes) { { origin_dock_type: "Residence" } }
 
       it { expect { options }.not_to raise_error }
     end
 
-    context "with invalid dock_type" do
-      let(:attributes) { { dock_type: "InvalidDock" } }
+    context "with invalid origin_dock_type" do
+      let(:attributes) { { origin_dock_type: "InvalidDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid dock type: InvalidDock")
@@ -85,7 +85,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
     end
 
     context "with invalid destination_dock_type" do
-      let(:attributes) { { dock_type: "BusinessWithDock", destination_dock_type: "InvalidDock" } }
+      let(:attributes) { { origin_dock_type: "BusinessWithDock", destination_dock_type: "InvalidDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid dock type: InvalidDock")

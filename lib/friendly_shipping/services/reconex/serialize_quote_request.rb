@@ -12,7 +12,7 @@ module FriendlyShipping
           def call(shipment:, options:)
             {
               mustArriveByDate: options.must_arrive_by_date&.strftime(DATETIME_FORMAT),
-              originLocation: serialize_location(shipment.origin, dock_type: options.dock_type),
+              originLocation: serialize_location(shipment.origin, dock_type: options.origin_dock_type),
               destinationLocation: serialize_location(shipment.destination, dock_type: options.destination_dock_type),
               items: serialize_items(shipment, options),
               totalDetail: {

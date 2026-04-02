@@ -25,7 +25,7 @@ module FriendlyShipping
         attr_reader :must_arrive_by_date
 
         # @return [String] the origin dock type
-        attr_reader :dock_type
+        attr_reader :origin_dock_type
 
         # @return [String] the destination dock type
         attr_reader :destination_dock_type
@@ -40,7 +40,7 @@ module FriendlyShipping
         attr_reader :accessorials
 
         # @param must_arrive_by_date [Time, nil] the must-arrive-by date
-        # @param dock_type [String] the dock type (default: "BusinessWithDock")
+        # @param origin_dock_type [String] the origin dock type (default: "BusinessWithDock")
         # @param total_quantity [String] the total quantity
         # @param total_units [String] the total units
         # @param accessorials [Hash] boolean flags for accessorial services
@@ -52,7 +52,7 @@ module FriendlyShipping
         # @param destination_dock_type [String, nil] the destination dock type
         def initialize(
           must_arrive_by_date: nil,
-          dock_type: "BusinessWithDock",
+          origin_dock_type: "BusinessWithDock",
           destination_dock_type: nil,
           total_quantity: "1",
           total_units: "Pallets",
@@ -62,7 +62,7 @@ module FriendlyShipping
           **kwargs
         )
           @must_arrive_by_date = must_arrive_by_date
-          @dock_type = dock_type
+          @origin_dock_type = origin_dock_type
           @destination_dock_type = destination_dock_type
           @total_quantity = total_quantity
           @total_units = total_units
@@ -93,7 +93,7 @@ module FriendlyShipping
 
         # @raise [ArgumentError] invalid dock type
         def validate_dock_type!
-          [dock_type, destination_dock_type].compact.each do |type|
+          [origin_dock_type, destination_dock_type].compact.each do |type|
             raise ArgumentError, "Invalid dock type: #{type}" unless DOCK_TYPES.include?(type)
           end
         end

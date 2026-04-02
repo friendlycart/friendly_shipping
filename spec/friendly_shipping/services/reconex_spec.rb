@@ -79,7 +79,7 @@ RSpec.describe FriendlyShipping::Services::Reconex do
 
     let(:options) do
       FriendlyShipping::Services::Reconex::QuoteOptions.new(
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         total_quantity: "1",
         total_units: "Pallets",
         structure_options: [
@@ -241,7 +241,7 @@ RSpec.describe FriendlyShipping::Services::Reconex do
       FriendlyShipping::Services::Reconex::LoadOptions.new(
         account_id: 1140,
         scac: "UPGF",
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         rate: true,
         pro_number_requested: true,
         dispatch: true,
@@ -385,7 +385,7 @@ RSpec.describe FriendlyShipping::Services::Reconex do
       FriendlyShipping::Services::Reconex::UpdateLoadOptions.new(
         load_id: 3_310_514,
         account_id: 1140,
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         dispatch: true,
         structure_options: [
           FriendlyShipping::Services::Reconex::StructureOptions.new(

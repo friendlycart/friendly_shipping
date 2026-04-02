@@ -9,14 +9,14 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
     {
       account_id: 1140,
       scac: "UPGF",
-      dock_type: "BusinessWithDock"
+      origin_dock_type: "BusinessWithDock"
     }
   end
 
   it "creates options with required attributes" do
     expect(options.account_id).to eq(1140)
     expect(options.scac).to eq("UPGF")
-    expect(options.dock_type).to eq("BusinessWithDock")
+    expect(options.origin_dock_type).to eq("BusinessWithDock")
   end
 
   describe "default values" do
@@ -63,17 +63,17 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "destination_dock_type" do
     context "when not specified" do
-      it "does not default to dock_type" do
-        expect(options.dock_type).to eq("BusinessWithDock")
+      it "does not default to origin_dock_type" do
+        expect(options.origin_dock_type).to eq("BusinessWithDock")
         expect(options.destination_dock_type).to be_nil
       end
     end
 
     context "when explicitly specified" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", destination_dock_type: "Residence" } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "BusinessWithDock", destination_dock_type: "Residence" } }
 
-      it "uses the specified value without copying dock_type" do
-        expect(options.dock_type).to eq("BusinessWithDock")
+      it "uses the specified value without copying origin_dock_type" do
+        expect(options.origin_dock_type).to eq("BusinessWithDock")
         expect(options.destination_dock_type).to eq("Residence")
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "account_id validation" do
     context "when account_id is nil" do
-      let(:attributes) { { account_id: nil, scac: "UPGF", dock_type: "BusinessWithDock" } }
+      let(:attributes) { { account_id: nil, scac: "UPGF", origin_dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "account_id is required")
@@ -91,7 +91,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "scac validation" do
     context "when scac is nil" do
-      let(:attributes) { { account_id: 1140, scac: nil, dock_type: "BusinessWithDock" } }
+      let(:attributes) { { account_id: 1140, scac: nil, origin_dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "scac is required")
@@ -99,7 +99,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
     end
 
     context "when scac is empty" do
-      let(:attributes) { { account_id: 1140, scac: "", dock_type: "BusinessWithDock" } }
+      let(:attributes) { { account_id: 1140, scac: "", origin_dock_type: "BusinessWithDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "scac is required")
@@ -107,8 +107,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
     end
   end
 
-  describe "dock_type validation" do
-    context "when dock_type is missing" do
+  describe "origin_dock_type validation" do
+    context "when origin_dock_type is missing" do
       let(:attributes) { { account_id: 1140, scac: "UPGF" } }
 
       it "raises ArgumentError" do
@@ -116,14 +116,14 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       end
     end
 
-    context "with valid dock_type" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "Residence" } }
+    context "with valid origin_dock_type" do
+      let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "Residence" } }
 
       it { expect { options }.not_to raise_error }
     end
 
-    context "with invalid dock_type" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "InvalidDock" } }
+    context "with invalid origin_dock_type" do
+      let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "InvalidDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid dock type: InvalidDock")
@@ -131,7 +131,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
     end
 
     context "with invalid destination_dock_type" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", destination_dock_type: "InvalidDock" } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "BusinessWithDock", destination_dock_type: "InvalidDock" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid dock type: InvalidDock")
@@ -141,13 +141,13 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
   describe "accessorials validation" do
     context "with valid accessorials" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", accessorials: { destination_liftgate: true } } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "BusinessWithDock", accessorials: { destination_liftgate: true } } }
 
       it { expect { options }.not_to raise_error }
     end
 
     context "with invalid accessorial key" do
-      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", accessorials: { invalid_key: true } } }
+      let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "BusinessWithDock", accessorials: { invalid_key: true } } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, "Invalid accessorial(s): invalid_key")
@@ -162,7 +162,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       ]
     end
 
-    let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", structure_options: structure_options } }
+    let(:attributes) { { account_id: 1140, scac: "UPGF", origin_dock_type: "BusinessWithDock", structure_options: structure_options } }
 
     let(:structure) { double(id: "struct_1") }
     let(:unknown_structure) { double(id: "unknown") }

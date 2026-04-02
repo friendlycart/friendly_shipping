@@ -58,7 +58,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
   let(:options) do
     FriendlyShipping::Services::Reconex::QuoteOptions.new(
       must_arrive_by_date: Time.parse("2025-07-25T13:58:30Z"),
-      dock_type: "BusinessWithDock",
+      origin_dock_type: "BusinessWithDock",
       total_quantity: "1",
       total_units: "Pallets",
       accessorials: {
@@ -272,13 +272,13 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
   context "with different origin and destination dock types" do
     let(:options) do
       FriendlyShipping::Services::Reconex::QuoteOptions.new(
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         destination_dock_type: "Residence",
         structure_options: structure_options
       )
     end
 
-    it "uses dock_type for origin" do
+    it "uses origin_dock_type for origin" do
       expect(call[:originLocation][:dockType]).to eq("BusinessWithDock")
     end
 
