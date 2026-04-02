@@ -145,7 +145,7 @@ module FriendlyShipping
           @customer_billing = customer_billing
           @billing_location = billing_location
           @dock_type = dock_type
-          @destination_dock_type = destination_dock_type || dock_type
+          @destination_dock_type = destination_dock_type
           @origin_notes = origin_notes
           @origin_dock_open = origin_dock_open
           @origin_dock_close = origin_dock_close
@@ -202,7 +202,7 @@ module FriendlyShipping
 
         # @raise [ArgumentError] invalid dock type
         def validate_dock_type!
-          [dock_type, destination_dock_type].each do |type|
+          [dock_type, destination_dock_type].compact.each do |type|
             raise ArgumentError, "Invalid dock type: #{type}" unless QuoteOptions::DOCK_TYPES.include?(type)
           end
         end

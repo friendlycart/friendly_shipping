@@ -32,8 +32,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
       expect(options.dispatch).to be false
     end
 
-    it "defaults destination_dock_type to dock_type" do
-      expect(options.destination_dock_type).to eq("BusinessWithDock")
+    it "defaults destination_dock_type to nil" do
+      expect(options.destination_dock_type).to be_nil
     end
 
     it "defaults origin_appointment to false" do
@@ -58,6 +58,24 @@ RSpec.describe FriendlyShipping::Services::Reconex::LoadOptions do
 
     it "defaults asn_needed to false" do
       expect(options.asn_needed).to be false
+    end
+  end
+
+  describe "destination_dock_type" do
+    context "when not specified" do
+      it "does not default to dock_type" do
+        expect(options.dock_type).to eq("BusinessWithDock")
+        expect(options.destination_dock_type).to be_nil
+      end
+    end
+
+    context "when explicitly specified" do
+      let(:attributes) { { account_id: 1140, scac: "UPGF", dock_type: "BusinessWithDock", destination_dock_type: "Residence" } }
+
+      it "uses the specified value without copying dock_type" do
+        expect(options.dock_type).to eq("BusinessWithDock")
+        expect(options.destination_dock_type).to eq("Residence")
+      end
     end
   end
 

@@ -49,7 +49,7 @@ module FriendlyShipping
         # @param kwargs [Hash]
         # @option kwargs [Array<PackageOptions>] :package_options the options for packages
         # @option kwargs [Class] :package_options_class the class for package options
-        # @param destination_dock_type [String] the destination dock type (defaults to dock_type)
+        # @param destination_dock_type [String, nil] the destination dock type
         def initialize(
           must_arrive_by_date: nil,
           dock_type: "BusinessWithDock",
@@ -63,7 +63,7 @@ module FriendlyShipping
         )
           @must_arrive_by_date = must_arrive_by_date
           @dock_type = dock_type
-          @destination_dock_type = destination_dock_type || dock_type
+          @destination_dock_type = destination_dock_type
           @total_quantity = total_quantity
           @total_units = total_units
           @accessorials = accessorials
@@ -93,7 +93,7 @@ module FriendlyShipping
 
         # @raise [ArgumentError] invalid dock type
         def validate_dock_type!
-          [dock_type, destination_dock_type].each do |type|
+          [dock_type, destination_dock_type].compact.each do |type|
             raise ArgumentError, "Invalid dock type: #{type}" unless DOCK_TYPES.include?(type)
           end
         end

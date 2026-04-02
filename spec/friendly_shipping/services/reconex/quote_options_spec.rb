@@ -32,8 +32,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
       expect(options.dock_type).to eq("BusinessWithDock")
     end
 
-    it "defaults destination_dock_type to dock_type" do
-      expect(options.destination_dock_type).to eq("BusinessWithDock")
+    it "defaults destination_dock_type to nil" do
+      expect(options.destination_dock_type).to be_nil
     end
 
     it "defaults total_quantity to 1" do
@@ -53,8 +53,9 @@ RSpec.describe FriendlyShipping::Services::Reconex::QuoteOptions do
     context "when not specified" do
       let(:attributes) { { dock_type: "Residence" } }
 
-      it "defaults to dock_type value" do
-        expect(options.destination_dock_type).to eq("Residence")
+      it "does not default to dock_type" do
+        expect(options.dock_type).to eq("Residence")
+        expect(options.destination_dock_type).to be_nil
       end
     end
 

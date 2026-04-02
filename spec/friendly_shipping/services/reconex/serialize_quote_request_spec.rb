@@ -114,7 +114,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeQuoteRequest do
     it { is_expected.to include(state: "CO") }
     it { is_expected.to include(postalCode: "80501") }
     it { is_expected.to include(country: "US") }
-    it { is_expected.to include(dockType: "BusinessWithDock") }
+    it { is_expected.to include(dockType: nil) }
   end
 
   describe "items" do
