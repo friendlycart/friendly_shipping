@@ -86,7 +86,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       po_number: "H123456789",
       custom_id: "R987654321",
       billing_location: billing_location,
-      dock_type: "BusinessWithDock",
+      origin_dock_type: "BusinessWithDock",
       destination_dock_type: "BusinessWithOutDock",
       origin_notes: "Origin notes",
       origin_dock_open: Time.parse("2025-07-25T15:00:00Z"),
@@ -443,7 +443,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
         FriendlyShipping::Services::Reconex::LoadOptions.new(
           account_id: 1140,
           scac: "UPGF",
-          dock_type: "BusinessWithDock",
+          origin_dock_type: "BusinessWithDock",
           structure_options: structure_options
         )
       end
@@ -463,7 +463,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       FriendlyShipping::Services::Reconex::LoadOptions.new(
         account_id: 1140,
         scac: "UPGF",
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         structure_options: structure_options
       )
     end

@@ -76,7 +76,7 @@ module FriendlyShipping
               country: location.country.code,
               phone: location.phone,
               email: location.email,
-              dockType: options.dock_type,
+              dockType: options.origin_dock_type,
               notes: options.origin_notes,
               dockOpen: options.origin_dock_open&.strftime(DATETIME_FORMAT),
               dockClose: options.origin_dock_close&.strftime(DATETIME_FORMAT),

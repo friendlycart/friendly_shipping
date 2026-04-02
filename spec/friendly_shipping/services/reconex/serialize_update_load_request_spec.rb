@@ -68,7 +68,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeUpdateLoadRequest d
       load_id: 3_310_514,
       account_id: 1140,
       scac: "UPGF",
-      dock_type: "BusinessWithDock",
+      origin_dock_type: "BusinessWithDock",
       dispatch: true,
       billing_id: "2223606199",
       pro_number: "123456789",
@@ -135,7 +135,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeUpdateLoadRequest d
       FriendlyShipping::Services::Reconex::UpdateLoadOptions.new(
         load_id: 3_310_514,
         account_id: 1140,
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         structure_options: structure_options
       )
     end
@@ -150,7 +150,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeUpdateLoadRequest d
       FriendlyShipping::Services::Reconex::UpdateLoadOptions.new(
         load_id: 3_310_514,
         account_id: 1140,
-        dock_type: "BusinessWithDock",
+        origin_dock_type: "BusinessWithDock",
         dispatch: true,
         structure_options: structure_options
       )

@@ -22,8 +22,8 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
       expect(options.scac).to be_nil
     end
 
-    it "defaults dock_type to nil" do
-      expect(options.dock_type).to be_nil
+    it "defaults origin_dock_type to nil" do
+      expect(options.origin_dock_type).to be_nil
     end
 
     it "defaults billing_id to nil" do
@@ -82,25 +82,25 @@ RSpec.describe FriendlyShipping::Services::Reconex::UpdateLoadOptions do
     end
   end
 
-  describe "dock_type validation" do
-    context "when dock_type is nil" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: nil } }
+  describe "origin_dock_type validation" do
+    context "when origin_dock_type is nil" do
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, origin_dock_type: nil } }
 
       it "does not raise" do
         expect { options }.not_to raise_error
       end
     end
 
-    context "when dock_type is provided" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "BusinessWithDock" } }
+    context "when origin_dock_type is provided" do
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, origin_dock_type: "BusinessWithDock" } }
 
-      it "accepts a valid dock_type" do
-        expect(options.dock_type).to eq("BusinessWithDock")
+      it "accepts a valid origin_dock_type" do
+        expect(options.origin_dock_type).to eq("BusinessWithDock")
       end
     end
 
-    context "when dock_type is invalid" do
-      let(:attributes) { { load_id: 3_310_514, account_id: 1140, dock_type: "InvalidType" } }
+    context "when origin_dock_type is invalid" do
+      let(:attributes) { { load_id: 3_310_514, account_id: 1140, origin_dock_type: "InvalidType" } }
 
       it "raises ArgumentError" do
         expect { options }.to raise_error(ArgumentError, /Invalid dock type/)
