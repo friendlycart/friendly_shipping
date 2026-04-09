@@ -40,6 +40,10 @@ RSpec.describe FriendlyShipping::Services::Reconex::ParseLoadInfoResponse do
         expect(load_info.carrier_booked).to eq("SAIA")
       end
 
+      it "has the correct scac" do
+        expect(load_info.scac).to eq("SAIA")
+      end
+
       it "has the correct pro_number" do
         expect(load_info.pro_number).to eq("10237787450")
       end

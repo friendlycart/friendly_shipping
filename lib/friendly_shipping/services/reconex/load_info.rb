@@ -14,6 +14,9 @@ module FriendlyShipping
         # @return [String, nil] the carrier booked (SCAC or name)
         attr_reader :carrier_booked
 
+        # @return [String, nil] the SCAC code
+        attr_reader :scac
+
         # @return [String, nil] the PRO number
         attr_reader :pro_number
 
@@ -96,6 +99,7 @@ module FriendlyShipping
           load_id: nil,
           ship_date: nil,
           carrier_booked: nil,
+          scac: nil,
           pro_number: nil,
           confirmation_number: nil,
           tracking_link: nil,
@@ -126,6 +130,7 @@ module FriendlyShipping
           @load_id = load_id
           @ship_date = ship_date
           @carrier_booked = carrier_booked
+          @scac = scac
           @pro_number = pro_number
           @confirmation_number = confirmation_number
           @tracking_link = tracking_link

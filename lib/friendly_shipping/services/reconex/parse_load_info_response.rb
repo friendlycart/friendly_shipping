@@ -57,6 +57,7 @@ module FriendlyShipping
               load_id: detail["loadID"],
               ship_date: detail["shipDate"],
               carrier_booked: detail["carrierBooked"],
+              scac: detail["scac"],
               pro_number: detail["proNumber"],
               confirmation_number: detail["confirmationNumber"],
               tracking_link: detail["trackingLink"],
