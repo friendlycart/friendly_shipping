@@ -4,6 +4,7 @@
       "loadID": 2763982,
       "shipDate": "2021-09-03T00:00:00",
       "carrierBooked": "SAIA",
+      "scac": "SAIA",
       "proNumber": "10237787450",
       "confirmationNumber": "41567552",
       "trackingLink": "http://www.saia.com/Tracing/AjaxProstatusByPro.aspx?nh=N&Pro=10237787450",
