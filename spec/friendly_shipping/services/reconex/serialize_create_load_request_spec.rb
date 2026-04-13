@@ -141,6 +141,22 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(proNumber: true) }
     it { is_expected.to include(dispatch: true) }
     it { is_expected.to include(errorEmailNotification: "errors@widgets.com") }
+
+    context "when rate, proNumber, and dispatch are false" do
+      let(:options) do
+        FriendlyShipping::Services::Reconex::LoadOptions.new(
+          account_id: 1140,
+          scac: "UPGF",
+          origin_dock_type: "BusinessWithDock",
+          structure_options: structure_options
+        )
+      end
+
+      it { is_expected.not_to have_key(:rate) }
+      it { is_expected.not_to have_key(:proNumber) }
+      it { is_expected.not_to have_key(:dispatch) }
+      it { is_expected.to include(book: "UPGF") }
+    end
   end
 
   describe "loadDetails" do
