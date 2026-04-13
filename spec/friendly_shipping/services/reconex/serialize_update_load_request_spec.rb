@@ -159,5 +159,9 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeUpdateLoadRequest d
     it "omits book from action" do
       expect(call[:action]).not_to have_key(:book)
     end
+
+    it "omits rate from action" do
+      expect(call[:action]).not_to have_key(:rate)
+    end
   end
 end

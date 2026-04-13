@@ -29,10 +29,10 @@ module FriendlyShipping
           def serialize_action(options)
             {
               accountId: options.account_id,
-              rate: options.rate,
-              book: options.scac,
-              proNumber: options.pro_number_requested,
-              dispatch: options.dispatch,
+              rate: options.rate.presence,
+              book: options.scac.presence,
+              proNumber: options.pro_number_requested.presence,
+              dispatch: options.dispatch.presence,
               errorEmailNotification: options.error_email
             }
           end
