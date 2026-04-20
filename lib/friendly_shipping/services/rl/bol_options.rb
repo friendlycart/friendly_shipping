@@ -26,11 +26,18 @@ module FriendlyShipping
         # @return [Boolean] whether to generate universal PRO number
         attr_reader :generate_universal_pro
 
-        # @return [Callable] the structures serializer
+        # @return [Callable]
+        # @deprecated Use {#handling_units_serializer} instead. Sending top-level
+        #   `Items` will be removed in a future release in favor of `HandlingUnits`.
         attr_reader :structures_serializer
 
+        # @return [Callable, nil] the handling units serializer. When set, the
+        #   serialized request sends `HandlingUnits` in place of the top-level `Items`.
+        #   This will become the default in a future release.
+        attr_reader :handling_units_serializer
+
         # @return [Callable]
-        # @deprecated Use {#structures_serializer} instead.
+        # @deprecated Use {#handling_units_serializer} instead.
         attr_reader :packages_serializer
 
         # @param pickup_time_window [Range]
@@ -42,8 +49,14 @@ module FriendlyShipping
         # @param generate_universal_pro [Boolean]
         # @param structures_serializer [Callable] a callable that takes structures
         #   and an options object to create an Array of item hashes per the R+L Carriers docs
+        #   (DEPRECATED: use `handling_units_serializer` instead)
+        # @param handling_units_serializer [Callable, nil] a callable that takes structures
+        #   and an options object to create an Array of HandlingUnit hashes per the R+L Carriers docs.
+        #   When provided, the request sends `HandlingUnits` instead of the top-level `Items` array.
+        #   This will become the default in a future release.
         # @param packages_serializer [Callable] a callable that takes packages
-        #   and an options object to create an Array of item hashes per the R+L Carriers docs (DEPRECATED: use `structures_serializer` instead)
+        #   and an options object to create an Array of item hashes per the R+L Carriers docs
+        #   (DEPRECATED: use `handling_units_serializer` instead)
         # @param kwargs [Hash]
         # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this shipment
         # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
@@ -55,6 +68,7 @@ module FriendlyShipping
           reference_numbers: {},
           additional_service_codes: [],
           structures_serializer: BOLStructuresSerializer,
+          handling_units_serializer: nil,
           packages_serializer: BOLPackagesSerializer,
           generate_universal_pro: false,
           **kwargs
@@ -66,6 +80,7 @@ module FriendlyShipping
           @reference_numbers = reference_numbers
           @additional_service_codes = additional_service_codes
           @structures_serializer = structures_serializer
+          @handling_units_serializer = handling_units_serializer
           @packages_serializer = packages_serializer
           @generate_universal_pro = generate_universal_pro
           validate_additional_service_codes!

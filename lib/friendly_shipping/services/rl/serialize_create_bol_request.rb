@@ -17,6 +17,7 @@ module FriendlyShipping
                 Consignee: SerializeLocation.call(shipment.destination),
                 BillTo: SerializeLocation.call(shipment.origin),
                 Items: serialize_items(shipment, options),
+                HandlingUnits: serialize_handling_units(shipment, options),
                 DeclaredValue: serialize_declared_value(options.declared_value),
                 SpecialInstructions: options.special_instructions,
                 ReferenceNumbers: serialize_reference_numbers(options.reference_numbers),
@@ -31,14 +32,28 @@ module FriendlyShipping
 
           # @param shipment [Physical::Shipment] the shipment with items to serialize
           # @param options [BOLOptions] options for the items to be serialized
-          # @return [Hash]
+          # @return [Array<Hash>, nil] the serialized items, or nil when sending handling units instead
           def serialize_items(shipment, options)
             if options.packages_serializer
-              warn "[DEPRECATION] `packages_serializer` is deprecated.  Please use `structures_serializer` instead."
+              warn "[DEPRECATION] `packages_serializer` is deprecated.  Please use `handling_units_serializer` instead."
               options.packages_serializer.call(packages: shipment.packages, options: options)
+            elsif options.handling_units_serializer
+              nil
             else
+              warn "[DEPRECATION] Sending top-level `Items` via `structures_serializer` is deprecated. " \
+                   "Pass `handling_units_serializer: BOLHandlingUnitsSerializer` to send `HandlingUnits` instead. " \
+                   "This will become the default in a future release."
               options.structures_serializer.call(structures: shipment.structures, options: options)
             end
+          end
+
+          # @param shipment [Physical::Shipment] the shipment with handling units to serialize
+          # @param options [BOLOptions] options for the handling units to be serialized
+          # @return [Array<Hash>, nil] the serialized handling units, or nil when the option is not configured
+          def serialize_handling_units(shipment, options)
+            return unless options.handling_units_serializer
+
+            options.handling_units_serializer.call(structures: shipment.structures, options: options)
           end
 
           # @param declared_value [Numeric] the declared value to serialize

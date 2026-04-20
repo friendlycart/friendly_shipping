@@ -18,6 +18,7 @@ loader.inflector.inflect(
   "serialize_create_bol_request" => "SerializeCreateBOLRequest",
   "bol_structures_serializer" => "BOLStructuresSerializer",
   "bol_packages_serializer" => "BOLPackagesSerializer",
+  "bol_handling_units_serializer" => "BOLHandlingUnitsSerializer",
   "bol_options" => "BOLOptions",
   "ship_engine_ltl" => "ShipEngineLTL",
   "tforce_freight" => "TForceFreight",
