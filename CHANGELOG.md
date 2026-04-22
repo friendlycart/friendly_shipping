@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- R+L: Add `BOLHandlingUnitsSerializer` and `handling_units_serializer` option on `BOLOptions`. When set, the create-BOL request sends `HandlingUnits` (with each structure's packages nested as `Items`) instead of the top-level `Items` array. `RL::StructureOptions` now accepts a `handling_unit:` symbol mapping to R+L unit type codes (PLT, SKD, BOX, TOTE, etc., default `:pallet`).
+- R+L: Deprecate `structures_serializer` and the top-level `Items` output in favor of `handling_units_serializer`. The default will flip in a future release.
+
 ## [0.10.4] - 2025-08-14
 - Upgrade `physical` dependency to `~> 0.6`
 

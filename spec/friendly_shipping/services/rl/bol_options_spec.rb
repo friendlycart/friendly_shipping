@@ -21,7 +21,8 @@ RSpec.describe FriendlyShipping::Services::RL::BOLOptions do
     :additional_service_codes,
     :generate_universal_pro,
     :packages_serializer,
-    :structures_serializer
+    :structures_serializer,
+    :handling_units_serializer
   ].each do |attr|
     it { is_expected.to respond_to(attr) }
   end
@@ -63,6 +64,23 @@ RSpec.describe FriendlyShipping::Services::RL::BOLOptions do
     subject { options.packages_serializer }
 
     it { is_expected.to eq(FriendlyShipping::Services::RL::BOLPackagesSerializer) }
+  end
+
+  describe "#handling_units_serializer" do
+    subject { options.handling_units_serializer }
+
+    it { is_expected.to be_nil }
+
+    context "when set" do
+      let(:options) do
+        described_class.new(
+          pickup_time_window: 1.hour.ago..1.hour.from_now,
+          handling_units_serializer: FriendlyShipping::Services::RL::BOLHandlingUnitsSerializer
+        )
+      end
+
+      it { is_expected.to eq(FriendlyShipping::Services::RL::BOLHandlingUnitsSerializer) }
+    end
   end
 
   describe "validate additional service codes" do

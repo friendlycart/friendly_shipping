@@ -215,6 +215,53 @@ RSpec.describe FriendlyShipping::Services::RL::SerializeCreateBOLRequest do
     it { is_expected.to_not have_key(:PickupRequest) }
   end
 
+  describe "with handling_units_serializer" do
+    let(:options) do
+      FriendlyShipping::Services::RL::BOLOptions.new(
+        pickup_time_window: pickup_time_window,
+        pickup_instructions: "Pickup instructions",
+        reference_numbers: { shipper_number: "A4234592" },
+        structure_options: [
+          FriendlyShipping::Services::RL::StructureOptions.new(
+            structure_id: "pallet 1",
+            handling_unit: :pallet,
+            package_options: [
+              FriendlyShipping::Services::RL::PackageOptions.new(
+                package_id: "package 1",
+                nmfc_primary_code: "87700",
+                nmfc_sub_code: "07",
+                freight_class: "92.5"
+              )
+            ]
+          ),
+          FriendlyShipping::Services::RL::StructureOptions.new(
+            structure_id: "structure 2",
+            handling_unit: :skid,
+            package_options: [
+              FriendlyShipping::Services::RL::PackageOptions.new(
+                package_id: "package 2",
+                nmfc_primary_code: "87700",
+                nmfc_sub_code: "07",
+                freight_class: "92.5"
+              )
+            ]
+          )
+        ],
+        packages_serializer: nil,
+        handling_units_serializer: FriendlyShipping::Services::RL::BOLHandlingUnitsSerializer
+      )
+    end
+
+    let(:serialized_handling_units) do
+      options.handling_units_serializer.call(structures: shipment.structures, options: options)
+    end
+
+    it "sends HandlingUnits in place of Items" do
+      expect(subject[:BillOfLading]).to include(HandlingUnits: serialized_handling_units)
+      expect(subject[:BillOfLading]).not_to have_key(:Items)
+    end
+  end
+
   describe "deprecated packages behavior" do
     # TODO: Remove when packages_serializer is removed
 
