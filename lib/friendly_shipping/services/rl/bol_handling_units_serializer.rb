@@ -40,17 +40,27 @@ module FriendlyShipping
         # @param structure_options [StructureOptions]
         # @return [Array<Hash>]
         def self.items(structure, structure_options)
-          structure.packages.map do |package|
+          groups = structure.packages.group_by do |package|
             package_options = structure_options.options_for_package(package)
+            [
+              package.description.presence || "Commodities",
+              package_options.freight_class,
+              package_options.nmfc_primary_code,
+              package_options.nmfc_sub_code
+            ]
+          end
+
+          groups.map do |(description, freight_class, nmfc_primary_code, nmfc_sub_code), packages|
+            weight = packages.sum { |package| package.weight.convert_to(:pounds).value }.ceil
             {
               IsHazmat: false,
-              Pieces: 1,
+              Pieces: packages.size,
               PackageType: "BOX",
-              NMFCItemNumber: package_options.nmfc_primary_code,
-              NMFCSubNumber: package_options.nmfc_sub_code,
-              Class: package_options.freight_class,
-              Weight: package.weight.convert_to(:pounds).value.ceil,
-              Description: package.description.presence || "Commodities"
+              NMFCItemNumber: nmfc_primary_code,
+              NMFCSubNumber: nmfc_sub_code,
+              Class: freight_class,
+              Weight: weight,
+              Description: description
             }.compact
           end
         end
