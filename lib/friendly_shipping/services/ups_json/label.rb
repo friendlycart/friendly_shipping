@@ -6,7 +6,7 @@ module FriendlyShipping
       class Label < FriendlyShipping::Label
         attr_reader :usps_tracking_number
 
-        # @param [String] usps_tracking_number The label's usps tracking number. Limited to SUREPOST
+        # @param [String] usps_tracking_number The label's usps tracking number. Limited to Ground Saver (formerly SurePost).
         def initialize(
           usps_tracking_number: nil,
           **kwargs
