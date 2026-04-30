@@ -57,7 +57,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       end
     end
 
-    context "estimating a SurePost rate" do
+    context "estimating a Ground Saver rate" do
       let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '93') }
       let(:options) do
         FriendlyShipping::Services::UpsJson::RatesOptions.new(
@@ -66,11 +66,11 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
           negotiated_rates: true
         )
       end
-      # SurePost only allows single packages
+      # Ground Saver only allows single packages
       let(:packages) { FactoryBot.build_list(:physical_package, 1) }
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
 
-      it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups_json/rates/sure_post_success' } do
+      it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups_json/rates/ground_saver_success' } do
         aggregate_failures do
           is_expected.to be_success
           expect(subject.value!.data).to be_a(Array)
@@ -90,7 +90,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       end
     end
 
-    context "with SurePost given as the shipping method" do
+    context "with Ground Saver given as the shipping method" do
       let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '93') }
       let(:options) do
         FriendlyShipping::Services::UpsJson::RatesOptions.new(
@@ -100,11 +100,11 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         )
       end
       let(:shipper_number) { ENV.fetch('UPS_SHIPPER_NUMBER', nil) }
-      # SurePost only allows single packages
+      # Ground Saver only allows single packages
       let(:packages) { FactoryBot.build_list(:physical_package, 1) }
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
 
-      it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups_json/rates/sure_post_rate' } do
+      it 'returns Physical::Rate objects wrapped in a Success Monad', vcr: { cassette_name: 'ups_json/rates/ground_saver_rate' } do
         aggregate_failures do
           is_expected.to be_success
           expect(subject.value!.data).to be_a(Array)
@@ -371,13 +371,13 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       expect(first_label.data[:customer_context]).to eq('request-id-12345')
     end
 
-    context 'with SurePost' do
+    context 'with Ground Saver' do
       let(:shipping_method) { FriendlyShipping::ShippingMethod.new(service_code: '93') }
-      # SurePost only allows single packages
+      # Ground Saver only allows single packages
       let(:packages) { FactoryBot.build_list(:physical_package, 1) }
       let(:shipment) { FactoryBot.build(:physical_shipment, packages: packages, origin: origin, destination: destination) }
 
-      it 'returns labels along with the response', vcr: { cassette_name: "ups_json/labels/surepost_success" } do
+      it 'returns labels along with the response', vcr: { cassette_name: "ups_json/labels/ground_saver_success" } do
         expect(subject).to be_a(Dry::Monads::Result)
         first_label = subject.value!.data.first
         expect(subject.value!.data.length).to eq(1)

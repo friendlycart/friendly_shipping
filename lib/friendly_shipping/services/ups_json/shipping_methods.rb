@@ -39,6 +39,12 @@ module FriendlyShipping
         ['US', 'domestic', 'UPS Next Day Air®', '01'],
         ['US', 'domestic', 'UPS Next Day Air® Early', '14'],
         ['US', 'domestic', 'UPS Next Day Air Saver®', '13'],
+        ['US', 'domestic', 'UPS Ground Saver Less than 1LB', '92'],
+        ['US', 'domestic', 'UPS Ground Saver 1LB or greater', '93'],
+        ['US', 'domestic', 'UPS Ground Saver BPM', '94'],
+        ['US', 'domestic', 'UPS Ground Saver Media Mail', '95'],
+        # Legacy aliases — UPS rebranded SurePost to Ground Saver. Kept so external
+        # code that looks up shipping methods by the old name continues to find one.
         ['US', 'domestic', 'UPS SurePost Less than 1LB', '92'],
         ['US', 'domestic', 'UPS SurePost 1LB or greater', '93'],
         ['US', 'domestic', 'UPS SurePost BPM', '94'],
