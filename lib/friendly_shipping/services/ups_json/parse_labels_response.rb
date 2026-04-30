@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'base64'
+
 module FriendlyShipping
   module Services
     class UpsJson
@@ -22,8 +24,9 @@ module FriendlyShipping
 
           def build_labels(labels_result)
             shipment_result = labels_result["ShipmentResponse"]["ShipmentResults"]
+            customs_form = build_customs_form(shipment_result)
 
-            Array.wrap(shipment_result["PackageResults"]).map do |package|
+            Array.wrap(shipment_result["PackageResults"]).map.with_index do |package, index|
               cost_breakdown = build_cost_breakdown(package)
               package_cost = cost_breakdown.values.any? ? cost_breakdown.values.sum : nil
 
@@ -39,7 +42,8 @@ module FriendlyShipping
                 data: {
                   cost_breakdown: cost_breakdown,
                   negotiated_rate: get_negotiated_rate(shipment_result),
-                  customer_context: labels_result["ShipmentResponse"]["Response"]["TransactionReference"]["CustomerContext"]
+                  customer_context: labels_result["ShipmentResponse"]["Response"]["TransactionReference"]["CustomerContext"],
+                  customs_form: (customs_form if index.zero?)
                 }.compact
               )
             end
@@ -63,6 +67,22 @@ module FriendlyShipping
           def get_negotiated_rate(shipment_result)
             negotiated_total_hash = shipment_result.dig("NegotiatedRateCharges", "TotalCharge")
             ParseMoneyHash.call(negotiated_total_hash, "TotalCharge")&.last
+          end
+
+          def build_customs_form(shipment_result)
+            form = shipment_result["Form"]
+            return nil unless form
+
+            image = form["Image"]
+            graphic = image && image["GraphicImage"]
+            return nil unless graphic
+
+            {
+              code: form["Code"],
+              description: form["Description"],
+              format: image.dig("ImageFormat", "Code"),
+              binary: Base64.decode64(graphic)
+            }
           end
         end
       end

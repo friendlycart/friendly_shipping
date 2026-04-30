@@ -369,6 +369,7 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
       expect(first_label.shipment_cost).to eq(Money.new(4796, 'USD'))
       expect(first_label.data[:negotiated_rate]).to eq(Money.new(4748, 'USD'))
       expect(first_label.data[:customer_context]).to eq('request-id-12345')
+      expect(first_label.data).not_to have_key(:customs_form)
     end
 
     context 'with SurePost' do
@@ -503,9 +504,16 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
       it 'returns labels along with the response', vcr: { cassette_name: "ups_json/labels/international_paperless" } do
         expect(subject).to be_a(Dry::Monads::Result)
-        expect(subject.value!.data.length).to eq(2)
-        expect(subject.value!.data.map(&:tracking_number)).to be_present
-        expect(subject.value!.data.map(&:label_format).first).to eq("ZPL")
+        labels = subject.value!.data
+        expect(labels.length).to eq(2)
+        expect(labels.map(&:tracking_number)).to be_present
+        expect(labels.map(&:label_format).first).to eq("ZPL")
+
+        customs_form = labels.first.data[:customs_form]
+        expect(customs_form).to include(code: "01", format: "PDF")
+        expect(customs_form[:description]).to be_present
+        expect(customs_form[:binary]).to start_with("%PDF")
+        expect(labels.last.data).not_to have_key(:customs_form)
       end
 
       context 'when shipping to Puerto Rico' do
@@ -525,10 +533,13 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
 
         it 'returns labels along with the response', vcr: { cassette_name: "ups_json/labels/international_puerto_rico" } do
           expect(subject).to be_a(Dry::Monads::Result)
-          expect(subject.value!.data.length).to eq(2)
-          expect(subject.value!.data.map(&:tracking_number)).to be_present
-          expect(subject.value!.data.map(&:label_data).first.length).to eq(5685)
-          expect(subject.value!.data.map(&:label_format).first).to eq("ZPL")
+          labels = subject.value!.data
+          expect(labels.length).to eq(2)
+          expect(labels.map(&:tracking_number)).to be_present
+          expect(labels.map(&:label_data).first.length).to eq(5685)
+          expect(labels.map(&:label_format).first).to eq("ZPL")
+          expect(labels.first.data[:customs_form]).to be_present
+          expect(labels.last.data).not_to have_key(:customs_form)
         end
       end
     end
