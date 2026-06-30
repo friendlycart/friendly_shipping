@@ -531,4 +531,25 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
       end
     end
   end
+
+  describe "#get_documents" do
+    subject(:get_documents) { service.get_documents(pro_number, document_categories: document_categories) }
+
+    let(:pro_number) { "123456789" }
+    let(:document_categories) { [:bill_of_lading] }
+
+    context "with a valid request", vcr: { cassette_name: "tforce_freight/documents/success" } do
+      it { is_expected.to be_success }
+
+      it "returns the documents" do
+        documents = get_documents.value!.data
+        expect(documents).to be_a(Array)
+        expect(documents).to all(be_a(FriendlyShipping::Services::TForceFreight::ShipmentDocument))
+
+        document = documents.first
+        expect(document.document_format).to eq(:pdf)
+        expect(document.binary).to start_with("%PDF-")
+      end
+    end
+  end
 end
