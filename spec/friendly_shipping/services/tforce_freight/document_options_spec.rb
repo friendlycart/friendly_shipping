@@ -20,4 +20,12 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::DocumentOptions do
     expect(options.thermal_code).to eq("01")
     expect(options.label_type_code).to eq("07")
   end
+
+  context "with the 2x3 address label type" do
+    subject(:options) { described_class.new(label_type: :address_labels_2x3) }
+
+    it "returns the expected label type code" do
+      expect(options.label_type_code).to eq("09")
+    end
+  end
 end

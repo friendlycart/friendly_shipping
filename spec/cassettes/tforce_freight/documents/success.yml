@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.tforcefreight.com/documents/pro?api-version=v1
+    body:
+      encoding: UTF-8
+      string: '{"pro":"123456789","documentCategories":["BOL"]}'
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin25 arm64) ruby/4.0.3p0
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Content-Length:
+      - '48'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache,no-store,must-revalidate,max-age=0,no-cache="set-cookie"
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '412'
+      Content-Type:
+      - application/json
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000;includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Request-Context:
+      - appId=cid-v1:00000000-0000-0000-0000-000000000000
+      Date:
+      - Tue, 30 Jun 2026 15:03:13 GMT
+    body:
+      encoding: UTF-8
+      string: '{"summary":{"responseStatus":{"code":"1","message":"Success"},"transactionReference":{"transactionId":"00000000-0000-0000-0000-000000000000"}},"detail":[{"detailStatus":{"code":"1","message":"Success","documentStatus":"Active"},"documentType":{"name":"BOL","description":"Bill
+        of Lading"},"id":"REDACTED","documentSize":106162,"updateDate":"REDACTED","category":"BOL","data":"JVBERi1yZWRhY3RlZCBmb3IgVkNSCg=="}]}'
+  recorded_at: Tue, 30 Jun 2026 15:03:14 GMT
+recorded_with: VCR 6.4.0

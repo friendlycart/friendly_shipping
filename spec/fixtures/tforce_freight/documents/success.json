@@ -1,0 +1,45 @@
+{
+  "summary": {
+    "responseStatus": {
+      "code": "1",
+      "message": "Success"
+    },
+    "transactionReference": {
+      "transactionId": "d84d46e3-342f-4794-a64e-1a0f3ef2e1b0"
+    }
+  },
+  "detail": [
+    {
+      "detailStatus": {
+        "code": "1",
+        "message": "Success",
+        "documentStatus": "Active"
+      },
+      "documentType": {
+        "name": "OSD",
+        "description": "OS&D"
+      },
+      "id": "493315",
+      "documentSize": 17400,
+      "updateDate": "2018-11-16T15:01:04-05:00",
+      "category": "CLM",
+      "data": "JVBERi0xLjQK"
+    },
+    {
+      "detailStatus": {
+        "code": "1",
+        "message": "Success",
+        "documentStatus": "Active"
+      },
+      "documentType": {
+        "name": "BOL",
+        "description": "Bill Of Lading"
+      },
+      "id": "548489",
+      "documentSize": 92016,
+      "updateDate": "2022-02-23T08:11:44-05:00",
+      "category": "BOL",
+      "data": "JVBERi0xLjQK"
+    }
+  ]
+}

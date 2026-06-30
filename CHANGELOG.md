@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 - R+L: Add `BOLHandlingUnitsSerializer` and `handling_units_serializer` option on `BOLOptions`. When set, the create-BOL request sends `HandlingUnits` (with each structure's packages nested as `Items`) instead of the top-level `Items` array. `RL::StructureOptions` now accepts a `handling_unit:` symbol mapping to R+L unit type codes (PLT, SKD, BOX, TOTE, etc., default `:pallet`).
 - R+L: Deprecate `structures_serializer` and the top-level `Items` output in favor of `handling_units_serializer`. The default will flip in a future release.
+- TForce Freight: Add `get_documents` to retrieve documents (BOL, claims, delivery receipt, invoice, weight certificate) for an existing shipment by PRO number via the Documents API. Returns an array of `ShipmentDocument`. Categories are specified as friendly symbols (e.g. `:bill_of_lading`). Success/failure is determined from `summary.responseStatus.code` because the Documents API returns HTTP 200 even for errors.
+- TForce Freight: Add the `:address_labels_2x3` label type (code `09`) to `DocumentOptions`, matching the current Shipping API manual.
 
 ## [0.10.4] - 2025-08-14
 - Upgrade `physical` dependency to `~> 0.6`

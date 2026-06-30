@@ -50,7 +50,8 @@ module FriendlyShipping
           address_labels_2x1: "05",
           address_labels_2x2: "06",
           thermal_labels_4x6: "07",
-          thermal_labels_4x8: "08"
+          thermal_labels_4x8: "08",
+          address_labels_2x3: "09"
         }.freeze
 
         # @param type [Symbol] the document type (see [DOCUMENT_TYPES])
