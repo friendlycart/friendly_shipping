@@ -1,0 +1,14 @@
+{
+  "summary": {
+    "responseStatus": {
+      "code": "IMG_000201",
+      "message": "MyLTL Enrollment is required"
+    },
+    "transactionReference": {
+      "transactionId": "00000000-0000-0000-0000-000000000000"
+    }
+  },
+  "detail": [
+    null
+  ]
+}

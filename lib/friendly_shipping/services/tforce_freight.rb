@@ -31,7 +31,8 @@ module FriendlyShipping
       RESOURCES = {
         rates: '/rating/getRate',
         create_pickup: '/pickup/request',
-        create_bol: '/shipping/bol/create'
+        create_bol: '/shipping/bol/create',
+        documents: '/documents/pro'
       }.freeze
 
       # @param access_token [AccessToken] the access token
@@ -141,6 +142,22 @@ module FriendlyShipping
 
         client.post(request).fmap do |response|
           ParseCreateBOLResponse.call(response: response, request: request)
+        end
+      end
+
+      # Get documents (BOL, invoice, delivery receipt, etc.) for an existing shipment by PRO number.
+      # @see https://developer.tforcefreight.com/api-details#api=Images-api-cie-v1&operation=getDocumentsByPro API documentation
+      #
+      # @param pro_number [String] the 9-digit PRO number for which to get documents
+      # @param document_categories [Array<Symbol>] the categories to retrieve (see {GenerateDocumentsRequestHash::DOCUMENT_CATEGORIES})
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<Array<ShipmentDocument>>>] the documents returned from TForce encoded in a `ApiResult` object
+      def get_documents(pro_number, document_categories:, debug: false)
+        documents_request_hash = GenerateDocumentsRequestHash.call(pro: pro_number, document_categories: document_categories)
+        request = build_request(:documents, documents_request_hash, debug)
+
+        client.post(request).bind do |response|
+          ParseDocumentsResponse.call(response: response, request: request)
         end
       end
 
