@@ -25,6 +25,7 @@ loader.inflector.inflect(
   "generate_create_bol_request_hash" => "GenerateCreateBOLRequestHash",
   "parse_xml_response" => "ParseXMLResponse",
   "usps_ship" => "USPSShip",
+  "ltl_carriers" => "LTLCarriers",
   "shipping_methods" => "SHIPPING_METHODS"
 )
 loader.setup
