@@ -12,6 +12,9 @@ module FriendlyShipping
     # @return [String] the carrier's unique code
     attr_reader :code
 
+    # @return [String, nil] the carrier's SCAC (Standard Carrier Alpha Code)
+    attr_reader :scac
+
     # @return [Array<ShippingMethod>] the shipping methods available on this carrier
     attr_reader :shipping_methods
 
@@ -24,13 +27,15 @@ module FriendlyShipping
     # @param id [Integer, String] a unique identifier for this carrier
     # @param name [String] the carrier's name
     # @param code [String] the carrier's unique code
+    # @param scac [String] the carrier's SCAC (Standard Carrier Alpha Code)
     # @param shipping_methods [Array<ShippingMethod>] the shipping methods available on this carrier
     # @param balance [Float] the remaining balance for this carrier
     # @param data [Hash] additional data related to this carrier
-    def initialize(id: nil, name: nil, code: nil, shipping_methods: [], balance: nil, data: {})
+    def initialize(id: nil, name: nil, code: nil, scac: nil, shipping_methods: [], balance: nil, data: {})
       @id = id
       @name = name
       @code = code
+      @scac = scac
       @shipping_methods = shipping_methods
       @balance = balance
       @data = data

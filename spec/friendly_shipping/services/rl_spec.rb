@@ -19,6 +19,25 @@ RSpec.describe FriendlyShipping::Services::RL do
     it { expect(client.error_handler.api_error_class).to eq(FriendlyShipping::Services::RL::ApiError) }
   end
 
+  describe "#carriers" do
+    subject(:carriers) { service.carriers.value! }
+
+    it "has only one carrier with five shipping methods" do
+      expect(carriers.length).to eq(1)
+      expect(carriers.first.scac).to eq("RLCA")
+      expect(carriers.first.shipping_methods.map(&:service_code)).to contain_exactly(
+        "STD", "GSDS", "GSAM", "GSHW", "EXPD"
+      )
+      expect(carriers.first.shipping_methods.map(&:name)).to contain_exactly(
+        "Standard Service",
+        "Guaranteed Service",
+        "Guaranteed AM Service",
+        "Guaranteed Hourly Window Service",
+        "Expedited Service"
+      )
+    end
+  end
+
   let(:shipment) do
     FactoryBot.build(
       :physical_shipment,

@@ -16,12 +16,18 @@ module FriendlyShipping
       # @return [HttpClient] the HTTP client
       attr_reader :client
 
-      # The TForce Freight carrier
+      # The TForce Freight carrier. This is the canonical definition referenced by
+      # {FriendlyShipping::LTLCarriers}.
       CARRIER = FriendlyShipping::Carrier.new(
         id: 'tforce_freight',
         name: 'TForce Freight',
         code: 'tforce_freight-freight',
-        shipping_methods: SHIPPING_METHODS
+        scac: 'UPGF',
+        shipping_methods: SHIPPING_METHODS,
+        data: {
+          scacs: ['UPGF'],
+          tracking_url_template: 'https://www.tforcefreight.com/ltl/apps/Tracking?proNumbers=:tracking'
+        }
       )
 
       # The base URL for TForce API requests

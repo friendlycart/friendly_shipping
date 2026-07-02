@@ -19,6 +19,7 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
 
     it "has only one carrier with four shipping methods" do
       expect(carriers.length).to eq(1)
+      expect(carriers.first.scac).to eq("UPGF")
       expect(carriers.first.shipping_methods.map(&:service_code)).to contain_exactly(
         "308", "309", "334", "349"
       )

@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+- `Carrier`: Add a first-class `scac` attribute (Standard Carrier Alpha Code).
+- Add `FriendlyShipping::LTLCarriers`, a canonical catalog of the LTL carriers freight brokers (e.g. Reconex) rate-shop, keyed by SCAC. Each entry is a `Carrier` carrying its full list of SCACs (`data[:scacs]`) and a tracking-URL template. Provides `LTLCarriers.all`, `LTLCarriers.find_by_scac`, and `LTLCarriers.tracking_url_for`.
+- R+L: Add a `CARRIER` constant (SCAC `RLCA`) and a `carriers` method returning it, matching the other freight services.
+- TForce Freight: Add SCAC `UPGF` to the `CARRIER` constant.
 - R+L: Add `BOLHandlingUnitsSerializer` and `handling_units_serializer` option on `BOLOptions`. When set, the create-BOL request sends `HandlingUnits` (with each structure's packages nested as `Items`) instead of the top-level `Items` array. `RL::StructureOptions` now accepts a `handling_unit:` symbol mapping to R+L unit type codes (PLT, SKD, BOX, TOTE, etc., default `:pallet`).
 - R+L: Deprecate `structures_serializer` and the top-level `Items` output in favor of `handling_units_serializer`. The default will flip in a future release.
 - TForce Freight: Add `get_documents` to retrieve documents (BOL, claims, delivery receipt, invoice, weight certificate) for an existing shipment by PRO number via the Documents API. Returns an array of `ShipmentDocument`. Categories are specified as friendly symbols (e.g. `:bill_of_lading`). Success/failure is determined from `summary.responseStatus.code` because the Documents API returns HTTP 200 even for errors.

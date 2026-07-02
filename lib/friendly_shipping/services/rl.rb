@@ -34,6 +34,20 @@ module FriendlyShipping
         transit_times: "TransitTimes"
       }.freeze
 
+      # The R+L Carriers carrier. This is the canonical definition referenced by
+      # {FriendlyShipping::LTLCarriers}.
+      CARRIER = FriendlyShipping::Carrier.new(
+        id: 'rl',
+        name: 'R+L Carriers',
+        code: 'rl',
+        scac: 'RLCA',
+        shipping_methods: SHIPPING_METHODS,
+        data: {
+          scacs: ['RLCA'],
+          tracking_url_template: 'https://www.rlcarriers.com/freight/shipping/shipment-tracing?pro=:tracking&docType=PRO'
+        }
+      )
+
       # @param [String] api_key the API key for this carrier
       # @param [Boolean] test whether to use test API endpoints
       # @param [HttpClient] client the HTTP client to use for requests
@@ -43,6 +57,11 @@ module FriendlyShipping
 
         error_handler = ApiErrorHandler.new(api_error_class: RL::ApiError)
         @client = client || HttpClient.new(error_handler: error_handler)
+      end
+
+      # @return [Success<Array<Carrier>>] the carriers for this service
+      def carriers
+        Success([CARRIER])
       end
 
       # Create an LTL Bill of Lading (BOL) and schedule a pickup with R+L Carriers.
