@@ -25,6 +25,35 @@ RSpec.describe FriendlyShipping::Services::UpsJson do
         expect(shipping_method.international? || shipping_method.domestic?).to be true
       end
     end
+
+    describe 'UPS Worldwide Economy' do
+      subject(:worldwide_economy) do
+        described_class::SHIPPING_METHODS.select { |sm| sm.name.include?('Worldwide Economy') }
+      end
+
+      it 'includes both DDU and DDP variants' do
+        expect(worldwide_economy.map(&:name)).to contain_exactly(
+          'UPS Worldwide Economy DDU',
+          'UPS Worldwide Economy DDP'
+        )
+      end
+
+      it 'maps DDU to service code 17 and DDP to service code 72' do
+        codes = worldwide_economy.to_h { |sm| [sm.name, sm.service_code] }
+        expect(codes).to eq(
+          'UPS Worldwide Economy DDU' => '17',
+          'UPS Worldwide Economy DDP' => '72'
+        )
+      end
+
+      it 'is an international US-origin service' do
+        worldwide_economy.each do |sm|
+          expect(sm).to be_international
+          expect(sm).not_to be_domestic
+          expect(sm.origin_countries.map(&:code)).to eq(['US'])
+        end
+      end
+    end
   end
 
   describe "#create_access_token" do

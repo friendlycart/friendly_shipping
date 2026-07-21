@@ -32,6 +32,12 @@ module FriendlyShipping
         ['US', 'international', 'UPS Worldwide Expedited®', '08'],
         ['US', 'international', 'UPS Worldwide Express Plus®', '54'],
         ['US', 'international', 'UPS Worldwide Saver', '65'],
+        # Worldwide Economy resolves for rates only (matched by service code). It is not
+        # returned by the Time in Transit API, so these names are never matched against a
+        # serviceLevelDescription and are display-only. DDU (17) and DDP (72) differ only
+        # in duty handling. See ParseTimingsResponse for the name-based timings match.
+        ['US', 'international', 'UPS Worldwide Economy DDU', '17'],
+        ['US', 'international', 'UPS Worldwide Economy DDP', '72'],
         ['US', 'domestic', 'UPS 2nd Day Air®', '02'],
         ['US', 'domestic', 'UPS 2nd Day Air A.M.', '59'],
         ['US', 'domestic', 'UPS 3 Day Select®', '12'],
