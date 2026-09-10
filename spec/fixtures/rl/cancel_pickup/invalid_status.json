@@ -1,0 +1,11 @@
+{
+  "Code": 500,
+  "Errors": [
+    {
+      "Property": null,
+      "ErrorMessage": "\n\nInvalid status: can only cancel pickups that are Unassigned, Assigned or Dispatched. \n\n    Time of error: 10-sep-2026 12:45:29 PM EST.  \n\n    Error -20101\n",
+      "ExceptionMessage": null
+    }
+  ],
+  "Messages": []
+}
