@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.tforcefreight.com/pickup/request/WBU00000000?api-version=v1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin25 arm64) ruby/4.0.3p0
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Cache-Control:
+      - private, max-age=0,no-cache,no-store,must-revalidate,max-age=0,no-cache="set-cookie",no-cache,no-store,must-revalidate,max-age=0,no-cache="set-cookie"
+      Pragma:
+      - no-cache,no-cache
+      Content-Length:
+      - '571'
+      Content-Type:
+      - application/json
+      X-Frame-Options:
+      - SAMEORIGIN,SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000;includeSubDomains,max-age=31536000;includeSubDomains
+      X-Content-Type-Options:
+      - nosniff,nosniff
+      X-Xss-Protection:
+      - 1;mode=block,1;mode=block
+      Request-Context:
+      - appId=cid-v1:00000000-0000-0000-0000-000000000000
+      Date:
+      - Thu, 10 Sep 2026 15:04:14 GMT
+    body:
+      encoding: UTF-8
+      string: "\n                {\n                    \"responseStatus\": {\n                        \"code\":
+        \"ERROR\",\n                        \"description\": {\n                            \"errorCode\":
+        \"401\",\n                            \"errorDescription\": \"Not authorized
+        to Cancel Pickup WBU00000000\"\n                        }\n                    },\n
+        \                   \"transactionReference\": {\n                        \"transactionId\":
+        \"b31a21d27ca442ff9ed9f95305d0376a\",\n                        \"confirmationNumber\":
+        \"WBU00000000\"\n                    }\n                }\n                "
+  recorded_at: Thu, 10 Sep 2026 15:04:14 GMT
+recorded_with: VCR 6.4.0
