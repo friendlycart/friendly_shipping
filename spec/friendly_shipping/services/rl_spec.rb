@@ -357,6 +357,44 @@ RSpec.describe FriendlyShipping::Services::RL do
     end
   end
 
+  describe "#cancel_pickup" do
+    subject(:cancel_pickup) { service.cancel_pickup(pickup_request_number, reason: reason) }
+
+    let(:pickup_request_number) { "111912640" }
+    let(:reason) { "Customer cancelled the order" }
+
+    # R+L returns {"Code":200,"Errors":null,"Messages":[]} for a successful cancellation,
+    # which is byte-for-byte what it returns for a pickup request that doesn't exist. The
+    # response carries no evidence that anything was actually cancelled.
+    context "with a successful request", vcr: { cassette_name: "rl/cancel_pickup/success" } do
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      it "returns no messages" do
+        expect(cancel_pickup.value!.data).to eq([])
+      end
+    end
+
+    context "with a reason that is too long" do
+      let(:reason) { "A" * 101 }
+
+      it "raises an ArgumentError" do
+        expect { cancel_pickup }.to raise_error(ArgumentError, "Reason must be 100 characters or fewer")
+      end
+    end
+
+    # R+L does not treat cancelling a pickup request that doesn't exist as an error:
+    # it returns HTTP 200 with a null Errors array and no messages.
+    context "with an unknown pickup request number", vcr: { cassette_name: "rl/cancel_pickup/unknown_pickup_request" } do
+      let(:pickup_request_number) { "1" }
+
+      it { is_expected.to be_a Dry::Monads::Success }
+
+      it "returns no messages" do
+        expect(cancel_pickup.value!.data).to eq([])
+      end
+    end
+  end
+
   describe "#get_invoice" do
     subject { service.get_invoice(pro_number) }
     let(:pro_number) { "WP9974772" }

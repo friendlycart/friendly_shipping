@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://apisandbox.rlc.com/PickupRequest
+    body:
+      encoding: UTF-8
+      string: '{"PickupRequestId":1,"Reason":"Customer cancelled the order"}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin25 arm64) ruby/4.0.3p0
+      Content-Type:
+      - application/json
+      Apikey:
+      - "%RL_API_KEY%"
+      Content-Length:
+      - '61'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - apisandbox.rlc.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      Date:
+      - Thu, 10 Sep 2026 14:52:59 GMT
+      Content-Length:
+      - '40'
+    body:
+      encoding: UTF-8
+      string: '{"Code":200,"Errors":null,"Messages":[]}'
+  recorded_at: Thu, 10 Sep 2026 14:53:00 GMT
+recorded_with: VCR 6.4.0
