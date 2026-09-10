@@ -30,6 +30,35 @@ RSpec.describe FriendlyShipping::HttpClient do
     end
   end
 
+  describe '#delete' do
+    let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', headers: { "X-Token" => "s3cr3t" }) }
+    let(:response) { double(code: 200, body: 'ok', headers: {}) }
+
+    it 'forwards the arguments to RestClient and returns a Success' do
+      expect(RestClient::Request).to receive(:execute).with(
+        method: :delete, url: 'https://example.com', payload: nil, headers: { "X-Token" => "s3cr3t" }
+      ).and_return(response)
+      result = subject.delete(request)
+      expect(result).to be_success
+    end
+
+    it 'forwards the request body as the payload' do
+      request = FriendlyShipping::Request.new(url: 'https://example.com', body: 'body', headers: { "X-Token" => "s3cr3t" })
+      expect(RestClient::Request).to receive(:execute).with(
+        method: :delete, url: 'https://example.com', payload: 'body', headers: { "X-Token" => "s3cr3t" }
+      ).and_return(response)
+      result = subject.delete(request)
+      expect(result).to be_success
+    end
+
+    it 'wraps exceptions in Failures' do
+      expect(RestClient::Request).to receive(:execute).and_raise(RestClient::ExceptionWithResponse)
+      result = subject.delete(request)
+      expect(result).to be_failure
+      expect(result.failure).to be_a(FriendlyShipping::ApiResult)
+    end
+  end
+
   describe '#post' do
     let(:request) { FriendlyShipping::Request.new(url: 'https://example.com', body: 'body', headers: { "X-Token" => "s3cr3t" }) }
     let(:response) { double(code: 200, body: 'ok', headers: {}) }

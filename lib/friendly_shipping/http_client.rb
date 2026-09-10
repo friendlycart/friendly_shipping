@@ -27,11 +27,17 @@ module FriendlyShipping
       error_handler.call(e, original_request: request, original_response: e.response)
     end
 
-    # Makes a DELETE request and handles the response.
+    # Makes a DELETE request and handles the response. The request's body, if
+    # any, is sent as the payload (some carriers require a body on DELETE).
     # @param request [Request] the request to DELETE
     # @return [Success<Response>, Failure<ApiResult>]
     def delete(request)
-      http_response = ::RestClient.delete(request.url, request.headers)
+      http_response = ::RestClient::Request.execute(
+        method: :delete,
+        url: request.url,
+        payload: request.body,
+        headers: request.headers
+      )
 
       Success(Response.new_from_rest_client_response(http_response))
     rescue ::RestClient::Exception => e
