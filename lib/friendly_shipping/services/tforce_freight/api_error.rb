@@ -24,7 +24,15 @@ module FriendlyShipping
                       parsed_json.dig("summary", "responseStatus", "description")
           elsif parsed_json['responseStatus'].present?
             status = parsed_json.dig("responseStatus", "code")
-            message = parsed_json.dig("responseStatus", "description")
+            description = parsed_json.dig("responseStatus", "description")
+            if description.is_a?(Hash)
+              # The Pickup API nests the error code and description here instead of
+              # returning a string, and its outer code is always the literal "ERROR".
+              status = description["errorCode"].presence || status
+              message = description["errorDescription"]
+            else
+              message = description
+            end
           else
             status = parsed_json['statusCode']
             message = parsed_json['message'].presence ||

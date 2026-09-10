@@ -37,6 +37,13 @@ RSpec.describe FriendlyShipping::Services::TForceFreight::ApiError do
       end
     end
 
+    # The Pickup API nests an object under responseStatus.description instead of a string
+    context "with cancel pickup error response" do
+      let(:fixture) { "cancel_pickup/not_found.json" }
+
+      it { is_expected.to eq("401: Not authorized to Cancel Pickup WBU00000000") }
+    end
+
     context "with timeout error response" do
       let(:error) { RestClient::Exceptions::ReadTimeout.new("Timed out reading data from server") }
       it { is_expected.to eq("Timed out reading data from server") }
