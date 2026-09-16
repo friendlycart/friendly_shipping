@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.10.5] - 2026-09-16
 - TForce Freight: Include handling unit (pallet) dimensions in the create BOL request when they are available and are neither zero nor infinity.
 - TForce Freight: Add a `density_eligible` flag to `BOLOptions`. When enabled, TForce rates the shipment on pallet density instead of NMFC code and freight class, which requires dimensions and weight for each pallet.
 - TForce Freight: Fix the rates parser raising when a rate cannot be found and the currency comes back nil.
