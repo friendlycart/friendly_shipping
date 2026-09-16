@@ -12,6 +12,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       company_name: "Widgets Inc.",
       name: "The Shipping Department",
       address1: "1910 S McCarran Blvd",
+      address2: "Suite 200",
       city: "Reno",
       zip: "89502",
       region: "NV",
@@ -26,6 +27,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       company_name: "ACME Inc.",
       name: "John Smith",
       address1: "813 Kincross Dr",
+      address2: "Unit E",
       city: "Boulder",
       zip: "80501",
       region: "CO",
@@ -40,6 +42,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
       company_name: "Widgets Inc.",
       name: "Billing Dept",
       address1: "1247 Person St",
+      address2: "Suite 100",
       city: "Durham",
       zip: "27703",
       region: "NC",
@@ -172,6 +175,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
 
     it { is_expected.to include(name: "Widgets Inc.") }
     it { is_expected.to include(street: "1247 Person St") }
+    it { is_expected.to include(street2: "Suite 100") }
     it { is_expected.to include(city: "Durham") }
     it { is_expected.to include(stateProvince: "NC") }
     it { is_expected.to include(postalCode: "27703") }
@@ -184,6 +188,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(name: "Widgets Inc.") }
     it { is_expected.to include(contact: "The Shipping Department") }
     it { is_expected.to include(street: "1910 S McCarran Blvd") }
+    it { is_expected.to include(street2: "Suite 200") }
     it { is_expected.to include(city: "Reno") }
     it { is_expected.to include(stateProvince: "NV") }
     it { is_expected.to include(postalCode: "89502") }
@@ -213,6 +218,7 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(name: "ACME Inc.") }
     it { is_expected.to include(contact: "John Smith") }
     it { is_expected.to include(street: "813 Kincross Dr") }
+    it { is_expected.to include(street2: "Unit E") }
     it { is_expected.to include(city: "Boulder") }
     it { is_expected.to include(stateProvince: "CO") }
     it { is_expected.to include(postalCode: "80501") }
@@ -222,6 +228,22 @@ RSpec.describe FriendlyShipping::Services::Reconex::SerializeCreateLoadRequest d
     it { is_expected.to include(dockType: "BusinessWithOutDock") }
     it { is_expected.to include(notes: "Destination notes") }
     it { is_expected.to include(appointment: false) }
+
+    context "when the destination has no second address line" do
+      let(:destination) do
+        Physical::Location.new(
+          company_name: "ACME Inc.",
+          name: "John Smith",
+          address1: "813 Kincross Dr",
+          city: "Boulder",
+          zip: "80501",
+          region: "CO",
+          country: "US"
+        )
+      end
+
+      it { is_expected.not_to have_key(:street2) }
+    end
   end
 
   describe "accessorials" do
