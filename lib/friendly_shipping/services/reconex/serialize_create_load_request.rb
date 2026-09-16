@@ -55,6 +55,7 @@ module FriendlyShipping
             {
               name: location.company_name || location.name,
               street: location.address1,
+              street2: location.address2,
               city: location.city,
               stateProvince: location.region.code,
               postalCode: location.zip,
@@ -70,6 +71,7 @@ module FriendlyShipping
               name: location.company_name || location.name,
               contact: location.name,
               street: location.address1,
+              street2: location.address2,
               city: location.city,
               stateProvince: location.region.code,
               postalCode: location.zip,
@@ -93,6 +95,7 @@ module FriendlyShipping
               name: location.company_name || location.name,
               contact: location.name,
               street: location.address1,
+              street2: location.address2,
               city: location.city,
               stateProvince: location.region.code,
               postalCode: location.zip,

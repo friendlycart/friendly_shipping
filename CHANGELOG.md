@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - R+L: Deprecate `structures_serializer` and the top-level `Items` output in favor of `handling_units_serializer`. The default will flip in a future release.
 - TForce Freight: Add `get_documents` to retrieve documents (BOL, claims, delivery receipt, invoice, weight certificate) for an existing shipment by PRO number via the Documents API. Returns an array of `ShipmentDocument`. Categories are specified as friendly symbols (e.g. `:bill_of_lading`). Success/failure is determined from `summary.responseStatus.code` because the Documents API returns HTTP 200 even for errors.
 - TForce Freight: Add the `:address_labels_2x3` label type (code `09`) to `DocumentOptions`, matching the current Shipping API manual.
+- Reconex: Send `street2` (from `Physical::Location#address2`) for the billing, origin, and destination locations in the CreateLoad and UpdateLoad requests. Previously the second address line was dropped, so unit/suite numbers never reached the Reconex portal or the carrier's BOL.
 
 ## [0.10.4] - 2025-08-14
 - Upgrade `physical` dependency to `~> 0.6`
