@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+- TForce Freight: Include handling unit (pallet) dimensions in the create BOL request when they are available and are neither zero nor infinity.
+- TForce Freight: Add a `density_eligible` flag to `BOLOptions`. When enabled, TForce rates the shipment on pallet density instead of NMFC code and freight class, which requires dimensions and weight for each pallet.
+- TForce Freight: Fix the rates parser raising when a rate cannot be found and the currency comes back nil.
+- Relax the `money` dependency from `~> 6.0` to `>= 6, < 8`.
+- Add `FriendlyShipping::Services::Reconex`, a new freight service for the Reconex broker API: `rate_quote`, `create_load`, `get_load_info`, and `update_load` (used to dispatch a BOL), along with their options, serializer, parser, and result classes. The service accepts a single `api_base_url` and an optional `logger` for debug output.
+- USPS Ship: Update the API base URL from `api.usps.com` to `apis.usps.com`.
+- UPS (JSON): Rename SurePost shipping methods to Ground Saver, matching the UPS rebrand. The SurePost names remain as legacy aliases and the service codes (92-95) are unchanged.
+- UPS (JSON): Surface the customs invoice (international forms) returned when `paperless_invoice: true` is set, on `UpsJson::Label#data`. It was previously dropped by the parser.
+- UPS (JSON): Add UPS Worldwide Economy DDU (service code `17`) and DDP (service code `72`) as US-origin international shipping methods.
 - `Carrier`: Add a first-class `scac` attribute (Standard Carrier Alpha Code).
 - Add `FriendlyShipping::LTLCarriers`, a canonical catalog of the LTL carriers freight brokers (e.g. Reconex) rate-shop, keyed by SCAC. Each entry is a `Carrier` carrying its full list of SCACs (`data[:scacs]`) and a tracking-URL template. Provides `LTLCarriers.all`, `LTLCarriers.find_by_scac`, and `LTLCarriers.tracking_url_for`.
 - R+L: Add a `CARRIER` constant (SCAC `RLCA`) and a `carriers` method returning it, matching the other freight services.
