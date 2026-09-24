@@ -1,0 +1,9 @@
+{
+  "responseStatus": {
+    "code": "0",
+    "description": "Pickup request not found"
+  },
+  "transactionReference": {
+    "transactionId": "463aebe3-ce5c-4e87-acbe-9b42954b3b92"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "responseStatus": {
+    "code": "ERROR",
+    "description": {
+      "errorCode": "401",
+      "errorDescription": "Not authorized to Cancel Pickup WBU00000000"
+    }
+  },
+  "transactionReference": {
+    "transactionId": "b31a21d27ca442ff9ed9f95305d0376a",
+    "confirmationNumber": "WBU00000000"
+  }
+}

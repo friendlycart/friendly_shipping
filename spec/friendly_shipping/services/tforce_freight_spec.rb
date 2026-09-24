@@ -362,6 +362,53 @@ RSpec.describe FriendlyShipping::Services::TForceFreight do
     end
   end
 
+  describe "#cancel_pickup" do
+    subject(:cancel_pickup) { service.cancel_pickup(confirmation_number) }
+
+    let(:confirmation_number) { "WBU79686863" }
+
+    context "with a valid request", vcr: { cassette_name: "tforce_freight/cancel_pickup/success" } do
+      it { is_expected.to be_success }
+
+      it "has all the right data" do
+        expect(cancel_pickup.value!.data).to eq(
+          response_status_code: "1",
+          response_status_description: "Success",
+          transaction_id: "6ff10969aba4437dbd91dcbf3db161e4",
+          confirmation_number: "WBU79686863"
+        )
+      end
+    end
+
+    # TForce validates the confirmation number against ^WBU\d{8,10}$ at the gateway,
+    # so a malformed number never reaches the pickup service.
+    context "with a malformed confirmation number", vcr: { cassette_name: "tforce_freight/cancel_pickup/malformed" } do
+      let(:confirmation_number) { "NOTAREALNUMBER" }
+
+      it { is_expected.to be_failure }
+
+      it { expect(cancel_pickup.failure.data).to be_a(FriendlyShipping::Services::TForceFreight::ApiError) }
+
+      it "has the correct error message" do
+        expect(cancel_pickup.failure.to_s).to include("does not match regex pattern")
+      end
+    end
+
+    # TForce answers with HTTP 401 for any pickup the account can't cancel, so a pickup
+    # that doesn't exist is indistinguishable from one belonging to another account.
+    context "with a confirmation number the account cannot cancel", vcr: { cassette_name: "tforce_freight/cancel_pickup/not_found" } do
+      let(:confirmation_number) { "WBU00000000" }
+
+      it { is_expected.to be_failure }
+
+      it { expect(cancel_pickup.failure.data).to be_a(FriendlyShipping::Services::TForceFreight::ApiError) }
+
+      it "has the correct error message" do
+        expect(cancel_pickup.failure.to_s).to eq("401: Not authorized to Cancel Pickup WBU00000000")
+      end
+    end
+  end
+
   describe "#create_bol" do
     subject(:create_bol) { service.create_bol(shipment, options: options) }
 

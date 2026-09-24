@@ -37,6 +37,7 @@ module FriendlyShipping
       RESOURCES = {
         rates: '/rating/getRate',
         create_pickup: '/pickup/request',
+        cancel_pickup: '/pickup/request',
         create_bol: '/shipping/bol/create',
         documents: '/documents/pro'
       }.freeze
@@ -112,7 +113,7 @@ module FriendlyShipping
       # @return [Result<ApiResult<Array<Rate>>>] the rates returned from TForce encoded in a `ApiResult` object
       def rates(shipment, options:, debug: false)
         freight_rate_request_hash = GenerateRatesRequestHash.call(shipment: shipment, options: options)
-        request = build_request(:rates, freight_rate_request_hash, debug)
+        request = build_request(action: :rates, payload: freight_rate_request_hash, debug: debug)
 
         client.post(request).fmap do |response|
           ParseRatesResponse.call(response: response, request: request)
@@ -128,10 +129,29 @@ module FriendlyShipping
       # @return [Result<ApiResult>] the pickup returned from TForce encoded in a `ApiResult` object
       def create_pickup(shipment, options:, debug: false)
         pickup_request_hash = GeneratePickupRequestHash.call(shipment: shipment, options: options)
-        request = build_request(:create_pickup, pickup_request_hash, debug)
+        request = build_request(action: :create_pickup, payload: pickup_request_hash, debug: debug)
 
         client.post(request).fmap do |response|
           ParsePickupResponse.call(response: response, request: request)
+        end
+      end
+
+      # Cancel an existing pickup request.
+      # @see https://www.tforcefreight.com/downloads/Pickup-API-User-Manual-V1.pdf Pickup API User Manual
+      #
+      # @param confirmation_number [String] the confirmation number of the pickup request to cancel
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Success<ApiResult<Hash>>, Failure<ApiResult>] the cancellation returned from TForce
+      def cancel_pickup(confirmation_number, debug: false)
+        request = build_request(
+          action: :cancel_pickup,
+          http_method: "DELETE",
+          path_suffix: "/#{confirmation_number}",
+          debug: debug
+        )
+
+        client.delete(request).bind do |response|
+          ParseCancelPickupResponse.call(response: response, request: request)
         end
       end
 
@@ -144,7 +164,7 @@ module FriendlyShipping
       # @return [Result<ApiResult>] the BOL returned from TForce encoded in a `ApiResult` object
       def create_bol(shipment, options:, debug: false)
         bol_request_hash = GenerateCreateBOLRequestHash.call(shipment: shipment, options: options)
-        request = build_request(:create_bol, bol_request_hash, debug)
+        request = build_request(action: :create_bol, payload: bol_request_hash, debug: debug)
 
         client.post(request).fmap do |response|
           ParseCreateBOLResponse.call(response: response, request: request)
@@ -160,7 +180,7 @@ module FriendlyShipping
       # @return [Result<ApiResult<Array<ShipmentDocument>>>] the documents returned from TForce encoded in a `ApiResult` object
       def get_documents(pro_number, document_categories:, debug: false)
         documents_request_hash = GenerateDocumentsRequestHash.call(pro: pro_number, document_categories: document_categories)
-        request = build_request(:documents, documents_request_hash, debug)
+        request = build_request(action: :documents, payload: documents_request_hash, debug: debug)
 
         client.post(request).bind do |response|
           ParseDocumentsResponse.call(response: response, request: request)
@@ -173,14 +193,16 @@ module FriendlyShipping
 
       # @param action [Symbol] the desired action key from {RESOURCES}
       # @param payload [Hash] the payload to send to the API
+      # @param http_method [String] the HTTP method to use
+      # @param path_suffix [String] appended to the resource path (for endpoints taking a path parameter)
       # @param debug [Boolean] whether to append debug information to the API result
       # @return [Request]
-      def build_request(action, payload, debug)
-        url = BASE_URL + RESOURCES[action] + "?api-version=#{api_version}"
+      def build_request(action:, payload: nil, http_method: "POST", path_suffix: nil, debug: false)
+        url = BASE_URL + RESOURCES[action] + path_suffix.to_s + "?api-version=#{api_version}"
         FriendlyShipping::Request.new(
           url: url,
-          http_method: "POST",
-          body: payload.to_json,
+          http_method: http_method,
+          body: payload&.to_json,
           headers: {
             Content_Type: "application/json",
             Accept: "application/json",

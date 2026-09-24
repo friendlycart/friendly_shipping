@@ -1,0 +1,10 @@
+{
+  "responseStatus": {
+    "code": "1",
+    "description": "Success"
+  },
+  "transactionReference": {
+    "transactionId": "463aebe3-ce5c-4e87-acbe-9b42954b3b92",
+    "confirmationNumber": "WBU43190847"
+  }
+}

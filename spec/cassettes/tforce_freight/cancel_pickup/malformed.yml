@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.tforcefreight.com/pickup/request/NOTAREALNUMBER?api-version=v1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin25 arm64) ruby/4.0.3p0
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Length:
+      - '233'
+      Content-Type:
+      - application/json
+      Request-Context:
+      - appId=cid-v1:00000000-0000-0000-0000-000000000000
+      Date:
+      - Thu, 10 Sep 2026 14:52:57 GMT
+    body:
+      encoding: UTF-8
+      string: "{\r\n  \"statusCode\": 400,\r\n  \"message\": \"Value of the path parameter
+        CONFIRMATIONNUMBER does not conform to the definition. String &#39;NOTAREALNUMBER&#39;
+        does not match regex pattern &#39;^WBU\\\\d{8,10}$&#39;. Line: 0, Position:
+        0\"\r\n}"
+  recorded_at: Thu, 10 Sep 2026 14:52:58 GMT
+recorded_with: VCR 6.4.0

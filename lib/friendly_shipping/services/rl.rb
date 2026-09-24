@@ -29,10 +29,14 @@ module FriendlyShipping
         bill_of_lading: "BillOfLading",
         documents: "DocumentRetrieval",
         print_bol: "BillOfLading/PrintBOL",
+        pickup_request: "PickupRequest",
         print_shipping_labels: "BillOfLading/PrintShippingLabels",
         rate_quote: "RateQuote",
         transit_times: "TransitTimes"
       }.freeze
+
+      # The maximum length the API allows for a pickup cancellation reason.
+      MAX_CANCEL_REASON_LENGTH = 100
 
       # The R+L Carriers carrier. This is the canonical definition referenced by
       # {FriendlyShipping::LTLCarriers}.
@@ -168,6 +172,42 @@ module FriendlyShipping
         end
       end
 
+      # Cancel a previously scheduled pickup request.
+      #
+      # R+L returns an empty message list for a successful cancellation, and returns that
+      # same empty success for a pickup request number that doesn't exist. A `Success` here
+      # therefore means R+L accepted the request, not that a pickup was cancelled.
+      #
+      # Cancelling a pickup that is not in a cancellable status *is* reported as an error:
+      # only pickups that are Unassigned, Assigned or Dispatched can be cancelled, so
+      # cancelling the same pickup twice fails.
+      #
+      # @see https://technology.rlcarriers.com/api-documentation/pickup-request/ R+L pickup request API docs
+      #
+      # @param pickup_request_number [String, Integer] the pickup request number to cancel, e.g.
+      #   {ShipmentInformation#pickup_request_number} from a create BOL response
+      # @param reason [String] why the pickup is being cancelled (maximum {MAX_CANCEL_REASON_LENGTH} characters)
+      # @param debug [Boolean] whether to include debugging information in the result
+      # @raise [ArgumentError] if the reason exceeds {MAX_CANCEL_REASON_LENGTH} characters
+      # @return [Success<ApiResult<Array<String>>>, Failure<ApiResult>] the messages returned from R+L Carriers
+      def cancel_pickup(pickup_request_number, reason:, debug: false)
+        validate_cancel_reason!(reason)
+
+        request = FriendlyShipping::Request.new(
+          url: api_base + API_PATHS[:pickup_request],
+          http_method: "DELETE",
+          body: {
+            PickupRequestId: pickup_request_number.to_i,
+            Reason: reason
+          }.to_json,
+          headers: request_headers,
+          debug: debug
+        )
+        client.delete(request).bind do |response|
+          ParseCancelPickupResponse.call(request: request, response: response)
+        end
+      end
+
       # Retrieve an existing binary Invoice
       #
       # @param [String] pro_number The PRO number for the Invoice
@@ -186,6 +226,17 @@ module FriendlyShipping
       end
 
       private
+
+      # Raises if the given pickup cancellation reason is too long for the API.
+      #
+      # @param reason [String] the reason to validate
+      # @raise [ArgumentError] if the reason exceeds {MAX_CANCEL_REASON_LENGTH} characters
+      # @return [void]
+      def validate_cancel_reason!(reason)
+        return if reason.to_s.length <= MAX_CANCEL_REASON_LENGTH
+
+        raise ArgumentError, "Reason must be #{MAX_CANCEL_REASON_LENGTH} characters or fewer"
+      end
 
       # Returns the content type and API key as a headers hash.
       # @return [Hash]

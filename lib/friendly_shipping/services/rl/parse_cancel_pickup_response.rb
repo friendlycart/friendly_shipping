@@ -1,35 +1,29 @@
 # frozen_string_literal: true
 
-require "base64"
-
 module FriendlyShipping
   module Services
     class RL
-      # Parses the response from the R+L API when printing a Bill of Lading (BOL).
-      class ParsePrintBOLResponse
+      # Parses the response from the R+L API when cancelling a pickup request.
+      class ParseCancelPickupResponse
         extend Dry::Monads::Result::Mixin
 
         class << self
           # @param request [Request] the request to attach to the API result
           # @param response [Response] the response to parse
-          # @return [Result<ApiResult<ShipmentDocument>>] shipment document containing the BOL
+          # @return [Success<ApiResult<Array<String>>>, Failure<ApiResult<Array<String>>>] the
+          #   messages returned by the API, or the error messages if the cancellation failed
           def call(request:, response:)
             parsed_json = JSON.parse(response.body)
-            bol_document = ShipmentDocument.new(
-              format: :pdf,
-              document_type: :rl_bol,
-              binary: Base64.decode64(parsed_json['BolDocument'])
-            )
-            if bol_document.valid?
+            errors = parsed_json.fetch('Errors', []) || []
+            if errors.empty?
               Success(
                 ApiResult.new(
-                  bol_document,
+                  parsed_json.fetch('Messages', []),
                   original_request: request,
                   original_response: response
                 )
               )
             else
-              errors = parsed_json.fetch('Errors', [{ 'ErrorMessage' => 'Unknown error' }])
               Failure(
                 ApiResult.new(
                   errors.map { |e| e['ErrorMessage'] },

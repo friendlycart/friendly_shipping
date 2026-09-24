@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://api.tforcefreight.com/pickup/request/WBU79686863?api-version=v1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (darwin25 arm64) ruby/4.0.3p0
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer %ACCESS_TOKEN%
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.tforcefreight.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private, max-age=0,no-cache,no-store,must-revalidate,max-age=0,no-cache="set-cookie",no-cache,no-store,must-revalidate,max-age=0,no-cache="set-cookie"
+      Pragma:
+      - no-cache,no-cache
+      Content-Length:
+      - '390'
+      Content-Type:
+      - application/json
+      X-Frame-Options:
+      - SAMEORIGIN,SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000;includeSubDomains,max-age=31536000;includeSubDomains
+      X-Content-Type-Options:
+      - nosniff,nosniff
+      X-Xss-Protection:
+      - 1;mode=block,1;mode=block
+      Request-Context:
+      - appId=cid-v1:00000000-0000-0000-0000-000000000000
+      Date:
+      - Thu, 10 Sep 2026 16:28:40 GMT
+    body:
+      encoding: UTF-8
+      string: |2-
+
+                        {
+                            "responseStatus": {
+                                "code": "1",
+                                "description": "Success"
+                            },
+                            "transactionReference": {
+                                "transactionId": "6ff10969aba4437dbd91dcbf3db161e4",
+                                "confirmationNumber": "WBU79686863"
+                            }
+                        }
+  recorded_at: Thu, 10 Sep 2026 16:28:40 GMT
+recorded_with: VCR 6.4.0

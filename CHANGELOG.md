@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+- TForce Freight: Add `cancel_pickup` to cancel a previously scheduled pickup by its confirmation number (`DELETE /pickup/request/{confirmationNumber}`). Returns a hash with the response status and transaction reference. Success/failure is determined from `responseStatus.code`.
+- R+L: Add `cancel_pickup` to cancel a previously scheduled pickup by its pickup request number (`DELETE /PickupRequest`). Takes a required `reason:` (an `ArgumentError` is raised if it exceeds 100 characters). R+L returns no messages for a successful cancellation, and returns that same empty success for a pickup request number that doesn't exist, so a `Success` means the request was accepted rather than that a pickup was cancelled. Cancelling a pickup that is already cancelled is reported as an error: only pickups that are Unassigned, Assigned or Dispatched can be cancelled.
+- R+L: Fix `ApiError` discarding the error message on any response that wasn't HTTP 400. R+L returns its error envelope for server errors too (cancelling a pickup in a non-cancellable status comes back as a 500), which previously surfaced as a bare `RestClient::ExceptionWithResponse` instead of the reason.
+- TForce Freight: Fix `ApiError` message parsing when `responseStatus.description` is an object rather than a string. The Pickup API nests `errorCode` and `errorDescription` there, which previously leaked a stringified hash into the error message.
+- `HttpClient#delete` now sends the request body as the payload, so carriers requiring a body on `DELETE` are supported.
+- R+L: Require `base64` in the print BOL and print shipping label parsers. They referenced `Base64` without requiring it and only worked because another service happened to load it first.
+
 ## [0.10.5] - 2026-09-16
 - TForce Freight: Include handling unit (pallet) dimensions in the create BOL request when they are available and are neither zero nor infinity.
 - TForce Freight: Add a `density_eligible` flag to `BOLOptions`. When enabled, TForce rates the shipment on pallet density instead of NMFC code and freight class, which requires dimensions and weight for each pallet.
