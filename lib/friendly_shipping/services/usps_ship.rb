@@ -4,6 +4,9 @@ require 'nokogiri'
 
 module FriendlyShipping
   module Services
+    # Service class for the USPS Ship (REST) APIs: rates, timings and city/state lookup.
+    #
+    # @see https://developers.usps.com/
     class USPSShip
       include Dry::Monads::Result::Mixin
       include Dry::Monads::Do.for(:rate_estimates)

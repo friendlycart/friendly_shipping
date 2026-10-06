@@ -3,9 +3,11 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # Parses a response from the USPS city/state lookup API
       class ParseCityStateResponse
         extend Dry::Monads::Result::Mixin
 
+        # The country all USPS city/state lookups resolve to
         USA = Carmen::Country.coded("USA")
 
         class << self
@@ -69,6 +71,8 @@ module FriendlyShipping
 
           private
 
+          # @param message [String]
+          # @return [FriendlyShipping::ApiError]
           def api_error(message)
             FriendlyShipping::ApiError.new(nil, message)
           end

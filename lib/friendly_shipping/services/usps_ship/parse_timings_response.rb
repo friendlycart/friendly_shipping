@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # Parses a response from the USPS service standards API
       class ParseTimingsResponse
         extend Dry::Monads::Result::Mixin
 
@@ -72,6 +73,8 @@ module FriendlyShipping
 
           private
 
+          # @param message [String]
+          # @return [FriendlyShipping::ApiError]
           def api_error(message)
             FriendlyShipping::ApiError.new(nil, message)
           end

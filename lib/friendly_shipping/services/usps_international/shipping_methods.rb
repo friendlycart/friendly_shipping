@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class UspsInternational
+      # The international shipping methods offered by USPS
       SHIPPING_METHODS = [
         ["1", "Priority Mail Express International"],
         ["2", "Priority Mail International"],

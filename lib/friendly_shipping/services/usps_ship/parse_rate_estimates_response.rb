@@ -3,9 +3,11 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # Parses a response from the USPS base rates API
       class ParseRateEstimatesResponse
         extend Dry::Monads::Result::Mixin
 
+        # The currency of all USPS rates
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
@@ -61,10 +63,10 @@ module FriendlyShipping
             )
           end
 
-          # @param message [String]
+          # @param message [String, Exception]
           # @param request [Request]
           # @param response [Response]
-          # @return [Failure<ApiResult<String>>]
+          # @return [Failure<ApiResult>]
           def failure(message, request, response)
             Failure(
               ApiResult.new(

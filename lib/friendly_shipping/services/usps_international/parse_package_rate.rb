@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class UspsInternational
+      # Parses a single service node of a USPS international rate response into a {Rate}
       class ParsePackageRate
         # USPS returns all the info about a rate in a long string with a bit of gibberish.
         ESCAPING_AND_SYMBOLS = /&lt;\S*&gt;/
@@ -14,20 +15,31 @@ module FriendlyShipping
         # This combines all the things we want to filter out.
         SERVICE_NAME_SUBSTITUTIONS = /#{ESCAPING_AND_SYMBOLS}|#{LEADING_USPS}/
 
-        # Often we get a multitude of rates for the same service given some combination of
-        # Box type and (see below) and "Hold for Pickup" service. This creates a regular expression
-        # with groups named after the keys from the `Usps::CONTAINERS` constant.
-        # Unfortunately, the keys don't correspond directly to the codes we use when serializing the
-        # request.
         # The tags used in the rate node that we get information from.
         SERVICE_CODE_TAG = 'ID'
+
+        # The tag containing the (long) service description
         SERVICE_NAME_TAG = 'SvcDescription'
+
+        # The tag containing the retail rate
         RATE_TAG = 'Postage'
+
+        # The tag containing the commercial rate
         COMMERCIAL_RATE_TAG = 'CommercialPostage'
+
+        # The tag containing the commercial plus rate
         COMMERCIAL_PLUS_RATE_TAG = 'CommercialPlusPostage'
+
+        # The currency of all USPS rates
         CURRENCY = Money::Currency.new('USD').freeze
 
         class << self
+          # Parse one service node into a rate for a single package
+          #
+          # @param rate_node [Nokogiri::XML::Node] the Service node from the USPS response
+          # @param package [Physical::Package] the package this rate is for
+          # @param package_options [RateEstimatePackageOptions] the options for the package
+          # @return [Rate]
           def call(rate_node, package, package_options)
             # "A mail class identifier for the postage returned. Not necessarily unique within a <Package/>."
             # (from the USPS docs). We save this on the data Hash, but do not use it for identifying shipping methods.
@@ -53,7 +65,7 @@ module FriendlyShipping
                 rate_node.at(RATE_TAG).text.to_d
               end
 
-            # The rate expressed as a RubyMoney objext
+            # The rate expressed as a RubyMoney object
             rate = Money.new(rate_value * CURRENCY.subunit_to_unit, CURRENCY)
 
             # Which shipping method does this rate belong to? We first try to match a rate to a shipping method
