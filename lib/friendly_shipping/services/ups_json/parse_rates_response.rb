@@ -3,8 +3,13 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Parses the response of a rates request.
       class ParseRatesResponse
         class << self
+          # @param request [Request] the request that was sent
+          # @param response [Response] the response received
+          # @param shipment [Physical::Shipment] the shipment that was rated
+          # @return [Result<ApiResult<Array<Rate>>>] the rates built from the response
           def call(request:, response:, shipment:)
             parsed_response = ParseJsonResponse.call(
               request: request,
@@ -20,6 +25,9 @@ module FriendlyShipping
             end
           end
 
+          # @param rates_result [Hash] the parsed response body
+          # @param shipment [Physical::Shipment] the shipment that was rated, used to match shipping methods
+          # @return [Array<Rate>] one rate per rated shipment
           def build_rates(rates_result, shipment)
             rates = []
 
@@ -65,6 +73,8 @@ module FriendlyShipping
 
           private
 
+          # @param rated_shipment [Hash] a RatedShipment entry
+          # @return [Array<Hash>] charge and weight details for each rated package
           def build_packages(rated_shipment)
             package_array = Array.wrap(rated_shipment['RatedPackage'])
             package_array.map do |rated_package|
@@ -83,6 +93,9 @@ module FriendlyShipping
             end
           end
 
+          # @param charges [Hash, Array<Hash>, nil] one or more charge hashes
+          # @param key_name [String] the label to use for charges without a code
+          # @return [Hash{String => Money}] the non-zero charges, keyed by label
           def extract_charges(charges, key_name)
             non_zero_charges = {}
             Array.wrap(charges).map do |charge|
@@ -92,6 +105,9 @@ module FriendlyShipping
             non_zero_charges
           end
 
+          # @param modifiers [Hash, Array<Hash>, nil] one or more RateModifier hashes
+          # @param currency_code [String] the currency code for the modifiers' amounts
+          # @return [Hash{String => Money}] the non-zero modifiers, keyed by label
           def extract_modifiers(modifiers, currency_code:)
             rate_modifiers = {}
             Array.wrap(modifiers).map do |modifier|

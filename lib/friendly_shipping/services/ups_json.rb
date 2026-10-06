@@ -4,11 +4,14 @@ require "json"
 
 module FriendlyShipping
   module Services
+    # Service class for interacting with the UPS JSON (OAuth) API: rates, transit timings, labels,
+    # address classification, city/state lookup and voiding labels.
     class UpsJson
-      include Dry::Monads[:result]
+      include Dry::Monads::Result::Mixin
 
       attr_reader :access_token, :test, :client
 
+      # The carrier object for UPS, including all known shipping methods.
       CARRIER = FriendlyShipping::Carrier.new(
         id: 'ups',
         name: 'United Parcel Service',
@@ -16,9 +19,15 @@ module FriendlyShipping
         shipping_methods: SHIPPING_METHODS
       )
 
+      # Base URL of the UPS test (customer integration) environment.
       TEST_URL = 'https://wwwcie.ups.com'
+      # Base URL of the UPS production environment.
       LIVE_URL = 'https://onlinetools.ups.com'
 
+      # @param access_token [String] the OAuth access token used to authorize API requests
+      # @param test [Boolean] whether to use the UPS test environment (default) instead of production
+      # @param client [#post, #delete, nil] the HTTP client to use. Defaults to an `HttpClient` that raises
+      #   `UpsJson::ApiError` on failed requests.
       def initialize(access_token:, test: true, client: nil)
         @access_token = access_token
         @test = test
@@ -26,6 +35,8 @@ module FriendlyShipping
         @client = client || HttpClient.new(error_handler: error_handler)
       end
 
+      # Returns the carriers supported by this service.
+      # @return [Result<Array<Carrier>>] a result wrapping an array containing only the UPS carrier
       def carriers
         Success([CARRIER])
       end
@@ -70,9 +81,9 @@ module FriendlyShipping
       end
 
       # Get rates for a shipment
-      # @param [Physical::Shipment] shipment The shipment we want to get rates for
-      # @param [FriendlyShipping::Services::UpsJson::RatesOptions] options What options
-      #    to use for this rates request
+      # @param shipment [Physical::Shipment] The shipment we want to get rates for
+      # @param options [RatesOptions] What options to use for this rates request
+      # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult<Array<Rate>>>] The rates returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
       def rates(shipment, options:, debug: false)
@@ -97,8 +108,11 @@ module FriendlyShipping
       alias_method :rate_estimates, :rates
 
       # Get timing information for a shipment
-      # @param [Physical::Shipment] shipment The shipment we want to estimate timings for
-      # @param [FriendlyShipping::Services::UpsJson::TimingOptions] options Options for this call
+      # @param shipment [Physical::Shipment] The shipment we want to estimate timings for
+      # @param options [TimingsOptions] Options for this call
+      # @param debug [Boolean] whether to append debug information to the API result
+      # @return [Result<ApiResult<Array<Timing>>>] The timings returned from UPS encoded in a
+      #   `FriendlyShipping::ApiResult` object.
       def timings(shipment, options:, debug: false)
         url = "#{base_url}/api/shipments/v1/transittimes"
         headers = required_headers(access_token).merge(
@@ -122,8 +136,9 @@ module FriendlyShipping
 
       # Generate labels for a shipment, aka by UPS as the Shipping Shipment api:
       #   https://developer.ups.com/api/reference?loc=en_US#tag/Shipping_other
-      # @param [Physical::Shipment] shipment The shipment we want to create labels for
-      # @param [FriendlyShipping::Services::UpsJson::LabelOptions] options Options for this call
+      # @param shipment [Physical::Shipment] The shipment we want to create labels for
+      # @param options [LabelOptions] Options for this call
+      # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult<Array<Label>>>] The labels returned from UPS encoded in a
       #   `FriendlyShipping::ApiResult` object.
       def labels(shipment, options:, debug: false)
@@ -140,7 +155,8 @@ module FriendlyShipping
       end
 
       # Classify an address.
-      # @param [Physical::Location] location The address we want to classify
+      # @param location [Physical::Location] The address we want to classify
+      # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult<String>>] Either `"commercial"`, `"residential"`, or `"unknown"`
       def address_classification(location, debug: false)
         url = "#{base_url}/api/addressvalidation/v1/2"
@@ -161,7 +177,8 @@ module FriendlyShipping
       end
 
       # Find city and state for a given ZIP code
-      # @param [Physical::Location] location A location object with country and ZIP code set
+      # @param location [Physical::Location] A location object with country and ZIP code set
+      # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult<Array<Physical::Location>>>] The response data from UPS encoded in a
       #   `Physical::Location` object. Country, City and ZIP code will be set, everything else nil.
       def city_state_lookup(location, debug: false)
@@ -184,7 +201,8 @@ module FriendlyShipping
 
       # Void a label, aka by UPS as the Shipping Void Shipment api:
       #   https://developer.ups.com/api/reference?loc=en_US#tag/Shipping_other
-      # @param [Label] label The label to be voided
+      # @param label [Label] The label to be voided
+      # @param debug [Boolean] whether to append debug information to the API result
       # @return [Result<ApiResult>] The VoidShipmentResponse body from UPS.
       def void(label, debug: false)
         # The docs say to use both the shipment_id and tracking number, but the tracking number seems to work alone.
@@ -200,6 +218,8 @@ module FriendlyShipping
 
       private
 
+      # @param access_token [String] the OAuth access token
+      # @return [Hash{String => String}] the headers required for UPS JSON API requests
       def required_headers(access_token)
         {
           "Authorization" => "Bearer #{access_token}",
@@ -208,6 +228,7 @@ module FriendlyShipping
         }
       end
 
+      # @return [String] the test or live base URL, depending on the `test` setting
       def base_url
         test ? TEST_URL : LIVE_URL
       end

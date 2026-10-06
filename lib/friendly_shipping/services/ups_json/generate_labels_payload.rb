@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Generates the request payload for creating labels with UPS.
       class GenerateLabelsPayload
         class << self
+          # @param shipment [Physical::Shipment] the shipment to create labels for
+          # @param options [LabelOptions] the options for the labels request
+          # @return [Hash] the ShipmentRequest payload
           def call(shipment:, options:)
             payload = initialize_payload(shipment, options)
             apply_options(payload, options)
@@ -14,6 +18,9 @@ module FriendlyShipping
             payload.compact
           end
 
+          # @param shipment [Physical::Shipment] the shipment
+          # @param options [LabelOptions] the label options
+          # @return [Hash] the base ShipmentRequest payload with request, service, addresses and payment details
           def initialize_payload(shipment, options)
             contents_description = shipment.packages.flat_map do |package|
               package.items.map(&:description)
@@ -48,6 +55,10 @@ module FriendlyShipping
             }
           end
 
+          # Adds the customer context, rating options and service options to the payload.
+          # @param payload [Hash] the payload to modify
+          # @param options [LabelOptions] the label options
+          # @return [Hash] the modified shipment service options
           def apply_options(payload, options)
             if options.customer_context.present?
               payload[:ShipmentRequest][:Request][:TransactionReference] = { CustomerContext: options.customer_context }
@@ -66,6 +77,12 @@ module FriendlyShipping
             }.compact
           end
 
+          # Adds duties billing, international forms and the invoice line total (for US to Canada or Puerto Rico)
+          # to the payload.
+          # @param payload [Hash] the payload to modify
+          # @param shipment [Physical::Shipment] the shipment
+          # @param options [LabelOptions] the label options
+          # @return [void]
           def apply_international_forms_options(payload, shipment, options)
             if options.terms_of_shipment_code == "DDP"
               payload[:ShipmentRequest][:Shipment][:PaymentInformation][:ShipmentCharge].append(build_ddp_billing_info(options))
@@ -103,10 +120,14 @@ module FriendlyShipping
             }
           end
 
+          # @param shipment [Physical::Shipment] the shipment to check
+          # @return [Boolean] whether the origin and destination countries differ
           def international?(shipment)
             shipment.origin.country != shipment.destination.country
           end
 
+          # @param options [LabelOptions] the label options, used for the billing account details
+          # @return [Hash] the shipment charge hash for billing duties and taxes to a third party
           def build_ddp_billing_info(options)
             billing_options = options.billing_options
             {
@@ -121,6 +142,10 @@ module FriendlyShipping
             }
           end
 
+          # @param shipment [Physical::Shipment] the shipment
+          # @param options [LabelOptions] the label options
+          # @return [Hash] the invoice international form, with one product entry per group of identically
+          #   described items
           def international_forms(shipment, options)
             invoice_date = options.invoice_date || Date.current
             result = {
@@ -166,6 +191,11 @@ module FriendlyShipping
             result
           end
 
+          # Adds a package hash for each package in the shipment to the payload.
+          # @param payload [Hash] the payload to modify
+          # @param shipment [Physical::Shipment] the shipment
+          # @param options [LabelOptions] the label options
+          # @return [Array<Hash>] the package hashes
           def add_packages(payload, shipment, options)
             payload[:ShipmentRequest][:Shipment][:Package] = shipment.packages.map do |package|
               package_options = options.options_for_package(package)
@@ -182,6 +212,10 @@ module FriendlyShipping
             end
           end
 
+          # Adds the label image format and label size to the payload.
+          # @param payload [Hash] the payload to modify
+          # @param options [LabelOptions] the label options
+          # @return [Hash] the label specification
           def add_label_specification(payload, options)
             payload[:ShipmentRequest][:LabelSpecification] = {
               LabelImageFormat: {

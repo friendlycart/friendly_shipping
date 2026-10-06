@@ -3,7 +3,10 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Generates the request payload for classifying an address as commercial or residential.
       class GenerateAddressClassificationPayload
+        # @param location [Physical::Location] the address to classify
+        # @return [Hash] the XAVRequest payload
         def self.call(location:)
           {
             XAVRequest: {

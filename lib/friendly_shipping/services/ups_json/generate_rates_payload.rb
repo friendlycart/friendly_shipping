@@ -3,7 +3,11 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Generates the request payload for getting rates from UPS.
       class GenerateRatesPayload
+        # @param shipment [Physical::Shipment] the shipment to get rates for
+        # @param options [RatesOptions] the options for the rates request
+        # @return [Hash] the RateRequest payload
         def self.call(shipment:, options:)
           payload =
             {
@@ -75,6 +79,8 @@ module FriendlyShipping
           payload
         end
 
+        # @param shipment [Physical::Shipment] the shipment to check
+        # @return [Boolean] whether the origin and destination countries differ
         def self.international?(shipment)
           shipment.origin.country != shipment.destination.country
         end

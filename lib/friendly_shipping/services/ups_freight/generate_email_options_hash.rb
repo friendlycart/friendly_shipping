@@ -3,7 +3,10 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the EMailInformation hash of the ShipmentServiceOptions for UPS Freight ship requests.
       class GenerateEmailOptionsHash
+        # @param email_options [LabelEmailOptions] the email options
+        # @return [Hash] the email information hash
         def self.call(email_options:)
           {
             EMailInformation: {

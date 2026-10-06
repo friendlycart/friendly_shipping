@@ -3,11 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the Commodity array for UPS Freight rate and ship requests.
       class GenerateCommodityInformation
         class << self
-          # @param shipment [Physical::Shipment]
-          # @param options [#options_for_package, #options_for_structure]
-          # @return [Array<Hash>]
+          # @param shipment [Physical::Shipment] the shipment to serialize; packages (deprecated) are used if present, otherwise structures
+          # @param options [#options_for_package, #options_for_structure] the shipment options
+          # @return [Array<Hash>] one commodity hash per item (packages) or per package (structures)
           def call(shipment:, options:)
             if shipment.packages.any?
               warn "[DEPRECATION] `packages` is deprecated.  Please use `structures` instead."

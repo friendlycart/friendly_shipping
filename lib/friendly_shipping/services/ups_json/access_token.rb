@@ -9,7 +9,8 @@ module FriendlyShipping
         # @return [Integer] the epoch time in ms when the token was issued
         attr_reader :issued_at
 
-        # @param issued_at [Integer] the time the token was issued at
+        # @param issued_at [Integer] the epoch time in ms when the token was issued
+        # @param other_kwargs [Hash] keyword arguments passed on to `FriendlyShipping::AccessToken`
         def initialize(issued_at:, **other_kwargs)
           @issued_at = issued_at
           super(**other_kwargs)

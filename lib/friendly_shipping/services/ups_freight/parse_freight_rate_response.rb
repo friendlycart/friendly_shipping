@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Parses the response of a UPS Freight rate request into a {Rate}.
       class ParseFreightRateResponse
         class << self
+          # @param request [Request] the request that was sent
+          # @param response [Response] the response received
+          # @return [ApiResult<Array<Rate>>] an array containing the single parsed rate
           def call(request:, response:)
             json = JSON.parse(response.body)
 

@@ -3,8 +3,14 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Generates the hash representing an address (shipper, ship to, ship from) in UPS request payloads.
       class GenerateAddressHash
         class << self
+          # @param location [Physical::Location] the location to convert
+          # @param international [Boolean] whether the shipment is international. If true, the location's name is
+          #   always used as the attention name.
+          # @param shipper_number [String, nil] the UPS shipper number to include, if any
+          # @return [Hash] the address hash, with nil values removed
           def call(location:, international: false, shipper_number: nil)
             snippet = {}
 

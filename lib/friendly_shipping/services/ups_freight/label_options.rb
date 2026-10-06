@@ -51,7 +51,8 @@ module FriendlyShipping
         # @param pickup_instructions [String]
         # @param delivery_instructions [String]
         # @param handling_instructions [String]
-        # @param reference_numbers [Array<Hash>] reference numbers for the Bill of Lading
+        # @param reference_numbers [Array<Hash>] reference numbers for the Bill of Lading, each with a :code (a key of {REFERENCE_NUMBER_CODES}) and a :value
+        # @param kwargs [Hash] see {RatesOptions#initialize}
         def initialize(
           document_options: [],
           email_options: [],
@@ -77,7 +78,7 @@ module FriendlyShipping
         private
 
         # @param reference_numbers [Array<Hash>] reference numbers for the Bill of Lading
-        # @return [Array<Hash>] reference numbers with codes filled
+        # @return [Array<Hash>] reference numbers with friendly code names replaced by their codes (modified in place)
         def fill_codes(reference_numbers)
           reference_numbers.each do |reference_number|
             reference_number[:code] = REFERENCE_NUMBER_CODES.fetch(reference_number[:code])
