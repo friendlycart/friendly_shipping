@@ -11,6 +11,8 @@ group :development do
   gem "bundler", ">= 2.1.4", "< 3"
   gem "dotenv", "~> 3.0"
   gem "factory_bot", "~> 6.2"
+  # json 3.x rejects comments by default, which breaks loading measured's cache files
+  gem "json", "< 3"
   gem "observer", "~> 0.1.2"
   gem "pry", "~> 0.12"
   gem "rack"
