@@ -3,16 +3,17 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Wraps errors returned by the UPS Freight API, extracting a readable message from the response body.
       class ApiError < FriendlyShipping::ApiError
-        # @param [RestClient::Exception] cause
+        # @param cause [RestClient::Exception] the underlying HTTP error
         def initialize(cause)
           super(cause, parse_message(cause))
         end
 
         private
 
-        # @param [RestClient::Exception] error
-        # @return [String]
+        # @param error [RestClient::Exception] the underlying HTTP error
+        # @return [String, nil] the message, or nil if the response body could not be parsed
         def parse_message(error)
           return error.message unless error.response
 

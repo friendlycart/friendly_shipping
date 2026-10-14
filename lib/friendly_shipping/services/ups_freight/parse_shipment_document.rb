@@ -3,9 +3,13 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Parses an image entry of a UPS Freight ship response into a {ShipmentDocument}.
       class ParseShipmentDocument
+        # Maps document type codes back to friendly document type names.
         REVERSE_DOCUMENT_TYPES = LabelDocumentOptions::DOCUMENT_TYPES.map(&:reverse_each).to_h(&:to_a)
 
+        # @param image_data [Hash] an image entry from the response JSON
+        # @return [ShipmentDocument] the document with decoded binary data
         def self.call(image_data:)
           format_code = image_data.dig("Type", "Code")
           graphic_image_b64 = image_data["GraphicImage"]

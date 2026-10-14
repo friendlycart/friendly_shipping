@@ -2,31 +2,35 @@
 
 module FriendlyShipping
   module Services
-    # Option container for rating a shipment via UPS
-    #
-    # Required:
-    #
-    # @option shipper_number [String] The shipper number of the origin of the shipment.
-    #
-    # Optional:
-    #
-    # @option carbon_neutral [Boolean] Ship with UPS' carbon neutral program
-    # @option customer_context [String ] Optional element to identify transactions between client and server
-    # @option customer_classification [Symbol] Which kind of rates to request. See UPS docs for more details. Default: `shipper_number`
-    # @option negotiated_rates [Boolean] if truthy negotiated rates will be requested from ups. Only valid if
-    #   shipper account has negotiated rates. Default: false
-    # @option pickup_type [String] UPS pickup type. See UPS docs for more details. Default: `daily_pickup`
-    # @option pickup_date [Time] UPS pickup date/time. Default: nil
-    # @option saturday_delivery [Boolean] should we request Saturday delivery?. Default: false
-    # @option saturday_pickup [Boolean] should we request Saturday pickup?. Default: false
-    # @option shipping_method [FriendlyShipping::ShippingMethod] Request rates for a particular shipping method only?
-    #   Default is `nil`, which translates to 'All shipping methods' (The "Shop" option in UPS parlance)
-    # @option sub_version [String] The UPS API sub-version to use for requests. Default: v2205
-    # @option with_time_in_transit [Boolean] Whether to request timing information alongside the rates
-    # @option package_options_class [Class] See FriendlyShipping::ShipmentOptions
-    #
     class UpsJson
+      # Option container for rating a shipment via UPS
+      #
+      # Required:
+      #
+      # @option shipper_number [String] The shipper number of the origin of the shipment.
+      #
+      # Optional:
+      #
+      # @option carbon_neutral [Boolean] Ship with UPS' carbon neutral program. Default: true
+      # @option customer_context [String] Optional element to identify transactions between client and server
+      # @option customer_classification [Symbol] Which kind of rates to request, a key from
+      #   CUSTOMER_CLASSIFICATION_CODES. See UPS docs for more details. Default: `daily_rates`
+      # @option destination_account [String] The account number of the destination
+      # @option negotiated_rates [Boolean] if truthy negotiated rates will be requested from ups. Only valid if
+      #   shipper account has negotiated rates. Default: false
+      # @option pickup_type [Symbol] UPS pickup type, a key from PICKUP_TYPE_CODES. See UPS docs for more details.
+      #   Default: `daily_pickup`
+      # @option pickup_date [Time] UPS pickup date/time. Default: nil
+      # @option saturday_delivery [Boolean] should we request Saturday delivery? Default: false
+      # @option saturday_pickup [Boolean] should we request Saturday pickup? Default: false
+      # @option shipper [Physical::Location] The company sending the shipment. Defaults to the shipment's origin.
+      # @option shipping_method [ShippingMethod] Request rates for a particular shipping method only?
+      #   Default is `nil`, which translates to 'All shipping methods' (The "Shop" option in UPS parlance)
+      # @option sub_version [String] The UPS API sub-version to use for requests, one of SUB_VERSIONS. Default: 2205
+      # @option with_time_in_transit [Boolean] Whether to request timing information alongside the rates
+      # @option package_options_class [Class] See FriendlyShipping::ShipmentOptions. Default: RatesPackageOptions
       class RatesOptions < FriendlyShipping::ShipmentOptions
+        # Maps pickup type names to UPS pickup type codes.
         PICKUP_TYPE_CODES = {
           daily_pickup: "01",
           customer_counter: "03",
@@ -37,6 +41,7 @@ module FriendlyShipping
           air_service_center: "20"
         }.freeze
 
+        # Maps customer classification names to UPS customer classification codes.
         CUSTOMER_CLASSIFICATION_CODES = {
           shipper_number: "00",
           daily_rates: "01",
@@ -46,6 +51,7 @@ module FriendlyShipping
           standard_rates: "53"
         }.freeze
 
+        # The UPS API sub-versions that can be used for rates requests.
         SUB_VERSIONS = %w[1 1601 1607 1701 1707 2108 2205].freeze
 
         attr_reader :carbon_neutral,
@@ -98,10 +104,12 @@ module FriendlyShipping
           super(**kwargs.reverse_merge(package_options_class: package_options_class))
         end
 
+        # @return [String, nil] the UPS code for the pickup type, or nil if it is not a known key
         def pickup_type_code
           PICKUP_TYPE_CODES[@pickup_type]
         end
 
+        # @return [String, nil] the UPS code for the customer classification, or nil if it is not a known key
         def customer_classification_code
           CUSTOMER_CLASSIFICATION_CODES[@customer_classification]
         end

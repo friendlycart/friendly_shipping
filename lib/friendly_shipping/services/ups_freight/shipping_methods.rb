@@ -3,10 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Countries a UPS Freight shipment can originate from.
       ORIGIN_COUNTRIES = %w(
         CA MX PR US
       ).map { |country_code| Carmen::Country.coded(country_code) }.freeze
 
+      # The UPS Freight shipping methods, built from service codes and names.
       SHIPPING_METHODS = [
         ['308', 'UPS Freight LTL'],
         ['309', 'UPS Freight LTL - Guaranteed'],

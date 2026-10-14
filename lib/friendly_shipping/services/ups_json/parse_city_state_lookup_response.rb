@@ -3,9 +3,14 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Parses the response of a city and state lookup request.
       class ParseCityStateLookupResponse
         extend Dry::Monads::Result::Mixin
 
+        # @param request [Request] the request that was sent
+        # @param response [Response] the response received
+        # @return [Result<ApiResult<Physical::Location>>] a location built from the first candidate, or a failure
+        #   if no candidates were found
         def self.call(request:, response:)
           parsed_response = ParseJsonResponse.call(
             request: request,

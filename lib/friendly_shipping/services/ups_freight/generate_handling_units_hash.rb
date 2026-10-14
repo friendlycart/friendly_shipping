@@ -6,9 +6,9 @@ module FriendlyShipping
       # Generates a handling units hash for JSON serialization.
       class GenerateHandlingUnitsHash
         class << self
-          # @param shipment [Physical::Shipment]
-          # @param options [ShipmentOptions]
-          # @return [Hash]
+          # @param shipment [Physical::Shipment] the shipment whose handling units are counted
+          # @param options [ShipmentOptions] the shipment options
+          # @return [Hash] handling unit hashes keyed by handling unit tag, with quantities grouped by handling unit code
           def call(shipment:, options:)
             handling_units(shipment, options).reduce(&:merge)
           end
@@ -33,8 +33,8 @@ module FriendlyShipping
             end
           end
 
-          # @param options [PackageOptions, StructureOptions]
-          # @param quantity [Integer]
+          # @param options [RatesPackageOptions, RatesStructureOptions] the options of the first unit in the group
+          # @param quantity [Integer] the number of units in the group
           # @return [Hash]
           def handling_unit_hash(options, quantity)
             {

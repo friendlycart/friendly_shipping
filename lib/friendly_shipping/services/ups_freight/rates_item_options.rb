@@ -46,23 +46,23 @@ module FriendlyShipping
           wrapped: { code: "WRP", description: "Wrapped" }
         }.freeze
 
-        # @return [String]
+        # @return [String] the code for the packaging type
         attr_reader :packaging_code
 
-        # @return [String]
+        # @return [String] the description of the packaging type
         attr_reader :packaging_description
 
-        # @return [String]
+        # @return [String, nil] the freight class
         attr_reader :freight_class
 
-        # @return [String]
+        # @return [String, nil] the NMFC code
         attr_reader :nmfc_code
 
         # @param packaging [Symbol] how the item is packaged (see {PACKAGING_TYPES})
         # @param freight_class [String] the freight class of this item, for example '55' or '92.5'
-        # @param nmfc_code [String] the national motor freight corporation code for this item, for example '13050 sub 4'
+        # @param nmfc_code [String] the National Motor Freight Classification (NMFC) code for this item, for example '13050 sub 4'
         # @param kwargs [Hash]
-        # @options kwargs [String] :item_id the ID for the item that belongs to these options
+        # @option kwargs [String] :item_id the ID for the item that belongs to these options
         def initialize(
           packaging: :carton,
           freight_class: nil,

@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # The countries treated as the 'EU' group when assigning origin countries to shipping methods.
       EU_COUNTRIES = %w(
         AT BE BG CY CZ DE DK EE ES FI FR GB GR HR HU IE IT LT LU LV MT NL PO PT RO SE SI SK
       ).map { |country_code| Carmen::Country.coded(country_code) }
@@ -10,6 +11,8 @@ module FriendlyShipping
       class << self
         private
 
+        # @param code [String] a country code, or one of the groups 'EU', 'OTHER' or 'ALL'
+        # @return [Array<Carmen::Country>] the matching countries
         def countries_by_code(code)
           all_countries = Carmen::Country.all
           covered_countries = EU_COUNTRIES + %w(US PR CA PL MX).map do |country_code|
@@ -26,6 +29,7 @@ module FriendlyShipping
         end
       end
 
+      # All UPS shipping methods, one per service and origin country group.
       SHIPPING_METHODS = [
         ['US', 'international', 'UPS Standard', '11'],
         ['US', 'international', 'UPS Worldwide Express®', '07'],
@@ -49,7 +53,7 @@ module FriendlyShipping
         ['US', 'domestic', 'UPS Ground Saver 1LB or greater', '93'],
         ['US', 'domestic', 'UPS Ground Saver BPM', '94'],
         ['US', 'domestic', 'UPS Ground Saver Media Mail', '95'],
-        # Legacy aliases — UPS rebranded SurePost to Ground Saver. Kept so external
+        # Legacy aliases: UPS rebranded SurePost to Ground Saver. Kept so external
         # code that looks up shipping methods by the old name continues to find one.
         ['US', 'domestic', 'UPS SurePost Less than 1LB', '92'],
         ['US', 'domestic', 'UPS SurePost 1LB or greater', '93'],

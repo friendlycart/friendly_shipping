@@ -3,7 +3,10 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the DeliveryOptions hash of the ShipmentServiceOptions for UPS Freight ship requests.
       class GenerateDeliveryOptionsHash
+        # @param delivery_options [LabelDeliveryOptions] the delivery options
+        # @return [Hash, nil] the hash with an indicator for each enabled option, or nil if none are enabled
         def self.call(delivery_options:)
           {
             DeliveryOptions: {

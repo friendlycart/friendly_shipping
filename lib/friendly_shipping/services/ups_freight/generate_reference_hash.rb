@@ -3,10 +3,11 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the Reference hash for the Bill of Lading in UPS Freight ship requests.
       class GenerateReferenceHash
         class << self
-          # @param [Array] reference_numbers Reference numbers for the Bill of Lading
-          # @return [Hash] Reference hash suitable for JSON request
+          # @param reference_numbers [Array<Hash>, nil] Reference numbers for the Bill of Lading, each with :code and :value
+          # @return [Hash] Reference hash suitable for JSON request, empty if there are no reference numbers
           def call(reference_numbers:)
             return {} unless reference_numbers
 

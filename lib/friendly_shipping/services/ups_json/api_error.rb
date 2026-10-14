@@ -3,16 +3,18 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Error raised for failed UPS JSON API requests. The message is built from the error messages in the
+      # response body, if present.
       class ApiError < FriendlyShipping::ApiError
-        # @param [RestClient::Exception] cause
+        # @param cause [RestClient::Exception] the underlying HTTP error
         def initialize(cause)
           super(cause, parse_message(cause))
         end
 
         private
 
-        # @param [RestClient::Exception] error
-        # @return [String]
+        # @param error [RestClient::Exception] the underlying HTTP error
+        # @return [String, nil] the error message(s) from the response, or nil if the body cannot be parsed
         def parse_message(error)
           return error.message unless error.response
 

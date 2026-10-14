@@ -2,51 +2,54 @@
 
 module FriendlyShipping
   module Services
-    # Option container for a generating UPS labels for a shipment
-    #
-    # Required:
-    #
-    # @param shipping_method [FriendlyShipping::ShippingMethod] The shipping method to use. We only need the
-    #   service_code to be set.
-    # @param shipper_number [String] account number for the shipper
-    #
-    # Optional:
-    #
-    # @param shipper [Physical::Location] The company sending the shipment. Defaults to the shipment's origin.
-    # @param sub_version [String] The UPS API sub-version to use for requests. Default: 1707
-    # @param customer_context [String ] Optional element to identify transactions between client and server
-    # @param validate_address [Boolean] Validate the city field with ZIP code and state. If false, only ZIP code
-    #   and state are validated. Default: true
-    # @param negotiated_rates [Boolean] if truthy negotiated rates will be requested from ups. Only valid if
-    #   shipper account has negotiated rates. Default: false
-    # @option sold_to [Physical::Location] The person or company who imports and pays any duties due on the
-    #   current shipment. Default: The shipment's destination
-    # @option saturday_delivery [Boolean] should we request Saturday delivery?. Default: false
-    # @option label_format [String] GIF, EPL, ZPL, STARPL and SPL
-    # @option label_size [Array<Integer>] Dimensions of the label. Default: [4, 6]
-    # @option delivery_confirmation [Symbol] Can be set to any key from SHIPMENT_DELIVERY_CONFIRMATION_CODES.
-    #   Only possible for international shipments that are not between the US and Puerto Rico.
-    # @option carbon_neutral [Boolean] Ship with UPS' carbon neutral program
-    # @option return_service_code [Symbol] If present, marks this a return label. The kind
-    #   of return label is specified by the symbol, one of the keys in RETURN_SERVICE_CODES. Default: nil
-    #
-    # Shipment options for international shipping:
-    #
-    # @option paperless_invoice [Boolean] set to truthy if using paperless invoice to ship internationally. Default false
-    # @option terms_of_shipment [Symbol] used with paperless invoice to specify who pays duties and taxes.
-    #   See TERMS_OF_SHIPMENT constant for possible options.
-    # @option reason_for_export [String] A reason to export the current shipment. Possible values: 'SALE', 'GIFT', 'SAMPLE',
-    #   'RETURN', 'REPAIR', 'INTERCOMPANYDATA', Any other reason. Default: 'SALE'.
-    # @option invoice_date [Date] The invoice date for the shipment
-    # @param declaration_statement [String ] Optional element to add customs declaration text
-    #
     class UpsJson
+      # Option container for generating UPS labels for a shipment.
+      #
+      # Required:
+      #
+      # @option shipping_method [ShippingMethod] The shipping method to use. We only need the
+      #   service_code to be set.
+      # @option shipper_number [String] account number for the shipper
+      #
+      # Optional:
+      #
+      # @option shipper [Physical::Location] The company sending the shipment. Defaults to the shipment's origin.
+      # @option sub_version [String] The UPS API sub-version to use for requests, one of SUB_VERSIONS. Default: 2205
+      # @option customer_context [String] Optional element to identify transactions between client and server
+      # @option validate_address [Boolean] Validate the city field with ZIP code and state. If false, only ZIP code
+      #   and state are validated. Default: true
+      # @option negotiated_rates [Boolean] if truthy negotiated rates will be requested from ups. Only valid if
+      #   shipper account has negotiated rates. Default: false
+      # @option billing_options [LabelBillingOptions] Billing-related options. Default: `LabelBillingOptions.new`
+      # @option sold_to [Physical::Location] The person or company who imports and pays any duties due on the
+      #   current shipment. Default: The shipment's destination
+      # @option saturday_delivery [Boolean] should we request Saturday delivery? Default: false
+      # @option label_format [String] GIF, EPL, ZPL, STARPL and SPL. Default: 'GIF'
+      # @option label_size [Array<Integer>] Dimensions of the label. Default: [4, 6]
+      # @option delivery_confirmation [Symbol] Can be set to any key from SHIPMENT_DELIVERY_CONFIRMATION_CODES.
+      #   Only possible for international shipments that are not between the US and Puerto Rico.
+      # @option carbon_neutral [Boolean] Ship with UPS' carbon neutral program. Default: true
+      # @option return_service [Symbol] If present, marks this a return label. The kind
+      #   of return label is specified by the symbol, one of the keys in RETURN_SERVICE_CODES. Default: nil
+      # @option package_options_class [Class] See FriendlyShipping::ShipmentOptions. Default: LabelPackageOptions
+      #
+      # Shipment options for international shipping:
+      #
+      # @option paperless_invoice [Boolean] set to truthy if using paperless invoice to ship internationally. Default false
+      # @option terms_of_shipment [Symbol] used with paperless invoice to specify who pays duties and taxes.
+      #   See TERMS_OF_SHIPMENT_CODES for possible options.
+      # @option reason_for_export [String] A reason to export the current shipment. Possible values: 'SALE', 'GIFT', 'SAMPLE',
+      #   'RETURN', 'REPAIR', 'INTERCOMPANYDATA', Any other reason. Default: 'SALE'.
+      # @option invoice_date [Date] The invoice date for the shipment. Default: the current date
+      # @option declaration_statement [String] Optional element to add customs declaration text
       class LabelOptions < FriendlyShipping::ShipmentOptions
+        # Maps shipment level delivery confirmation names to UPS delivery confirmation codes.
         SHIPMENT_DELIVERY_CONFIRMATION_CODES = {
           delivery_confirmation_signature_required: 1,
           delivery_confirmation_adult_signature_required: 2
         }.freeze
 
+        # Maps terms of shipment (Incoterms) names to UPS terms of shipment codes.
         TERMS_OF_SHIPMENT_CODES = {
           cost_and_freight: 'CFR',
           cost_insurance_and_freight: 'CIF',
@@ -63,6 +66,7 @@ module FriendlyShipping
           free_on_board: 'FOB'
         }.freeze
 
+        # Maps return service names to UPS return service codes.
         RETURN_SERVICE_CODES = {
           ups_print_and_mail: 2, # UPS Print and Mail (PNM)
           ups_return_1_attempt: 3, # UPS Return Service 1-Attempt
@@ -75,13 +79,14 @@ module FriendlyShipping
           ups_pack_collect_1_attemt_box_3: 13, # UPS Pack & Collect Service 1-Attempt Box 3
           ups_pack_collect_1_attemt_box_4: 14, # UPS Pack & Collect Service 1-Attempt Box 4
           ups_pack_collect_1_attemt_box_5: 15, # UPS Pack & Collect Service 1-Attempt Box 5
-          ups_pack_collect_3_attemt_box_1: 16, # UPS Pack & Collect Service 1-Attempt Box 1
-          ups_pack_collect_3_attemt_box_2: 17, # UPS Pack & Collect Service 1-Attempt Box 2
-          ups_pack_collect_3_attemt_box_3: 18, # UPS Pack & Collect Service 1-Attempt Box 3
-          ups_pack_collect_3_attemt_box_4: 19, # UPS Pack & Collect Service 1-Attempt Box 4
-          ups_pack_collect_3_attemt_box_5: 20 # UPS Pack & Collect Service 1-Attempt Box 5
+          ups_pack_collect_3_attemt_box_1: 16, # UPS Pack & Collect Service 3-Attempt Box 1
+          ups_pack_collect_3_attemt_box_2: 17, # UPS Pack & Collect Service 3-Attempt Box 2
+          ups_pack_collect_3_attemt_box_3: 18, # UPS Pack & Collect Service 3-Attempt Box 3
+          ups_pack_collect_3_attemt_box_4: 19, # UPS Pack & Collect Service 3-Attempt Box 4
+          ups_pack_collect_3_attemt_box_5: 20 # UPS Pack & Collect Service 3-Attempt Box 5
         }.freeze
 
+        # The UPS API sub-versions that can be used for label requests.
         SUB_VERSIONS = %w[1601 1607 1701 1707 1801 1807 2108 2205].freeze
 
         attr_reader :shipping_method,
@@ -151,14 +156,17 @@ module FriendlyShipping
           super(**kwargs.reverse_merge(package_options_class: package_options_class))
         end
 
+        # @return [Integer, nil] the UPS code for the shipment level delivery confirmation, or nil if not set
         def delivery_confirmation_code
           SHIPMENT_DELIVERY_CONFIRMATION_CODES[delivery_confirmation]
         end
 
+        # @return [String, nil] the UPS code for the terms of shipment, or nil if not set
         def terms_of_shipment_code
           TERMS_OF_SHIPMENT_CODES[terms_of_shipment]
         end
 
+        # @return [Integer, nil] the UPS code for the return service, or nil if not a return label
         def return_service_code
           RETURN_SERVICE_CODES[return_service]
         end

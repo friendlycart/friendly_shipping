@@ -3,8 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the FreightRateRequest hash for UPS Freight rate requests.
       class GenerateFreightRateRequestHash
         class << self
+          # @param shipment [Physical::Shipment] the shipment to rate
+          # @param options [RatesOptions] the rating options
+          # @return [Hash] the request hash
           def call(shipment:, options:)
             {
               FreightRateRequest: {
@@ -26,6 +30,8 @@ module FriendlyShipping
 
           private
 
+          # @param customer_context [String, nil] a reference to match the request with an order or shipment
+          # @return [Hash] the Request hash, empty if there is no customer context
           def request_options(customer_context)
             return {} unless customer_context
 
@@ -36,6 +42,8 @@ module FriendlyShipping
             }
           end
 
+          # @param options [RatesOptions] the rating options
+          # @return [Hash] the payer and billing option hash
           def payment_information(options)
             payer_address = GenerateLocationHash.call(location: options.billing_address).
                             merge(ShipperNumber: options.shipper_number)

@@ -3,7 +3,10 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the hash describing a requested label or document image for UPS Freight ship requests.
       class GenerateDocumentOptionsHash
+        # @param document_options [LabelDocumentOptions] the document options
+        # @return [Hash] the document image hash
         def self.call(document_options:)
           {
             Type: {

@@ -3,8 +3,13 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Parses the response of a transit times request.
       class ParseTimingsResponse
         class << self
+          # @param request [Request] the request that was sent
+          # @param response [Response] the response received
+          # @param shipment [Physical::Shipment] the shipment that timings were requested for
+          # @return [Result<ApiResult<Array<Timing>>>] the timings built from the response
           def call(request:, response:, shipment:)
             parsed_response = ParseJsonResponse.call(
               request: request,
@@ -20,6 +25,9 @@ module FriendlyShipping
             end
           end
 
+          # @param timings_result [Hash] the parsed response body
+          # @param shipment [Physical::Shipment] the shipment, used to match shipping methods by name and origin
+          # @return [Array<Timing>] one timing per service in the response
           def build_timings(timings_result, shipment)
             service_timings = Array.wrap(timings_result.dig('emsResponse', 'services'))
             service_timings.map do |timing|

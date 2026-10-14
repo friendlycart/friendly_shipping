@@ -3,7 +3,10 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Generates the PickupOptions hash of the ShipmentServiceOptions for UPS Freight ship requests.
       class GeneratePickupOptionsHash
+        # @param pickup_options [LabelPickupOptions] the pickup options
+        # @return [Hash, nil] the hash with an indicator for each enabled option, or nil if none are enabled
         def self.call(pickup_options:)
           {
             PickupOptions: {

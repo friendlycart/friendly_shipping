@@ -3,12 +3,13 @@
 module FriendlyShipping
   module Services
     class UpsFreight
+      # Base options for UPS Freight shipments, adding structure options to the generic shipment options.
       class ShipmentOptions < FriendlyShipping::ShipmentOptions
-        # @param structure_options [Array<StructureOptions>]
-        # @param structure_options_class [Class]
+        # @param structure_options [Array<StructureOptions>] the options for structures in the shipment
+        # @param structure_options_class [Class] the class to use for structure options when none are provided
         # @param kwargs [Hash]
-        # @option kwargs [Array<PackageOptions>] :package_options
-        # @option kwargs [Class] :package_options_class
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in the shipment
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           structure_options: Set.new,
           structure_options_class: RatesStructureOptions,
@@ -19,8 +20,8 @@ module FriendlyShipping
           super(**kwargs)
         end
 
-        # @param structure [#id]
-        # @return [StructureOptions]
+        # @param structure [#id] the structure to find options for
+        # @return [StructureOptions] the matching options, or a default instance if none match
         def options_for_structure(structure)
           structure_options.detect do |structure_option|
             structure_option.structure_id == structure.id
@@ -29,10 +30,10 @@ module FriendlyShipping
 
         private
 
-        # @return [Array<StructureOptions>]
+        # @return [Array<StructureOptions>] the options for structures in the shipment
         attr_reader :structure_options
 
-        # @return [Class]
+        # @return [Class] the class used to build default structure options
         attr_reader :structure_options_class
 
         # @return [Array<PackageOptions>]

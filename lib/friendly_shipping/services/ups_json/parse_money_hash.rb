@@ -3,7 +3,12 @@
 module FriendlyShipping
   module Services
     class UpsJson
+      # Parses a UPS monetary value hash into a label and a Money amount.
       class ParseMoneyHash
+        # @param money_hash [Hash, nil] a hash with `MonetaryValue`, `CurrencyCode` and optionally `Code` keys
+        # @param key_name [String] the label to use if the hash has no `Code`
+        # @return [Array(String, Money), nil] the label (a known surcharge description, the code, or `key_name`)
+        #   and the amount, or nil if the hash is missing or the value is zero
         def self.call(money_hash, key_name)
           return unless money_hash
 
@@ -20,6 +25,7 @@ module FriendlyShipping
           [label, amount]
         end
 
+        # Maps UPS surcharge codes to surcharge descriptions.
         UPS_SURCHARGE_CODES = {
           "100" => "ADDITIONAL HANDLING",
           "110" => "COD",

@@ -5,31 +5,32 @@ module FriendlyShipping
     class UpsFreight
       # Options for generating UPS Freight rates for a shipment
       class RatesOptions < ShipmentOptions
+        # Maps friendly names to billing option codes.
         BILLING_CODES = {
           prepaid: '10',
           third_party: '30',
           freight_collect: '40'
         }.freeze
 
-        # @return [String]
+        # @return [String] the shipper number associated with the shipper
         attr_reader :shipper_number
 
-        # @return [Physical::Location]
+        # @return [Physical::Location] the billing address
         attr_reader :billing_address
 
-        # @return [Symbol]
+        # @return [String] the billing option code (see {BILLING_CODES})
         attr_reader :billing_code
 
-        # @return [String]
+        # @return [String, nil] a reference to match the request with an order or shipment
         attr_reader :customer_context
 
-        # @return [FriendlyShipping::ShippingMethod]
+        # @return [FriendlyShipping::ShippingMethod] the shipping method to use
         attr_reader :shipping_method
 
-        # @return [PickupRequestOptions]
+        # @return [PickupRequestOptions, nil] options for the pickup request
         attr_reader :pickup_request_options
 
-        # @return [Callable]
+        # @return [#call] a callable that generates the commodity information
         attr_reader :commodity_information_generator
 
         # @param shipper_number [String] the shipper number associated with the shipper
@@ -38,8 +39,13 @@ module FriendlyShipping
         # @param billing [Symbol] how the shipment is billed (see {BILLING_CODES})
         # @param customer_context [String] a reference to match this request with an order or shipment
         # @param pickup_request_options [PickupRequestOptions] options for the pickup request
-        # @param commodity_information_generator [Callable] a callable that takes a shipment
+        # @param commodity_information_generator [#call] a callable that takes a shipment
         #     and an options object to create an Array of commodity fields as per the UPS docs
+        # @param kwargs [Hash]
+        # @option kwargs [Array<StructureOptions>] :structure_options the options for structures in the shipment
+        # @option kwargs [Class] :structure_options_class the class to use for structure options when none are provided
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in the shipment
+        # @option kwargs [Class] :package_options_class the class to use for package options when none are provided
         def initialize(
           shipper_number:,
           billing_address:,
