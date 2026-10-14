@@ -2,18 +2,15 @@
 
 module FriendlyShipping
   module Services
-    # Option container for rating a shipment via USPS
-    #
-    # Context: The shipment object we're trying to get results for
-    # USPS returns rates on a package-by-package basis, so the options for obtaining rates are
-    # set on the [FriendlyShipping/RateEstimateObject] hash. The possible options are:
-
-    # @param [Physical::ShippingMethod] shipping_method The shipping method ("service" in USPS parlance) we want
-    #   to get rates for.
-    # @param [Boolean] commercial_pricing Whether we prefer commercial pricing results or retail results
-    # @param [Boolean] hold_for_pickup Whether we want a rate with Hold For Pickup Service
     class UspsInternational
+      # Option container for rating a shipment via USPS International
+      #
+      # USPS returns rates on a package-by-package basis, so the options that influence the
+      # rates (such as box name and pricing type) are set on {RateEstimatePackageOptions}.
       class RateEstimateOptions < FriendlyShipping::ShipmentOptions
+        # @param package_options_class [Class] the class to use for package options
+        # @param kwargs [Hash]
+        # @option kwargs [Array<PackageOptions>] :package_options the options for packages in this shipment
         def initialize(
           package_options_class: FriendlyShipping::Services::UspsInternational::RateEstimatePackageOptions,
           **kwargs

@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # Serializes a rate estimates request for the USPS base rates API
       class SerializeRateEstimatesRequest
         class << self
           # Serialize a rate estimates request.

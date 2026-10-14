@@ -11,15 +11,23 @@ module FriendlyShipping
         # @return [Physical::Package]
         attr_reader :package
 
+        # The minimum length of a machinable package
         MIN_LENGTH = Measured::Length(6, :inches)
+        # The minimum width of a machinable package
         MIN_WIDTH = Measured::Length(3, :inches)
+        # The minimum height of a machinable package
         MIN_HEIGHT = Measured::Length(0.25, :inches)
 
+        # The maximum length of a machinable package
         MAX_LENGTH = Measured::Length(22, :inches)
+        # The maximum width of a machinable package
         MAX_WIDTH = Measured::Length(18, :inches)
+        # The maximum height of a machinable package
         MAX_HEIGHT = Measured::Length(15, :inches)
 
+        # The minimum weight of a machinable package
         MIN_WEIGHT = Measured::Weight(6, :ounces)
+        # The maximum weight of a machinable package
         MAX_WEIGHT = Measured::Weight(25, :pounds)
 
         # @param package [Physical::Package]

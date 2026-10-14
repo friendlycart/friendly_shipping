@@ -3,7 +3,9 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # Options for obtaining rate estimates or timings from USPS Ship
       class RateEstimateOptions < FriendlyShipping::ShipmentOptions
+        # Maps destination entry facility types to the values USPS expects
         DESTINATION_ENTRY_FACILITY_TYPES = {
           none: "NONE",
           destination_network_distribution_center: "DESTINATION_NETWORK_DISTRIBUTION_CENTER",
@@ -12,13 +14,13 @@ module FriendlyShipping
           destination_service_hub: "DESTINATION_SERVICE_HUB"
         }.freeze
 
-        # @return [ShippingMethod]
+        # @return [ShippingMethod] the shipping method for which we want a rate
         attr_reader :shipping_method
 
-        # @return [String]
+        # @return [String] the USPS value for the destination entry facility type
         attr_reader :destination_entry_facility_type
 
-        # @return [#strftime]
+        # @return [#strftime] the date on which we want to ship
         attr_reader :mailing_date
 
         # @param shipping_method [ShippingMethod] the shipping method for which we want a rate

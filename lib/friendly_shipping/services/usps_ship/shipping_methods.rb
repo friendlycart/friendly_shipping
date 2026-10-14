@@ -3,6 +3,7 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # The domestic shipping methods offered by USPS Ship
       SHIPPING_METHODS = [
         ["BOUND_PRINTED_MATTER", "Bound Printed Matter"],
         ["FIRST-CLASS_PACKAGE_RETURN_SERVICE", "First-Class Package Return Service"],

@@ -3,7 +3,9 @@
 module FriendlyShipping
   module Services
     class USPSShip
+      # Options for one package when obtaining rate estimates from USPS Ship
       class RateEstimatePackageOptions < FriendlyShipping::PackageOptions
+        # Maps processing categories to the values USPS expects
         PROCESSING_CATEGORIES = {
           letters: "LETTERS",
           flats: "FLATS",
@@ -12,6 +14,7 @@ module FriendlyShipping
           non_machinable: "NON_MACHINABLE"
         }.freeze
 
+        # Maps rate indicators to the codes USPS expects
         RATE_INDICATORS = {
           three_digit: "3D",
           three_digit_dimensional_rectangular: "3N",
@@ -83,28 +86,29 @@ module FriendlyShipping
           scf_dimensional_rectangular: "SR"
         }.freeze
 
+        # Maps price types to the values USPS expects
         PRICE_TYPES = {
           retail: "RETAIL",
           commercial: "COMMERCIAL",
           contract: "CONTRACT"
         }.freeze
 
-        # @return [String]
+        # @return [String] the USPS processing category
         attr_reader :processing_category
 
-        # @return [String]
+        # @return [String] the USPS rate indicator code
         attr_reader :rate_indicator
 
-        # @return [String]
+        # @return [String] the USPS price type
         attr_reader :price_type
 
         # @param processing_category [Symbol] one of {PROCESSING_CATEGORIES}
         # @param rate_indicator [Symbol] one of {RATE_INDICATORS}
         # @param price_type [Symbol] one of {PRICE_TYPES}
         # @param kwargs [Hash]
-        # @option [String] :package_id the ID for the package  that belongs to these options
-        # @option [Array<ItemOptions>] :item_options the options for items in this package
-        # @option [Class] :item_options_class the class to use for item options when none are provided
+        # @option kwargs [String] :package_id the ID for the package that belongs to these options
+        # @option kwargs [Array<ItemOptions>] :item_options the options for items in this package
+        # @option kwargs [Class] :item_options_class the class to use for item options when none are provided
         def initialize(
           processing_category: :machinable,
           rate_indicator: :single_piece,
